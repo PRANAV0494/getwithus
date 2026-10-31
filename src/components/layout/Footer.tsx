@@ -2,7 +2,7 @@ import Link from "next/link";
 import Container from "@/components/ui/Container";
 import Logo from "@/components/ui/Logo";
 import { site, visibleNav } from "@/config/site";
-import { serviceLines } from "@/content/services";
+import { serviceLines } from "@/content/services/catalog";
 import { getPublishedCaseStudies } from "@/features/case-studies/getPublishedCaseStudies";
 
 const linkClasses = "text-fog-2 transition-colors duration-150 ease-out hover:text-fog";

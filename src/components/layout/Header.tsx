@@ -4,7 +4,7 @@ import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
 import Logo from "@/components/ui/Logo";
 import { visibleNav } from "@/config/site";
-import { serviceLines } from "@/content/services";
+import { serviceLines } from "@/content/services/catalog";
 import { getPublishedCaseStudies } from "@/features/case-studies/getPublishedCaseStudies";
 
 /** Sticky 64 px header: logo, desktop navigation with the services mega menu, and the primary action. */

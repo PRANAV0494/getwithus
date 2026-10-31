@@ -203,3 +203,17 @@
     }
   }
 }
+
+/* Home hero reveal: children fade up once, 60 ms apart. RevealOnce turns it off after the first load. */
+[data-reveal="on"] > * {
+  animation: var(--animate-reveal);
+}
+[data-reveal="on"] > :nth-child(2) {
+  animation-delay: 60ms;
+}
+[data-reveal="on"] > :nth-child(3) {
+  animation-delay: 120ms;
+}
+[data-reveal="on"] > :nth-child(4) {
+  animation-delay: 180ms;
+}

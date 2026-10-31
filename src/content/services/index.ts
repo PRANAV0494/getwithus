@@ -1,49 +1,39 @@
-import type { ServiceSummary } from "@/content/types";
+import { agenticAutomation } from "@/content/services/agentic-automation";
+import { appDevelopment } from "@/content/services/app-development";
+import { callingAgent } from "@/content/services/calling-agent";
+import { serviceLines } from "@/content/services/catalog";
+import { customSoftware } from "@/content/services/custom-software";
+import { digitalMarketing } from "@/content/services/digital-marketing";
+import { webDevelopment } from "@/content/services/web-development";
+import { whatsappBot } from "@/content/services/whatsapp-bot";
+import type { ServiceContent, ServicePage, ServiceSlug, ServiceSummary } from "@/content/types";
 
-/** The five service lines in display order, with the two agentic products nested. */
-export const serviceLines: readonly ServiceSummary[] = [
-  {
-    slug: "web-development",
-    name: "Web development",
-    href: "/services/web-development",
-    menuDescription: "Marketing sites, web apps, and stores on Next.js.",
-  },
-  {
-    slug: "app-development",
-    name: "App development",
-    href: "/services/app-development",
-    menuDescription: "iOS and Android from one codebase, releases handled.",
-  },
-  {
-    slug: "agentic-automation",
-    name: "Agentic automation",
-    href: "/services/agentic-automation",
-    menuDescription: "Agents that answer, call, and move work between tools.",
-    children: [
-      {
-        slug: "whatsapp-bot",
-        name: "WhatsApp bot",
-        href: "/services/agentic-automation/whatsapp-bot",
-        menuDescription: "Answers, qualifies, and books on the official Business Platform.",
-      },
-      {
-        slug: "calling-agent",
-        name: "Calling agent",
-        href: "/services/agentic-automation/calling-agent",
-        menuDescription: "Takes and makes calls and writes a summary to your CRM.",
-      },
-    ],
-  },
-  {
-    slug: "digital-marketing",
-    name: "Digital marketing",
-    href: "/services/digital-marketing",
-    menuDescription: "Search, paid, content, and email, measured in your analytics.",
-  },
-  {
-    slug: "custom-software",
-    name: "Custom software and cloud",
-    href: "/services/custom-software",
-    menuDescription: "Internal tools, integrations, and the cloud underneath.",
-  },
-];
+const content: Record<ServiceSlug, ServiceContent> = {
+  "web-development": webDevelopment,
+  "app-development": appDevelopment,
+  "agentic-automation": agenticAutomation,
+  "whatsapp-bot": whatsappBot,
+  "calling-agent": callingAgent,
+  "digital-marketing": digitalMarketing,
+  "custom-software": customSoftware,
+};
+
+function toPage(summary: ServiceSummary, parent?: ServiceSummary): ServicePage {
+  return { ...summary, ...content[summary.slug], parent };
+}
+
+/** The five service lines with full content, in display order. */
+export const serviceLinePages: readonly ServicePage[] = serviceLines.map((line) => toPage(line));
+
+/** The two agentic automation products with full content. */
+export const productPages: readonly ServicePage[] = serviceLines.flatMap((line) =>
+  (line.children ?? []).map((child) => toPage(child, line)),
+);
+
+/** All seven service pages. */
+export const allServicePages: readonly ServicePage[] = [...serviceLinePages, ...productPages];
+
+/** Looks up a service page by slug. */
+export function findServicePage(slug: string): ServicePage | undefined {
+  return allServicePages.find((page) => page.slug === slug);
+}
