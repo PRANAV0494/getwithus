@@ -1,3 +1,5 @@
+import DeferredForm from "@/components/forms/DeferredForm";
+import FormPreview from "@/components/forms/FormPreview";
 import ContactDetails from "@/components/sections/ContactDetails";
 import Container from "@/components/ui/Container";
 import Section from "@/components/ui/Section";
@@ -19,6 +21,11 @@ export default function ContactPage() {
             {contactPage.title}
           </h1>
           <p className="mt-5 max-w-[68ch] type-lead text-fog-2">{contactPage.lead}</p>
+          <div className="mt-10">
+            <DeferredForm form="contact">
+              <FormPreview form="contact" />
+            </DeferredForm>
+          </div>
         </div>
         <aside aria-labelledby="contact-details-title" className="lg:pt-3">
           <h2 id="contact-details-title" className="type-h4">

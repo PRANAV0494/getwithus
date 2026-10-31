@@ -27,6 +27,7 @@
     "email:dev": "email dev --dir src/server/email/templates"
   },
   "dependencies": {
+    "@hookform/resolvers": "7.0.0",
     "@react-email/components": "1.0.12",
     "@react-email/render": "2.2.0",
     "@react-three/drei": "10.7.9",
@@ -40,6 +41,7 @@
     "radix-ui": "1.8.1",
     "react": "19.3.0",
     "react-dom": "19.3.0",
+    "react-hook-form": "7.91.0",
     "resend": "6.37.0",
     "sonner": "2.0.8",
     "tailwind-merge": "3.7.0",

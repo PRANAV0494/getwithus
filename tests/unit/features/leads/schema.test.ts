@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { z } from "zod";
+import type { $ZodType } from "zod/v4/core";
 import {
   briefFieldsSchema,
   briefStepSchemas,
@@ -8,8 +9,8 @@ import {
   leadSubmissionSchema,
 } from "@/features/leads/schema";
 
-function fieldErrors(schema: z.ZodType, input: unknown): Record<string, string[] | undefined> {
-  const result = schema.safeParse(input);
+function fieldErrors(schema: $ZodType, input: unknown): Record<string, string[] | undefined> {
+  const result = z.safeParse(schema, input);
   if (result.success) throw new Error("expected validation to fail");
   return z.flattenError(result.error).fieldErrors as Record<string, string[] | undefined>;
 }

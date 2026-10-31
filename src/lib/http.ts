@@ -1,5 +1,6 @@
 import { connection } from "next/server";
 import { z } from "zod";
+import type { $ZodType } from "zod/v4/core";
 import {
   type AppError,
   GENERIC_SERVER_MESSAGE,
@@ -50,10 +51,14 @@ export function toResponse<T>(result: Result<T>, requestId: string, init?: Respo
 }
 
 /**
- * Reads a JSON body and validates it. Malformed JSON and schema failures both
- * become VALIDATION_ERROR, with per-field messages in `details.fieldErrors`.
+ * Reads a JSON body and validates it against any Zod 4 schema (classic or mini).
+ * Malformed JSON and schema failures both become VALIDATION_ERROR, with
+ * per-field messages in `details.fieldErrors`.
  */
-export async function parseJson<T>(request: Request, schema: z.ZodType<T>): Promise<Result<T>> {
+export async function parseJson<S extends $ZodType>(
+  request: Request,
+  schema: S,
+): Promise<Result<z.output<S>>> {
   let body: unknown;
   try {
     body = await request.json();
@@ -61,7 +66,7 @@ export async function parseJson<T>(request: Request, schema: z.ZodType<T>): Prom
     // An unreadable body is the caller's mistake, answered with a validation error rather than logged.
     return err(validationError("Send a JSON body."));
   }
-  const parsed = schema.safeParse(body);
+  const parsed = z.safeParse(schema, body);
   if (!parsed.success) {
     return err(
       validationError(undefined, { fieldErrors: z.flattenError(parsed.error).fieldErrors }),

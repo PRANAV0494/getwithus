@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, type ClipboardEvent, type KeyboardEvent } from "react";
+import { useEffect, useRef, type ClipboardEvent, type KeyboardEvent } from "react";
 import { cn } from "@/lib/cn";
 
 type CodeInputProps = {
@@ -39,6 +39,11 @@ export default function CodeInput({
   ...aria
 }: CodeInputProps) {
   const refs = useRef<Array<HTMLInputElement | null>>([]);
+  // The latest value, updated synchronously: fast typing can outrun the next render.
+  const current = useRef(value);
+  useEffect(() => {
+    current.current = value;
+  }, [value]);
 
   const focusBox = (index: number) => {
     const target = refs.current[Math.max(0, Math.min(length - 1, index))];
@@ -48,12 +53,14 @@ export default function CodeInput({
 
   const commit = (next: string, focusIndex: number) => {
     const clean = digitsOnly(next).slice(0, length);
+    current.current = clean;
     onChange(clean);
     focusBox(focusIndex);
     if (clean.length === length) onComplete?.(clean);
   };
 
   const handleInput = (index: number, raw: string) => {
+    const value = current.current;
     let digits = digitsOnly(raw);
     if (!digits) return;
     const previous = value[index];
@@ -71,6 +78,7 @@ export default function CodeInput({
   };
 
   const handleKeyDown = (index: number, event: KeyboardEvent<HTMLInputElement>) => {
+    const value = current.current;
     if (event.key === "Backspace") {
       event.preventDefault();
       if (index < value.length) {
@@ -108,7 +116,7 @@ export default function CodeInput({
           autoComplete={index === 0 ? "one-time-code" : "off"}
           // Focus lands on the first empty box so the value never has gaps.
           onFocus={(event) => {
-            if (index > value.length) focusBox(value.length);
+            if (index > current.current.length) focusBox(current.current.length);
             else event.currentTarget.select();
           }}
           autoFocus={autoFocus && index === 0}
