@@ -52,10 +52,10 @@ Route handlers in `src/app/api/v1` stay thin: origin check, rate limit, parse, c
 
 ## The 3D panels
 
-The home page has no 3D scene since the Modern Engineering redesign ([decisions/0012-design-modern-engineering.md](decisions/0012-design-modern-engineering.md)); its hero figure is an SVG (`ServiceDiagram`). 3D lives only in the service pages' station panels.
+The home page has no WebGL since the Modern Engineering redesign ([decisions/0012-design-modern-engineering.md](decisions/0012-design-modern-engineering.md)): its hero figure is an SVG (`ServiceDiagram`), and its scroll-driven figure beside the services is an isometric SVG blueprint, server-rendered by `BlueprintFigure` and moved by `BlueprintController`, which reads the service cards' positions once per animation frame on passive scroll events and writes transforms and data attributes directly, without React renders. 3D lives only in the service pages' station panels.
 
 - `StationObject` renders one station (lattice slab, glass pane and phone, network, or field) in a 4:3 panel inside a bracketed figure, `aria-hidden`. It mounts once the page has settled (2.5 seconds after the load event or the first scroll, whichever comes first, then the next idle period) and the panel is within 200 px of the viewport. The chunk (three, fiber, drei, and the scene) loads only then, and only on service pages. See [decisions/0009-scene-mount-timing.md](decisions/0009-scene-mount-timing.md).
-- `useQuality` picks a tier once (high, medium, low, or none) from WebGL 2 support, pointer type, cores, pixel ratio, Save-Data, and reduced motion. `none` shows a static SVG outline. drei's `PerformanceMonitor` steps the tier down on sustained frame drops; an error boundary drops to `none` on any scene error.
+- `useQuality` picks a tier once, only when a panel is about to mount (high, medium, low, or none), from WebGL 2 support, pointer type, cores, pixel ratio, Save-Data, and reduced motion. `none` shows a static SVG outline. drei's `PerformanceMonitor` steps the tier down on sustained frame drops; an error boundary drops to `none` on any scene error.
 - `StationRig` holds a fixed camera per station (`STATION_VIEWS`) and turns the object slowly. The canvas renders on demand at 30 frames per second, only while the panel is on screen and the tab is visible, and renders a single still frame under reduced motion.
 - Everything is procedural and seeded (`src/lib/random.ts`), so a panel is identical on every load. Colours come from the CSS tokens at mount, so the light is the same cyan as the UI.
 

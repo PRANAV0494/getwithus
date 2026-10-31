@@ -1,13 +1,40 @@
 import { expect, test } from "./support/test";
 
 test.describe("home", () => {
-  test("renders the hero and the service diagram, with no 3D scene", async ({ page }) => {
+  test("renders the hero and the service diagram", async ({ page }) => {
     await page.goto("/");
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
     await expect(page.getByText("fig. 01 / what we build around your business")).toBeVisible();
     await expect(page.getByRole("heading", { level: 2, name: "What we do" })).toBeAttached();
-    await page.mouse.wheel(0, 1200);
-    await page.waitForTimeout(1500);
+  });
+
+  test("the services blueprint assembles one slab per card, with no 3D on the page", async ({
+    page,
+  }) => {
+    await page.goto("/");
+    const figure = page.locator("#service-blueprint");
+    const slabs = figure.locator("[data-layer]");
+    await expect(slabs).toHaveCount(4);
+    await expect(slabs.first()).toHaveAttribute("data-state", "waiting");
+    const cards = page.locator("#service-lines > li");
+
+    await cards.nth(1).evaluate((card) => card.scrollIntoView({ block: "start" }));
+    await expect(figure).toContainText("fig. 02 / App development");
+    await expect(slabs.nth(0)).toHaveAttribute("data-state", "docked");
+    await expect(slabs.nth(1)).toHaveAttribute("data-state", "docked");
+    await expect(slabs.nth(3)).toHaveAttribute("data-state", "waiting");
+    await expect(cards.nth(1)).toHaveAttribute("data-active", "");
+    await expect(figure).not.toHaveAttribute("data-complete");
+
+    await cards.nth(3).evaluate((card) => card.scrollIntoView({ block: "start" }));
+    await expect(figure).toContainText("fig. 02 / Digital marketing");
+    await expect(slabs.nth(3)).toHaveAttribute("data-state", "docked");
+    await expect(figure).toHaveAttribute("data-complete", "");
+    await expect(cards.nth(1)).not.toHaveAttribute("data-active");
+
+    // Scrolling back takes the slabs apart again.
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await expect(slabs.first()).toHaveAttribute("data-state", "waiting");
     await expect(page.locator("canvas")).toHaveCount(0);
   });
 

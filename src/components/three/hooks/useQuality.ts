@@ -37,15 +37,19 @@ export function lowerQuality(quality: Quality): Quality {
   return quality;
 }
 
-/** The tier for this page load, chosen at mount and shared through the scene store. */
-export function useQuality(disabled = false): Quality | null {
+/**
+ * The tier for this page load, chosen once and shared through the scene store.
+ * Nothing is probed until `enabled`: creating even a 1 x 1 WebGL context starts
+ * the browser's GPU process, which blocked hydration for hundreds of
+ * milliseconds on a throttled phone.
+ */
+export function useQuality(enabled: boolean): Quality | null {
   const quality = useSceneStore((state) => state.quality);
   const setQuality = useSceneStore((state) => state.setQuality);
 
   useEffect(() => {
-    if (disabled) setQuality("none");
-    else if (quality === null) setQuality(pickQuality());
-  }, [disabled, quality, setQuality]);
+    if (enabled && quality === null) setQuality(pickQuality());
+  }, [enabled, quality, setQuality]);
 
   return quality;
 }

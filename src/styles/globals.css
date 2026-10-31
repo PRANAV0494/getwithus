@@ -276,3 +276,34 @@
     stroke-dashoffset: -120;
   }
 }
+
+/*
+ * Figure 02, the blueprint on the home page. BlueprintController sets each
+ * slab's data-state as its card passes (waiting, moving, docked) and marks the
+ * figure data-complete once all four sit; the uplink then pulses three times.
+ */
+.blueprint svg * {
+  vector-effect: non-scaling-stroke;
+}
+.blueprint [data-layer] {
+  color: var(--color-fog-3);
+  transition: color 200ms ease-out;
+}
+.blueprint [data-layer][data-state="moving"] {
+  color: var(--color-fog-2);
+}
+.blueprint [data-layer][data-state="docked"] {
+  color: var(--color-signal);
+}
+.blueprint [data-uplink] {
+  opacity: 0;
+  transition: opacity 300ms ease-out;
+}
+.blueprint[data-complete] [data-uplink] {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .blueprint[data-complete] [data-uplink-pulse] {
+    animation: pulse-travel 1.6s linear 3;
+  }
+}

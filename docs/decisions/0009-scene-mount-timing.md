@@ -2,7 +2,7 @@
 
 Date: 2026-10-31
 
-Update 2026-11-01: since [0012](0012-design-modern-engineering.md) the home page has no 3D scene; this timing now applies to the service page panels only, which also wait until the panel is near the viewport.
+Update 2026-11-01: since [0012](0012-design-modern-engineering.md) the home page has no 3D scene; this timing now applies to the service page panels only, which also wait until the panel is near the viewport. The WebGL support probe (`useQuality`) also waits until the panel is about to mount: run at hydration, it started the GPU process and blocked the main thread.
 
 ## Context
 

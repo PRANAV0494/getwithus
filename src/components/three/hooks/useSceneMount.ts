@@ -55,16 +55,17 @@ function whenSettled(onReady: () => void): () => void {
 }
 
 /**
- * Everything a canvas host needs before mounting: the quality tier, the reduced
- * motion preference mirrored into the scene store, and a flag that turns true
- * once the page has settled (see whenSettled). There is no spinner and no
- * loading message; until then the page shows its own background.
+ * Everything a canvas host needs before mounting: the quality tier (probed only
+ * once ready), the reduced motion preference mirrored into the scene store, and
+ * a flag that turns true once the page has settled (see whenSettled). There is
+ * no spinner and no loading message; until then the page shows its own
+ * background.
  */
-export function useSceneMount(disabled = false): { quality: Quality | null; ready: boolean } {
-  const quality = useQuality(disabled);
+export function useSceneMount(): { quality: Quality | null; ready: boolean } {
+  const [ready, setReady] = useState(false);
+  const quality = useQuality(ready);
   const reducedMotion = useReducedMotion();
   const setReducedMotion = useSceneStore((state) => state.setReducedMotion);
-  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     setReducedMotion(reducedMotion);

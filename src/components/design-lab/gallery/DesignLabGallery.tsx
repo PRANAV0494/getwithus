@@ -298,7 +298,8 @@ export default function DesignLabGallery() {
           <p className="mt-6 max-w-[80ch] type-small text-fog-2">
             D now runs the live site (ADR 0012): headings up to 60 px, cyan in place of the lamp
             accent, Archivo and JetBrains Mono in place of Schibsted Grotesk, section reveals, and
-            no 3D scene on the homepage. The full report is in docs/design-lab/README.md.
+            an assembling blueprint in place of the homepage 3D scene. The full report is in
+            docs/design-lab/README.md.
           </p>
         </section>
       </div>

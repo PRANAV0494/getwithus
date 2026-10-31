@@ -2,7 +2,7 @@
 
 Marketing site, lead pipeline, and admin area for GetWithUs, a technology agency that builds websites, mobile apps, WhatsApp and voice agents, and runs digital marketing.
 
-- Public site: home page with a system diagram of the services, seven service pages with 3D station panels, process, about, work (case studies, empty until real ones are approved), contact, a five-step project brief, privacy, and terms.
+- Public site: home page with a system diagram and a scroll-assembled blueprint of the services, seven service pages with 3D station panels, process, about, work (case studies, empty until real ones are approved), contact, a five-step project brief, privacy, and terms.
 - Lead pipeline: every contact message and brief is confirmed with a 6-digit email code before the team hears about it. Verified leads notify the team by email, in the admin, and optionally on Slack and WhatsApp.
 - Admin (`/admin`): magic-link sign-in for an allowlist, dashboard, leads table with filters, lead detail with status, notes, and timeline, and a notification feed.
 

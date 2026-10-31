@@ -71,7 +71,8 @@ Archivo (variable, width axis) through `next/font`, with headings at 92 percent 
 - `GridBackdrop` (`src/components/layout`): fixed behind the marketing pages; 4 columns below 768 px, 12 from 768 px, aligned to the container, drawn in `grid`.
 - `SectionHeading` (`src/components/ui`): the monospaced index ("01 / services") in a 200 px column from 768 px, then the `h2` and an optional lead. Content below it that should line up with the heading uses `md:ml-[224px]`.
 - `PageHeader` (`src/components/sections`): an inner page's opening; a cyan prompt line ("> services"), the `h1`, the lead, ruled off below.
-- `Brackets` (`src/components/ui`): the four corner brackets; muted at rest and cyan on hover of the parent `group`, or always cyan (`always`) on the closing call-to-action panel.
+- `Brackets` (`src/components/ui`): the four corner brackets; muted at rest and cyan on hover of the parent `group` or while it carries `data-active`, or always cyan (`always`) on the closing call-to-action panel.
+- Figures: numbered, bracketed, with a monospaced caption ("fig. 01 / ..."), decorative (`aria-hidden`) because the text beside them carries the content. Figure 01 is the hero diagram (`ServiceDiagram`); figure 02 is the blueprint (`BlueprintFigure`, drawn in isometric with `blueprintGeometry`, driven by `BlueprintController`), pinned beside the service cards from 1024 px and under the header on smaller screens.
 - Specification lists: one ruled row per item with a monospaced prefix ("+", "step_01"); datasheets are hairline grids (`gap-px bg-line` around `bg-ink` cells).
 - Raised sections (`bg-ink-1/80`) alternate with base sections on the home page.
 
@@ -94,11 +95,12 @@ Allowed in exactly these places:
 1. The home hero reveal: the tagline, heading, lead, and actions fade in and rise 8 px over 500 ms with a 60 ms stagger, on the first page load only.
 2. Section reveals: blocks marked `.reveal` that start below the fold rise 18 px and fade in once, over 600 ms, as they enter. `RevealObserver` (`src/components/layout`, an IntersectionObserver) marks blocks already on screen at load as static, so nothing visible is ever hidden and no text rests half faded; without JavaScript every block simply shows. Never on a hero.
 3. The diagram pulses: data travels each connection of figure 01 three times (3.2 s per pass) when the page opens, then stops.
-4. The service page 3D panels: one station turning slowly (0.15 rad/s) at 30 frames per second while on screen.
-5. Transitions that answer an action: menus, accordion, dialog, sheet, toast, code success, the 220 ms link underline, and hover colours. 150 to 250 ms, ease-out. Defined as keyframes and utilities in `globals.css`.
-6. Loading: skeletons and the button spinner.
+4. The blueprint (figure 02, home page): beside the service cards, four slabs drop into place one per card as the cards pass the reading line, scrubbing both ways with scroll; the marketing slab's bars rise as it settles, and once all four sit, the uplink pulses three passes. Under reduced motion slabs are either waiting or docked, never in between.
+5. The service page 3D panels: one station turning slowly (0.15 rad/s) at 30 frames per second while on screen.
+6. Transitions that answer an action: menus, accordion, dialog, sheet, toast, code success, the 220 ms link underline, and hover colours. 150 to 250 ms, ease-out. Defined as keyframes and utilities in `globals.css`.
+7. Loading: skeletons and the button spinner.
 
-`prefers-reduced-motion` turns off the hero reveal, the section reveals, the pulses, and the transitions, and renders a single still frame in the 3D panels. Buttons never move: hover changes background or border colour only. No smooth scroll library, no parallax, no pinned sections.
+`prefers-reduced-motion` turns off the hero reveal, the section reveals, the pulses, and the transitions, makes the blueprint's slabs jump between waiting and docked, and renders a single still frame in the 3D panels. Buttons never move: hover changes background or border colour only. No smooth scroll library, no parallax, no pinned sections.
 
 ## Hard rules checklist
 
@@ -112,7 +114,7 @@ Run `pnpm guard` (part of `pnpm check` and `pnpm build`); it enforces the mechan
 - [ ] No heading larger than 60 px on desktop and 40 px on mobile.
 - [ ] No emoji anywhere, including docs and commit messages. Icons from lucide only.
 - [ ] No em dashes or en dashes in copy, comments, emails, or docs. Use a comma, period, colon, or "to" for ranges.
-- [ ] No scroll effects besides the one-time section reveals: no parallax, scroll-linked movement, pinned sections, counters, typing text, or marquees.
+- [ ] No scroll effects besides the one-time section reveals and the home page blueprint: no parallax, other scroll-linked movement or pinned sections, counters, typing text, or marquees.
 - [ ] No endless animation: everything that moves on its own stops (the diagram pulses run three passes).
 - [ ] No stock photography or AI imagery. Only the 3D panels, hand-made SVG, and real photos or screenshots with permission.
 - [ ] No banned vocabulary (the guard lists it, for example "seamless", "cutting-edge", "unlock", "leverage", "elevate", "harness").

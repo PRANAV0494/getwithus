@@ -2,7 +2,7 @@
 
 Date: 2026-10-31
 
-Update 2026-11-01: the home page's scroll-driven scene was removed in [0012](0012-design-modern-engineering.md), and with it `useScrollProgress` and the camera rig. The decision stands: scrolling is native, and the section reveals that replaced the scene are one-time CSS animations started by an IntersectionObserver, never tied to scroll position.
+Update 2026-11-01: the home page's scroll-driven scene was removed in [0012](0012-design-modern-engineering.md), and with it `useScrollProgress` and the camera rig. The decision stands: scrolling is native. The section reveals are one-time CSS animations started by an IntersectionObserver, and the home page blueprint (figure 02) reads card positions on passive scroll events, once per frame, to place its slabs.
 
 ## Context
 
