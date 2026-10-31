@@ -1,0 +1,143 @@
+/*
+ * Behaviour shared by every design-lab concept. Everything is scoped to
+ * [data-lab] or to lab- classes, so nothing reaches the production pages.
+ * Colours always come from the concept's --lab-* variables.
+ */
+
+[data-lab] {
+  background-color: var(--lab-bg);
+  color: var(--lab-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+[data-lab] :focus-visible {
+  outline: 2px solid var(--lab-focus);
+  outline-offset: 3px;
+  box-shadow: none;
+}
+
+[data-lab] ::selection {
+  background-color: var(--lab-accent);
+  color: var(--lab-on-accent);
+}
+
+/* Links whose underline draws in from the left on hover, focus, or when current. */
+.lab-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  transition:
+    background-size 220ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    color 180ms ease-out;
+}
+.lab-underline:hover,
+.lab-underline:focus-visible,
+.lab-underline[aria-current="true"] {
+  background-size: 100% 1px;
+}
+
+/* The arrow inside a button or link moves; the control itself never does. */
+.lab-arrow {
+  transition: transform 200ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.lab-nudge:hover .lab-arrow,
+.lab-nudge:focus-visible .lab-arrow {
+  transform: translateX(3px);
+}
+.lab-tilt:hover .lab-arrow,
+.lab-tilt:focus-visible .lab-arrow {
+  transform: rotate(45deg);
+}
+
+/*
+ * Scroll reveals without JavaScript: content is visible by default and only
+ * browsers with scroll-driven animations add the rise, so nothing is hidden
+ * when scripts fail and the largest paint is never delayed.
+ */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .lab-reveal {
+      animation: lab-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 32%;
+    }
+  }
+}
+
+@keyframes lab-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Slow background movement, used by a few concepts. Off under reduced motion. */
+@keyframes lab-drift {
+  0% {
+    transform: translate3d(-6%, -4%, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(6%, 5%, 0) scale(1.08);
+  }
+}
+
+@keyframes lab-sweep {
+  0% {
+    transform: translateX(-120%);
+  }
+  60%,
+  100% {
+    transform: translateX(120%);
+  }
+}
+
+@keyframes lab-dash {
+  to {
+    stroke-dashoffset: -120;
+  }
+}
+
+@keyframes lab-draw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* A highlighter stroke that draws across inline text, wrapping with it. */
+@keyframes lab-mark {
+  from {
+    background-size: 0% 100%;
+  }
+  to {
+    background-size: 100% 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-lab] .lab-motion {
+    animation: none !important;
+  }
+}
+
+/* The mobile menu panel enters from the top. */
+@keyframes lab-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.lab-menu-panel[data-state="open"] {
+  animation: lab-menu-in 220ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}

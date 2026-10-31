@@ -36,6 +36,10 @@ Target: Vercel for the app, Neon for Postgres, Resend for email. Another Postgre
 14. [ ] Turn on the chosen analytics and confirm no cookies are set on the public site (browser dev tools, Application, Cookies).
 15. [ ] Backups: Neon point-in-time recovery enabled. Restore procedure: in the Neon console, create a branch from the production branch at a timestamp before the incident, check the data on that branch, then either point `DATABASE_URL` at it and redeploy, or copy the needed rows back.
 
+## Before launch: design lab
+
+- [ ] Decide on the design lab recommendation ([design-lab/README.md](design-lab/README.md)). Then delete `src/app/(design)`, `src/components/design-lab`, `src/content/design-lab`, `src/styles/design-lab.css`, and the `/design` header rules in `next.config.ts`, or keep them out of the production deployment.
+
 ## Launch gates
 
 All must be true before announcing the site:

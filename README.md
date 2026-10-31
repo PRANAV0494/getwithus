@@ -117,3 +117,4 @@ Vercel for the app, Neon for Postgres, Resend for email. In short: create the Ne
 - [docs/launch-checklist.md](docs/launch-checklist.md): everything to do before and at launch
 - [docs/decisions/](docs/decisions/): one short record per major decision
 - [docs/handoff.md](docs/handoff.md): what the owner must supply, deviations from the specification, measurements, and known limitations
+- [docs/design-lab/README.md](docs/design-lab/README.md): five explored website directions, their evaluation, and the recommended refined design (live at `/design` in development); [design-system.md](docs/design-lab/design-system.md) documents the recommended system

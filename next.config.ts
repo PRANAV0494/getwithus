@@ -11,11 +11,12 @@ const PLAUSIBLE_ORIGIN = "https://plausible.io";
  * (needed for the inline scripts Next.js emits) and nothing else is loosened.
  * See docs/decisions/0002-security-headers.md.
  */
-function contentSecurityPolicy(): string {
+function contentSecurityPolicy({ framing = false }: { framing?: boolean } = {}): string {
   const isDev = env.NODE_ENV === "development";
   const scriptSrc = ["'self'", "'unsafe-inline'"];
   const connectSrc = ["'self'"];
-  const frameSrc: string[] = [];
+  // The design lab gallery frames its own prototype pages; nothing else is ever framed.
+  const frameSrc: string[] = framing ? ["'self'"] : [];
 
   if (isDev) scriptSrc.push("'unsafe-eval'");
   if (flags.turnstile) {
@@ -37,7 +38,7 @@ function contentSecurityPolicy(): string {
     `connect-src ${connectSrc.join(" ")}`,
     "worker-src 'self' blob:",
     frameSrc.length ? `frame-src ${frameSrc.join(" ")}` : "frame-src 'none'",
-    "frame-ancestors 'none'",
+    framing ? "frame-ancestors 'self'" : "frame-ancestors 'none'",
     "object-src 'none'",
     "base-uri 'self'",
     "form-action 'self'",
@@ -53,6 +54,13 @@ const securityHeaders = [
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
   { key: "X-Frame-Options", value: "DENY" },
+];
+
+/** /design: same-origin framing for the gallery, and never indexed. See docs/design-lab/README.md. */
+const designLabHeaders = [
+  { key: "Content-Security-Policy", value: contentSecurityPolicy({ framing: true }) },
+  { key: "X-Frame-Options", value: "SAMEORIGIN" },
+  { key: "X-Robots-Tag", value: "noindex, nofollow" },
 ];
 
 const nextConfig: NextConfig = {
@@ -82,6 +90,9 @@ const nextConfig: NextConfig = {
       { source: "/:path*", headers: securityHeaders },
       // Belt and braces with the admin metadata: never index the admin area.
       { source: "/admin/:path*", headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }] },
+      // Later entries win for the same header key, so these replace the global framing rules.
+      { source: "/design", headers: designLabHeaders },
+      { source: "/design/:path*", headers: designLabHeaders },
     ];
   },
 };

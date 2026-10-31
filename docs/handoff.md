@@ -6,6 +6,8 @@ Repository: https://github.com/PRANAV0494/getwithus (public, default branch `mai
 
 Launch is blocked only on owner facts (the placeholders below), real credentials, and the checks in [launch-checklist.md](launch-checklist.md) that need the production URL.
 
+Design exploration: a design lab at `/design` holds five alternative website directions, a weighted evaluation, and a recommended refined homepage and design system (Hybrid Premium refined with Minimal Corporate). It is isolated from the live site, not indexed, and awaiting your decision; adopting it changes several rules in the build spec. See [design-lab/README.md](design-lab/README.md).
+
 ## 1. Owner placeholders
 
 `pnpm guard:strict` lists these 50 lines (55 placeholders). Replace each with the real fact, or delete the sentence when it does not apply. Many pages and emails read from `src/config/site.ts`, so the first group fixes most of the site at once.
