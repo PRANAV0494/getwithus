@@ -28,3 +28,22 @@ export const site = {
   social: [] as SocialLink[],
   schedulingUrl: env.NEXT_PUBLIC_SCHEDULING_URL,
 } as const;
+
+type NavLink = {
+  label: string;
+  href: string;
+  /** Shown only while a published case study exists. */ needsWork?: boolean;
+};
+
+/** Header links after "Services". The footer's Company column reuses them. */
+const primaryNav: readonly NavLink[] = [
+  { label: "Process", href: "/process" },
+  { label: "Work", href: "/work", needsWork: true },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
+];
+
+/** Drops the Work link while there is no published case study. */
+export function visibleNav(hasWork: boolean): NavLink[] {
+  return primaryNav.filter((link) => hasWork || !link.needsWork);
+}

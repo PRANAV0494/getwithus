@@ -116,3 +116,90 @@
     scroll-behavior: auto !important;
   }
 }
+
+/*
+ * Motion. Only transitions that answer a user action (menus, dialogs, accordion)
+ * and the one-time hero reveal. The reduced-motion block above stops all of them.
+ */
+@theme {
+  --animate-overlay-in: overlay-in 200ms ease-out;
+  --animate-overlay-out: overlay-out 150ms ease-out;
+  --animate-dialog-in: dialog-in 200ms ease-out;
+  --animate-dialog-out: dialog-out 150ms ease-out;
+  --animate-sheet-in: sheet-in 220ms ease-out;
+  --animate-sheet-out: sheet-out 180ms ease-out;
+  --animate-menu-in: menu-in 150ms ease-out;
+  --animate-menu-out: menu-out 120ms ease-out;
+  --animate-accordion-down: accordion-down 200ms ease-out;
+  --animate-accordion-up: accordion-up 180ms ease-out;
+  --animate-reveal: reveal 500ms ease-out both;
+
+  @keyframes overlay-in {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes overlay-out {
+    to {
+      opacity: 0;
+    }
+  }
+  @keyframes dialog-in {
+    from {
+      opacity: 0;
+      transform: translate(-50%, calc(-50% + 8px));
+    }
+  }
+  @keyframes dialog-out {
+    to {
+      opacity: 0;
+      transform: translate(-50%, calc(-50% + 8px));
+    }
+  }
+  @keyframes sheet-in {
+    from {
+      opacity: 0;
+      transform: translateX(24px);
+    }
+  }
+  @keyframes sheet-out {
+    to {
+      opacity: 0;
+      transform: translateX(24px);
+    }
+  }
+  @keyframes menu-in {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+  }
+  @keyframes menu-out {
+    to {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+  }
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+  @keyframes reveal {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+  }
+}

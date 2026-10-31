@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Schibsted_Grotesk } from "next/font/google";
+import SkipLink from "@/components/layout/SkipLink";
+import Toast from "@/components/ui/Toast";
 import { site } from "@/config/site";
 import "@/styles/globals.css";
 
@@ -43,7 +45,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   // [OWNER: change lang if the primary language of the site is not English]
   return (
     <html lang="en" className={`${schibsted.variable} ${geistMono.variable}`}>
-      <body>{children}</body>
+      <body>
+        <SkipLink />
+        {children}
+        <Toast />
+      </body>
     </html>
   );
 }
