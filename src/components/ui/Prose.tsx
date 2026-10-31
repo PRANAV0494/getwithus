@@ -11,7 +11,7 @@ export default function Prose({ className, ...props }: ComponentProps<"div">) {
         "[&_h3]:mt-8 [&_h3]:mb-3 [&_h3]:type-h4",
         "[&_ol]:mb-4 [&_ol]:list-decimal [&_ol]:space-y-2 [&_ol]:pl-5 [&_p]:mb-4 [&_ul]:mb-4 [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-5",
         "[&_li]:pl-1 [&_li]:marker:text-fog-3",
-        "[&_a]:text-lamp [&_a]:underline [&_a]:underline-offset-4 [&_a:hover]:text-lamp-2",
+        "[&_a]:text-signal [&_a]:underline [&_a]:underline-offset-4 [&_a:hover]:text-signal-2",
         "[&_strong]:font-semibold",
         className,
       )}

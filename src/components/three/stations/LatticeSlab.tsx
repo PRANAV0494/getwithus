@@ -11,7 +11,7 @@ import { useEffect, useMemo, useRef, type RefObject } from "react";
 import { BoxGeometry, MathUtils, MeshStandardMaterial, Object3D, type InstancedMesh } from "three";
 import { SLAB, type Palette } from "@/components/three/constants";
 import type { FrameState } from "@/components/three/frame";
-import { smoothstep } from "@/components/three/hooks/useStationT";
+import { smoothstep } from "@/components/three/ease";
 import type { World } from "@/components/three/world";
 
 type LatticeSlabProps = { world: World; frameRef: RefObject<FrameState>; palette: Palette };

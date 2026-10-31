@@ -7,10 +7,10 @@ src/
   app/          routes only: pages, layouts, route handlers, metadata files
   components/   UI. Never imports src/server or a feature repository
     ui/         the kit (Button, Field, Dialog, Table, ...)
-    layout/     header, mega menu, mobile menu, footer
+    layout/     header, mega menu, mobile menu, grid backdrop, footer
     sections/   page sections built from content
     forms/      contact form, project brief, verification step
-    three/      the 3D scene (client only)
+    three/      the service page 3D panels (client only)
     admin/      admin screens
   features/     business logic per domain: schema, service, repository, actions
     leads/  verification/  notifications/  admin/  case-studies/  maintenance/
@@ -50,14 +50,14 @@ Route handlers in `src/app/api/v1` stay thin: origin check, rate limit, parse, c
 - `src/proxy.ts` (the Next.js 16 replacement for middleware) is an optimistic check: no session cookie under `/admin` means a redirect to `/admin/login?next=...`.
 - The real check is `requireAdmin()`, which reads the session from the database and re-checks the allowlist. It runs in the admin layout, at the top of every admin page (layouts and pages render in parallel, so a layout check alone would not stop a page from reading data), and in every admin server action. It is memoized per request with React `cache`.
 
-## The 3D scene
+## The 3D panels
 
-- `SceneCanvas` sits on the home page, fixed behind the content, `aria-hidden`, and never receives pointer events. It mounts once the page has settled: 2.5 seconds after the load event or the first scroll, whichever comes first, then the next idle period. The chunk (three, fiber, drei, and the scene) loads only then, and only on the home and service pages. See [decisions/0009-scene-mount-timing.md](decisions/0009-scene-mount-timing.md).
+The home page has no 3D scene since the Modern Engineering redesign ([decisions/0012-design-modern-engineering.md](decisions/0012-design-modern-engineering.md)); its hero figure is an SVG (`ServiceDiagram`). 3D lives only in the service pages' station panels.
+
+- `StationObject` renders one station (lattice slab, glass pane and phone, network, or field) in a 4:3 panel inside a bracketed figure, `aria-hidden`. It mounts once the page has settled (2.5 seconds after the load event or the first scroll, whichever comes first, then the next idle period) and the panel is within 200 px of the viewport. The chunk (three, fiber, drei, and the scene) loads only then, and only on service pages. See [decisions/0009-scene-mount-timing.md](decisions/0009-scene-mount-timing.md).
 - `useQuality` picks a tier once (high, medium, low, or none) from WebGL 2 support, pointer type, cores, pixel ratio, Save-Data, and reduced motion. `none` shows a static SVG outline. drei's `PerformanceMonitor` steps the tier down on sustained frame drops; an error boundary drops to `none` on any scene error.
-- Scroll writes progress to the scene store at most once per frame (`useScrollProgress`). The camera rig damps progress and its own position and target with `MathUtils.damp`, and each station maps its window of progress to a smoothstepped `t` (`useStationT`). Stations: lattice slab, glass pane and phone, network, field.
-- The canvas renders on demand: frames are requested while anything moves and stop when the tab is hidden or the camera has settled at the end, so a still page costs nothing.
-- Everything is procedural and seeded (`src/lib/random.ts`), so the scene is identical on every load. Colors come from the CSS tokens at mount.
-- Service pages render one station in a 4:3 panel at 30 frames per second while on screen, loaded only once the panel comes near the viewport.
+- `StationRig` holds a fixed camera per station (`STATION_VIEWS`) and turns the object slowly. The canvas renders on demand at 30 frames per second, only while the panel is on screen and the tab is visible, and renders a single still frame under reduced motion.
+- Everything is procedural and seeded (`src/lib/random.ts`), so a panel is identical on every load. Colours come from the CSS tokens at mount, so the light is the same cyan as the UI.
 
 ## Cache Components rules
 

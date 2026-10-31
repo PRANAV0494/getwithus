@@ -31,7 +31,7 @@ export default async function DashboardPage() {
             <div key={status} className="rounded-card border border-line bg-ink-2 p-4">
               <dt className="type-small text-fog-2">{statusLabels[status]}</dt>
               <dd className="mt-1 type-h3 tabular-nums">
-                <Link href={`/admin/leads?status=${status}`} className="hover:text-lamp">
+                <Link href={`/admin/leads?status=${status}`} className="hover:text-signal">
                   {counts[status] ?? 0}
                 </Link>
               </dd>
@@ -44,7 +44,7 @@ export default async function DashboardPage() {
           <h2 id="recent-title" className="type-h4">
             Recent leads
           </h2>
-          <Link href="/admin/leads" className="type-small text-lamp hover:text-lamp-2">
+          <Link href="/admin/leads" className="type-small text-signal hover:text-signal-2">
             All leads
           </Link>
         </div>
@@ -61,7 +61,7 @@ export default async function DashboardPage() {
           <h2 id="unread-title" className="type-h4">
             Unread notifications
           </h2>
-          <Link href="/admin/notifications" className="type-small text-lamp hover:text-lamp-2">
+          <Link href="/admin/notifications" className="type-small text-signal hover:text-signal-2">
             All notifications
           </Link>
         </div>

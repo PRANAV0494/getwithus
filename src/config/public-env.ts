@@ -9,9 +9,8 @@ const blankToUndefined = (value: string | undefined) => (value ? value : undefin
 export const publicEnv = {
   nodeEnv: process.env.NODE_ENV,
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
-  siteName: blankToUndefined(process.env.NEXT_PUBLIC_SITE_NAME) ?? "Getwithus",
+  siteName: blankToUndefined(process.env.NEXT_PUBLIC_SITE_NAME) ?? "GetWithUs",
   turnstileSiteKey: blankToUndefined(process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY),
   plausibleDomain: blankToUndefined(process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN),
   schedulingUrl: blankToUndefined(process.env.NEXT_PUBLIC_SCHEDULING_URL),
-  testHooks: process.env.NEXT_PUBLIC_TEST_HOOKS === "1",
 } as const;

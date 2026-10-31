@@ -20,14 +20,14 @@ export default function RadioGroup({ options, className, ...props }: RadioGroupP
         return (
           <div
             key={option.value}
-            className="flex items-start gap-3 rounded-control border border-line bg-ink-2 px-4 py-3 transition-colors duration-150 ease-out hover:border-line-strong has-data-[state=checked]:border-lamp"
+            className="flex items-start gap-3 rounded-control border border-line bg-ink-2 px-4 py-3 transition-colors duration-150 ease-out hover:border-line-strong has-data-[state=checked]:border-signal"
           >
             <RadixRadioGroup.Item
               id={itemId}
               value={option.value}
-              className="mt-1 flex size-4 shrink-0 items-center justify-center rounded-full border border-line-strong bg-ink transition-colors duration-150 ease-out data-[state=checked]:border-lamp"
+              className="mt-1 flex size-4 shrink-0 items-center justify-center rounded-full border border-line-strong bg-ink transition-colors duration-150 ease-out data-[state=checked]:border-signal"
             >
-              <RadixRadioGroup.Indicator className="block size-2 rounded-full bg-lamp" />
+              <RadixRadioGroup.Indicator className="block size-2 rounded-full bg-signal" />
             </RadixRadioGroup.Item>
             <label htmlFor={itemId} className="flex-1 cursor-pointer text-fog">
               {option.label}

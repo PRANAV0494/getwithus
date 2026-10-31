@@ -11,16 +11,16 @@ type LogoProps = {
   onClick?: () => void;
 };
 
-/** The brand mark (lamp square with the glyph) and the lowercase wordmark. */
+/** The brand mark (signal tile with the glyph) and the wordmark. */
 export default function Logo({ href = "/", showWordmark = true, className, onClick }: LogoProps) {
   const content = (
     <>
       <svg viewBox="0 0 64 64" width={24} height={24} aria-hidden="true" focusable="false">
-        <rect width="64" height="64" rx={64 * MARK_RADIUS_RATIO} className="fill-lamp" />
+        <rect width="64" height="64" rx={64 * MARK_RADIUS_RATIO} className="fill-signal" />
         <path d={MARK_GLYPH_PATH} className="fill-ink" />
       </svg>
       {showWordmark ? (
-        <span className="text-[1.125rem] leading-none font-semibold tracking-[-0.02em] text-fog">
+        <span className="text-[1.125rem] leading-none font-semibold tracking-[-0.01em] text-fog [font-stretch:92%]">
           {site.wordmark}
         </span>
       ) : null}

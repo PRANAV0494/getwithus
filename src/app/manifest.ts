@@ -1,8 +1,8 @@
 import type { MetadataRoute } from "next";
 import { site } from "@/config/site";
 
-const INK = "#0B0E13";
-const LAMP = "#F0B35A";
+const INK = "#0F1113";
+const SIGNAL = "#2CD5E6";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
@@ -12,7 +12,7 @@ export default function manifest(): MetadataRoute.Manifest {
     start_url: "/",
     display: "standalone",
     background_color: INK,
-    theme_color: LAMP,
+    theme_color: SIGNAL,
     icons: [
       { src: "/icon.svg", sizes: "any", type: "image/svg+xml" },
       { src: "/icon.png", sizes: "32x32", type: "image/png" },

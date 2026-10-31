@@ -3,7 +3,7 @@ import type { LegalDocument } from "@/content/types";
 export const termsOfService: LegalDocument = {
   title: "Terms and conditions",
   description:
-    "The terms for using the Getwithus website and its forms, and how they relate to the signed agreement that governs every project.",
+    "The terms for using the GetWithUs website and its forms, and how they relate to the signed agreement that governs every project.",
   updated: "2026-10-31",
   sections: [
     {
@@ -12,11 +12,11 @@ export const termsOfService: LegalDocument = {
       blocks: [
         {
           type: "p",
-          text: "Getwithus is a technology agency. We offer web development, app development, agentic automation including WhatsApp bots and calling agents, digital marketing, and custom software and cloud work.",
+          text: "GetWithUs is a technology agency. We offer web development, app development, agentic automation including WhatsApp bots and calling agents, digital marketing, and custom software and cloud work.",
         },
         {
           type: "p",
-          text: "This website is run by [OWNER: legal entity name], whose registered address is [OWNER: registered address]. In these terms, 'Getwithus', 'we', 'us', and 'our' refer to [OWNER: legal entity name]. 'You' means anyone who uses the website.",
+          text: "This website is run by [OWNER: legal entity name], whose registered address is [OWNER: registered address]. In these terms, 'GetWithUs', 'we', 'us', and 'our' refer to [OWNER: legal entity name]. 'You' means anyone who uses the website.",
         },
       ],
     },
@@ -122,7 +122,7 @@ export const termsOfService: LegalDocument = {
       blocks: [
         {
           type: "p",
-          text: "We or our licensors own the website and its content, including the text, design, graphics, logos, and code. The Getwithus name and logo belong to us.",
+          text: "We or our licensors own the website and its content, including the text, design, graphics, logos, and code. The GetWithUs name and logo belong to us.",
         },
         {
           type: "p",

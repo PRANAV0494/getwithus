@@ -1,16 +1,14 @@
 import { expect, test } from "./support/test";
 
 test.describe("home", () => {
-  test("renders the hero and mounts the 3D scene or its fallback", async ({ page }) => {
+  test("renders the hero and the service diagram, with no 3D scene", async ({ page }) => {
     await page.goto("/");
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-    // The scene mounts after first paint and idle: a canvas, or the static slab when WebGL is unavailable.
-    await expect(page.locator("canvas, svg[data-fallback='slab']").first()).toBeAttached({
-      timeout: 20_000,
-    });
-    // Give the scene a moment to compile and draw; console problems fail the test.
+    await expect(page.getByText("fig. 01 / what we build around your business")).toBeVisible();
+    await expect(page.getByRole("heading", { level: 2, name: "What we do" })).toBeAttached();
     await page.mouse.wheel(0, 1200);
     await page.waitForTimeout(1500);
+    await expect(page.locator("canvas")).toHaveCount(0);
   });
 
   test("header links navigate", async ({ page }) => {
@@ -54,4 +52,15 @@ test("the phone menu returns focus to the Menu button when dismissed", async ({ 
   await page.keyboard.press("Escape");
   await expect(page.getByRole("dialog")).toBeHidden();
   await expect(menuButton).toBeFocused();
+});
+
+test("a service page mounts its station panel or the static fallback", async ({ page }) => {
+  await page.goto("/services/web-development");
+  await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+  // The panel mounts after the page settles: a canvas, or the slab outline when WebGL is unavailable.
+  await expect(page.locator("canvas, svg[data-fallback='slab']").first()).toBeAttached({
+    timeout: 20_000,
+  });
+  // Give the scene a moment to compile and draw; console problems fail the test.
+  await page.waitForTimeout(1500);
 });

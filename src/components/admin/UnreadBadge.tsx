@@ -33,7 +33,7 @@ export default function UnreadBadge({ initialCount }: { initialCount: number }) 
     >
       <Icon icon={Bell} size={20} />
       {count > 0 ? (
-        <span className="min-w-5 rounded-full bg-lamp px-1.5 text-center type-small font-semibold text-ink tabular-nums">
+        <span className="min-w-5 rounded-tag bg-signal px-1.5 text-center type-small font-semibold text-ink tabular-nums">
           {count > 99 ? "99+" : count}
         </span>
       ) : null}

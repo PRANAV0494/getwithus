@@ -3,7 +3,7 @@ import type { LegalDocument } from "@/content/types";
 export const privacyPolicy: LegalDocument = {
   title: "Privacy policy",
   description:
-    "What Getwithus collects through its contact form and project brief, why, who receives it, how long we keep it, and how to use your rights.",
+    "What GetWithUs collects through its contact form and project brief, why, who receives it, how long we keep it, and how to use your rights.",
   updated: "2026-10-31",
   sections: [
     {
@@ -12,11 +12,11 @@ export const privacyPolicy: LegalDocument = {
       blocks: [
         {
           type: "p",
-          text: "Getwithus is a technology agency. We build websites and mobile apps, set up agentic automation such as WhatsApp bots and calling agents, run digital marketing, and build custom software and cloud systems.",
+          text: "GetWithUs is a technology agency. We build websites and mobile apps, set up agentic automation such as WhatsApp bots and calling agents, run digital marketing, and build custom software and cloud systems.",
         },
         {
           type: "p",
-          text: "This website is run by [OWNER: legal entity name], whose registered address is [OWNER: registered address]. In this policy, 'Getwithus', 'we', 'us', and 'our' refer to [OWNER: legal entity name].",
+          text: "This website is run by [OWNER: legal entity name], whose registered address is [OWNER: registered address]. In this policy, 'GetWithUs', 'we', 'us', and 'our' refer to [OWNER: legal entity name].",
         },
         {
           type: "p",

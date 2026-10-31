@@ -1,8 +1,8 @@
-# Getwithus website
+# GetWithUs website
 
-Marketing site, lead pipeline, and admin area for Getwithus, a technology agency that builds websites, mobile apps, WhatsApp and voice agents, and runs digital marketing.
+Marketing site, lead pipeline, and admin area for GetWithUs, a technology agency that builds websites, mobile apps, WhatsApp and voice agents, and runs digital marketing.
 
-- Public site: home page with a scroll-driven 3D scene, seven service pages, process, about, work (case studies, empty until real ones are approved), contact, a five-step project brief, privacy, and terms.
+- Public site: home page with a system diagram of the services, seven service pages with 3D station panels, process, about, work (case studies, empty until real ones are approved), contact, a five-step project brief, privacy, and terms.
 - Lead pipeline: every contact message and brief is confirmed with a 6-digit email code before the team hears about it. Verified leads notify the team by email, in the admin, and optionally on Slack and WhatsApp.
 - Admin (`/admin`): magic-link sign-in for an allowlist, dashboard, leads table with filters, lead detail with status, notes, and timeline, and a notification feed.
 
@@ -72,27 +72,27 @@ Running a production build locally (`pnpm build`, then `pnpm start`) behaves dif
 
 Every variable is validated at build and at startup by `src/config/env.ts`; the app refuses to start with a clear message when one is missing or malformed. Nothing else reads `process.env`. `.env.example` documents each one.
 
-| Variable                                                                                            | Required              | Purpose                                                                                |
-| --------------------------------------------------------------------------------------------------- | --------------------- | -------------------------------------------------------------------------------------- |
-| `DATABASE_URL`                                                                                      | yes                   | Postgres connection string. On Neon use the pooled URL                                 |
-| `AUTH_SECRET`                                                                                       | yes                   | Auth.js secret, 32 characters or more                                                  |
-| `ADMIN_EMAILS`                                                                                      | yes                   | Comma-separated allowlist for `/admin`                                                 |
-| `VERIFICATION_PEPPER`                                                                               | yes                   | Secret for code hashes and form tokens, 32 characters or more                          |
-| `CRON_SECRET`                                                                                       | yes                   | Bearer token for `/api/v1/cron/cleanup`, 16 characters or more                         |
-| `EMAIL_TRANSPORT`                                                                                   | no (`resend`)         | `resend` sends; `console` prints to the server log                                     |
-| `RESEND_API_KEY`                                                                                    | with `resend`         | Resend API key                                                                         |
-| `EMAIL_FROM`                                                                                        | yes                   | Sender, on a domain verified in Resend                                                 |
-| `EMAIL_REPLY_TO`                                                                                    | no                    | Reply-to for client emails                                                             |
-| `TEAM_NOTIFY_EMAILS`                                                                                | yes                   | Comma-separated addresses that get new-lead emails                                     |
-| `LEADS_API_KEY`                                                                                     | no                    | Enables `/api/v1/integrations/leads`, 32 characters or more                            |
-| `SLACK_WEBHOOK_URL`                                                                                 | no                    | Turns on Slack notifications                                                           |
-| `WHATSAPP_PHONE_NUMBER_ID`, `WHATSAPP_ACCESS_TOKEN`, `WHATSAPP_NOTIFY_TO`, `WHATSAPP_TEMPLATE_NAME` | no, all four together | Turn on WhatsApp notifications ([docs/notifications.md](docs/notifications.md))        |
-| `TURNSTILE_SECRET_KEY`, `NEXT_PUBLIC_TURNSTILE_SITE_KEY`                                            | no, both together     | Turn on Cloudflare Turnstile on the forms                                              |
-| `NEXT_PUBLIC_SITE_URL`                                                                              | yes                   | Public URL, no trailing slash. Metadata, sitemap, emails, and the Origin check use it  |
-| `NEXT_PUBLIC_SITE_NAME`                                                                             | no (`Getwithus`)      | Brand name in titles and emails                                                        |
-| `NEXT_PUBLIC_PLAUSIBLE_DOMAIN`                                                                      | no                    | Turns on cookieless Plausible analytics                                                |
-| `NEXT_PUBLIC_SCHEDULING_URL`                                                                        | no                    | Shows a "Book a call" link on `/contact`                                               |
-| `NEXT_PUBLIC_TEST_HOOKS`                                                                            | no                    | `1` only for test builds: enables `?no3d=1` and full console emails in production mode |
+| Variable                                                                                            | Required              | Purpose                                                                               |
+| --------------------------------------------------------------------------------------------------- | --------------------- | ------------------------------------------------------------------------------------- |
+| `DATABASE_URL`                                                                                      | yes                   | Postgres connection string. On Neon use the pooled URL                                |
+| `AUTH_SECRET`                                                                                       | yes                   | Auth.js secret, 32 characters or more                                                 |
+| `ADMIN_EMAILS`                                                                                      | yes                   | Comma-separated allowlist for `/admin`                                                |
+| `VERIFICATION_PEPPER`                                                                               | yes                   | Secret for code hashes and form tokens, 32 characters or more                         |
+| `CRON_SECRET`                                                                                       | yes                   | Bearer token for `/api/v1/cron/cleanup`, 16 characters or more                        |
+| `EMAIL_TRANSPORT`                                                                                   | no (`resend`)         | `resend` sends; `console` prints to the server log                                    |
+| `RESEND_API_KEY`                                                                                    | with `resend`         | Resend API key                                                                        |
+| `EMAIL_FROM`                                                                                        | yes                   | Sender, on a domain verified in Resend                                                |
+| `EMAIL_REPLY_TO`                                                                                    | no                    | Reply-to for client emails                                                            |
+| `TEAM_NOTIFY_EMAILS`                                                                                | yes                   | Comma-separated addresses that get new-lead emails                                    |
+| `LEADS_API_KEY`                                                                                     | no                    | Enables `/api/v1/integrations/leads`, 32 characters or more                           |
+| `SLACK_WEBHOOK_URL`                                                                                 | no                    | Turns on Slack notifications                                                          |
+| `WHATSAPP_PHONE_NUMBER_ID`, `WHATSAPP_ACCESS_TOKEN`, `WHATSAPP_NOTIFY_TO`, `WHATSAPP_TEMPLATE_NAME` | no, all four together | Turn on WhatsApp notifications ([docs/notifications.md](docs/notifications.md))       |
+| `TURNSTILE_SECRET_KEY`, `NEXT_PUBLIC_TURNSTILE_SITE_KEY`                                            | no, both together     | Turn on Cloudflare Turnstile on the forms                                             |
+| `NEXT_PUBLIC_SITE_URL`                                                                              | yes                   | Public URL, no trailing slash. Metadata, sitemap, emails, and the Origin check use it |
+| `NEXT_PUBLIC_SITE_NAME`                                                                             | no (`GetWithUs`)      | Brand name in titles and emails                                                       |
+| `NEXT_PUBLIC_PLAUSIBLE_DOMAIN`                                                                      | no                    | Turns on cookieless Plausible analytics                                               |
+| `NEXT_PUBLIC_SCHEDULING_URL`                                                                        | no                    | Shows a "Book a call" link on `/contact`                                              |
+| `NEXT_PUBLIC_TEST_HOOKS`                                                                            | no                    | `1` only for test builds: full console emails (codes and links) in production mode    |
 
 `NEXT_PUBLIC_*` values are inlined at build time, so changing one needs a rebuild.
 
@@ -109,7 +109,7 @@ Vercel for the app, Neon for Postgres, Resend for email. In short: create the Ne
 
 ## Documentation
 
-- [docs/architecture.md](docs/architecture.md): layers, the lead lifecycle, the 3D scene, Cache Components rules, and why each major choice was made
+- [docs/architecture.md](docs/architecture.md): layers, the lead lifecycle, the 3D panels, Cache Components rules, and why each major choice was made
 - [docs/api.md](docs/api.md): every endpoint with curl examples and error codes
 - [docs/content.md](docs/content.md): editing copy, FAQs, case studies, team, and owner placeholders
 - [docs/notifications.md](docs/notifications.md): channels, enabling Slack and WhatsApp, the WhatsApp template

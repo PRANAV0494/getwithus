@@ -9,15 +9,21 @@ export default function LegalDocumentView({ document }: { document: LegalDocumen
   return (
     <Section aria-labelledby="legal-title">
       <Container>
-        <h1 id="legal-title" className="type-display">
+        <p className="type-label text-signal">
+          <span aria-hidden="true">&gt; </span>legal
+        </p>
+        <h1 id="legal-title" className="mt-5 type-display">
           {document.title}
         </h1>
-        <p className="mt-3 type-small text-fog-2">
+        <p className="mt-4 type-label text-fog-3">
           Last updated <time dateTime={document.updated}>{formatDate(document.updated)}</time>
         </p>
         <div className="mt-12 grid gap-12 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-16">
-          <nav aria-labelledby="legal-contents" className="lg:sticky lg:top-24 lg:self-start">
-            <h2 id="legal-contents" className="type-small font-semibold text-fog">
+          <nav
+            aria-labelledby="legal-contents"
+            className="border-l border-line pl-5 lg:sticky lg:top-24 lg:self-start"
+          >
+            <h2 id="legal-contents" className="type-label text-fog-3">
               Contents
             </h2>
             <ol className="mt-3 grid gap-2 type-small">
@@ -25,7 +31,7 @@ export default function LegalDocumentView({ document }: { document: LegalDocumen
                 <li key={section.id}>
                   <a
                     href={`#${section.id}`}
-                    className="text-fog-2 transition-colors duration-150 ease-out hover:text-fog"
+                    className="link-draw text-fog-2 transition-colors duration-150 ease-out hover:text-fog"
                   >
                     {section.title}
                   </a>

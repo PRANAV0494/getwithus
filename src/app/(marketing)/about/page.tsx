@@ -1,7 +1,9 @@
 import Image from "next/image";
 import ContactDetails from "@/components/sections/ContactDetails";
+import PageHeader from "@/components/sections/PageHeader";
 import Container from "@/components/ui/Container";
 import Section from "@/components/ui/Section";
+import SectionHeading from "@/components/ui/SectionHeading";
 import { commitments } from "@/content/commitments";
 import { aboutPage } from "@/content/pages";
 import { team } from "@/content/team";
@@ -32,19 +34,19 @@ function TeamRow({ member }: { member: TeamMember }) {
           alt={`Photo of ${member.name}`}
           width={64}
           height={64}
-          className="size-16 rounded-card object-cover"
+          className="size-16 border border-line object-cover"
         />
       ) : (
         <span
           aria-hidden="true"
-          className="grid size-16 place-items-center rounded-card bg-ink-2 type-h4 text-fog-2"
+          className="grid size-16 place-items-center border border-line bg-ink-2 font-mono text-fog-2"
         >
           {initials(member.name)}
         </span>
       )}
       <div>
         <h3 className="type-h4">{member.name}</h3>
-        <p className="type-small text-fog-2">{member.role}</p>
+        <p className="type-label text-fog-3">{member.role}</p>
         <p className="mt-2 max-w-[60ch] text-fog-2">{member.bio}</p>
         {member.links?.length ? (
           <p className="mt-2 flex flex-wrap gap-x-4 type-small">
@@ -52,7 +54,7 @@ function TeamRow({ member }: { member: TeamMember }) {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-lamp transition-colors duration-150 ease-out hover:text-lamp-2"
+                className="link-draw text-signal transition-colors duration-150 ease-out hover:text-signal-2"
                 rel="noopener noreferrer"
                 target="_blank"
               >
@@ -69,35 +71,33 @@ function TeamRow({ member }: { member: TeamMember }) {
 export default function AboutPage() {
   return (
     <>
-      <Section aria-labelledby="about-title" className="pb-0 md:pb-0">
-        <Container>
-          <h1 id="about-title" className="type-display">
-            {aboutPage.title}
-          </h1>
-          <p className="mt-5 max-w-[68ch] type-lead text-fog-2">{aboutPage.lead}</p>
-        </Container>
-      </Section>
+      <PageHeader id="about-title" label="about" title={aboutPage.title} lead={aboutPage.lead} />
       <Section aria-labelledby="beliefs-title">
         <Container>
-          <div className="grid max-w-[68ch] gap-6">
-            <h2 id="beliefs-title" className="type-h2">
-              {aboutPage.beliefsTitle}
-            </h2>
-            {commitments.map((commitment) => (
-              <p key={commitment.text} className="border-l-2 border-line pl-5 text-fog">
-                {commitment.text} <span className="text-fog-2">{commitment.expanded}</span>
-              </p>
+          <SectionHeading
+            id="beliefs-title"
+            index="01"
+            label="beliefs"
+            title={aboutPage.beliefsTitle}
+          />
+          <ul className="mt-12 grid gap-px border border-line bg-line sm:grid-cols-2">
+            {commitments.map((commitment, position) => (
+              <li key={commitment.text} className="reveal bg-ink-1 p-6 md:p-7">
+                <p className="type-label text-signal">
+                  commit_{String(position + 1).padStart(2, "0")}
+                </p>
+                <p className="mt-3 type-h4">{commitment.text}</p>
+                <p className="mt-2 text-fog-2">{commitment.expanded}</p>
+              </li>
             ))}
-          </div>
+          </ul>
         </Container>
       </Section>
       {team.length > 0 ? (
         <Section aria-labelledby="team-title" className="pt-0 md:pt-0">
           <Container>
-            <h2 id="team-title" className="type-h2">
-              {aboutPage.teamTitle}
-            </h2>
-            <ul className="mt-8 max-w-[68ch] border-b border-line">
+            <SectionHeading id="team-title" index="02" label="team" title={aboutPage.teamTitle} />
+            <ul className="mt-10 max-w-[72ch] border-b border-line md:ml-[224px]">
               {team.map((member) => (
                 <TeamRow key={member.name} member={member} />
               ))}
@@ -107,10 +107,13 @@ export default function AboutPage() {
       ) : null}
       <Section aria-labelledby="about-contact-title" className="pt-0 md:pt-0">
         <Container>
-          <h2 id="about-contact-title" className="type-h2">
-            {aboutPage.contactTitle}
-          </h2>
-          <div className="mt-8">
+          <SectionHeading
+            id="about-contact-title"
+            index={team.length > 0 ? "03" : "02"}
+            label="contact"
+            title={aboutPage.contactTitle}
+          />
+          <div className="reveal mt-10 md:ml-[224px]">
             <ContactDetails />
           </div>
         </Container>

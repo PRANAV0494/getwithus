@@ -1,32 +1,40 @@
 /*
- * Brand tokens: the only colors on the site. Defined once as Tailwind theme
- * variables, so `bg-ink`, `text-fog-2`, and `border-line` exist as utilities.
- * `static` emits every variable on :root even when no utility uses it, because
- * the 3D scene reads them through getComputedStyle at mount. The default palette
- * is cleared first so no other hue can be used through a utility class.
+ * Brand tokens: the only colours on the site, from the Modern Engineering design
+ * system (docs/decisions/0012-design-modern-engineering.md). Defined once as
+ * Tailwind theme variables, so `bg-ink`, `text-fog-2`, and `border-line` exist
+ * as utilities. `static` emits every variable on :root even when no utility uses
+ * it, because the 3D station panels read them through getComputedStyle at mount.
+ * The default palette is cleared first so no other hue can be used by accident.
+ *
+ * Names map to the design system: ink is carbon, fog is text, line is the
+ * hairline scale, and signal is the one accent colour.
  */
 @theme static {
   --color-*: initial;
-  --color-ink: #0b0e13;
-  --color-ink-2: #121721;
-  --color-ink-3: #1a2130;
-  --color-line: rgba(230, 233, 238, 0.1);
-  --color-line-strong: rgba(230, 233, 238, 0.22);
-  --color-fog: #e6e9ee;
-  --color-fog-2: #9aa3b2;
-  --color-fog-3: #7a8494;
-  --color-lamp: #f0b35a;
-  --color-lamp-2: #d99a3e;
-  --color-ok: #5fbf8f;
-  --color-err: #e06c6c;
+  --color-ink-0: #0b0d0f;
+  --color-ink: #0f1113;
+  --color-ink-1: #13161a;
+  --color-ink-2: #171a1e;
+  --color-ink-3: #1d2126;
+  --color-grid: #1b1f24;
+  --color-line: #262b31;
+  --color-line-strong: #353c44;
+  --color-fog: #e6e9ec;
+  --color-fog-2: #a0a8b2;
+  --color-fog-3: #848d98;
+  --color-signal: #2cd5e6;
+  --color-signal-2: #5fe2ef;
+  --color-signal-tint: #0e2a2e;
+  --color-ok: #3dd68c;
+  --color-err: #ff7a70;
 
-  --font-sans: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
 
-  --radius-tag: 4px;
-  --radius-control: 6px;
-  --radius-card: 10px;
-  --radius-panel: 16px;
+  --radius-tag: 2px;
+  --radius-control: 2px;
+  --radius-card: 0px;
+  --radius-panel: 0px;
 }
 
 :root {

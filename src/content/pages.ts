@@ -9,12 +9,13 @@ type Action = { label: string; href: string };
 export const homePage = {
   path: "/",
   updated: "2026-10-31",
-  sceneDescription: "Decorative 3D scene of abstract objects assembling.",
   hero: {
     title: "We build the software your business runs on.",
     lead: "Websites, mobile apps, WhatsApp and voice agents, and the marketing that fills them. Scoped in writing, shipped in weekly demos, and handed over with you owning every account.",
     primary: { label: "Start a project", href: "/start" } satisfies Action,
     secondary: { label: "See how a project runs", href: "/process" } satisfies Action,
+    /** Three commitments in a few words each, beside the hero buttons. */
+    proof: ["Fixed scope and price", "Weekly demos", "You own everything"],
   },
   services: {
     title: "What we do",

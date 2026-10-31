@@ -2,7 +2,7 @@
 import { readFile } from "node:fs/promises";
 import sharp from "sharp";
 
-const LAMP = "#F0B35A";
+const SIGNAL = "#2CD5E6";
 const source = await readFile("src/app/icon.svg");
 
 await sharp(source, { density: 576 }).resize(32, 32).png().toFile("src/app/icon.png");
@@ -10,7 +10,7 @@ await sharp(source, { density: 576 }).resize(32, 32).png().toFile("src/app/icon.
 // iOS applies its own corner mask, so the apple icon is a full square with no transparent corners.
 await sharp(source, { density: 576 })
   .resize(180, 180)
-  .flatten({ background: LAMP })
+  .flatten({ background: SIGNAL })
   .png()
   .toFile("src/app/apple-icon.png");
 

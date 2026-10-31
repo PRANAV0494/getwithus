@@ -6,7 +6,7 @@ import { logger } from "@/lib/logger";
 type GlobalErrorProps = { error: unknown; retry: () => void };
 
 // The root layout may have failed, so global styles and fonts are not guaranteed: inline styles only.
-const colors = { ink: "#0B0E13", fog: "#E6E9EE", fog2: "#9AA3B2", lamp: "#F0B35A" };
+const colors = { ink: "#0F1113", fog: "#E6E9EC", fog2: "#A0A8B2", signal: "#2CD5E6" };
 
 export default function GlobalError({ error, retry }: GlobalErrorProps) {
   const digest =
@@ -64,7 +64,7 @@ export default function GlobalError({ error, retry }: GlobalErrorProps) {
               padding: "0 18px",
               border: 0,
               borderRadius: 6,
-              background: colors.lamp,
+              background: colors.signal,
               color: colors.ink,
               fontSize: 15,
               fontWeight: 500,

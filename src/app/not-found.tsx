@@ -16,7 +16,8 @@ export default function NotFound() {
       <Header />
       <main id="content" tabIndex={-1} className="outline-none">
         <Container className="flex min-h-[60svh] flex-col items-center justify-center py-24 text-center">
-          <h1 className="type-display">Page not found</h1>
+          <p className="type-label text-signal">error 404</p>
+          <h1 className="mt-5 type-display">Page not found</h1>
           <p className="mt-4 max-w-[48ch] type-lead text-fog-2">
             The page you asked for does not exist or has moved.
           </p>

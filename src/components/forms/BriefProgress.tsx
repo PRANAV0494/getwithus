@@ -19,7 +19,7 @@ export default function BriefProgress({ step, done }: { step: number; done: bool
             className={cn(
               "flex items-center gap-2 border-t-2 pt-3 type-small",
               current
-                ? "border-lamp text-fog"
+                ? "border-signal text-fog"
                 : complete
                   ? "border-fog-3 text-fog-2"
                   : "border-line text-fog-3",

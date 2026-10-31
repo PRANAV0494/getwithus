@@ -1,7 +1,7 @@
 /*
  * Settings for the end-to-end suite. The suite runs a production build with
- * test hooks on (so `?no3d=1` works), the console email transport, and its own
- * database, on a port no development server uses.
+ * test hooks on (so console emails carry their codes), the console email
+ * transport, and its own database, on a port no development server uses.
  */
 
 const port = Number(process.env.E2E_PORT ?? 3200);
@@ -31,7 +31,7 @@ export const serverEnv: Record<string, string> = {
   VERIFICATION_PEPPER: "e2e-verification-pepper-000000000000000000000",
   CRON_SECRET: "e2e-cron-secret-000000",
   EMAIL_TRANSPORT: "console",
-  EMAIL_FROM: "Getwithus <no-reply@example.com>",
+  EMAIL_FROM: "GetWithUs <no-reply@example.com>",
   TEAM_NOTIFY_EMAILS: "team@example.com",
   LEADS_API_KEY: "e2e-leads-api-key-00000000000000000000000000",
   SLACK_WEBHOOK_URL: "",

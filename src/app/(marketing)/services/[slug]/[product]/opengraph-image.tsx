@@ -3,7 +3,7 @@ import { ogImageSize, renderOgImage } from "@/lib/og-image";
 
 export const size = ogImageSize;
 export const contentType = "image/png";
-export const alt = "Getwithus service";
+export const alt = "GetWithUs service";
 
 export function generateStaticParams() {
   return productPages.map((page) => ({ slug: page.parent?.slug ?? "", product: page.slug }));

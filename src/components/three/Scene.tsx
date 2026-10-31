@@ -1,16 +1,15 @@
 "use client";
 
 /*
- * Composes the world: background and fog in the page's own color, one warm lamp,
+ * Composes the world: background and fog in the page's own color, one signal lamp,
  * a dim cool hemisphere, a procedural environment for the glass, the rig that
- * drives the frame, and the four stations. Used by the home canvas (scroll
- * driven) and by service page panels (one station at rest).
+ * holds the frame, and the four stations. Service page panels show one station
+ * at rest.
  */
 import { AdaptiveDpr, Environment, Lightformer, PerformanceMonitor } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useMemo, useRef, type RefObject } from "react";
 import { Vector3, type Group, type Object3D, type SpotLight } from "three";
-import CameraRig from "@/components/three/CameraRig";
 import {
   LIGHTS,
   STATION_VIEWS,
@@ -32,13 +31,12 @@ import { useSceneStore, type Quality } from "@/stores/scene.store";
 
 type SceneProps = {
   quality: Exclude<Quality, "none">;
-  /** Set on service page panels; the home page leaves it out and follows scroll. */
-  station?: StationKey;
+  station: StationKey;
   /** Panels pause when scrolled out of view. */
   active?: boolean;
 };
 
-/** The one light: up-left of the slab, moving to the front for the close. */
+/** The one light, up-left of the slab. */
 function Lamp({ frameRef, palette }: { frameRef: RefObject<FrameState>; palette: Palette }) {
   const light = useRef<SpotLight>(null);
   const from = useMemo(() => new Vector3(...LIGHTS.spot.from), []);
@@ -155,8 +153,7 @@ export default function Scene({ quality, station, active = true }: SceneProps) {
   const palette = useMemo(() => readPalette(), []);
   const mobile = useMemo(() => window.innerWidth < 768, []);
   const world = useMemo(() => buildWorld(settings.counts, mobile), [settings.counts, mobile]);
-  const frameRef = useRef(createFrameState(station ? STATION_VIEWS[station].t : undefined));
-  const background = station ? palette.ink2 : palette.ink;
+  const frameRef = useRef(createFrameState(STATION_VIEWS[station].t));
 
   const turntable = useRef<Group>(null);
   const slab = useRef<Group>(null);
@@ -167,16 +164,12 @@ export default function Scene({ quality, station, active = true }: SceneProps) {
 
   return (
     <>
-      <color attach="background" args={[background]} />
-      <fogExp2 attach="fog" args={[background, LIGHTS.fogDensity]} />
+      <color attach="background" args={[palette.ink2]} />
+      <fogExp2 attach="fog" args={[palette.ink2, LIGHTS.fogDensity]} />
       <hemisphereLight args={[palette.ink3, palette.ink, LIGHTS.hemisphere.intensity]} />
       <Lamp frameRef={frameRef} palette={palette} />
       {settings.transmission ? <GlassEnvironment palette={palette} /> : null}
-      {station ? (
-        <StationRig frameRef={frameRef} station={station} active={active} />
-      ) : (
-        <CameraRig frameRef={frameRef} cameraMoves={settings.cameraMoves} />
-      )}
+      <StationRig frameRef={frameRef} station={station} active={active} />
       <QualityMonitor quality={quality} adaptiveDpr={settings.adaptiveDpr} />
       <ShaderWarmup />
       <group ref={turntable}>

@@ -17,7 +17,7 @@ export default function Scorecard() {
     total: weightedScore(evaluation.scores),
   }));
   const cell = (slug: string) =>
-    cn("px-3 py-2.5 text-right tabular-nums", slug === selectedSlug && "bg-lamp/10 text-fog");
+    cn("px-3 py-2.5 text-right tabular-nums", slug === selectedSlug && "bg-signal/10 text-fog");
 
   return (
     <div className="overflow-x-auto rounded-card border border-line">
@@ -68,7 +68,7 @@ export default function Scorecard() {
               >
                 {total.toFixed(1)}
                 {evaluation.slug === selectedSlug ? (
-                  <span className="block type-small font-medium text-lamp">Selected</span>
+                  <span className="block type-small font-medium text-signal">Selected</span>
                 ) : null}
                 {evaluation.slug === highest ? (
                   <span className="block type-small font-medium text-fog-2">Highest score</span>

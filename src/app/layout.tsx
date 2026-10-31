@@ -1,24 +1,24 @@
 import type { Metadata, Viewport } from "next";
-import { Geist_Mono, Schibsted_Grotesk } from "next/font/google";
+import { Archivo, JetBrains_Mono } from "next/font/google";
 import SkipLink from "@/components/layout/SkipLink";
 import Toast from "@/components/ui/Toast";
 import { site } from "@/config/site";
 import "@/styles/globals.css";
 
-const schibsted = Schibsted_Grotesk({
+// Archivo carries every word people read; the width axis gives headings their 92% width.
+const archivo = Archivo({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  axes: ["wdth"],
   display: "swap",
-  variable: "--font-schibsted",
+  variable: "--font-archivo",
 });
 
-// Geist Mono is used only for identifiers in the admin area; it is not preloaded on public pages.
-const geistMono = Geist_Mono({
+// JetBrains Mono is only for small labels, ids, and specifications (and identifiers in the admin).
+const jetbrains = JetBrains_Mono({
   subsets: ["latin"],
   weight: ["400"],
   display: "swap",
-  preload: false,
-  variable: "--font-geist-mono",
+  variable: "--font-jetbrains",
 });
 
 export const metadata: Metadata = {
@@ -37,14 +37,14 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0B0E13",
+  themeColor: "#0F1113",
   colorScheme: "dark",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   // [OWNER: change lang if the primary language of the site is not English]
   return (
-    <html lang="en" className={`${schibsted.variable} ${geistMono.variable}`}>
+    <html lang="en" className={`${archivo.variable} ${jetbrains.variable}`}>
       <body>
         <SkipLink />
         {children}

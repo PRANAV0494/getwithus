@@ -20,7 +20,7 @@ import {
 } from "three";
 import { NETWORK, type Palette } from "@/components/three/constants";
 import type { FrameState } from "@/components/three/frame";
-import { smoothstep } from "@/components/three/hooks/useStationT";
+import { smoothstep } from "@/components/three/ease";
 import {
   createEdgeLineMaterial,
   type EdgeLineMaterial,

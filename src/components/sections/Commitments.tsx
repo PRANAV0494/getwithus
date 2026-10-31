@@ -1,25 +1,30 @@
 import Container from "@/components/ui/Container";
 import Section from "@/components/ui/Section";
+import SectionHeading from "@/components/ui/SectionHeading";
 import { commitments } from "@/content/commitments";
 import { homePage } from "@/content/pages";
 
-/** "What you can hold us to": a plain list, no cards. */
-export default function Commitments() {
+/** "What you can hold us to": the commitments as a datasheet, one cell each. */
+export default function Commitments({ index }: { index?: string }) {
   return (
-    <Section aria-labelledby="commitments-title" className="bg-ink pt-0 md:pt-0">
+    <Section aria-labelledby="commitments-title" className="border-y border-line bg-ink-1/80">
       <Container>
-        <div className="max-w-[560px]">
-          <h2 id="commitments-title" className="type-h2">
-            {homePage.commitments.title}
-          </h2>
-          <ul className="mt-8 grid gap-4">
-            {commitments.map((commitment) => (
-              <li key={commitment.text} className="border-l-2 border-line pl-5 text-fog">
-                {commitment.text}
-              </li>
-            ))}
-          </ul>
-        </div>
+        <SectionHeading
+          id="commitments-title"
+          index={index}
+          label="commitments"
+          title={homePage.commitments.title}
+        />
+        <ul className="mt-12 grid gap-px border border-line bg-line sm:grid-cols-2">
+          {commitments.map((commitment, position) => (
+            <li key={commitment.text} className="reveal bg-ink p-6 md:p-7">
+              <p className="type-label text-signal">
+                commit_{String(position + 1).padStart(2, "0")}
+              </p>
+              <p className="mt-3 type-lead text-fog">{commitment.text}</p>
+            </li>
+          ))}
+        </ul>
       </Container>
     </Section>
   );

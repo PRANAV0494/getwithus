@@ -1,13 +1,13 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
-type Tone = "neutral" | "lamp" | "ok" | "err";
+type Tone = "neutral" | "signal" | "ok" | "err";
 
 type BadgeProps = { tone?: Tone; className?: string; children: ReactNode };
 
 const tones: Record<Tone, string> = {
   neutral: "border-line-strong text-fog-2",
-  lamp: "border-lamp/40 text-lamp",
+  signal: "border-signal/40 text-signal",
   ok: "border-ok/40 text-ok",
   err: "border-err/40 text-err",
 };

@@ -1,6 +1,6 @@
 # GetWithUs design lab
 
-Five website directions for GetWithUs, built as working pages on the existing stack, measured, and scored. You selected D, Modern Engineering, which has been refined into the final homepage and design system. Nothing here has replaced the live site.
+Five website directions for GetWithUs, built as working pages on the existing stack, measured, and scored. You selected D, Modern Engineering, which has been refined into the final homepage and design system, and now runs the live site (section 9 and [ADR 0012](../decisions/0012-design-modern-engineering.md)).
 
 | Page                         | What it is                                                                                                                                                    |
 | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -413,7 +413,9 @@ Measured on the same production build in the same session:
 
 ## 9. Moving D into production
 
-This needs your go-ahead. D keeps the dark theme, so it changes fewer rules in `docs/build-prompt.md` than E would, but these still change:
+Done on 2026-11-01, recorded in [ADR 0012](../decisions/0012-design-modern-engineering.md) and described in [design.md](../design.md). Every marketing page, the forms, the admin, the emails, the icons, and the Open Graph images moved to D; content and routes are unchanged; the 3D scene was retired from the home page and kept for the service page panels (step 4 below). One change from the lab: section reveals play once on entry (IntersectionObserver) instead of following scroll position, because scroll-linked fades left text at the fold below contrast. The spec in `docs/build-prompt.md` is left as written; the rule changes below are listed as deviations in [handoff.md](../handoff.md). Step 6 remains open on the launch checklist.
+
+D keeps the dark theme, so it changes fewer rules in `docs/build-prompt.md` than E would, but these change:
 
 | Spec rule                                         | D refined                                                          |
 | ------------------------------------------------- | ------------------------------------------------------------------ |

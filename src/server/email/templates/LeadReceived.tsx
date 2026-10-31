@@ -29,7 +29,7 @@ export default function LeadReceived({ kind, name, details, adminUrl }: LeadRece
           marginTop: 24,
           padding: "12px 18px",
           borderRadius: 6,
-          backgroundColor: emailColors.lamp,
+          backgroundColor: emailColors.signal,
           color: emailColors.ink,
           fontSize: 15,
           fontWeight: 500,

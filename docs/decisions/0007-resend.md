@@ -9,7 +9,7 @@ The app sends verification codes, client confirmations, team notifications, and 
 ## Decision
 
 - Resend through its SDK, called with a 5 second timeout, behind `src/server/email/client.ts`. Failures become `EMAIL_ERROR` results; nothing throws past the client.
-- Templates are React components in `src/server/email/templates`, rendered to HTML and plain text with react-email. Ink text on white, one lamp-colored button, no images.
+- Templates are React components in `src/server/email/templates`, rendered to HTML and plain text with react-email. Ink text on white, one signal-coloured (cyan) button, no images.
 - `EMAIL_TRANSPORT=console` prints every rendered email to the server log instead of sending; it is the development default.
 - The sending domain is verified in Resend with SPF, DKIM, and DMARC records.
 

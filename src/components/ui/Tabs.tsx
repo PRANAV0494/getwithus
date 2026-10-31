@@ -25,7 +25,7 @@ export default function Tabs({ tabs, defaultValue, label, className }: TabsProps
             value={tab.value}
             className={cn(
               "-mb-px border-b-2 border-transparent px-3 py-2.5 type-small font-medium text-fog-2 transition-colors duration-150 ease-out",
-              "hover:text-fog data-[state=active]:border-lamp data-[state=active]:text-fog",
+              "hover:text-fog data-[state=active]:border-signal data-[state=active]:text-fog",
             )}
           >
             {tab.label}

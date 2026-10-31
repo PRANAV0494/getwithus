@@ -12,7 +12,7 @@ type NotificationFeedProps = {
   compact?: boolean;
 };
 
-/** Team notifications, newest first. Unread ones carry a lamp rule and a "Mark as read" control. */
+/** Team notifications, newest first. Unread ones carry a signal rule and a "Mark as read" control. */
 export default function NotificationFeed({
   notifications,
   now,
@@ -32,16 +32,16 @@ export default function NotificationFeed({
           key={notification.id}
           className={cn(
             "grid gap-1 rounded-card border bg-ink-2 p-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-start sm:gap-4",
-            notification.readAt ? "border-line" : "border-lamp/50",
+            notification.readAt ? "border-line" : "border-signal/50",
           )}
         >
           <div className="min-w-0">
             <p className="text-fog">
-              <Link href={notification.href} className="font-medium hover:text-lamp">
+              <Link href={notification.href} className="font-medium hover:text-signal">
                 {notification.title}
               </Link>
               {notification.readAt ? null : (
-                <span className="ml-2 type-small text-lamp">Unread</span>
+                <span className="ml-2 type-small text-signal">Unread</span>
               )}
             </p>
             {!compact && notification.body ? (

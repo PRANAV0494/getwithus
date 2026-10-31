@@ -2,6 +2,8 @@
 
 Date: 2026-10-31
 
+Update 2026-11-01: since [0012](0012-design-modern-engineering.md) the home page has no 3D scene; this timing now applies to the service page panels only, which also wait until the panel is near the viewport.
+
 ## Context
 
 Spec section 5.3 mounts the canvas on the first `requestIdleCallback` after first paint. Measured with Lighthouse (mobile, simulated 4G and 4x CPU) on a local production build, that put the scene's startup inside the measured window: evaluating the 3D chunk (three, fiber, drei) and the first render added about 700 ms of total blocking time. The home page scored 79 and a service page 75, against targets of 90 and 95. Lighthouse's simulation does not keep timer delays, so a plain idle callback does not move the work out of the window.

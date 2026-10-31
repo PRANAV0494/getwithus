@@ -11,7 +11,7 @@ import { getPublishedCaseStudies } from "@/features/case-studies/getPublishedCas
 export default function Header() {
   const links = visibleNav(getPublishedCaseStudies().length > 0);
   return (
-    <header className="sticky top-0 z-40 h-16 border-b border-line bg-ink/80 backdrop-blur-[12px]">
+    <header className="sticky top-0 z-40 h-16 border-b border-line bg-ink">
       <Container className="flex h-full items-center justify-between gap-6">
         <Logo />
         <MegaMenu services={serviceLines} links={links} />

@@ -161,7 +161,7 @@ export default function LeadDetail({ lead, events, deliveries, now }: LeadDetail
         <p className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 type-small text-fog-2">
           <a
             href={`mailto:${lead.email}`}
-            className="inline-flex items-center gap-1.5 text-lamp hover:text-lamp-2"
+            className="inline-flex items-center gap-1.5 text-signal hover:text-signal-2"
           >
             <Icon icon={Mail} size={16} />
             Reply by email

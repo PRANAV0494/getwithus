@@ -1,5 +1,5 @@
 /*
- * Numbers for the home scene, taken from the tuned browser prototype
+ * Numbers for the service page panels, taken from the tuned browser prototype
  * (docs/prototype/home.html, build addendum section 28). Change them only after
  * measuring on a real screen.
  */
@@ -9,36 +9,7 @@ import type { Quality } from "@/stores/scene.store";
 
 type Vec3 = readonly [number, number, number];
 
-/** Camera position and look-at target per station: hero, web, app, automation, marketing, close. */
-export const CAMERA_KEYFRAMES: readonly { position: Vec3; lookAt: Vec3 }[] = [
-  { position: [2.6, 0.5, 7.4], lookAt: [-1.6, 0.0, 0] },
-  { position: [3.8, 1.2, 5.9], lookAt: [-1.9, 0.1, 0] },
-  { position: [4.6, 0.8, 4.8], lookAt: [-1.3, 0.0, 0] },
-  { position: [2.8, 1.5, 6.6], lookAt: [-2.2, 0.2, 0] },
-  { position: [3.4, 4.8, 10.5], lookAt: [-2.0, 0.6, 0] },
-  { position: [2.0, 0.3, 8.0], lookAt: [-1.6, 0.0, 0] },
-];
-
 export const CAMERA = { fov: 38, near: 0.1, far: 60 } as const;
-
-/** Progress windows: each station's transition plays as progress crosses its window. */
-export const STATION_WINDOWS: readonly (readonly [number, number])[] = [
-  [0.0, 0.15],
-  [0.15, 0.35],
-  [0.35, 0.55],
-  [0.55, 0.75],
-  [0.75, 0.92],
-  [0.92, 1.0],
-];
-
-/** Damping rates for THREE.MathUtils.damp, per second. */
-export const DAMPING = { progress: 5, camera: 6 } as const;
-
-/** Phones get the object behind the copy instead of off screen. */
-export const LOOK_AT_ASPECT = 1.6;
-
-/** The scene stops rendering once the damped progress is this close to its target at the end. */
-export const SETTLE_EPSILON = 0.0005;
 
 export const SEED = 20261031;
 
@@ -88,25 +59,24 @@ type TierSettings = {
   counts: number;
   transmission: boolean;
   adaptiveDpr: boolean;
-  cameraMoves: boolean;
 };
 
 /** Spec section 5.4 performance tiers. Tier "none" never mounts a canvas. */
 export const TIERS: Record<Exclude<Quality, "none">, TierSettings> = {
-  high: { dpr: [1, 1.75], counts: 1, transmission: true, adaptiveDpr: true, cameraMoves: true },
+  high: { dpr: [1, 1.75], counts: 1, transmission: true, adaptiveDpr: true },
   medium: {
     dpr: [1, 1.25],
     counts: 0.7,
     transmission: false,
     adaptiveDpr: false,
-    cameraMoves: true,
   },
-  low: { dpr: 1, counts: 0.4, transmission: false, adaptiveDpr: false, cameraMoves: false },
+  low: { dpr: 1, counts: 0.4, transmission: false, adaptiveDpr: false },
 };
 
 /**
  * Service page panels show one station at rest: fixed transition values, a fixed
- * camera, and a slow turn (0.15 rad/s). Values index the home stations.
+ * camera, and a slow turn (0.15 rad/s). Each t has six slots, one per stage of
+ * the original home sequence (hero, web, app, automation, marketing, close).
  */
 export const STATION_VIEWS: Record<
   StationKey,
@@ -143,7 +113,7 @@ export function readPalette(): Palette {
     ink2: new Color(token("--color-ink-2", "#121721")),
     ink3: new Color(token("--color-ink-3", "#1a2130")),
     fog2: new Color(token("--color-fog-2", "#9aa3b2")),
-    lamp: new Color(token("--color-lamp", "#f0b35a")),
+    lamp: new Color(token("--color-signal", "#2cd5e6")),
     base: new Color(BASE_COLOR),
   };
 }

@@ -1,5 +1,6 @@
 import { Inbox } from "lucide-react";
 import CaseStudyCard from "@/components/sections/CaseStudyCard";
+import PageHeader from "@/components/sections/PageHeader";
 import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
 import EmptyState from "@/components/ui/EmptyState";
@@ -17,15 +18,12 @@ export const metadata = pageMetadata({
 export default function WorkPage() {
   const studies = getPublishedCaseStudies();
   return (
-    <Section aria-labelledby="work-title">
-      <Container>
-        <h1 id="work-title" className="type-display">
-          {workPage.title}
-        </h1>
-        <p className="mt-5 max-w-[68ch] type-lead text-fog-2">{workPage.lead}</p>
-        <div className="mt-12">
+    <>
+      <PageHeader id="work-title" label="work" title={workPage.title} lead={workPage.lead} />
+      <Section>
+        <Container>
           {studies.length > 0 ? (
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {studies.map((study) => (
                 <CaseStudyCard key={study.slug} study={study} />
               ))}
@@ -41,8 +39,8 @@ export default function WorkPage() {
               {workPage.emptyText}
             </EmptyState>
           )}
-        </div>
-      </Container>
-    </Section>
+        </Container>
+      </Section>
+    </>
   );
 }

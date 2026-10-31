@@ -2,6 +2,8 @@
 
 Date: 2026-10-31
 
+Update 2026-11-01: with the home scene removed ([0012](0012-design-modern-engineering.md)), the scene store holds only the quality tier and the reduced-motion preference for the service page panels.
+
 ## Context
 
 Two things are shared across client components: the 3D scene's state (scroll progress, active station, quality tier, reduced motion, canvas ready), and the project brief draft that must survive a refresh. Scroll progress changes every frame; the render loop needs it without re-rendering React.

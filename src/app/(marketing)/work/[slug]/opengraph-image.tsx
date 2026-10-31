@@ -6,7 +6,7 @@ import { ogImageSize, renderOgImage } from "@/lib/og-image";
 
 export const size = ogImageSize;
 export const contentType = "image/png";
-export const alt = "Getwithus case study";
+export const alt = "GetWithUs case study";
 
 export function generateStaticParams() {
   return caseStudyParams();

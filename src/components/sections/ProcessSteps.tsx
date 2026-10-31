@@ -1,54 +1,55 @@
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
+import Icon from "@/components/ui/Icon";
 import Section from "@/components/ui/Section";
+import SectionHeading from "@/components/ui/SectionHeading";
 import { processSteps } from "@/content/process";
-import { cn } from "@/lib/cn";
 
 type ProcessStepsProps = {
   title: string;
   link?: { label: string; href: string };
-  /** On the home page this section starts the closing 3D station. */
-  station?: "close";
+  /** The monospaced section index, for example "02". */
+  index?: string;
   className?: string;
 };
 
-/** The four steps in compact form: numbered, because they are a sequence. */
-export default function ProcessSteps({ title, link, station, className }: ProcessStepsProps) {
+/** The four steps as a pipeline: numbered, because they are a sequence. */
+export default function ProcessSteps({ title, link, index, className }: ProcessStepsProps) {
   return (
-    <Section
-      station={station}
-      aria-labelledby="process-steps-title"
-      className={cn("bg-ink", className)}
-    >
+    <Section aria-labelledby="process-steps-title" className={className}>
       <Container>
-        <div className="max-w-[560px]">
-          <h2 id="process-steps-title" className="type-h2">
-            {title}
-          </h2>
-          <ol className="mt-10 grid gap-7">
-            {processSteps.map((step, index) => (
-              <li key={step.title} className="grid grid-cols-[32px_1fr] items-start gap-4">
-                <span aria-hidden="true" className="pt-0.5 font-semibold text-fog-2 tabular-nums">
-                  {index + 1}
-                </span>
-                <div>
-                  <h3 className="mb-1 type-h4">{step.title}</h3>
-                  <p className="text-fog-2">{step.short}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-          {link ? (
-            <p className="mt-8">
-              <Link
-                href={link.href}
-                className="text-lamp transition-colors duration-150 ease-out hover:text-lamp-2"
-              >
-                {link.label}
-              </Link>
-            </p>
-          ) : null}
-        </div>
+        <SectionHeading id="process-steps-title" index={index} label="process" title={title} />
+        <ol className="mt-12 grid lg:grid-cols-4">
+          {processSteps.map((step, position) => (
+            <li
+              key={step.title}
+              className="reveal relative border-l border-line-strong pb-9 pl-6 last:pb-0 lg:border-t lg:border-l-0 lg:pt-6 lg:pr-6 lg:pb-0 lg:pl-0"
+            >
+              <span
+                aria-hidden="true"
+                className="absolute top-0 -left-[5px] size-[9px] rotate-45 border border-signal bg-ink lg:-top-[5px] lg:left-0"
+              />
+              <p className="type-label text-signal">step_{String(position + 1).padStart(2, "0")}</p>
+              <h3 className="mt-2 type-h4">
+                <span className="sr-only">Step {position + 1}: </span>
+                {step.title}
+              </h3>
+              <p className="mt-2 text-fog-2">{step.short}</p>
+            </li>
+          ))}
+        </ol>
+        {link ? (
+          <p className="mt-10">
+            <Link
+              href={link.href}
+              className="inline-flex items-center gap-2 font-medium text-signal transition-colors duration-150 ease-out hover:text-signal-2"
+            >
+              {link.label}
+              <Icon icon={ArrowRight} size={16} />
+            </Link>
+          </p>
+        ) : null}
       </Container>
     </Section>
   );

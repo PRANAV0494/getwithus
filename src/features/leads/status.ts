@@ -19,9 +19,9 @@ export const sourceLabels: Record<LeadSource, string> = {
 };
 
 /** Badge tone per status. Each badge also carries its label, so color is never the only signal. */
-export const statusTones: Record<LeadStatus, "neutral" | "lamp" | "ok" | "err"> = {
+export const statusTones: Record<LeadStatus, "neutral" | "signal" | "ok" | "err"> = {
   pending_verification: "neutral",
-  new: "lamp",
+  new: "signal",
   contacted: "neutral",
   qualified: "neutral",
   won: "ok",

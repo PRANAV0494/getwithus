@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronDown } from "lucide-react";
+import { Plus } from "lucide-react";
 import { Accordion as RadixAccordion } from "radix-ui";
 import type { ReactNode } from "react";
 import Icon from "@/components/ui/Icon";
@@ -17,12 +17,12 @@ export default function Accordion({ items, className }: AccordionProps) {
       {items.map((item) => (
         <RadixAccordion.Item key={item.id} value={item.id} className="border-b border-line">
           <RadixAccordion.Header className="m-0">
-            <RadixAccordion.Trigger className="group flex w-full items-center justify-between gap-4 py-4 text-left type-h4 text-fog transition-colors duration-150 ease-out hover:text-lamp">
+            <RadixAccordion.Trigger className="group flex w-full items-center justify-between gap-4 py-5 text-left type-h4 text-fog transition-colors duration-150 ease-out hover:text-signal">
               {item.question}
               <Icon
-                icon={ChevronDown}
+                icon={Plus}
                 size={20}
-                className="text-fog-2 transition-transform duration-200 ease-out group-data-[state=open]:rotate-180"
+                className="shrink-0 text-signal transition-transform duration-200 ease-out group-data-[state=open]:rotate-45"
               />
             </RadixAccordion.Trigger>
           </RadixAccordion.Header>

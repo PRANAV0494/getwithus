@@ -45,13 +45,13 @@ function Chip({
       />
       <span
         className={cn(
-          "inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-full border border-line-strong bg-ink-2 px-3.5 type-small text-fog transition-colors duration-150 ease-out",
-          "peer-checked:border-lamp peer-checked:bg-ink-3 hover:border-fog-3",
-          "peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-lamp",
+          "inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-control border border-line-strong bg-ink-2 px-3.5 type-small text-fog transition-colors duration-150 ease-out",
+          "peer-checked:border-signal peer-checked:bg-ink-3 hover:border-fog-3",
+          "peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-signal",
           "peer-disabled:cursor-not-allowed peer-disabled:text-fog-3",
         )}
       >
-        <span className={cn("text-lamp", checked ? "inline-flex" : "hidden")}>
+        <span className={cn("text-signal", checked ? "inline-flex" : "hidden")}>
           <Icon icon={Check} size={16} />
         </span>
         {option.label}

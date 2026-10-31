@@ -8,9 +8,11 @@ export type SocialLink = { label: string; href: string };
  * can supply; `pnpm guard:strict` fails until all of them are replaced.
  */
 export const site = {
-  // [OWNER: confirm the brand name and its exact casing, and whether a different wordmark exists]
+  // Name and casing from the brief (GetWithUs). [OWNER: confirm whether a designed wordmark or logo exists]
   name: publicEnv.siteName,
-  wordmark: "getwithus",
+  wordmark: "GetWithUs",
+  /** The brand line from the brief. */
+  tagline: "Build with us. Grow with us.",
   url: publicEnv.siteUrl.replace(/\/$/, ""),
   description:
     "Websites, mobile apps, WhatsApp and voice agents, and the marketing that fills them. Scoped in writing, shipped in weekly demos, and handed over with you owning every account.",

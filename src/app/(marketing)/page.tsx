@@ -5,7 +5,6 @@ import Hero from "@/components/sections/Hero";
 import ProcessSteps from "@/components/sections/ProcessSteps";
 import SelectedWork from "@/components/sections/SelectedWork";
 import ServiceBlocks from "@/components/sections/ServiceBlocks";
-import SceneCanvas from "@/components/three/SceneCanvas";
 import { site } from "@/config/site";
 import { homePage } from "@/content/pages";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/json-ld";
@@ -22,16 +21,12 @@ export default function HomePage() {
   return (
     <>
       <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
-      <SceneCanvas />
-      <p className="sr-only">{homePage.sceneDescription}</p>
       <Hero />
       <ServiceBlocks />
-      {/* The one permitted gradient: the scene fades into the page background here. */}
-      <div aria-hidden="true" className="h-40 bg-linear-to-b from-transparent to-ink" />
-      <ProcessSteps title={homePage.process.title} link={homePage.process.link} station="close" />
-      <Commitments />
-      <SelectedWork />
-      <ClosingCta className="pt-0 md:pt-0" />
+      <ProcessSteps index="02" title={homePage.process.title} link={homePage.process.link} />
+      <Commitments index="03" />
+      <SelectedWork index="04" />
+      <ClosingCta />
     </>
   );
 }

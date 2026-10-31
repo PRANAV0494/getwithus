@@ -18,7 +18,7 @@ Target: Vercel for the app, Neon for Postgres, Resend for email. Another Postgre
 ## Setup
 
 1. [ ] Create the Neon project with `production` and `preview` branches. In Vercel, set `DATABASE_URL` per environment to the pooled connection string.
-2. [ ] Create the Resend account, add the sending domain, add the SPF, DKIM, and DMARC records it provides at the DNS host, and wait for "Verified". Set `RESEND_API_KEY`, `EMAIL_FROM` (for example `Getwithus <no-reply@domain>`), and `EMAIL_REPLY_TO` (for example `hello@domain`). Leave `EMAIL_TRANSPORT` unset (it defaults to `resend`).
+2. [ ] Create the Resend account, add the sending domain, add the SPF, DKIM, and DMARC records it provides at the DNS host, and wait for "Verified". Set `RESEND_API_KEY`, `EMAIL_FROM` (for example `GetWithUs <no-reply@domain>`), and `EMAIL_REPLY_TO` (for example `hello@domain`). Leave `EMAIL_TRANSPORT` unset (it defaults to `resend`).
 3. [ ] Set every variable from `.env.example` in Vercel for Production and Preview. Generate `AUTH_SECRET`, `VERIFICATION_PEPPER`, `CRON_SECRET`, and `LEADS_API_KEY` with `openssl rand -base64 48`, a different value for each and for each environment. Do not set `NEXT_PUBLIC_TEST_HOOKS`.
 4. [ ] Deploy: in Vercel, import the GitHub repository `PRANAV0494/getwithus` (framework preset Next.js; Vercel reads pnpm from `packageManager` in `package.json`). Then run `pnpm db:migrate` against production with the production `DATABASE_URL` from a secure shell, never by pointing a laptop's `.env.local` at production and leaving it there.
 5. [ ] Custom domain: add the domain and `www` in Vercel, create the A or ALIAS and CNAME records at the DNS host, confirm HTTPS, choose the redirect direction (`www` to apex or apex to `www`), set `NEXT_PUBLIC_SITE_URL` to the final URL, and redeploy so metadata, the sitemap, emails, and the Origin check use it.
@@ -32,13 +32,14 @@ Target: Vercel for the app, Neon for Postgres, Resend for email. Another Postgre
 10. [ ] Run `pnpm guard:strict` on the deployed commit: zero placeholders.
 11. [ ] Check the favicon set, `/manifest.webmanifest`, `/robots.txt`, `/sitemap.xml`, the Open Graph image (share a link in a chat app), the 404 page, and the error page.
 12. [ ] Confirm `/privacy` and `/terms` are complete, dated, linked from the footer, and reviewed by a lawyer.
-13. [ ] Check the security headers with a scanner (for example securityheaders.com) and confirm the 3D scene runs under the CSP in Chrome, Safari, and Firefox on desktop, and on one iOS and one Android device.
+13. [ ] Check the security headers with a scanner (for example securityheaders.com) and confirm the service page 3D panels run under the CSP in Chrome, Safari, and Firefox on desktop, and on one iOS and one Android device.
 14. [ ] Turn on the chosen analytics and confirm no cookies are set on the public site (browser dev tools, Application, Cookies).
 15. [ ] Backups: Neon point-in-time recovery enabled. Restore procedure: in the Neon console, create a branch from the production branch at a timestamp before the incident, check the data on that branch, then either point `DATABASE_URL` at it and redeploy, or copy the needed rows back.
 
 ## Before launch: design lab
 
-- [ ] Decide on the design lab recommendation ([design-lab/README.md](design-lab/README.md)). Then delete `src/app/(design)`, `src/components/design-lab`, `src/content/design-lab`, `src/styles/design-lab.css`, and the `/design` header rules in `next.config.ts`, or keep them out of the production deployment.
+- [x] Decide on the design lab recommendation ([design-lab/README.md](design-lab/README.md)): D, Modern Engineering, now live ([decisions/0012-design-modern-engineering.md](decisions/0012-design-modern-engineering.md)).
+- [ ] Delete `src/app/(design)`, `src/components/design-lab`, `src/content/design-lab`, `src/styles/design-lab.css`, and the `/design` header rules in `next.config.ts`, or keep them out of the production deployment.
 
 ## Launch gates
 

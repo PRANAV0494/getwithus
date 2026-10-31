@@ -12,20 +12,24 @@ import Section from "@/components/ui/Section";
 import Sheet from "@/components/ui/Sheet";
 import Skeleton from "@/components/ui/Skeleton";
 import Table from "@/components/ui/Table";
+import SectionHeading from "@/components/ui/SectionHeading";
 import Tabs from "@/components/ui/Tabs";
 import Toast from "@/components/ui/Toast";
 import Tooltip from "@/components/ui/Tooltip";
 import { render } from "./render";
 
 describe("layout primitives", () => {
-  it("Section carries the station and the vertical rhythm", () => {
+  it("Section carries the vertical rhythm unless flush", () => {
+    expect(render(<Section id="web">Body</Section>)).toContain("py-16 md:py-24");
+    expect(render(<Section flush>Body</Section>)).not.toContain("py-16");
+  });
+
+  it("SectionHeading pairs the monospaced index with the heading", () => {
     const html = render(
-      <Section station="web" id="web">
-        Body
-      </Section>,
+      <SectionHeading id="services-title" index="01" label="services" title="What we do" />,
     );
-    expect(html).toContain('data-station="web"');
-    expect(html).toContain("py-16 md:py-24");
+    expect(html).toContain("01 / services");
+    expect(html).toContain('<h2 id="services-title"');
   });
 
   it("Container and Prose render their children", () => {
@@ -44,9 +48,9 @@ describe("Logo", () => {
   it("links home with an accessible name and an inline mark", () => {
     const html = render(<Logo />);
     expect(html).toContain('href="/"');
-    expect(html).toContain('aria-label="Getwithus home"');
+    expect(html).toContain('aria-label="GetWithUs home"');
     expect(html).toContain("<svg");
-    expect(html).toContain("getwithus");
+    expect(html).toContain("GetWithUs");
   });
 });
 

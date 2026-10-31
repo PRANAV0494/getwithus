@@ -56,7 +56,7 @@ function DeviceFrame({ entry, device }: { entry: Entry; device: Device }) {
           href={entry.href}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center gap-1.5 text-lamp hover:text-lamp-2"
+          className="inline-flex items-center gap-1.5 text-signal hover:text-signal-2"
         >
           Open full page
           <Icon icon={ExternalLink} size={16} />
@@ -91,7 +91,7 @@ function Segmented<T extends string>({
           onClick={() => onChange(option.value)}
           className={cn(
             "rounded-[4px] px-3 py-1.5 type-small font-medium text-fog-2 transition-colors duration-150 hover:text-fog",
-            value === option.value && "bg-lamp text-ink hover:text-ink",
+            value === option.value && "bg-signal text-ink hover:text-ink",
           )}
         >
           {option.label}

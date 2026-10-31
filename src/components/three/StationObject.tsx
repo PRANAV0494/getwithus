@@ -39,7 +39,7 @@ export default function StationObject({ station }: { station: StationKey }) {
     <div
       ref={panel}
       aria-hidden="true"
-      className="relative grid aspect-[4/3] place-items-center overflow-hidden rounded-card border border-line bg-ink-2"
+      className="relative grid aspect-[4/3] place-items-center overflow-hidden border border-line bg-ink-2"
     >
       {quality === "none" ? <SlabFallback className="w-3/4" /> : null}
       {ready && seen && quality && quality !== "none" ? (

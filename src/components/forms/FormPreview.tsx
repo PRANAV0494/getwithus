@@ -7,7 +7,7 @@ import Textarea from "@/components/ui/Textarea";
 import { formCopy } from "@/content/forms";
 
 const pill =
-  "inline-flex h-9 items-center rounded-full border border-line-strong bg-ink-2 px-3.5 type-small text-fog-3";
+  "inline-flex h-9 items-center rounded-control border border-line-strong bg-ink-2 px-3.5 type-small text-fog-3";
 
 /** The service chips as static pills, laid out exactly like ChipGroup. */
 function ChipsPreview() {

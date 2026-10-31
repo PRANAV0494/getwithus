@@ -34,7 +34,7 @@ export default function PaletteCard({ concept, href }: { concept: Concept; href:
         <h3 id={`palette-${concept.slug}`} className="type-h3">
           {concept.letter}: {concept.name}
         </h3>
-        <Link href={href} className="type-small text-lamp hover:text-lamp-2">
+        <Link href={href} className="type-small text-signal hover:text-signal-2">
           Open prototype {concept.letter}
         </Link>
       </div>

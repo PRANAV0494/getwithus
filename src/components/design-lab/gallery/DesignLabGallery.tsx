@@ -58,7 +58,7 @@ export default function DesignLabGallery() {
   return (
     <main id="content" tabIndex={-1} className="outline-none">
       <div className="mx-auto w-full max-w-[1400px] px-6 py-14 md:px-10">
-        <p className="type-small font-medium text-lamp">GetWithUs design lab</p>
+        <p className="type-small font-medium text-signal">GetWithUs design lab</p>
         <h1 className="mt-3 type-display">Five directions, one recommendation.</h1>
         <p className="mt-4 max-w-[72ch] text-lg text-fog-2">
           Five complete homepages for GetWithUs, each built from the same content and structure so
@@ -67,27 +67,27 @@ export default function DesignLabGallery() {
         </p>
         <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 type-small">
           <li>
-            <a href="#inspect" className="text-lamp hover:text-lamp-2">
+            <a href="#inspect" className="text-signal hover:text-signal-2">
               Inspect and compare
             </a>
           </li>
           <li>
-            <a href="#scorecard" className="text-lamp hover:text-lamp-2">
+            <a href="#scorecard" className="text-signal hover:text-signal-2">
               Scorecard
             </a>
           </li>
           <li>
-            <a href="#evaluations" className="text-lamp hover:text-lamp-2">
+            <a href="#evaluations" className="text-signal hover:text-signal-2">
               Evaluations
             </a>
           </li>
           <li>
-            <a href="#colour" className="text-lamp hover:text-lamp-2">
+            <a href="#colour" className="text-signal hover:text-signal-2">
               Colour systems
             </a>
           </li>
           <li>
-            <a href="#selected" className="text-lamp hover:text-lamp-2">
+            <a href="#selected" className="text-signal hover:text-signal-2">
               Recommendation
             </a>
           </li>
@@ -138,7 +138,7 @@ export default function DesignLabGallery() {
                     <h3 id={`eval-${evaluation.slug}`} className="type-h3">
                       {concept?.letter}: {concept?.name}
                     </h3>
-                    <p className="type-h4 text-lamp tabular-nums">
+                    <p className="type-h4 text-signal tabular-nums">
                       {weightedScore(evaluation.scores).toFixed(1)}
                     </p>
                   </div>
@@ -278,7 +278,7 @@ export default function DesignLabGallery() {
           <div className="mt-8 flex flex-wrap gap-4">
             <Link
               href="/design/final"
-              className="inline-flex h-11 items-center rounded-control bg-lamp px-5 font-medium text-ink hover:bg-lamp-2"
+              className="inline-flex h-11 items-center rounded-control bg-signal px-5 font-medium text-ink hover:bg-signal-2"
             >
               Open the final homepage
             </Link>
@@ -290,17 +290,15 @@ export default function DesignLabGallery() {
             </Link>
             <Link
               href="/design/hybrid-final"
-              className="inline-flex h-11 items-center rounded-control px-2 font-medium text-lamp hover:text-lamp-2"
+              className="inline-flex h-11 items-center rounded-control px-2 font-medium text-signal hover:text-signal-2"
             >
               See the E alternative
             </Link>
           </div>
           <p className="mt-6 max-w-[80ch] type-small text-fog-2">
-            Nothing has replaced the live site. Moving D into production keeps the dark theme but
-            changes other rules in the build spec (headings up to 60 px, cyan in place of the lamp
-            accent, Archivo and JetBrains Mono in place of Schibsted Grotesk, scroll reveals, and no
-            3D scene on the homepage), so it needs your go-ahead. The full report is in
-            docs/design-lab/README.md.
+            D now runs the live site (ADR 0012): headings up to 60 px, cyan in place of the lamp
+            accent, Archivo and JetBrains Mono in place of Schibsted Grotesk, section reveals, and
+            no 3D scene on the homepage. The full report is in docs/design-lab/README.md.
           </p>
         </section>
       </div>
