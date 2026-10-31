@@ -1,0 +1,118 @@
+@import "tailwindcss";
+@import "./tokens.css";
+
+/* Type scale from the design system: mobile values first, desktop from 768 px. */
+@utility type-display {
+  font-size: 2rem;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  @media (width >= 48rem) {
+    font-size: 2.75rem;
+  }
+}
+
+@utility type-h2 {
+  font-size: 1.625rem;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  font-weight: 600;
+  @media (width >= 48rem) {
+    font-size: 2rem;
+  }
+}
+
+@utility type-h3 {
+  font-size: 1.25rem;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+  @media (width >= 48rem) {
+    font-size: 1.375rem;
+  }
+}
+
+@utility type-h4 {
+  font-size: 1.125rem;
+  line-height: 1.35;
+  letter-spacing: 0;
+  font-weight: 600;
+}
+
+@utility type-body {
+  font-size: 1rem;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+@utility type-lead {
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  font-weight: 400;
+  @media (width >= 48rem) {
+    font-size: 1.1875rem;
+  }
+}
+
+@utility type-small {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+@utility type-button {
+  font-size: 0.9375rem;
+  line-height: 1;
+  font-weight: 500;
+}
+
+@utility measure {
+  max-width: 68ch;
+}
+
+@layer base {
+  html {
+    background-color: var(--color-ink);
+    scroll-padding-top: calc(var(--header-h) + 16px);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-ink);
+    color: var(--color-fog);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* A 2 px lamp ring with a 2 px ink gap, whatever surface the control sits on. */
+  :focus-visible {
+    outline: 2px solid var(--color-lamp);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px var(--color-ink);
+  }
+
+  ::selection {
+    background-color: var(--color-lamp);
+    color: var(--color-ink);
+  }
+
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]) {
+    cursor: pointer;
+  }
+}
+
+/* Motion is limited to answers to user actions; under reduced motion even those stop. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

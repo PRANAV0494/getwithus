@@ -1,0 +1,35 @@
+/*
+ * Brand tokens: the only colors on the site. Defined once as Tailwind theme
+ * variables, so `bg-ink`, `text-fog-2`, and `border-line` exist as utilities.
+ * `static` emits every variable on :root even when no utility uses it, because
+ * the 3D scene reads them through getComputedStyle at mount. The default palette
+ * is cleared first so no other hue can be used through a utility class.
+ */
+@theme static {
+  --color-*: initial;
+  --color-ink: #0b0e13;
+  --color-ink-2: #121721;
+  --color-ink-3: #1a2130;
+  --color-line: rgba(230, 233, 238, 0.1);
+  --color-line-strong: rgba(230, 233, 238, 0.22);
+  --color-fog: #e6e9ee;
+  --color-fog-2: #9aa3b2;
+  --color-fog-3: #7a8494;
+  --color-lamp: #f0b35a;
+  --color-lamp-2: #d99a3e;
+  --color-ok: #5fbf8f;
+  --color-err: #e06c6c;
+
+  --font-sans: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --radius-tag: 4px;
+  --radius-control: 6px;
+  --radius-card: 10px;
+  --radius-panel: 16px;
+}
+
+:root {
+  --header-h: 64px;
+  color-scheme: dark;
+}
