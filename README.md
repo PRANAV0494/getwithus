@@ -30,7 +30,7 @@ Exact versions and the reasons for each pin are in [docs/decisions/0001-versions
 ## Setup
 
 ```sh
-git clone <repository-url> getwithus && cd getwithus
+git clone https://github.com/PRANAV0494/getwithus.git && cd getwithus
 pnpm install
 cp .env.example .env.local        # then edit: secrets, ADMIN_EMAILS, DATABASE_URL
 docker compose up -d              # or point DATABASE_URL at any Postgres 16
@@ -42,6 +42,8 @@ pnpm dev
 Open http://localhost:3000. With `EMAIL_TRANSPORT=console` (the default in `.env.example`) every email, including verification codes and admin sign-in links, prints to the terminal running `pnpm dev`, and nothing is sent.
 
 To sign in to `/admin`, put your email in `ADMIN_EMAILS`, request a link at `/admin/login`, and open the link printed in the terminal.
+
+Running a production build locally (`pnpm build`, then `pnpm start`) behaves differently: with the console transport, production builds only log that an email was suppressed, so codes and sign-in links never reach production logs. To see them while trying a production build, build and start with `NEXT_PUBLIC_TEST_HOOKS=1`, and set `NEXT_PUBLIC_SITE_URL` to the address you open (the forms' Origin check uses it), for example `NEXT_PUBLIC_TEST_HOOKS=1 NEXT_PUBLIC_SITE_URL=http://localhost:3001 pnpm build`, then `pnpm start -p 3001` with the same two variables. Never deploy a build made with `NEXT_PUBLIC_TEST_HOOKS=1`.
 
 ## Scripts
 
@@ -97,8 +99,9 @@ Every variable is validated at build and at startup by `src/config/env.ts`; the 
 ## Testing
 
 - Unit: `pnpm test`. Covers verification codes, schemas, rate limiting, notification dispatch, the HTTP envelope, the scene's progress mapping, content rules, and UI smoke renders.
-- End to end: `pnpm test:e2e`. Needs a Postgres it may wipe. By default it uses `postgres://getwithus:getwithus@127.0.0.1:54329/getwithus_test`; set `E2E_DATABASE_URL` to change that (the database is created if missing, migrated, and emptied on every run). Set `E2E_SKIP_BUILD=1` to reuse a build made by a previous run. Covers home and navigation, both forms through to the code step, the honeypot, admin redirect and status change, axe on five pages, and visual snapshots of the hero.
-- CI (`.github/workflows/ci.yml`): audit, `pnpm check`, `pnpm build`, then the end-to-end suite against a Postgres service container.
+- End to end: `pnpm test:e2e`. Needs a Postgres it may wipe. By default it uses `postgres://getwithus:getwithus@localhost:5432/getwithus_test`, a second database on the Docker Postgres from `docker-compose.yml`; set `E2E_DATABASE_URL` to use another server (the database is created if missing, migrated, and emptied on every run). Set `E2E_SKIP_BUILD=1` to reuse a build made by a previous run. Covers home and navigation, both forms through to the code step, the honeypot, admin redirect and status change, axe on five pages, and visual snapshots of the hero.
+- CI (`.github/workflows/ci.yml`), on every push to `main` and every pull request: audit, `pnpm check`, `pnpm build`, then the end-to-end suite against a Postgres service container.
+- Dependabot (`.github/dependabot.yml`) opens update pull requests weekly for npm packages and monthly for GitHub Actions. Do not accept `three` above 0.182 until `@react-three/fiber` stops using `THREE.Clock` ([decisions/0001-versions.md](docs/decisions/0001-versions.md)).
 
 ## Deployment
 

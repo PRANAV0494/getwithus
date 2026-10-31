@@ -10,7 +10,7 @@ export const baseUrl = `http://localhost:${port}`;
 
 /** The test database. Every run migrates it and empties it; never point this at real data. */
 export const databaseUrl =
-  process.env.E2E_DATABASE_URL ?? "postgres://getwithus:getwithus@127.0.0.1:54329/getwithus_test";
+  process.env.E2E_DATABASE_URL ?? "postgres://getwithus:getwithus@localhost:5432/getwithus_test";
 
 export const adminEmail = "admin@example.com";
 

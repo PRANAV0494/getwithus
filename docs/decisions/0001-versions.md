@@ -110,3 +110,7 @@ The same pnpm policy later added `lucide-react` 1.66.0 and `@types/three` 0.187.
 ## Test tooling
 
 `@playwright/test` 1.64.1 and `@axe-core/playwright` 4.14.0 were installed in phase 8 at the pins above. The suite runs Chromium only. Firefox and WebKit builds from the same Playwright release were used by hand to check pages for console problems (see [handoff.md](../handoff.md)); they are not part of `pnpm test:e2e`.
+
+## GitHub Actions
+
+The actions in `.github/workflows/ci.yml` (`actions/checkout`, `actions/setup-node`, `pnpm/action-setup`, `actions/upload-artifact`) were written at v4 and, unlike the npm packages above, not checked against their latest releases before phase 1. Dependabot's first scan on 2026-10-31 found `actions/checkout`, `actions/setup-node`, and `actions/upload-artifact` at v7 and `pnpm/action-setup` at v6, and opened update pull requests. Accept them once their CI runs pass.

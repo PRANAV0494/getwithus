@@ -8,7 +8,7 @@ Section 22 asks for Playwright tests against `next start` with the console email
 
 ## Decision
 
-- `playwright.config.ts` builds and starts the app on port 3200 with variables from `tests/e2e/support/env.ts`: test hooks on (`?no3d=1`), console email, fixed test secrets, every third-party integration blanked, and `DATABASE_URL` pointed at a dedicated database (`E2E_DATABASE_URL`, default `getwithus_test` on local port 54329).
+- `playwright.config.ts` builds and starts the app on port 3200 with variables from `tests/e2e/support/env.ts`: test hooks on (`?no3d=1`), console email, fixed test secrets, every third-party integration blanked, and `DATABASE_URL` pointed at a dedicated database (`E2E_DATABASE_URL`, default `getwithus_test` on `localhost:5432`, the Docker Postgres from `docker-compose.yml`).
 - Global setup creates that database if missing, applies the migrations, and empties it. Specs read and seed it directly through `tests/e2e/support/db.ts`; the app has no test-only HTTP endpoints. Admin specs insert a user and a session row instead of going through email.
 - Every spec uses the fixture in `tests/e2e/support/test.ts`, which fails the test on any console error, warning, or uncaught exception, and clears rate-limit counters first.
 - Chromium runs WebGL through ANGLE on SwiftShader (`--use-angle=swiftshader`). The default headless path composites WebGL by reading pixels back and logs a "GPU stall due to ReadPixels" driver warning that real browsers never show.

@@ -2,6 +2,8 @@
 
 Status on 2026-10-31: every section of the specification is built, in the order of section 26.1, one commit per phase. `pnpm check` (typecheck, lint with zero warnings, knip, 154 unit tests, guard) and `pnpm build` pass. The end-to-end suite (16 tests, including axe on five pages) passes. The site has not been deployed; everything below was measured on a local production build.
 
+Repository: https://github.com/PRANAV0494/getwithus (public, default branch `main`). The first CI run on GitHub, on 2026-10-31, passed both jobs: checks and build, then all 16 end-to-end tests on Linux against a Postgres service container.
+
 Launch is blocked only on owner facts (the placeholders below), real credentials, and the checks in [launch-checklist.md](launch-checklist.md) that need the production URL.
 
 ## 1. Owner placeholders
@@ -192,11 +194,12 @@ What remains is React hydration and the framework runtime, not the 3D scene (whi
 
 ## 6. Browsers and devices tested
 
-| Browser                                  | How                                                                                                                      | Result                                                                                                                                                        |
-| ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Chromium 156 (Playwright build), Windows | Headless with the GPU (D3D11) and with SwiftShader; 1280 px desktop and 390 px mobile emulation (touch, mobile viewport) | All public pages: no console errors or warnings. 3D scene and service panels render. Forms and admin flows driven end to end                                  |
-| Firefox 157 (Playwright build), Windows  | Headless, 1280 and 390 px; every public page loaded and scrolled                                                         | Pages render and the 3D scene and service panels run. Two WebGL notes from three.js on the 3D pages (see known limitations). Forms were not driven in Firefox |
-| WebKit 27.2 (Playwright build), Windows  | Headless, 1280 and 390 px, mobile emulation; every public page loaded and scrolled                                       | No console errors or warnings. 3D scene and service panels render. Forms were not driven in WebKit                                                            |
+| Browser                                            | How                                                                                                                      | Result                                                                                                                                                        |
+| -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Chromium 156 (Playwright build), Windows           | Headless with the GPU (D3D11) and with SwiftShader; 1280 px desktop and 390 px mobile emulation (touch, mobile viewport) | All public pages: no console errors or warnings. 3D scene and service panels render. Forms and admin flows driven end to end                                  |
+| Firefox 157 (Playwright build), Windows            | Headless, 1280 and 390 px; every public page loaded and scrolled                                                         | Pages render and the 3D scene and service panels run. Two WebGL notes from three.js on the 3D pages (see known limitations). Forms were not driven in Firefox |
+| Chromium (Playwright build), Linux, GitHub Actions | The end-to-end suite in CI                                                                                               | 16 of 16 pass                                                                                                                                                 |
+| WebKit 27.2 (Playwright build), Windows            | Headless, 1280 and 390 px, mobile emulation; every public page loaded and scrolled                                       | No console errors or warnings. 3D scene and service panels render. Forms were not driven in WebKit                                                            |
 
 Not tested, and needed before launch (launch checklist item 13): Safari on macOS, a real iPhone, a real Android phone, and a screen reader pass (NVDA or VoiceOver) on the home page, the contact form, and the admin lead detail. Keyboard: the e2e suite opens and closes the mega menu by keyboard, and the verification code was entered by keyboard in the form runs; a full keyboard-only pass belongs with the screen reader check. axe reports zero violations on `/`, `/contact`, a service page, `/privacy`, and `/admin/login`.
 
@@ -207,7 +210,8 @@ Not tested, and needed before launch (launch checklist item 13): Safari on macOS
 - Firefox prints two one-time WebGL notes from inside three.js on the 3D pages: "generateMipmap: Tex image TEXTURE_2D level 0 is incurring lazy initialization" (high tier, glass transmission) and "Drawing to a destination rect smaller than the viewport rect" (small service panel at phone widths). Rendering is correct. Chromium and WebKit show neither.
 - The service pages, `/start`, and `/privacy` measured below the 95 target locally (section 5). Re-measure on the Vercel preview; if they are still short, the next steps are lighter client islands on those pages (for example a native details element for the FAQ instead of Radix, at the cost of the heading inside the trigger) and deferring the brief wizard's validation code.
 - Lighthouse no longer measures the 3D scene's startup cost (see [0009](decisions/0009-scene-mount-timing.md)). Watch field INP after launch.
-- Visual snapshot baselines are committed for Windows only. The first CI run on Linux creates the Linux baselines and uploads them in the `playwright` artifact; commit them to make CI compare.
+- Visual snapshot baselines are committed for Windows only. The first CI run (2026-10-31) created the Linux baselines and uploaded them in its `playwright` artifact; until they are committed under `tests/e2e/visual.spec.ts-snapshots/`, CI writes them fresh on each run instead of comparing.
+- Dependabot's first scan opened update pull requests for the GitHub Actions used by CI (`actions/checkout`, `actions/setup-node`, and `actions/upload-artifact` to v7, `pnpm/action-setup` to v6; the workflow was written at v4) and one moving `three` to 0.186. Merge the Actions updates once their checks pass. Close the `three` one: the pin at 0.182.0 is deliberate (see [0001](decisions/0001-versions.md)), and Dependabot will propose it again unless an `ignore` rule is added for `three` and `@types/three`.
 - Resend, Slack, WhatsApp, Turnstile, Vercel Cron, and the Vercel preview Origin rule were not exercised against the real services (no credentials). They are covered by unit tests with mocked `fetch` and by the console transport. Launch checklist items 6 to 8 cover them on the real deployment.
 - `next-auth` 5 is a beta release, pinned. Read its changelog before upgrading.
 - The CSP allows inline scripts (see [0002](decisions/0002-security-headers.md)).
@@ -226,6 +230,6 @@ Explicitly out of scope for this pass:
 Worth considering after launch:
 
 - Field performance data (Vercel Speed Insights or Plausible with Web Vitals) to watch INP and LCP on real devices.
-- Linux visual baselines committed from the first CI run.
+- Linux visual baselines committed from the first CI run's `playwright` artifact.
 - A headless CMS behind the existing content types, if non-developers need to edit copy often.
 - More languages, if the WhatsApp bot and calling agent pages target non-English markets.
