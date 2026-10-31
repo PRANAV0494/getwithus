@@ -9,6 +9,16 @@ export const LEAD_STATUSES = [
 ] as const;
 
 export type LeadStatus = (typeof LEAD_STATUSES)[number];
+
+/** Statuses a team member can choose. "Awaiting verification" is set only by the system. */
+export const ASSIGNABLE_STATUSES = [
+  "new",
+  "contacted",
+  "qualified",
+  "won",
+  "lost",
+  "spam",
+] as const satisfies readonly LeadStatus[];
 export type LeadSource = "contact" | "brief" | "api";
 export type LeadEventType =
   | "created"
@@ -66,6 +76,16 @@ export type NewLead = Pick<Lead, "source" | "name" | "email"> &
       | "meta"
     >
   >;
+
+export type LeadEvent = {
+  id: string;
+  leadId: string;
+  type: LeadEventType;
+  /** "client", "system", or the email of the admin who acted. */
+  actor: string;
+  data: Record<string, unknown>;
+  createdAt: Date;
+};
 
 /** The newest unconsumed verification code for a lead. */
 export type ActiveVerification = {

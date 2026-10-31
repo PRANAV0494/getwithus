@@ -27,6 +27,7 @@
     "email:dev": "email dev --dir src/server/email/templates"
   },
   "dependencies": {
+    "@auth/drizzle-adapter": "1.11.3",
     "@hookform/resolvers": "7.0.0",
     "@react-email/components": "1.0.12",
     "@react-email/render": "2.2.0",
@@ -37,6 +38,7 @@
     "drizzle-orm": "0.45.4",
     "lucide-react": "1.66.0",
     "next": "16.4.3",
+    "next-auth": "5.0.0-beta.32",
     "postgres": "3.4.9",
     "radix-ui": "1.8.1",
     "react": "19.3.0",

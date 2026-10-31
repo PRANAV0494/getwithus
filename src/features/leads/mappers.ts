@@ -1,5 +1,5 @@
-import type { emailVerifications, leads } from "@/server/db/schema";
-import type { ActiveVerification, Lead } from "@/features/leads/types";
+import type { emailVerifications, leadEvents, leads } from "@/server/db/schema";
+import type { ActiveVerification, Lead, LeadEvent } from "@/features/leads/types";
 
 /** Database row to domain lead. Keeps Drizzle row types inside the repository layer. */
 export function toLead(row: typeof leads.$inferSelect): Lead {
@@ -21,6 +21,18 @@ export function toLead(row: typeof leads.$inferSelect): Lead {
     meta: row.meta,
     createdAt: row.createdAt,
     updatedAt: row.updatedAt,
+  };
+}
+
+/** Database row to domain event. */
+export function toLeadEvent(row: typeof leadEvents.$inferSelect): LeadEvent {
+  return {
+    id: row.id,
+    leadId: row.leadId,
+    type: row.type,
+    actor: row.actor,
+    data: row.data,
+    createdAt: row.createdAt,
   };
 }
 

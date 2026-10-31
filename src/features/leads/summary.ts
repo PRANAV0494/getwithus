@@ -1,8 +1,16 @@
 import { budgetOptions, optionLabel, timelineOptions } from "@/content/brief";
 import { serviceName } from "@/content/services/catalog";
+import { sourceLabels } from "@/features/leads/status";
 import type { Lead } from "@/features/leads/types";
 
 export type LeadDetail = { label: string; value: string };
+
+/** "project brief" or "contact message": how the team refers to a lead in notifications. */
+export function leadKind(lead: Pick<Lead, "source">): string {
+  if (lead.source === "brief") return "project brief";
+  if (lead.source === "api") return "lead from an integration";
+  return "contact message";
+}
 
 /**
  * The lead's fields as label and value pairs, in reading order, skipping empty
@@ -24,7 +32,7 @@ export function leadDetails(lead: Lead, audience: "team" | "client"): LeadDetail
     [
       "Source",
       audience === "team"
-        ? lead.source + (lead.meta.integration ? ` (${lead.meta.integration})` : "")
+        ? sourceLabels[lead.source] + (lead.meta.integration ? ` (${lead.meta.integration})` : "")
         : null,
     ],
   ];

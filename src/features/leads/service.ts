@@ -2,17 +2,26 @@ import { createElement } from "react";
 import { site } from "@/config/site";
 import { issueFormToken, verifyFormToken, verifyTurnstile } from "@/features/leads/bot-checks";
 import {
+  countLeadsByStatus,
   createLeadWithVerification,
   createVerifiedLead,
+  findLeadById,
+  listLeadEvents,
+  listLeads,
   recordLeadEvent,
+  updateLeadStatus,
 } from "@/features/leads/repository";
 import type { IntegrationLead, LeadSubmission } from "@/features/leads/schema";
 import { leadDetails } from "@/features/leads/summary";
-import type { Lead, NewLead } from "@/features/leads/types";
+import type { Lead, LeadEvent, LeadSource, LeadStatus, NewLead } from "@/features/leads/types";
+import { notifyLeadVerified } from "@/features/notifications/dispatch";
+import { listDeliveriesForLead } from "@/features/notifications/repository";
+import type { NotificationDelivery } from "@/features/notifications/types";
 import { CODE_TTL_MS } from "@/features/verification/code";
 import { newCode, resendAvailableAt, sendCodeEmail } from "@/features/verification/service";
 import { logger, maskEmail } from "@/lib/logger";
-import { ok, type Result } from "@/lib/result";
+import { notFound } from "@/lib/errors";
+import { err, ok, type Result } from "@/lib/result";
 import { sendEmail } from "@/server/email/client";
 import { renderEmail } from "@/server/email/render";
 import LeadConfirmed from "@/server/email/templates/LeadConfirmed";
@@ -165,8 +174,85 @@ async function sendLeadConfirmation(lead: Lead, requestId: string): Promise<void
 
 /**
  * Work that follows a newly verified lead, run after the response is sent: the
- * client's confirmation email. Failures are logged and never reach the client.
+ * client's confirmation email (not for API leads) and the team notifications.
+ * Failures are logged and never reach the client.
  */
 export async function handleLeadVerified(lead: Lead, requestId: string): Promise<void> {
   if (lead.source !== "api") await sendLeadConfirmation(lead, requestId);
+  await notifyLeadVerified(lead, { requestId });
+}
+
+/** Leads per page in the admin table. */
+const LEADS_PAGE_SIZE = 25;
+
+export type LeadFilters = { status?: LeadStatus; source?: LeadSource; q?: string; page: number };
+
+/** One page of the admin leads table. */
+export async function listLeadsPage(
+  filters: LeadFilters,
+): Promise<Result<{ leads: Lead[]; total: number; page: number; pageCount: number }>> {
+  const page = Math.max(1, filters.page);
+  const result = await listLeads({
+    status: filters.status,
+    source: filters.source,
+    search: filters.q,
+    offset: (page - 1) * LEADS_PAGE_SIZE,
+    limit: LEADS_PAGE_SIZE,
+  });
+  if (!result.ok) return result;
+  const pageCount = Math.max(1, Math.ceil(result.data.total / LEADS_PAGE_SIZE));
+  return ok({ ...result.data, page, pageCount });
+}
+
+/** Dashboard numbers: real counts per status and the five newest confirmed leads. */
+export async function leadOverview(): Promise<
+  Result<{ counts: Partial<Record<LeadStatus, number>>; recent: Lead[] }>
+> {
+  const [counts, recent] = await Promise.all([
+    countLeadsByStatus(),
+    listLeads({ offset: 0, limit: 5 }),
+  ]);
+  if (!counts.ok) return counts;
+  if (!recent.ok) return recent;
+  return ok({ counts: counts.data, recent: recent.data.leads });
+}
+
+/** Everything the lead detail page shows: the lead, its events, and notification deliveries. */
+export async function leadWithTimeline(
+  leadId: string,
+): Promise<Result<{ lead: Lead; events: LeadEvent[]; deliveries: NotificationDelivery[] } | null>> {
+  const found = await findLeadById(leadId);
+  if (!found.ok) return found;
+  if (!found.data) return ok(null);
+  const [events, deliveries] = await Promise.all([
+    listLeadEvents(leadId),
+    listDeliveriesForLead(leadId),
+  ]);
+  if (!events.ok) return events;
+  if (!deliveries.ok) return deliveries;
+  return ok({ lead: found.data, events: events.data, deliveries: deliveries.data });
+}
+
+/** Changes a lead's status on behalf of an admin. The caller notifies the team after responding. */
+export async function changeLeadStatus(
+  leadId: string,
+  to: LeadStatus,
+  actor: string,
+): Promise<Result<{ lead: Lead; from: LeadStatus }>> {
+  const updated = await updateLeadStatus(leadId, to, actor);
+  if (!updated.ok) return updated;
+  if (!updated.data) return err(notFound("That lead no longer exists."));
+  return ok(updated.data);
+}
+
+/** Adds an internal note, stored as a `note_added` event on the lead's timeline. */
+export async function addLeadNote(
+  leadId: string,
+  body: string,
+  actor: string,
+): Promise<Result<null>> {
+  const found = await findLeadById(leadId);
+  if (!found.ok) return found;
+  if (!found.data) return err(notFound("That lead no longer exists."));
+  return recordLeadEvent(leadId, "note_added", actor, { body });
 }

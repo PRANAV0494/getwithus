@@ -1,6 +1,13 @@
-import { and, eq, lt } from "drizzle-orm";
-import { toLead } from "@/features/leads/mappers";
-import type { Lead, LeadEventType, NewLead } from "@/features/leads/types";
+import { and, count, desc, eq, ilike, lt, ne, or, type SQL } from "drizzle-orm";
+import { toLead, toLeadEvent } from "@/features/leads/mappers";
+import type {
+  Lead,
+  LeadEvent,
+  LeadEventType,
+  LeadSource,
+  LeadStatus,
+  NewLead,
+} from "@/features/leads/types";
 import { dbError } from "@/lib/errors";
 import { err, ok, type Result } from "@/lib/result";
 import { db } from "@/server/db/client";
@@ -136,6 +143,117 @@ export async function deleteUnverifiedLeadsBefore(cutoff: Date): Promise<Result<
       .where(and(eq(leads.status, "pending_verification"), lt(leads.createdAt, cutoff)))
       .returning({ id: leads.id });
     return ok(deleted.length);
+  } catch (error) {
+    return err(dbError(error));
+  }
+}
+
+export type LeadQuery = {
+  status?: LeadStatus;
+  source?: LeadSource;
+  search?: string;
+  offset: number;
+  limit: number;
+};
+
+/** Escapes LIKE wildcards so a search for "50%" means the characters, not a pattern. */
+function likePattern(term: string): string {
+  return `%${term.replace(/[\\%_]/g, (character) => `\\${character}`)}%`;
+}
+
+/**
+ * One page of leads, newest first, with the total for pagination. Without a
+ * status filter, leads still awaiting verification are left out: they are
+ * unconfirmed and are deleted after 7 days.
+ */
+export async function listLeads(
+  query: LeadQuery,
+): Promise<Result<{ leads: Lead[]; total: number }>> {
+  const conditions: SQL[] = [
+    query.status ? eq(leads.status, query.status) : ne(leads.status, "pending_verification"),
+  ];
+  if (query.source) conditions.push(eq(leads.source, query.source));
+  if (query.search) {
+    const pattern = likePattern(query.search);
+    const match = or(
+      ilike(leads.name, pattern),
+      ilike(leads.email, pattern),
+      ilike(leads.company, pattern),
+    );
+    if (match) conditions.push(match);
+  }
+  const where = and(...conditions);
+  try {
+    const [rows, [totals]] = await Promise.all([
+      db
+        .select()
+        .from(leads)
+        .where(where)
+        .orderBy(desc(leads.createdAt))
+        .limit(query.limit)
+        .offset(query.offset),
+      db.select({ value: count() }).from(leads).where(where),
+    ]);
+    return ok({ leads: rows.map(toLead), total: totals?.value ?? 0 });
+  } catch (error) {
+    return err(dbError(error));
+  }
+}
+
+/** How many leads are in each status. Statuses with no leads are absent. */
+export async function countLeadsByStatus(): Promise<Result<Partial<Record<LeadStatus, number>>>> {
+  try {
+    const rows = await db
+      .select({ status: leads.status, value: count() })
+      .from(leads)
+      .groupBy(leads.status);
+    return ok(Object.fromEntries(rows.map((row) => [row.status, row.value])));
+  } catch (error) {
+    return err(dbError(error));
+  }
+}
+
+/** The timeline events of one lead, newest first. */
+export async function listLeadEvents(leadId: string): Promise<Result<LeadEvent[]>> {
+  try {
+    const rows = await db
+      .select()
+      .from(leadEvents)
+      .where(eq(leadEvents.leadId, leadId))
+      .orderBy(desc(leadEvents.createdAt));
+    return ok(rows.map(toLeadEvent));
+  } catch (error) {
+    return err(dbError(error));
+  }
+}
+
+/**
+ * Moves a lead to a new status and writes the `status_changed` event, in one
+ * transaction. Returns the updated lead and the status it had before, or null
+ * when the lead does not exist. A change to the current status is a no-op.
+ */
+export async function updateLeadStatus(
+  leadId: string,
+  to: LeadStatus,
+  actor: string,
+): Promise<Result<{ lead: Lead; from: LeadStatus } | null>> {
+  try {
+    const updated = await db.transaction(async (tx) => {
+      const [current] = await tx.select().from(leads).where(eq(leads.id, leadId)).for("update");
+      if (!current) return null;
+      // Choosing the status the lead already has changes nothing and records nothing.
+      if (current.status === to) return { lead: toLead(current), from: current.status };
+      const [row] = await tx
+        .update(leads)
+        .set({ status: to })
+        .where(eq(leads.id, leadId))
+        .returning();
+      await tx
+        .insert(leadEvents)
+        .values({ leadId, type: "status_changed", actor, data: { from: current.status, to } });
+      return { lead: toLead(row), from: current.status };
+    });
+    return ok(updated);
   } catch (error) {
     return err(dbError(error));
   }

@@ -71,3 +71,8 @@ export function secretsMatch(
   const b = createHash("sha256").update(expected).digest();
   return timingSafeEqual(a, b);
 }
+
+/** The client IP from request headers, for server actions that have headers but no Request. */
+export function ipHashFromHeaders(headers: Headers): string {
+  return hashIp(getClientIp(new Request("http://local", { headers })));
+}
