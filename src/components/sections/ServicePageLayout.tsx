@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import JsonLd from "@/components/layout/JsonLd";
 import ClosingCta from "@/components/sections/ClosingCta";
-import SlabFallback from "@/components/three/SlabFallback";
+import StationObject from "@/components/three/StationObject";
 import Accordion from "@/components/ui/Accordion";
 import Container from "@/components/ui/Container";
 import Section from "@/components/ui/Section";
@@ -101,12 +101,7 @@ export default function ServicePageLayout({ page }: { page: ServicePage }) {
                 </ul>
               ) : null}
             </div>
-            <div
-              aria-hidden="true"
-              className="grid aspect-[4/3] place-items-center rounded-card border border-line bg-ink-2"
-            >
-              <SlabFallback className="w-3/4" />
-            </div>
+            <StationObject station={page.station} />
           </div>
         </Container>
       </Section>

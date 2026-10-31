@@ -1,4 +1,5 @@
-import { env } from "@/config/env";
+// public-env, not env: client components render the logo, and the validator stays out of their bundle.
+import { publicEnv } from "@/config/public-env";
 
 export type SocialLink = { label: string; href: string };
 
@@ -8,9 +9,9 @@ export type SocialLink = { label: string; href: string };
  */
 export const site = {
   // [OWNER: confirm the brand name and its exact casing, and whether a different wordmark exists]
-  name: env.NEXT_PUBLIC_SITE_NAME,
+  name: publicEnv.siteName,
   wordmark: "getwithus",
-  url: env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, ""),
+  url: publicEnv.siteUrl.replace(/\/$/, ""),
   description:
     "Websites, mobile apps, WhatsApp and voice agents, and the marketing that fills them. Scoped in writing, shipped in weekly demos, and handed over with you owning every account.",
   footerDescription: "Websites, apps, agents, and marketing for businesses that need them to work.",
@@ -26,7 +27,7 @@ export const site = {
   copyrightYear: 2026,
   // Real profile URLs only. Empty means no social links are rendered anywhere.
   social: [] as SocialLink[],
-  schedulingUrl: env.NEXT_PUBLIC_SCHEDULING_URL,
+  schedulingUrl: publicEnv.schedulingUrl,
 } as const;
 
 type NavLink = {

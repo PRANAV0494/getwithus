@@ -59,6 +59,16 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   poweredByHeader: false,
+  // Inline every public variable from the validated env, including unset ones as "", so client
+  // code never falls back to a runtime `process.env` lookup (which ships a process polyfill).
+  env: {
+    NEXT_PUBLIC_SITE_URL: env.NEXT_PUBLIC_SITE_URL,
+    NEXT_PUBLIC_SITE_NAME: env.NEXT_PUBLIC_SITE_NAME,
+    NEXT_PUBLIC_TURNSTILE_SITE_KEY: env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? "",
+    NEXT_PUBLIC_PLAUSIBLE_DOMAIN: env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN ?? "",
+    NEXT_PUBLIC_SCHEDULING_URL: env.NEXT_PUBLIC_SCHEDULING_URL ?? "",
+    NEXT_PUBLIC_TEST_HOOKS: env.NEXT_PUBLIC_TEST_HOOKS ?? "",
+  },
   turbopack: {
     rules: {
       "*.css": {

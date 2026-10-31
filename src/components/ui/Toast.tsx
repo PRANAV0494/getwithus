@@ -1,6 +1,9 @@
 "use client";
 
-import { Toaster } from "sonner";
+import dynamic from "next/dynamic";
+
+// Toasts only answer user actions, so the library loads after hydration instead of with every page.
+const Toaster = dynamic(() => import("sonner").then((module) => module.Toaster), { ssr: false });
 
 /**
  * The toast region, themed to the brand tokens. Trigger toasts with `toast()`

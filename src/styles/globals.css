@@ -77,8 +77,8 @@
     -webkit-text-size-adjust: 100%;
   }
 
+  /* No body background: html carries the ink, so the fixed 3D layer at a negative z-index paints above it. */
   body {
-    background-color: var(--color-ink);
     color: var(--color-fog);
     font-family: var(--font-sans);
     font-size: 1rem;

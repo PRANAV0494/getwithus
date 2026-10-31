@@ -145,7 +145,7 @@ describe("disclosure and overlays", () => {
     ).toContain("2 days ago");
   });
 
-  it("Toast renders the notification region", () => {
-    expect(render(<Toast />)).toContain("Notifications");
+  it("Toast defers the toast library until after hydration", () => {
+    expect(render(<Toast />)).toBe("");
   });
 });

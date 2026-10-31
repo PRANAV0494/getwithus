@@ -61,7 +61,7 @@ const eslintConfig = defineConfig([
     },
   },
   {
-    files: ["src/config/env.ts"],
+    files: ["src/config/env.ts", "src/config/public-env.ts"],
     rules: { "no-restricted-properties": "off" },
   },
   {

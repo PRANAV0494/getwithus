@@ -1,4 +1,4 @@
-import { env } from "@/config/env";
+import { publicEnv } from "@/config/public-env";
 
 type Level = "info" | "warn" | "error";
 
@@ -8,7 +8,7 @@ function serialize(value: unknown): unknown {
   if (value instanceof Error) {
     const base: Record<string, unknown> = { name: value.name, message: value.message };
     if ("code" in value) base.code = value.code;
-    if (env.NODE_ENV !== "production" && value.stack) base.stack = value.stack;
+    if (publicEnv.nodeEnv !== "production" && value.stack) base.stack = value.stack;
     if (value.cause !== undefined) base.cause = serialize(value.cause);
     return base;
   }
@@ -20,7 +20,7 @@ function write(level: Level, message: string, fields?: LogFields): void {
     ([key, value]) => [key, serialize(value)] as const,
   );
 
-  if (env.NODE_ENV === "production") {
+  if (publicEnv.nodeEnv === "production") {
     const line = JSON.stringify({
       level,
       time: new Date().toISOString(),

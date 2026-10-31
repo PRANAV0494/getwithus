@@ -64,7 +64,7 @@ export type LegalDocument = {
 };
 
 /** Which 3D station object a service page shows in its panel. */
-type StationKey = "web" | "app" | "automation" | "marketing" | "custom";
+export type StationKey = "web" | "app" | "automation" | "marketing" | "custom";
 
 export type FaqItem = { question: string; answer: string };
 

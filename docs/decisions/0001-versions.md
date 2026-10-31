@@ -34,7 +34,7 @@ Versions are pinned exactly in `package.json` (no `^` or `~`) so a fresh install
 | ------------------------- | ------------- | ----------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | `clsx`                    | 2.1.1         | none                                                        |                                                                                                                                  |
 | `tailwind-merge`          | 3.7.0         | none                                                        | 3.x line targets Tailwind v4                                                                                                     |
-| `three`                   | 0.187.0       | none                                                        | Uses `ColorManagement`; the prototype's r128 `outputEncoding` calls are not ported                                               |
+| `three`                   | 0.182.0       | none                                                        | Latest is 0.187.0; see "three 0.182.0" below. Uses `ColorManagement`; the prototype's r128 `outputEncoding` calls are not ported |
 | `@react-three/fiber`      | 9.8.2         | react `>=19 <19.4`, react-dom `>=19 <19.4`, three `>=0.156` | v9 line for React 19. React 19.3.0 is inside the range                                                                           |
 | `@react-three/drei`       | 10.7.9        | react `^19`, three `>=0.159`, @react-three/fiber `^9.0.0`   |                                                                                                                                  |
 | `motion`                  | 14.9.0        | react `^18 \|\| ^19`                                        | Imported as `motion/react`                                                                                                       |
@@ -58,7 +58,7 @@ Versions are pinned exactly in `package.json` (no `^` or `~`) so a fresh install
 
 | Package                       | Pinned  | Peer requirements checked                                                  | Notes                                                                     |
 | ----------------------------- | ------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| `@types/three`                | 0.187.0 | none                                                                       | Matches `three`                                                           |
+| `@types/three`                | 0.182.0 | none                                                                       | Matches `three`                                                           |
 | `drizzle-kit`                 | 0.31.11 | none                                                                       |                                                                           |
 | `react-email`                 | 6.11.6  | react `^19.0`, react-dom `^19.0`                                           | Preview server for `pnpm email:dev`                                       |
 | `vitest`                      | 5.0.5   | vite `^6.4.0 \|\| ^7.0.0 \|\| ^8.0.0`, @types/node `^22.0.0 \|\| >=24.0.0` |                                                                           |
@@ -82,6 +82,10 @@ Versions are pinned exactly in `package.json` (no `^` or `~`) so a fresh install
 
 `npm view postgres version` returns 4.0.0, published 2026-10-29, two days before this build. `drizzle-orm` 0.45.4 was published 2026-10-08, before that major release existed, so its postgres.js driver has not been released against 4.x. The peer range `postgres >=3` is open-ended and does not prove compatibility. The build pins `postgres` 3.4.9 (published 2026-04-05), the newest 3.x release. Revisit when a `drizzle-orm` release notes support for postgres.js 4.
 
+## three 0.182.0
+
+Three r183 deprecated `THREE.Clock` and logs a console warning when one is constructed. `@react-three/fiber` 9.8.2, the newest release, still creates a `THREE.Clock` for every canvas, so three 0.183.0 to 0.187.0 print that warning on every page with a scene. Spec section 26.2 allows no console warnings on public pages. The build pins `three` 0.182.0, the last release before the deprecation, which is inside the peer ranges of both fiber (`>=0.156`) and drei (`>=0.159`). Move to the newest three once a fiber release switches to `THREE.Timer`.
+
 ## Consequences
 
 - Upgrades are deliberate: bump a pin, run `pnpm check && pnpm build`, update this file.
@@ -95,3 +99,5 @@ Every version above was verified before phase 1. Packages are installed in the p
 pnpm 12 applies a minimum release age to new versions. `knip` 6.44.1 was published less than a day before installation, so pnpm added it to `minimumReleaseAgeExclude` in `pnpm-workspace.yaml`. The exclusion is pinned to that exact version.
 
 `knip` runs with `KNIP_DISABLE_RAW_TRANSFER=1` (set through `cross-env` in the `knip` script). Its parser otherwise reserves 6 GiB of virtual memory up front, which fails on Windows machines with a smaller commit limit. The flag only switches the parser to its standard transfer mode.
+
+The same pnpm policy later added `lucide-react` 1.66.0 and `@types/three` 0.187.0 to `minimumReleaseAgeExclude` when they were installed. `@types/three` has since moved to 0.182.0 and its exclusion was removed.

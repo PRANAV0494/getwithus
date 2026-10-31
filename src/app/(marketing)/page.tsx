@@ -5,6 +5,7 @@ import Hero from "@/components/sections/Hero";
 import ProcessSteps from "@/components/sections/ProcessSteps";
 import SelectedWork from "@/components/sections/SelectedWork";
 import ServiceBlocks from "@/components/sections/ServiceBlocks";
+import SceneCanvas from "@/components/three/SceneCanvas";
 import { site } from "@/config/site";
 import { homePage } from "@/content/pages";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/json-ld";
@@ -21,6 +22,8 @@ export default function HomePage() {
   return (
     <>
       <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
+      <SceneCanvas />
+      <p className="sr-only">{homePage.sceneDescription}</p>
       <Hero />
       <ServiceBlocks />
       {/* The one permitted gradient: the scene fades into the page background here. */}
