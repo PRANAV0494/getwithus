@@ -61,6 +61,7 @@ Versions are pinned exactly in `package.json` (no `^` or `~`) so a fresh install
 | `@types/three`                | 0.182.0 | none                                                                       | Matches `three`                                                           |
 | `drizzle-kit`                 | 0.31.11 | none                                                                       |                                                                           |
 | `react-email`                 | 6.11.6  | react `^19.0`, react-dom `^19.0`                                           | Preview server for `pnpm email:dev`                                       |
+| `@react-email/ui` | 6.11.6 | none | Preview UI that `email dev` loads; must match the `react-email` version |
 | `vitest`                      | 5.0.5   | vite `^6.4.0 \|\| ^7.0.0 \|\| ^8.0.0`, @types/node `^22.0.0 \|\| >=24.0.0` |                                                                           |
 | `vite`                        | 8.3.5   | none required                                                              | Vitest 5 moved `vite` to a peer dependency, so it is installed explicitly |
 | `@vitest/coverage-v8`         | 5.0.5   | vitest `5.0.5`                                                             |                                                                           |

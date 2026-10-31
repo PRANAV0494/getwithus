@@ -40,6 +40,10 @@ export const env = createEnv({
     WHATSAPP_NOTIFY_TO: z.string().optional(),
     WHATSAPP_TEMPLATE_NAME: z.string().optional(),
     TURNSTILE_SECRET_KEY: z.string().optional(),
+    // Set by Vercel. Preview deployments accept form posts from their own URLs.
+    VERCEL_URL: z.string().optional(),
+    VERCEL_BRANCH_URL: z.string().optional(),
+    VERCEL_GIT_COMMIT_SHA: z.string().optional(),
   },
   client: {
     NEXT_PUBLIC_SITE_URL: z.url(),
@@ -68,6 +72,9 @@ export const env = createEnv({
     WHATSAPP_NOTIFY_TO: process.env.WHATSAPP_NOTIFY_TO,
     WHATSAPP_TEMPLATE_NAME: process.env.WHATSAPP_TEMPLATE_NAME,
     TURNSTILE_SECRET_KEY: process.env.TURNSTILE_SECRET_KEY,
+    VERCEL_URL: process.env.VERCEL_URL,
+    VERCEL_BRANCH_URL: process.env.VERCEL_BRANCH_URL,
+    VERCEL_GIT_COMMIT_SHA: process.env.VERCEL_GIT_COMMIT_SHA,
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
     NEXT_PUBLIC_SITE_NAME: process.env.NEXT_PUBLIC_SITE_NAME,
     NEXT_PUBLIC_TURNSTILE_SITE_KEY: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,
