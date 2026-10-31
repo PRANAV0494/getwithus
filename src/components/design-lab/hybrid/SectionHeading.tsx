@@ -1,5 +1,5 @@
 import { cn } from "@/lib/cn";
-import { serif } from "@/components/design-lab/system/tones";
+import { serif } from "@/components/design-lab/hybrid/tones";
 
 /**
  * The editorial section opener: a quiet label in its own column on wide

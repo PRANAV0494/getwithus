@@ -254,7 +254,10 @@ export const evaluations: readonly Evaluation[] = [
   },
 ];
 
-/** The highest weighted score; the gallery and docs mark it as the recommendation. */
+/** The direction the owner chose to finalize (1 November 2026), whatever the scores say. */
+export const selectedSlug: ConceptSlug = "modern-engineering";
+
+/** The highest weighted score. */
 export function winningSlug(): ConceptSlug {
   return [...evaluations].sort((a, b) => weightedScore(b.scores) - weightedScore(a.scores))[0].slug;
 }

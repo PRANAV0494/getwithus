@@ -1,17 +1,23 @@
 import { concepts } from "@/content/design-lab/concepts";
-import { criteria, evaluations, weightedScore, winningSlug } from "@/content/design-lab/evaluation";
+import {
+  criteria,
+  evaluations,
+  selectedSlug,
+  weightedScore,
+  winningSlug,
+} from "@/content/design-lab/evaluation";
 import { cn } from "@/lib/cn";
 
 /** The weighted scorecard: criteria down the side, concepts across, totals and measurements below. */
 export default function Scorecard() {
-  const winner = winningSlug();
+  const highest = winningSlug();
   const rows = evaluations.map((evaluation) => ({
     evaluation,
     concept: concepts.find((concept) => concept.slug === evaluation.slug),
     total: weightedScore(evaluation.scores),
   }));
   const cell = (slug: string) =>
-    cn("px-3 py-2.5 text-right tabular-nums", slug === winner && "bg-lamp/10 text-fog");
+    cn("px-3 py-2.5 text-right tabular-nums", slug === selectedSlug && "bg-lamp/10 text-fog");
 
   return (
     <div className="overflow-x-auto rounded-card border border-line">
@@ -61,8 +67,11 @@ export default function Scorecard() {
                 className={cn(cell(evaluation.slug), "py-3 text-base font-semibold")}
               >
                 {total.toFixed(1)}
-                {evaluation.slug === winner ? (
-                  <span className="block type-small font-medium text-lamp">Recommended</span>
+                {evaluation.slug === selectedSlug ? (
+                  <span className="block type-small font-medium text-lamp">Selected</span>
+                ) : null}
+                {evaluation.slug === highest ? (
+                  <span className="block type-small font-medium text-fog-2">Highest score</span>
                 ) : null}
               </td>
             ))}

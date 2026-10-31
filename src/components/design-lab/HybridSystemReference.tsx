@@ -1,13 +1,13 @@
 import LabPage from "@/components/design-lab/LabPage";
-import { systemFonts } from "@/components/design-lab/system/fonts";
-import PracticeCard from "@/components/design-lab/system/PracticeCard";
-import SectionHeading from "@/components/design-lab/system/SectionHeading";
-import SystemButton from "@/components/design-lab/system/SystemButton";
-import SystemFooter from "@/components/design-lab/system/SystemFooter";
-import SystemHeader from "@/components/design-lab/system/SystemHeader";
-import SystemSection, { type Tone } from "@/components/design-lab/system/SystemSection";
-import { navyTone, serif } from "@/components/design-lab/system/tones";
-import WorkCard from "@/components/design-lab/system/WorkCard";
+import { systemFonts } from "@/components/design-lab/hybrid/fonts";
+import PracticeCard from "@/components/design-lab/hybrid/PracticeCard";
+import SectionHeading from "@/components/design-lab/hybrid/SectionHeading";
+import SystemButton from "@/components/design-lab/hybrid/SystemButton";
+import SystemFooter from "@/components/design-lab/hybrid/SystemFooter";
+import SystemHeader from "@/components/design-lab/hybrid/SystemHeader";
+import SystemSection, { type Tone } from "@/components/design-lab/hybrid/SystemSection";
+import { navyTone, serif } from "@/components/design-lab/hybrid/tones";
+import WorkCard from "@/components/design-lab/hybrid/WorkCard";
 import { lab } from "@/content/design-lab/content";
 import {
   systemBreakpoints,
@@ -18,7 +18,7 @@ import {
   systemRules,
   systemSpacing,
   systemType,
-} from "@/content/design-lab/system";
+} from "@/content/design-lab/hybrid-system";
 import { contrastRatio, luminance } from "@/lib/color";
 import { cn } from "@/lib/cn";
 
@@ -86,13 +86,13 @@ function Table({
   );
 }
 
-export default function SystemReference() {
+export default function HybridSystemReference() {
   return (
     <LabPage concept={systemPage} fontClassName={systemFonts} headerHeight={72}>
       <SystemHeader
         brand={lab.brand.name}
         links={links}
-        action={{ label: "See the homepage", href: "/design/final" }}
+        action={{ label: "See the homepage", href: "/design/hybrid-final" }}
       />
       <main id="content" tabIndex={-1} className="outline-none">
         <section aria-labelledby="system-title" className={navyTone}>
@@ -324,7 +324,7 @@ export default function SystemReference() {
           />
         </SystemSection>
       </main>
-      <SystemFooter letter="F" name="Design system reference" />
+      <SystemFooter letter="E" name="Hybrid Premium design system (alternative)" />
     </LabPage>
   );
 }

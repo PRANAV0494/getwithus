@@ -1,12 +1,12 @@
 # Handoff report
 
-Status on 2026-10-31: every section of the specification is built, in the order of section 26.1, one commit per phase. `pnpm check` (typecheck, lint with zero warnings, knip, 154 unit tests, guard) and `pnpm build` pass. The end-to-end suite (16 tests, including axe on five pages) passes. The site has not been deployed; everything below was measured on a local production build.
+Status on 2026-10-31: every section of the specification is built, in the order of section 26.1, one commit per phase. `pnpm check` (typecheck, lint with zero warnings, knip, 159 unit tests, guard) and `pnpm build` pass. The end-to-end suite (17 tests, including axe on five pages) passes. The site has not been deployed; everything below was measured on a local production build.
 
 Repository: https://github.com/PRANAV0494/getwithus (public, default branch `main`). The first CI run on GitHub, on 2026-10-31, passed both jobs: checks and build, then all 16 end-to-end tests on Linux against a Postgres service container.
 
 Launch is blocked only on owner facts (the placeholders below), real credentials, and the checks in [launch-checklist.md](launch-checklist.md) that need the production URL.
 
-Design exploration: a design lab at `/design` holds five alternative website directions, a weighted evaluation, and a recommended refined homepage and design system (Hybrid Premium refined with Minimal Corporate). It is isolated from the live site, not indexed, and awaiting your decision; adopting it changes several rules in the build spec. See [design-lab/README.md](design-lab/README.md).
+Design exploration: a design lab at `/design` holds five alternative website directions and a weighted evaluation. You selected D, Modern Engineering, which is refined into a final homepage (`/design/final`) and design system (`/design/system`); the highest scorer, Hybrid Premium, is kept as the alternative. It is isolated from the live site, not indexed, and moving it into production awaits your go-ahead because it changes several rules in the build spec. See [design-lab/README.md](design-lab/README.md).
 
 ## 1. Owner placeholders
 
@@ -191,7 +191,7 @@ What remains is React hydration and the framework runtime, not the 3D scene (whi
 
 - CLS 0.0000 measured in the browser on `/`, `/contact`, `/start`, and a service page at 1280 and 390 px.
 - 3D frame rate while scrolling the home page (tier high, Chromium with the RTX 4050 through D3D11): about 54 fps average, 16.8 ms 95th percentile frame time. With software rendering (SwiftShader) 7.7 fps, which is why the quality tiers and the performance monitor step down on slow devices.
-- Unit tests: 19 files, 154 tests. End to end: 16 tests.
+- Unit tests: 20 files, 159 tests. End to end: 17 tests (the phone menu focus check was added on 2026-11-01).
 - Dependency audit (`pnpm audit`, 2026-10-31): production has 1 low (`deepmerge`, via react-email's `html-to-text`; no patched version exists; it only merges the app's own static options). Development tooling has 3 moderate (`esbuild` via drizzle-kit's loader, which affects only esbuild's dev server, unused here; `minimatch` via typescript-eslint; `glob` via the react-email CLI). CI fails on high or critical.
 
 ## 6. Browsers and devices tested

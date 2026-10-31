@@ -3,7 +3,7 @@
 import { Menu, X } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Button from "@/components/ui/Button";
 import Icon from "@/components/ui/Icon";
 import Logo from "@/components/ui/Logo";
@@ -24,6 +24,7 @@ const menuButtonClasses =
 /** Below 1024 px: a menu button that opens a full-height sheet with every link. */
 export default function MobileMenu({ services, links }: MobileMenuProps) {
   const [open, setOpen] = useState(false);
+  const menuButton = useRef<HTMLButtonElement>(null);
   const [requested, setRequested] = useState(false);
   const close = () => setOpen(false);
   const warm = () => void loadSheet();
@@ -40,6 +41,7 @@ export default function MobileMenu({ services, links }: MobileMenuProps) {
   return (
     <div className="lg:hidden">
       <button
+        ref={menuButton}
         type="button"
         className={menuButtonClasses}
         aria-expanded={open}
@@ -54,7 +56,7 @@ export default function MobileMenu({ services, links }: MobileMenuProps) {
         Menu
       </button>
       {requested ? (
-        <Sheet open={open} onOpenChange={setOpen} title="Menu">
+        <Sheet open={open} onOpenChange={setOpen} title="Menu" returnFocusRef={menuButton}>
           <div className="flex h-10 items-center justify-between">
             <Logo onClick={close} />
             <button type="button" className={menuButtonClasses} onClick={close}>

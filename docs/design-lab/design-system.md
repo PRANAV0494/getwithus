@@ -1,141 +1,150 @@
-# GetWithUs design system (recommended)
+# GetWithUs design system: Modern Engineering (selected)
 
-Hybrid Premium refined with the structure of Minimal Corporate. The live reference is `/design/system`; the values below are generated from `src/content/design-lab/system.ts`, which is the only source.
+The selected direction, D, refined. The live reference is `/design/system`; every value below is generated from `src/content/design-lab/engineering-system.ts`, the only source.
 
 ## Principles
 
-1. Serif for display and section headings only; every interface label, card title, and button uses the sans.
-2. Electric blue is for action: buttons, links, focus. Never for decoration or large fills.
-3. Navy marks the statement moments (hero, commitments, call to action); warm white is for reading.
-4. One primary button per view. The secondary action is a text link or an outline button.
-5. No motion that runs forever. Every animation answers a scroll or a pointer and then stops.
-6. Under reduced motion: no reveals, no transitions beyond colour.
-7. Every text pairing at 4.5:1 or more; body text at 7:1 or more.
+1. Monospace only for labels, indices, and specifications at 11 to 13 px. Everything people read at length is sans, in sentence case.
+2. Cyan is the signal: actions, active states, focus, and data in diagrams. Never large fills or body text.
+3. Panels are square, marked by corner brackets; brackets and borders turn cyan on hover.
+4. The layout grid is always visible behind the content and never competes with it.
+5. One primary button per view. The secondary action is an outline button or a text link.
+6. No motion that runs forever: the diagram pulses three times and stops; everything else answers the visitor.
+7. Body text at 7:1 or more; muted labels at 4.5:1 or more on every surface.
 
-## Tokens
+## Colour
 
-| Navy     | Hex       | Use                                                |
-| -------- | --------- | -------------------------------------------------- |
-| Navy 950 | `#08112A` | Footer, deepest band                               |
-| Navy 900 | `#0B1631` | Primary brand colour: navigation, hero, dark bands |
-| Navy 800 | `#12204A` | Raised surfaces on navy                            |
-| Navy 700 | `#22305C` | Rules and borders on navy                          |
-| Navy 600 | `#33447A` | Strong borders on navy, outline buttons            |
+| Carbon       | Hex       |                  Contrast | Use                          |
+| ------------ | --------- | ------------------------: | ---------------------------- |
+| Carbon 950   | `#0B0D0F` | 15.97:1 with primary text | Footer, deepest surface      |
+| Carbon 900   | `#0F1113` | 15.53:1 with primary text | Page background              |
+| Carbon 850   | `#13161A` | 14.89:1 with primary text | Raised sections              |
+| Panel        | `#171A1E` | 14.32:1 with primary text | Cards, diagram nodes, tables |
+| Panel raised | `#1D2126` | 13.28:1 with primary text | Hovered rows and panels      |
 
-| Paper       | Hex       | Use                                  |
-| ----------- | --------- | ------------------------------------ |
-| White       | `#FFFFFF` | Cards, alternate sections            |
-| Warm white  | `#F7F6F2` | Page background for reading sections |
-| Paper shade | `#EFEDE6` | Illustration panels, quiet fills     |
+| Lines         | Hex       |                  Contrast | Use                                     |
+| ------------- | --------- | ------------------------: | --------------------------------------- |
+| Grid          | `#1B1F24` | 13.59:1 with primary text | The layout grid behind every page       |
+| Border        | `#262B31` | 11.70:1 with primary text | Panel and table edges, dividers         |
+| Border strong | `#353C44` |  9.16:1 with primary text | Outline buttons, timelines, hover edges |
 
-| Ink         | Hex       | Use                        |
-| ----------- | --------- | -------------------------- |
-| Ink         | `#0F1424` | Text on light              |
-| Slate       | `#4A5065` | Secondary text on light    |
-| Slate muted | `#5E6478` | Captions and meta on light |
-| Navy text   | `#F4F6FB` | Text on navy               |
-| Mist        | `#AEB7CE` | Secondary text on navy     |
+| Text           | Hex       |              Contrast | Use                               |
+| -------------- | --------- | --------------------: | --------------------------------- |
+| Text           | `#E6E9EC` | 15.53:1 on carbon 900 | Headings and body                 |
+| Text secondary | `#A0A8B2` |  7.87:1 on carbon 900 | Leads, descriptions               |
+| Text muted     | `#848D98` |  5.63:1 on carbon 900 | Monospaced labels, captions, meta |
 
-| Rules       | Hex       | Use                                |
-| ----------- | --------- | ---------------------------------- |
-| Rule        | `#E3E1DA` | Dividers and card borders on light |
-| Rule strong | `#C9C6BC` | Hover borders, inputs on light     |
+| Signal      | Hex       |                  Contrast | Use                                                 |
+| ----------- | --------- | ------------------------: | --------------------------------------------------- |
+| Signal cyan | `#2CD5E6` |     10.60:1 on carbon 900 | Primary buttons, active states, focus, diagram data |
+| Cyan bright | `#5FE2EF` |     12.26:1 on carbon 900 | Primary button hover                                |
+| On cyan     | `#061417` | 15.38:1 with primary text | Text on cyan                                        |
+| Cyan tint   | `#0E2A2E` | 12.40:1 with primary text | Icon tiles and badges behind cyan                   |
 
-| Blue     | Hex       | Use                                        |
-| -------- | --------- | ------------------------------------------ |
-| Blue 600 | `#2052E8` | Accent: primary buttons and links on light |
-| Blue 700 | `#1842C4` | Accent hover and pressed                   |
-| Blue 300 | `#8EAEFF` | Accent text and focus ring on navy         |
+| Status  | Hex       |              Contrast | Use                      |
+| ------- | --------- | --------------------: | ------------------------ |
+| Success | `#3DD68C` | 10.09:1 on carbon 900 | Confirmations            |
+| Error   | `#FF7A70` |  7.45:1 on carbon 900 | Errors and field borders |
 
-| Status  | Hex       | Use                          |
-| ------- | --------- | ---------------------------- |
-| Success | `#1F7A4F` | Confirmation text and icons  |
-| Error   | `#B42318` | Error text and field borders |
+Key pairings: body text `#E6E9EC` on carbon 900 is 15.53:1; secondary `#A0A8B2` on panels 7.26:1; muted labels `#848D98` on panels 5.19:1; button label `#061417` on cyan 10.50:1.
 
-| Role                 | Specification                                                        |
-| -------------------- | -------------------------------------------------------------------- |
-| Display (H1)         | Instrument Serif 400, 44 to 76 px, line height 1.0, tracking -0.01em |
-| Heading 2            | Instrument Serif 400, 36 to 52 px, line height 1.04                  |
-| Heading 3, editorial | Instrument Serif 400, 28 px, line height 1.15                        |
-| Heading 3, interface | Instrument Sans 600, 18 px, line height 1.35                         |
-| Lead                 | Instrument Sans 400, 17 to 19 px, line height 1.6                    |
-| Body                 | Instrument Sans 400, 16 px, line height 1.6, measure 68 characters   |
-| Small and labels     | Instrument Sans 500, 14 px, line height 1.5                          |
-| Button               | Instrument Sans 500, 15 px, line height 1                            |
+## Typography
 
-| Token |  Size | Use                                                      |
-| ----- | ----: | -------------------------------------------------------- |
-| 1     |  4 px | Icon gaps                                                |
-| 2     |  8 px | Inline gaps, badge padding                               |
-| 3     | 12 px | List rows                                                |
-| 4     | 16 px | Button gaps, small stacks                                |
-| 6     | 24 px | Card padding on phones, grid gaps, page gutter on phones |
-| 8     | 32 px | Card padding, gaps between groups                        |
-| 10    | 40 px | Page gutter from 768 px                                  |
-| 12    | 48 px | Heading to content                                       |
-| 16    | 64 px | Section padding on phones                                |
-| 24    | 96 px | Section padding from 768 px                              |
+| Role         | Specification                                                               |
+| ------------ | --------------------------------------------------------------------------- |
+| Display (H1) | Archivo 600, width 92, 40 to 60 px, line height 1.04, tracking -0.02em      |
+| Heading 2    | Archivo 600, width 92, 30 to 40 px, line height 1.1                         |
+| Heading 3    | Archivo 600, 20 px, line height 1.3                                         |
+| Lead         | Archivo 400, 17 to 18 px, line height 1.6                                   |
+| Body         | Archivo 400, 16 px, line height 1.6, measure 68 characters                  |
+| Interface    | Archivo 500, 14 to 15 px, sentence case                                     |
+| Label (mono) | JetBrains Mono 400, 12 px, lowercase; indices, ids, and specifications only |
+| Button       | Archivo 500, 15 px, line height 1                                           |
 
-| Radius  |   Size | Use                         |
-| ------- | -----: | --------------------------- |
-| Control |   8 px | Buttons, inputs, menu items |
-| Card    |  12 px | Cards, panels, frames       |
-| Pill    | 999 px | Badges                      |
+## Spacing
 
-| Breakpoint |    From | Layout                                                             |
-| ---------- | ------: | ------------------------------------------------------------------ |
-| Base       |    0 px | One column, 24 px gutters, full-width buttons, menu button         |
-| sm         |  640 px | Buttons side by side, two-column grids where items are short       |
-| md         |  768 px | Label column beside headings, 40 px gutters, 96 px section padding |
-| lg         | 1024 px | Full navigation, three-column practice grid, two-column hero       |
-| xl         | 1280 px | Content capped at 1240 px; extra width becomes margin              |
+| Token |  Size | Use                                                       |
+| ----- | ----: | --------------------------------------------------------- |
+| 1     |  4 px | Icon gaps                                                 |
+| 2     |  8 px | Inline gaps                                               |
+| 3     | 12 px | Corner bracket length, table rows                         |
+| 4     | 16 px | Button gaps, small stacks                                 |
+| 6     | 24 px | Panel padding on phones, grid gaps, page gutter on phones |
+| 7     | 28 px | Panel padding                                             |
+| 10    | 40 px | Page gutter from 768 px                                   |
+| 12    | 48 px | Heading to content                                        |
+| 16    | 64 px | Section padding on phones                                 |
+| 24    | 96 px | Section padding from 768 px                               |
+
+## Radii
+
+| Radius  | Size | Use                                               |
+| ------- | ---: | ------------------------------------------------- |
+| Control | 2 px | Buttons, inputs, badges                           |
+| Panel   | 0 px | Cards and tables, marked by 12 px corner brackets |
+
+## Responsive breakpoints
+
+| Breakpoint |    From | Layout                                                                                     |
+| ---------- | ------: | ------------------------------------------------------------------------------------------ |
+| Base       |    0 px | One column, 24 px gutters, full-width buttons, practice list instead of the diagram        |
+| sm         |  640 px | Buttons side by side; the system diagram appears below the hero text                       |
+| md         |  768 px | Section index column beside headings, 40 px gutters, 96 px section padding, 12-column grid |
+| lg         | 1024 px | Full navigation, diagram beside the hero, three-column practices, six-step pipeline        |
+| xl         | 1280 px | Content capped at 1200 px; the grid continues to the edges                                 |
+
+## Motion
 
 | Motion         | Duration                           | Easing                           | Use                                                                    |
 | -------------- | ---------------------------------- | -------------------------------- | ---------------------------------------------------------------------- |
 | Hover colour   | 180 ms                             | `ease-out`                       | Links, buttons, borders                                                |
 | Underline draw | 220 ms                             | `cubic-bezier(0.2, 0.7, 0.2, 1)` | Navigation and text links                                              |
-| Arrow nudge    | 200 ms                             | `cubic-bezier(0.2, 0.7, 0.2, 1)` | Arrow inside a button moves 3 px; the button never moves               |
-| Card rule      | 300 ms                             | `ease-out`                       | Blue line draws across the top of a hovered card                       |
-| Menu open      | 220 ms                             | `cubic-bezier(0.2, 0.7, 0.2, 1)` | Phone menu fades and drops 8 px                                        |
+| Arrow extend   | 200 ms                             | `cubic-bezier(0.2, 0.7, 0.2, 1)` | Arrow inside a button moves 3 px; the button never moves               |
+| Bracket signal | 200 ms                             | `ease-out`                       | Corner brackets and borders of a hovered panel turn cyan               |
+| Diagram pulses | 3.2 s per pass, 3 passes           | `linear`                         | Data travels between practices when the page opens, then stops         |
 | Section reveal | Tied to scroll, first 32% of entry | `linear`                         | Content rises 18 px as it enters; CSS only, content visible without it |
 
 ## Section backgrounds
 
-| Tone       | Background | Text      | Secondary text | Rules     | Accent text and focus | Use                               |
-| ---------- | ---------- | --------- | -------------- | --------- | --------------------- | --------------------------------- |
-| Navy       | `#0B1631`  | `#F4F6FB` | `#AEB7CE`      | `#22305C` | `#8EAEFF`             | Hero, commitments, call to action |
-| Navy 950   | `#08112A`  | `#F4F6FB` | `#AEB7CE`      | `#22305C` | `#8EAEFF`             | Footer                            |
-| Warm white | `#F7F6F2`  | `#0F1424` | `#4A5065`      | `#E3E1DA` | `#2052E8`             | Reading sections                  |
-| White      | `#FFFFFF`  | `#0F1424` | `#4A5065`      | `#E3E1DA` | `#2052E8`             | Practices and work                |
+| Tone   | Background                  | Use                                                                  |
+| ------ | --------------------------- | -------------------------------------------------------------------- |
+| Base   | Carbon 900 `#0F1113`        | Hero, about, services, process, call to action; the grid shows fully |
+| Raised | Carbon 850 `#13161A` at 80% | Practices, commitments, work; the grid shows faintly                 |
+| Footer | Carbon 950 `#0B0D0F`        | Footer                                                               |
+| Panel  | `#171A1E`, hover `#1D2126`  | Cards, specification tables, the diagram                             |
 
-Navy sections redefine the `--lab-*` variables (`navyTone` in `src/components/design-lab/system/tones.ts`), so every component placed inside them adapts without props.
+The layout grid (`GridBackdrop`) is fixed behind the page: 4 columns on phones, 12 from 768 px, aligned to the 1200 px container, drawn in `#1B1F24`.
 
 ## Components
 
-| Component       | File                                        | Notes                                                                                                                                                                                                                                            |
-| --------------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Button          | `SystemButton.tsx`                          | Variants: primary (blue, white label), inverse (white, navy label; the primary on navy), outline, text (drawn underline). Sizes md (48 px) and sm (40 px). Hover darkens the fill and moves the arrow 3 px; the button never moves. 8 px radius. |
-| Section         | `SystemSection.tsx`                         | Tones: paper, white, navy, navy-deep. 64 px vertical padding on phones, 96 px from 768 px; 1240 px container with 24 or 40 px gutters.                                                                                                           |
-| Section heading | `SectionHeading.tsx`                        | Rule, quiet label in a 200 px column from 768 px, serif H2 (36 to 52 px), optional lead (60 characters).                                                                                                                                         |
-| Navigation      | `SystemHeader.tsx`                          | Sticky navy bar, 72 px. Wordmark, in-page links with scroll spy and a 220 ms underline, inverse primary button, phone menu below 1024 px.                                                                                                        |
-| Phone menu      | `LazyMobileMenu.tsx`, `MobileMenuPanel.tsx` | The dialog code loads on first use (warmed on hover or focus). Focus trap, Escape to close, focus returns to the button, serif links, full-width primary action.                                                                                 |
-| Practice card   | `PracticeCard.tsx`                          | Icon tile, serif title, summary, detail, one link to the practice's services. Hover darkens the border and draws a blue rule along the top in 300 ms. 12 px radius.                                                                              |
-| Work card       | `WorkCard.tsx`                              | Schematic on a paper-shade panel, a "Concept project" badge until real case studies exist, serif title, summary, scope. Hover scales the schematic to 103 percent.                                                                               |
-| Footer          | `SystemFooter.tsx`                          | Navy 950, brand line, three link columns, legal links.                                                                                                                                                                                           |
+| Component           | File                                    | Notes                                                                                                                                                                                           |
+| ------------------- | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Button              | `EngButton.tsx`                         | Primary (cyan, dark label), secondary (panel with strong border), text (drawn underline). Sizes 48 px and 40 px. 2 px radius. Hover brightens or turns the border cyan; the arrow extends 3 px. |
+| Corner brackets     | `Brackets.tsx`                          | 12 px brackets on a panel's corners instead of rounded corners; muted at rest, cyan on hover, or always cyan for the call-to-action panel.                                                      |
+| Section             | `EngSection.tsx`                        | Base or raised tone; 64 px padding on phones, 96 px from 768 px; 1200 px container with 24 or 40 px gutters.                                                                                    |
+| Section heading     | `EngSectionHeading.tsx`                 | Monospaced index ("02 / services") in a 200 px column from 768 px, Archivo H2, optional lead.                                                                                                   |
+| Navigation          | `EngHeader.tsx`                         | Sticky 64 px bar; wordmark, in-page links with scroll spy (active link cyan) and a 220 ms underline, primary button, phone menu below 1024 px.                                                  |
+| Phone menu          | `EngMobileMenu.tsx`, `EngMenuPanel.tsx` | Dialog code loads on first use. Focus trap, Escape to close, focus returns to the Menu button; choosing a link closes it and leaves focus with the destination.                                 |
+| System diagram      | `SystemDiagram.tsx`                     | Figure 01: the three practices around the client's business. Pulses run three passes on load. Hidden below 640 px, where the practice list carries the same facts.                              |
+| Practice card       | `EngPracticeCard.tsx`                   | Mono id, icon tile, Archivo title, plain summary, detail, one link to the practice's services.                                                                                                  |
+| Specification table | in `EngineeringFinal.tsx`               | Services in a hairline grid; hover raises the row and draws a cyan rule down its left edge.                                                                                                     |
+| Work card           | `EngWorkCard.tsx`                       | Schematic, title, summary, and a status, practice, and scope table. Status reads "Concept project" until real case studies exist.                                                               |
+| Footer              | `EngFooter.tsx`                         | Carbon 950, brand line, three link columns with mono titles, legal links.                                                                                                                       |
 
 ## Hover and focus states
 
-| Element                  | Rest           | Hover                                        | Focus                                                |
-| ------------------------ | -------------- | -------------------------------------------- | ---------------------------------------------------- |
-| Primary button           | Blue `#2052E8` | Blue `#1842C4`, arrow moves 3 px             | 2 px ring in the section's focus colour, 3 px offset |
-| Inverse button           | White          | `#E6ECFF`, arrow moves 3 px                  | Ring in `#8EAEFF`                                    |
-| Text link and navigation | No underline   | Underline draws from the left in 220 ms      | Underline plus ring                                  |
-| Card                     | Rule border    | Strong border, blue top rule draws in 300 ms | Ring on the card's link                              |
-| Service row              | Rule below     | Arrow fades in beside the title              | Not focusable (content only)                         |
+| Element             | Rest                    | Hover                                | Focus                                     |
+| ------------------- | ----------------------- | ------------------------------------ | ----------------------------------------- |
+| Primary button      | Cyan `#2CD5E6`          | `#5FE2EF`, arrow extends 3 px        | 2 px cyan ring, 3 px offset               |
+| Secondary button    | Panel, `#353C44` border | Cyan border, arrow extends           | Cyan ring                                 |
+| Navigation link     | `#A0A8B2`               | `#E6E9EC`, underline draws in 220 ms | Underline plus ring; current section cyan |
+| Panel with brackets | Muted brackets          | Brackets and border cyan in 200 ms   | Ring on the panel's link                  |
+| Specification row   | Panel                   | Raised panel, cyan left rule         | Not focusable (content only)              |
 
 ## Using the system
 
-- Wrap a page in `LabPage` with `systemPage` and `systemFonts`.
-- Build sections with `SystemSection` and `SectionHeading`; never set colours directly, use the `--lab-*` variables (`bg-(--lab-bg)`, `text-(--lab-text-2)`), which change with the section tone.
+- Wrap a page in `LabPage` with `engineeringPage`, `engineeringFonts`, and `className="isolate"`, and render `GridBackdrop` first.
+- Build sections with `EngSection` and `EngSectionHeading`; use the `--lab-*` variables (`bg-(--lab-surface)`, `text-(--lab-text-2)`) rather than raw colours.
+- Monospace (`mono` from `tones.ts`) only for labels, ids, and specifications. Never for anything people read at length.
 - Add `lab-reveal` to blocks that should rise as they enter; never to the hero.
-- New colours go into `systemColors` first, with a contrast check (see `tests/unit/lib/color.test.ts`).
+- New colours go into `engineeringColors` first, with a contrast check.

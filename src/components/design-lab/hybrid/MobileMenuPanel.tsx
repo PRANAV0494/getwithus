@@ -2,8 +2,9 @@
 
 import { X } from "lucide-react";
 import { Dialog } from "radix-ui";
+import { useRef, type RefObject } from "react";
 import Icon from "@/components/ui/Icon";
-import { navyTone, serif } from "@/components/design-lab/system/tones";
+import { navyTone, serif } from "@/components/design-lab/hybrid/tones";
 import { cn } from "@/lib/cn";
 
 type MobileMenuPanelProps = {
@@ -11,24 +12,37 @@ type MobileMenuPanelProps = {
   onOpenChange: (open: boolean) => void;
   links: readonly { id: string; label: string }[];
   action: { label: string; href: string };
+  /** The menu button, which gets focus back when the menu is dismissed. */
+  returnFocusRef: RefObject<HTMLButtonElement | null>;
 };
 
 /**
  * The phone menu itself, loaded on first use. Radix Dialog traps focus, closes
- * on Escape, and returns focus to the menu button.
+ * on Escape, and returns focus to the menu button; choosing a link leaves focus
+ * with the destination.
  */
 export default function MobileMenuPanel({
   open,
   onOpenChange,
   links,
   action,
+  returnFocusRef,
 }: MobileMenuPanelProps) {
-  const close = () => onOpenChange(false);
+  const viaLink = useRef(false);
+  const close = () => {
+    viaLink.current = true;
+    onOpenChange(false);
+  };
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
         <Dialog.Content
           aria-describedby={undefined}
+          onCloseAutoFocus={(event) => {
+            event.preventDefault();
+            if (!viaLink.current) returnFocusRef.current?.focus();
+            viaLink.current = false;
+          }}
           className={cn(
             navyTone,
             "lab-menu-panel fixed inset-0 z-50 flex flex-col overflow-y-auto px-6 pt-4 pb-8",

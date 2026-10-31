@@ -1,9 +1,9 @@
 import Link from "next/link";
 import LabMark from "@/components/design-lab/LabMark";
 import ScrollSpyLinks from "@/components/design-lab/ScrollSpyLinks";
-import LazyMobileMenu from "@/components/design-lab/system/LazyMobileMenu";
-import SystemButton from "@/components/design-lab/system/SystemButton";
-import { container, navyTone } from "@/components/design-lab/system/tones";
+import LazyMobileMenu from "@/components/design-lab/hybrid/LazyMobileMenu";
+import SystemButton from "@/components/design-lab/hybrid/SystemButton";
+import { container, navyTone } from "@/components/design-lab/hybrid/tones";
 import { cn } from "@/lib/cn";
 
 type SystemHeaderProps = {

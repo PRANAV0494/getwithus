@@ -3,17 +3,17 @@ import Link from "next/link";
 import Icon from "@/components/ui/Icon";
 import LabPage from "@/components/design-lab/LabPage";
 import PracticeIcon from "@/components/design-lab/PracticeIcon";
-import { systemFonts } from "@/components/design-lab/system/fonts";
-import PracticeCard from "@/components/design-lab/system/PracticeCard";
-import SectionHeading from "@/components/design-lab/system/SectionHeading";
-import SystemButton from "@/components/design-lab/system/SystemButton";
-import SystemFooter from "@/components/design-lab/system/SystemFooter";
-import SystemHeader from "@/components/design-lab/system/SystemHeader";
-import SystemSection from "@/components/design-lab/system/SystemSection";
-import { container, navyTone, serif } from "@/components/design-lab/system/tones";
-import WorkCard from "@/components/design-lab/system/WorkCard";
+import { systemFonts } from "@/components/design-lab/hybrid/fonts";
+import PracticeCard from "@/components/design-lab/hybrid/PracticeCard";
+import SectionHeading from "@/components/design-lab/hybrid/SectionHeading";
+import SystemButton from "@/components/design-lab/hybrid/SystemButton";
+import SystemFooter from "@/components/design-lab/hybrid/SystemFooter";
+import SystemHeader from "@/components/design-lab/hybrid/SystemHeader";
+import SystemSection from "@/components/design-lab/hybrid/SystemSection";
+import { container, navyTone, serif } from "@/components/design-lab/hybrid/tones";
+import WorkCard from "@/components/design-lab/hybrid/WorkCard";
 import { lab } from "@/content/design-lab/content";
-import { systemPage } from "@/content/design-lab/system";
+import { systemPage } from "@/content/design-lab/hybrid-system";
 import { cn } from "@/lib/cn";
 
 /*
@@ -22,7 +22,7 @@ import { cn } from "@/lib/cn";
  * system in src/components/design-lab/system and src/content/design-lab/system.ts.
  */
 
-export default function FinalHomepage() {
+export default function HybridFinal() {
   return (
     <LabPage concept={systemPage} fontClassName={systemFonts} headerHeight={72}>
       <SystemHeader brand={lab.brand.name} links={lab.nav} action={lab.actions.start} />
@@ -267,7 +267,7 @@ export default function FinalHomepage() {
         </SystemSection>
       </main>
 
-      <SystemFooter letter="F" name="Final refined homepage" />
+      <SystemFooter letter="E" name="Hybrid Premium refined (alternative)" />
     </LabPage>
   );
 }

@@ -2,11 +2,11 @@
 
 import { Menu } from "lucide-react";
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Icon from "@/components/ui/Icon";
 
 // The dialog code is fetched on first use (warmed on hover or focus): desktop visitors never download it.
-const loadPanel = () => import("@/components/design-lab/system/MobileMenuPanel");
+const loadPanel = () => import("@/components/design-lab/hybrid/MobileMenuPanel");
 const MobileMenuPanel = dynamic(loadPanel, { ssr: false });
 
 /** The phone menu button. Keeps the menu's dialog out of the initial JavaScript. */
@@ -19,11 +19,13 @@ export default function LazyMobileMenu({
 }) {
   const [open, setOpen] = useState(false);
   const [requested, setRequested] = useState(false);
+  const button = useRef<HTMLButtonElement>(null);
   const warm = () => void loadPanel();
 
   return (
     <>
       <button
+        ref={button}
         type="button"
         aria-expanded={open}
         aria-haspopup="dialog"
@@ -39,7 +41,13 @@ export default function LazyMobileMenu({
         Menu
       </button>
       {requested ? (
-        <MobileMenuPanel open={open} onOpenChange={setOpen} links={links} action={action} />
+        <MobileMenuPanel
+          open={open}
+          onOpenChange={setOpen}
+          links={links}
+          action={action}
+          returnFocusRef={button}
+        />
       ) : null}
     </>
   );

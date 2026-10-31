@@ -3,7 +3,7 @@ import ConceptViewer from "@/components/design-lab/gallery/ConceptViewer";
 import PaletteCard from "@/components/design-lab/gallery/PaletteCard";
 import Scorecard from "@/components/design-lab/gallery/Scorecard";
 import { concepts } from "@/content/design-lab/concepts";
-import { evaluations, weightedScore, winningSlug } from "@/content/design-lab/evaluation";
+import { evaluations, weightedScore } from "@/content/design-lab/evaluation";
 
 const entries = [
   ...concepts.map((concept) => ({
@@ -11,50 +11,50 @@ const entries = [
     label: `${concept.letter}: ${concept.name}`,
     href: `/design/${concept.slug}`,
   })),
-  { key: "final", label: "Final: refined homepage", href: "/design/final" },
-  { key: "system", label: "Design system", href: "/design/system" },
+  { key: "final", label: "Final: D refined (selected)", href: "/design/final" },
+  { key: "system", label: "D design system", href: "/design/system" },
+  { key: "hybrid-final", label: "E refined (alternative)", href: "/design/hybrid-final" },
+  { key: "hybrid-system", label: "E design system", href: "/design/hybrid-system" },
   { key: "current", label: "Current live design", href: "/" },
 ];
 
 const refinements = [
   [
-    "Typography hierarchy",
-    "The serif is kept for the H1, section headings, and practice titles; every card title, label, and button moved to the sans. The H1 is capped at 76 px and section headings at 52 px.",
-  ],
-  [
-    "Spacing",
-    "One section rhythm (64 px on phones, 96 px from 768 px) and 48 px from heading to content, which removes the empty bands in E.",
-  ],
-  [
-    "Visual balance",
-    "Statement left, lead and actions right, with the three commitments from B placed beside the primary button where they support the decision.",
-  ],
-  [
-    "Call to action placement",
-    "Navigation, hero, a help-me-choose prompt after the practices, and the closing band: four chances, never two in one view.",
+    "Reading",
+    "Service names, practice titles, and every paragraph moved from lowercase monospace to sentence-case Archivo. Monospace stays for 11 to 13 px labels, ids, and specifications only.",
   ],
   [
     "Service clarity",
-    "Practice cards say what each practice is and link to its services; the services are listed once, with descriptions, grouped and anchored by practice.",
+    "The tabs are gone: all eighteen services are visible, grouped in specification tables with an anchor per practice. Practice cards link to their group instead of repeating it.",
   ],
   [
-    "Phone experience",
-    "Full-width primary buttons, a practice index with 48 px tap targets, and a menu whose dialog code loads only when opened.",
+    "Conversion",
+    "The three commitments sit under the hero buttons, a help-me-choose prompt follows the practices, and the closing panel drops the fake terminal command for a clear heading and two actions.",
   ],
   [
-    "Animation timing",
-    "The endless hero sweep is gone. Every animation answers a scroll or a pointer: 180 ms colour, 220 ms underline, 300 ms card rule, scroll-linked reveals.",
+    "Warmth for growth clients",
+    "Plain-language summaries lead every practice card and the hero practice index, and the diagram gives Digital Growth and AI the same weight as engineering.",
   ],
   [
-    "Consistent tokens",
-    "Every colour, size, radius, and timing comes from src/content/design-lab/system.ts, rendered at /design/system.",
+    "Motion",
+    "The diagram pulses run three passes when the page opens, then stop. Nothing else moves on its own; everything else answers a scroll, a hover, or a tap.",
+  ],
+  [
+    "Phones and tablets",
+    "Below 640 px a readable practice list replaces the diagram; buttons go full width. Diagram labels are set in 16 px sans so they stay legible on tablets.",
+  ],
+  [
+    "Performance",
+    "The menu dialog loads on first use and the tabs are gone, bringing the page under the 180 KB budget (see the numbers below).",
+  ],
+  [
+    "Accessibility",
+    "Dismissing the phone menu returns focus to the Menu button. The same bug was found and fixed on the live site. Every text pairing measures 4.5:1 or more.",
   ],
 ];
 
 /** The design lab: inspect, compare, and read the evaluation of the five directions. */
 export default function DesignLabGallery() {
-  const winner = evaluations.find((evaluation) => evaluation.slug === winningSlug());
-  const winnerConcept = concepts.find((concept) => concept.slug === winner?.slug);
   return (
     <main id="content" tabIndex={-1} className="outline-none">
       <div className="mx-auto w-full max-w-[1400px] px-6 py-14 md:px-10">
@@ -87,7 +87,7 @@ export default function DesignLabGallery() {
             </a>
           </li>
           <li>
-            <a href="#winner" className="text-lamp hover:text-lamp-2">
+            <a href="#selected" className="text-lamp hover:text-lamp-2">
               Recommendation
             </a>
           </li>
@@ -187,22 +187,22 @@ export default function DesignLabGallery() {
           </div>
         </section>
 
-        <section id="winner" aria-labelledby="winner-title" className="mt-20">
-          <h2 id="winner-title" className="type-h2">
-            Recommendation: {winnerConcept?.letter}: {winnerConcept?.name}, refined with B
+        <section id="selected" aria-labelledby="selected-title" className="mt-20">
+          <h2 id="selected-title" className="type-h2">
+            Selected direction: D: Modern Engineering, refined
           </h2>
           <div className="mt-4 grid max-w-[80ch] gap-3 text-fog-2">
             <p>
-              Hybrid Premium scored highest because it is the only direction that is credible to
-              enterprise buyers, warm enough for growth clients, and distinctive among development
-              agencies at the same time. It reads as a senior consultancy that ships software, which
-              is the position GetWithUs wants with international clients.
+              You chose Modern Engineering. It is a sound choice for an agency that wants to lead
+              with technical credibility: it shows engineering competence on sight, it is ownable
+              among agency sites, and it keeps the dark theme the build spec asks for.
             </p>
             <p>
-              Minimal Corporate came second for opposite reasons: the clearest structure and the
-              fastest page, but the least memorable. The refinement keeps E&apos;s voice and
-              B&apos;s discipline, and drops what cost E points: the endless hero animation,
-              repeated service lists, and oversized empty space.
+              The scorecard is left as measured: Hybrid Premium still has the highest score (88.0)
+              for its broader appeal, and its refined version stays available as the alternative.
+              The refinement of D targets every weakness that cost it points: slow-to-read
+              monospaced text, coldness for growth clients, the endless diagram animation, the
+              JavaScript over budget, and the gimmicks.
             </p>
           </div>
           <dl className="mt-8 grid gap-x-10 gap-y-5 md:grid-cols-2">
@@ -213,12 +213,74 @@ export default function DesignLabGallery() {
               </div>
             ))}
           </dl>
+          <table className="mt-8 w-full max-w-[760px] text-left type-small">
+            <caption className="mb-2 text-left font-medium text-fog">
+              D before and after refinement, measured on the same production build
+            </caption>
+            <thead className="text-fog-2">
+              <tr>
+                <th scope="col" className="py-1.5 font-normal">
+                  Measure
+                </th>
+                <th scope="col" className="py-1.5 font-normal">
+                  D as explored
+                </th>
+                <th scope="col" className="py-1.5 font-normal">
+                  D refined
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="border-t border-line">
+                <th scope="row" className="py-1.5 font-normal text-fog">
+                  Lighthouse performance, mobile
+                </th>
+                <td className="py-1.5 text-fog-2">98 (runs 97, 98, 98)</td>
+                <td className="py-1.5 text-fog">100 (runs 99, 100, 100)</td>
+              </tr>
+              <tr className="border-t border-line">
+                <th scope="row" className="py-1.5 font-normal text-fog">
+                  Total blocking time
+                </th>
+                <td className="py-1.5 text-fog-2">180 ms</td>
+                <td className="py-1.5 text-fog">80 ms</td>
+              </tr>
+              <tr className="border-t border-line">
+                <th scope="row" className="py-1.5 font-normal text-fog">
+                  Initial JavaScript, gzipped
+                </th>
+                <td className="py-1.5 text-fog-2">195.8 KB</td>
+                <td className="py-1.5 text-fog">177.0 KB</td>
+              </tr>
+              <tr className="border-t border-line">
+                <th scope="row" className="py-1.5 font-normal text-fog">
+                  axe violations (WCAG 2.2 AA)
+                </th>
+                <td className="py-1.5 text-fog-2">0</td>
+                <td className="py-1.5 text-fog">0</td>
+              </tr>
+              <tr className="border-t border-line">
+                <th scope="row" className="py-1.5 font-normal text-fog">
+                  Animation that never stops
+                </th>
+                <td className="py-1.5 text-fog-2">Yes, diagram pulses</td>
+                <td className="py-1.5 text-fog">No, three passes then stop</td>
+              </tr>
+              <tr className="border-t border-line">
+                <th scope="row" className="py-1.5 font-normal text-fog">
+                  Focus after closing the phone menu
+                </th>
+                <td className="py-1.5 text-fog-2">Menu button</td>
+                <td className="py-1.5 text-fog">Menu button</td>
+              </tr>
+            </tbody>
+          </table>
           <div className="mt-8 flex flex-wrap gap-4">
             <Link
               href="/design/final"
               className="inline-flex h-11 items-center rounded-control bg-lamp px-5 font-medium text-ink hover:bg-lamp-2"
             >
-              Open the refined homepage
+              Open the final homepage
             </Link>
             <Link
               href="/design/system"
@@ -226,12 +288,19 @@ export default function DesignLabGallery() {
             >
               Open the design system
             </Link>
+            <Link
+              href="/design/hybrid-final"
+              className="inline-flex h-11 items-center rounded-control px-2 font-medium text-lamp hover:text-lamp-2"
+            >
+              See the E alternative
+            </Link>
           </div>
           <p className="mt-6 max-w-[80ch] type-small text-fog-2">
-            Nothing has replaced the live site. Adopting this direction changes rules in the
-            original build spec (light sections, larger headings, a new accent colour, scroll
-            reveals, and no 3D scene on the homepage), so it needs your approval first. The full
-            report is in docs/design-lab/README.md.
+            Nothing has replaced the live site. Moving D into production keeps the dark theme but
+            changes other rules in the build spec (headings up to 60 px, cyan in place of the lamp
+            accent, Archivo and JetBrains Mono in place of Schibsted Grotesk, scroll reveals, and no
+            3D scene on the homepage), so it needs your go-ahead. The full report is in
+            docs/design-lab/README.md.
           </p>
         </section>
       </div>

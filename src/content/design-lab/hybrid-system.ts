@@ -1,7 +1,7 @@
 /*
  * The refined design system for GetWithUs: Hybrid Premium (concept E) with the
  * structure and restraint of Minimal Corporate (concept B). Every value the
- * final homepage and the /design/system reference use comes from here.
+ * alternative homepage and its /design/hybrid-system reference use comes from here.
  */
 
 export type Token = { name: string; hex: string; use: string };

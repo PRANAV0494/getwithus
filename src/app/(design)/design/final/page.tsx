@@ -1,14 +1,14 @@
 import type { Metadata, Viewport } from "next";
-import FinalHomepage from "@/components/design-lab/FinalHomepage";
+import EngineeringFinal from "@/components/design-lab/EngineeringFinal";
 
 export const metadata: Metadata = {
-  title: "Final: refined homepage",
+  title: "Final: Modern Engineering",
   description:
-    "The recommended GetWithUs homepage: Hybrid Premium refined with the structure of Minimal Corporate.",
+    "The selected GetWithUs homepage: Modern Engineering, refined for reading, conversion, and speed.",
 };
 
-export const viewport: Viewport = { themeColor: "#0B1631", colorScheme: "light" };
+export const viewport: Viewport = { themeColor: "#0F1113", colorScheme: "dark" };
 
 export default function FinalPage() {
-  return <FinalHomepage />;
+  return <EngineeringFinal />;
 }

@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
-import { container, navyTone } from "@/components/design-lab/system/tones";
+import { container, navyTone } from "@/components/design-lab/hybrid/tones";
 
 export type Tone = "paper" | "white" | "navy" | "navy-deep";
 

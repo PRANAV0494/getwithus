@@ -1,5 +1,5 @@
 import ProjectArt from "@/components/design-lab/ProjectArt";
-import { serif } from "@/components/design-lab/system/tones";
+import { serif } from "@/components/design-lab/hybrid/tones";
 import type { LabProject } from "@/content/design-lab/content";
 import { cn } from "@/lib/cn";
 

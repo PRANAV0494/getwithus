@@ -1,6 +1,6 @@
 # GetWithUs design lab
 
-Five website directions for GetWithUs, built as working pages on the existing stack, measured, scored, and refined into one recommended homepage and design system. Nothing here has replaced the live site.
+Five website directions for GetWithUs, built as working pages on the existing stack, measured, and scored. You selected D, Modern Engineering, which has been refined into the final homepage and design system. Nothing here has replaced the live site.
 
 | Page                         | What it is                                                                                                                                                    |
 | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -10,10 +10,12 @@ Five website directions for GetWithUs, built as working pages on the existing st
 | `/design/creative-studio`    | C: Creative Digital Studio                                                                                                                                    |
 | `/design/modern-engineering` | D: Modern Engineering                                                                                                                                         |
 | `/design/hybrid-premium`     | E: Hybrid Premium                                                                                                                                             |
-| `/design/final`              | The refined homepage (recommended)                                                                                                                            |
-| `/design/system`             | The design system reference, rendered from the same tokens                                                                                                    |
+| `/design/final`              | The final homepage: D, Modern Engineering, refined (selected)                                                                                                 |
+| `/design/system`             | The selected design system, rendered from the same tokens                                                                                                     |
+| `/design/hybrid-final`       | Alternative: E, Hybrid Premium, refined with B (highest score)                                                                                                |
+| `/design/hybrid-system`      | The alternative design system                                                                                                                                 |
 
-Run locally with `pnpm dev` and open http://localhost:3000/design. The design system is documented in [design-system.md](design-system.md).
+Run locally with `pnpm dev` and open http://localhost:3000/design. The selected design system is documented in [design-system.md](design-system.md); the alternative in [design-system-hybrid.md](design-system-hybrid.md).
 
 ## 1. The existing project
 
@@ -357,38 +359,46 @@ Conflicts with the current build spec:
 - A new accent colour in place of the lamp brand token
 - Light reading sections, where section 2.2 requires a dark theme
 
-## 6. Recommendation: E, Hybrid Premium, refined with B
+## 6. Recommendation and selection
 
-Hybrid Premium scored highest (88.0) because it is the only direction that is at once credible to enterprise buyers, warm enough for Digital Growth clients, and distinctive among development agencies. It reads as a senior consultancy that also ships software, which is the position GetWithUs wants with international clients. It won on the two heaviest criteria that are hardest to fix later, professional appearance and trust.
+### What the scorecard recommended
 
-Minimal Corporate came second (85.9) for the opposite reasons: the clearest structure and the fastest page, but the least memorable. The two are complementary, so the final design combines them: E's voice (navy, warm white, serif statements) with B's discipline (commitments beside the primary action, a clear practice overview, nothing that moves forever).
+Hybrid Premium scored highest (88.0) because it is the only direction that is at once credible to enterprise buyers, warm enough for Digital Growth clients, and distinctive among development agencies. Minimal Corporate came second (85.9) for the opposite reasons: the clearest structure and the fastest page, but the least memorable. A refined version combining the two was built and remains available at `/design/hybrid-final`, with its system at `/design/hybrid-system` and in [design-system-hybrid.md](design-system-hybrid.md).
 
-The measurements also taught one rule that shaped the refinement: the three directions with endless background animation (A, D, E) were the three slowest, while B, C, and the final page, which have none, scored highest.
+### What was selected
 
-## 7. The refined homepage
+On 1 November 2026 you chose D, Modern Engineering, to finalize. It is a sound choice for an agency that wants to lead with technical credibility: it shows engineering competence on sight, it is ownable among agency sites, and it keeps the dark theme the build spec asks for. The scorecard above is left as measured; the refinement below targets every weakness that cost D points.
 
-`/design/final`, built only from the design system components in `src/components/design-lab/system`.
+The measurements also taught one rule that shaped both refinements: the three directions with endless background animation (A, D, E) were the three slowest, while B, C, and both refined pages, which have none, scored highest.
 
-| Refinement               | What changed                                                                                                                                                  |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Typography hierarchy     | Serif only for the H1, section headings, and practice titles; every card title, label, and button in the sans. H1 capped at 76 px, section headings at 52 px. |
-| Spacing                  | One rhythm: 64 px section padding on phones, 96 px from 768 px, 48 px from heading to content. E's oversized empty bands are gone.                            |
-| Visual balance           | Statement left; lead, actions, and the three commitments right. The practice index stacks until 1024 px so it never cramps on tablets.                        |
-| Call to action placement | Navigation, hero, a "not sure which practice" prompt after the practices, and the closing band. Never two primary buttons in one view.                        |
-| Service clarity          | Practice cards explain the practice and link to its services; the eighteen services are listed once, grouped and anchored by practice.                        |
-| Phone experience         | Full-width primary button, 48 px tap targets in the practice index, and a menu whose dialog code loads only when opened.                                      |
-| Animation timing         | No endless motion. 180 ms colour, 220 ms underline, 300 ms card rule, scroll-linked reveals, all off under reduced motion.                                    |
-| Consistent tokens        | Every value from `src/content/design-lab/system.ts`.                                                                                                          |
+## 7. The final homepage: D refined
 
-Measured on the same production build:
+`/design/final`, built only from the engineering design system in `src/components/design-lab/engineering`. The system is documented in [design-system.md](design-system.md) and rendered at `/design/system`.
 
-|                                          | E as explored      | Final                               |
-| ---------------------------------------- | ------------------ | ----------------------------------- |
-| Lighthouse mobile performance            | 92.5 (median of 6) | 100 (runs 99, 100, 100)             |
-| Total blocking time                      | 170 to 480 ms      | 70 ms                               |
-| Initial JavaScript, gzipped              | 190.7 KB           | 176.9 KB (inside the 180 KB budget) |
-| Accessibility, axe                       | 100, 0 violations  | 100, 0 violations                   |
-| Horizontal overflow at 390, 834, 1440 px | none               | none                                |
+| Refinement                | What changed                                                                                                                                                                                     |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Reading                   | Service names, practice titles, and every paragraph moved from lowercase monospace to sentence-case Archivo. Monospace stays for 11 to 13 px labels, ids, and specifications only.               |
+| Service clarity           | The tabs are gone: all eighteen services are visible, grouped in specification tables with an anchor per practice. Practice cards link to their group instead of repeating it.                   |
+| Conversion                | The three commitments sit under the hero buttons, a "not sure which practice" prompt follows the practices, and the closing panel drops the fake terminal command for a heading and two actions. |
+| Warmth for growth clients | Plain-language summaries lead every practice card and the hero practice index; the diagram gives Digital Growth and AI the same weight as engineering.                                           |
+| Typography hierarchy      | H1 40 to 60 px, section headings 30 to 40 px, all Archivo at width 92; one rhythm of 64 px section padding on phones and 96 px from 768 px.                                                      |
+| Motion                    | Diagram pulses run three passes when the page opens, then stop. Nothing else moves on its own.                                                                                                   |
+| Phones and tablets        | Below 640 px a readable practice list replaces the diagram and buttons go full width; diagram labels are 16 px sans so they stay legible on tablets.                                             |
+| Performance               | The phone menu's dialog loads on first use and the tabs are gone.                                                                                                                                |
+| Accessibility             | Dismissing the phone menu returns focus to the Menu button. The same bug was found on the live site and fixed there too (`Sheet` and `MobileMenu`).                                              |
+| Consistent tokens         | Every value comes from `src/content/design-lab/engineering-system.ts`.                                                                                                                           |
+
+Measured on the same production build in the same session:
+
+|                                          | D as explored        | D refined               |
+| ---------------------------------------- | -------------------- | ----------------------- |
+| Lighthouse mobile performance            | 98 (runs 97, 98, 98) | 100 (runs 99, 100, 100) |
+| Total blocking time                      | 180 ms               | 80 ms                   |
+| Initial JavaScript, gzipped              | 195.8 KB             | 177.0 KB (budget 180)   |
+| axe violations (WCAG 2.2 AA)             | 0                    | 0                       |
+| Horizontal overflow at 390, 834, 1440 px | none                 | none                    |
+| Animation that never stops               | yes, diagram pulses  | no, three passes        |
+| Focus after closing the phone menu       | Menu button          | Menu button             |
 
 ## 8. Technical implementation
 
@@ -396,32 +406,40 @@ Measured on the same production build:
 - Headers: `next.config.ts` gives `/design` and `/design/*` a CSP with `frame-ancestors 'self'` and `frame-src 'self'`, and `X-Frame-Options: SAMEORIGIN`, so the gallery can frame its own pages. Every other route keeps `frame-ancestors 'none'` and `DENY`.
 - Shared building blocks: `LabPage` (CSS variables, fonts, canvas colour, smooth scrolling), `ScrollSpyLinks`, `LabMobileMenu`, `PracticeTabs`, `ProjectArt`, `PracticeIcon`, `LabMark`, and `src/styles/design-lab.css` (reveals, underline, arrow motion, keyframes, reduced motion), all scoped to `[data-lab]` or `lab-` classes.
 - Concepts: one component per direction in `src/components/design-lab/concepts`, each loading its own fonts with `next/font`, so a concept's fonts are preloaded only on its own page.
-- Design system: tokens in `src/content/design-lab/system.ts`; components in `src/components/design-lab/system` (`SystemButton`, `SystemSection`, `SectionHeading`, `SystemHeader` with `LazyMobileMenu`, `PracticeCard`, `WorkCard`, `SystemFooter`); reference page `SystemReference`.
-- Evaluation data: `src/content/design-lab/evaluation.ts`; contrast maths in `src/lib/color.ts`, with unit tests that fail the build if any declared text pairing in any concept drops below WCAG AA.
-- Production untouched: no production component, page, or test changed. `pnpm check`, `pnpm build`, and the end-to-end suite pass.
+- Selected system (D): tokens in `src/content/design-lab/engineering-system.ts`; components in `src/components/design-lab/engineering` (`EngButton`, `Brackets`, `EngSection`, `EngSectionHeading`, `EngHeader` with `EngMobileMenu` and `EngMenuPanel`, `SystemDiagram`, `EngPracticeCard`, `EngWorkCard`, `EngFooter`, `GridBackdrop`); pages `EngineeringFinal` and `EngineeringSystemReference`.
+- Alternative system (E): tokens in `src/content/design-lab/hybrid-system.ts`; components in `src/components/design-lab/hybrid`; pages `HybridFinal` and `HybridSystemReference`.
+- Evaluation data: `src/content/design-lab/evaluation.ts` (with `selectedSlug`); contrast maths in `src/lib/color.ts`, with unit tests that fail the build if any declared text pairing in any concept drops below WCAG AA.
+- Production: untouched except the phone menu focus fix (`src/components/ui/Sheet.tsx` gained a `returnFocusRef` prop, passed by `src/components/layout/MobileMenu.tsx`). `pnpm check`, `pnpm build`, and the end-to-end suite pass.
 
-## 9. Moving the recommendation to production
+## 9. Moving D into production
 
-This needs your decision. Adopting the final design changes rules in `docs/build-prompt.md`:
+This needs your go-ahead. D keeps the dark theme, so it changes fewer rules in `docs/build-prompt.md` than E would, but these still change:
 
-| Spec rule                                         | Final design                                              |
-| ------------------------------------------------- | --------------------------------------------------------- |
-| Dark theme only (2.2)                             | Warm white reading sections with navy bands               |
-| Largest heading 44 px desktop, 32 px mobile (2.1) | H1 up to 76 px, section headings up to 52 px              |
-| Accent is the lamp colour `#F0B35A` (4.2)         | Accent is electric blue `#2052E8` (`#8EAEFF` on navy)     |
-| Schibsted Grotesk only (4.3)                      | Instrument Serif and Instrument Sans                      |
-| No per-section entrances (2.1)                    | Scroll-linked reveals, CSS only, off under reduced motion |
-| The 3D scene is the homepage's visual centre (5)  | No 3D scene on the homepage                               |
+| Spec rule                                         | D refined                                                          |
+| ------------------------------------------------- | ------------------------------------------------------------------ |
+| Largest heading 44 px desktop, 32 px mobile (2.1) | H1 40 to 60 px, section headings 30 to 40 px                       |
+| Accent is the lamp colour `#F0B35A` (4.2)         | Signal cyan `#2CD5E6` on carbon `#0F1113`                          |
+| Ink `#0B0E13` and fog greys (4.2)                 | Carbon and graphite scale with cool greys (see design-system.md)   |
+| Schibsted Grotesk only (4.3)                      | Archivo for text, JetBrains Mono for small labels                  |
+| Radii 4, 6, 10, 16 px (4.4)                       | 2 px controls; square panels marked by corner brackets             |
+| No per-section entrances (2.1)                    | Scroll-linked reveals, CSS only, off under reduced motion          |
+| The 3D scene is the homepage's visual centre (5)  | The system diagram is the hero visual; no 3D scene on the homepage |
 
-Suggested path once approved: move the tokens into `src/styles/tokens.css`, port the system components into `src/components/ui` and `src/components/sections`, rebuild the marketing pages on them (service pages, process, about, contact, and the forms included), update the e2e snapshots and the build spec, then delete `src/app/(design)` and its headers before launch.
+Suggested path once approved:
+
+1. Move the tokens from `engineering-system.ts` into `src/styles/tokens.css` (replacing the lamp palette) and the fonts into the root layout.
+2. Port the engineering components into `src/components/ui` and `src/components/sections`, and the header and footer into `src/components/layout`.
+3. Rebuild the marketing pages on them: home, the seven service pages, process, about, work, contact, the project brief, and the legal pages. The forms and admin keep their logic and adopt the new tokens.
+4. Decide what happens to the 3D scene: retire it, or keep it for the service pages only.
+5. Update `docs/build-prompt.md` rules 2.1, 4.2 to 4.4, and 5, `docs/design.md`, the e2e visual snapshots, and the Open Graph images.
+6. Delete `src/app/(design)` and its header rules before launch.
 
 ## 10. Recommendations for later
 
 1. Replace the concept projects with real case studies as soon as clients give written permission; the work section is the weakest trust signal today.
-2. Design a proper GetWithUs logo. The lab reuses the existing "g" mark recoloured per concept; the new brand casing and serif voice deserve a wordmark of their own.
-3. Test the final design with five to eight people from the target segments (an Indian startup founder, an SME owner, an international operations lead) before building it out.
-4. Commission real team photography for the About page; the warm white sections are designed to hold it.
+2. Design a proper GetWithUs logo. The lab reuses the existing "g" mark in cyan; the engineering direction deserves a wordmark of its own.
+3. Test the final design with five to eight people from the target segments (an Indian startup founder, an SME owner, an international operations lead), paying attention to whether marketing-focused visitors find it approachable.
+4. Commission real team photography for the About page; graphite surfaces suit honest, desaturated portraits.
 5. Re-measure on the deployed preview, on a real mid-range Android phone, and with field data (INP and LCP) after launch.
 6. Run a screen reader pass (NVDA and VoiceOver) on the final page and the menu.
-7. If the 3D scene is kept, explore it as a one-time hero moment on navy rather than a scroll-long background, which would fit the editorial direction.
-8. Keep the lab until the build-out is done, then remove `/design` from the repository before launch.
+7. Keep the lab until the build-out is done, then remove `/design` from the repository before launch.

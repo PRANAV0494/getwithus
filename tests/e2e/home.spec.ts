@@ -43,3 +43,15 @@ test.describe("home", () => {
     await expect(page).toHaveURL(/\/services\/web-development$/);
   });
 });
+
+test("the phone menu returns focus to the Menu button when dismissed", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+  const menuButton = page.getByRole("button", { name: "Menu" });
+  await menuButton.focus();
+  await page.keyboard.press("Enter");
+  await expect(page.getByRole("dialog")).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(page.getByRole("dialog")).toBeHidden();
+  await expect(menuButton).toBeFocused();
+});

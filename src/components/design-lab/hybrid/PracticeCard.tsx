@@ -1,7 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import Icon from "@/components/ui/Icon";
 import PracticeIcon from "@/components/design-lab/PracticeIcon";
-import { serif } from "@/components/design-lab/system/tones";
+import { serif } from "@/components/design-lab/hybrid/tones";
 import type { LabPractice } from "@/content/design-lab/content";
 import { cn } from "@/lib/cn";
 
