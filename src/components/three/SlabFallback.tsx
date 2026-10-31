@@ -14,6 +14,7 @@ export default function SlabFallback({ className }: { className?: string }) {
       strokeLinejoin="round"
       aria-hidden="true"
       focusable="false"
+      data-fallback="slab"
       className={cn("text-fog opacity-20", className)}
     >
       <path d="M120 150 L420 60 L560 130 L260 220 Z" />

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { ReactNode } from "react";
+import { Suspense, type ReactNode } from "react";
 import JsonLd from "@/components/layout/JsonLd";
 import ClosingCta from "@/components/sections/ClosingCta";
 import StationObject from "@/components/three/StationObject";
@@ -101,7 +101,10 @@ export default function ServicePageLayout({ page }: { page: ServicePage }) {
                 </ul>
               ) : null}
             </div>
-            <StationObject station={page.station} />
+            {/* Each Suspense boundary hydrates as its own unit, so the page never pays for every island in one long task. */}
+            <Suspense>
+              <StationObject station={page.station} />
+            </Suspense>
           </div>
         </Container>
       </Section>
@@ -140,14 +143,16 @@ export default function ServicePageLayout({ page }: { page: ServicePage }) {
             <p className="max-w-[68ch] text-fog-2">{page.pricing}</p>
           </Block>
           <Block id="questions" title="Questions">
-            <Accordion
-              className="max-w-[68ch]"
-              items={page.faqs.map((faq, index) => ({
-                id: `faq-${index}`,
-                question: faq.question,
-                answer: faq.answer,
-              }))}
-            />
+            <Suspense>
+              <Accordion
+                className="max-w-[68ch]"
+                items={page.faqs.map((faq, index) => ({
+                  id: `faq-${index}`,
+                  question: faq.question,
+                  answer: faq.answer,
+                }))}
+              />
+            </Suspense>
           </Block>
         </Container>
       </Section>

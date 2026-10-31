@@ -61,7 +61,7 @@ Versions are pinned exactly in `package.json` (no `^` or `~`) so a fresh install
 | `@types/three`                | 0.182.0 | none                                                                       | Matches `three`                                                           |
 | `drizzle-kit`                 | 0.31.11 | none                                                                       |                                                                           |
 | `react-email`                 | 6.11.6  | react `^19.0`, react-dom `^19.0`                                           | Preview server for `pnpm email:dev`                                       |
-| `@react-email/ui` | 6.11.6 | none | Preview UI that `email dev` loads; must match the `react-email` version |
+| `@react-email/ui`             | 6.11.6  | none                                                                       | Preview UI that `email dev` loads; must match the `react-email` version   |
 | `vitest`                      | 5.0.5   | vite `^6.4.0 \|\| ^7.0.0 \|\| ^8.0.0`, @types/node `^22.0.0 \|\| >=24.0.0` |                                                                           |
 | `vite`                        | 8.3.5   | none required                                                              | Vitest 5 moved `vite` to a peer dependency, so it is installed explicitly |
 | `@vitest/coverage-v8`         | 5.0.5   | vitest `5.0.5`                                                             |                                                                           |
@@ -102,3 +102,11 @@ pnpm 12 applies a minimum release age to new versions. `knip` 6.44.1 was publish
 `knip` runs with `KNIP_DISABLE_RAW_TRANSFER=1` (set through `cross-env` in the `knip` script). Its parser otherwise reserves 6 GiB of virtual memory up front, which fails on Windows machines with a smaller commit limit. The flag only switches the parser to its standard transfer mode.
 
 The same pnpm policy later added `lucide-react` 1.66.0 and `@types/three` 0.187.0 to `minimumReleaseAgeExclude` when they were installed. `@types/three` has since moved to 0.182.0 and its exclusion was removed.
+
+## Not installed
+
+`motion` 14.9.0 is listed above because section 8.1 names it, but it was never installed: the hero reveal and all transitions are CSS keyframes, which keeps every marketing route under the initial JavaScript budget. See [0011-css-transitions.md](0011-css-transitions.md).
+
+## Test tooling
+
+`@playwright/test` 1.64.1 and `@axe-core/playwright` 4.14.0 were installed in phase 8 at the pins above. The suite runs Chromium only. Firefox and WebKit builds from the same Playwright release were used by hand to check pages for console problems (see [handoff.md](../handoff.md)); they are not part of `pnpm test:e2e`.

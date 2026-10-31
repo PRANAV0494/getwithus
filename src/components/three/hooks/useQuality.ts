@@ -7,11 +7,12 @@ type NavigatorWithConnection = Navigator & { connection?: { saveData?: boolean }
 
 function hasWebGL2(): boolean {
   try {
+    // A 1 x 1 probe, left for garbage collection. Releasing it with
+    // WEBGL_lose_context makes Firefox log "WebGL context was lost" on every page.
     const canvas = document.createElement("canvas");
-    const context = canvas.getContext("webgl2");
-    // Release the probe context right away; browsers cap live contexts.
-    context?.getExtension("WEBGL_lose_context")?.loseContext();
-    return context !== null;
+    canvas.width = 1;
+    canvas.height = 1;
+    return canvas.getContext("webgl2") !== null;
   } catch {
     return false;
   }
