@@ -166,7 +166,7 @@ export default function TagSphere({
   return (
     <div
       className={cn(
-        "grid grid-cols-1 items-center gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]",
+        "grid grid-cols-1 gap-x-10 gap-y-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:grid-rows-[1fr_auto_1fr]",
         className,
       )}
     >
@@ -175,7 +175,7 @@ export default function TagSphere({
         aria-hidden="true"
         data-decorative=""
         data-paused={active ? undefined : ""}
-        className="sphere isolate"
+        className="sphere isolate lg:col-start-1 lg:row-span-3 lg:row-start-1 lg:self-center"
         onPointerDown={(event) => {
           if (event.button !== 0) return;
           drag.current = {
@@ -227,9 +227,13 @@ export default function TagSphere({
           Drag to rotate
         </span>
       </div>
-      <div>
-        {children}
-        <div role="group" aria-label="Tool groups" className="mt-8 flex flex-col gap-3">
+      {children ? (
+        <div className="order-first lg:order-none lg:col-start-2 lg:row-start-1 lg:self-end">
+          {children}
+        </div>
+      ) : null}
+      <div className="lg:col-start-2 lg:row-start-2">
+        <div role="group" aria-label="Tool groups" className="flex flex-col gap-3">
           {categories.map((entry) => {
             const names = tools
               .filter((tool) => tool.category === entry.key)

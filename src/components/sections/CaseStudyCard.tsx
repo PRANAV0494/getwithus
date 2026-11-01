@@ -1,10 +1,9 @@
 import Link from "next/link";
-import Brackets from "@/components/ui/Brackets";
 import { serviceName } from "@/content/services/catalog";
 import type { CaseStudy } from "@/content/types";
 import { clientLabel } from "@/features/case-studies/labels";
 
-/** A case study in a list, as a short specification sheet: title, summary, then client, industry, and services. */
+/** A case study in a list, as a rounded card: title, summary, then client, industry, and services. */
 export default function CaseStudyCard({ study }: { study: CaseStudy }) {
   const rows = [
     { term: "client", value: clientLabel(study) },
@@ -12,8 +11,7 @@ export default function CaseStudyCard({ study }: { study: CaseStudy }) {
     { term: "services", value: study.services.map(serviceName).join(", ") },
   ];
   return (
-    <article className="reveal group relative flex h-full flex-col border border-line bg-card p-6 transition-colors duration-200 ease-out hover:border-line-2">
-      <Brackets />
+    <article className="group relative flex h-full flex-col rounded-card border border-line bg-card p-7 shadow-soft transition-shadow duration-300 ease-out hover:shadow-lift">
       <h3 className="type-h3">
         <Link
           href={`/work/${study.slug}`}
@@ -26,7 +24,7 @@ export default function CaseStudyCard({ study }: { study: CaseStudy }) {
       <dl className="mt-auto grid gap-2 border-t border-line pt-4 type-small">
         {rows.map((row) => (
           <div key={row.term} className="grid grid-cols-[88px_1fr] gap-3">
-            <dt className="type-label leading-5 text-muted">{row.term}</dt>
+            <dt className="font-semibold text-muted capitalize">{row.term}</dt>
             <dd className="text-body">{row.value}</dd>
           </div>
         ))}

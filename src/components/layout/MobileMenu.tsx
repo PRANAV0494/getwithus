@@ -3,8 +3,9 @@
 import { Menu, X } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import MagneticButton from "@/components/motion/MagneticButton";
+import { serviceColors, serviceIcons } from "@/components/sections/serviceIcons";
 import Button from "@/components/ui/Button";
 import Icon from "@/components/ui/Icon";
 import Logo from "@/components/ui/Logo";
@@ -20,9 +21,9 @@ const loadSheet = () => import("@/components/ui/Sheet");
 const Sheet = dynamic(loadSheet, { ssr: false });
 
 const menuButtonClasses =
-  "inline-flex h-9 items-center gap-2 rounded-control border border-line-2 px-3 type-button text-ink transition-colors duration-150 ease-out hover:border-muted";
+  "inline-flex h-11 items-center gap-2 rounded-full border border-line-2 bg-card px-4 type-button text-ink transition-colors duration-150 ease-out hover:border-muted";
 
-/** Below 1024 px: a menu button that opens a full-height sheet with every link. */
+/** Below 1024 px: a pill menu button that opens a full-height sheet with every link. */
 export default function MobileMenu({ services, links }: MobileMenuProps) {
   const [open, setOpen] = useState(false);
   const menuButton = useRef<HTMLButtonElement>(null);
@@ -58,7 +59,7 @@ export default function MobileMenu({ services, links }: MobileMenuProps) {
       </button>
       {requested ? (
         <Sheet open={open} onOpenChange={setOpen} title="Menu" returnFocusRef={menuButton}>
-          <div className="flex h-10 items-center justify-between">
+          <div className="flex h-14 items-center justify-between">
             <Logo onClick={close} />
             <button type="button" className={menuButtonClasses} onClick={close}>
               <Icon icon={X} size={16} />
@@ -71,24 +72,42 @@ export default function MobileMenu({ services, links }: MobileMenuProps) {
                 <Link href="/services" onClick={close} className="block py-3.5 type-h4 text-ink">
                   Services
                 </Link>
-                <ul className="grid gap-0.5 pb-3 pl-4">
-                  {services.map((service) => (
-                    <li key={service.slug}>
-                      <Link href={service.href} onClick={close} className="block py-2 text-body">
-                        {service.name}
-                      </Link>
-                      {service.children?.map((child) => (
+                <ul className="grid gap-1 pb-3">
+                  {services.map((service) => {
+                    const ServiceIcon = serviceIcons[service.slug];
+                    return (
+                      <li key={service.slug}>
                         <Link
-                          key={child.slug}
-                          href={child.href}
+                          href={service.href}
                           onClick={close}
-                          className="block py-2 pl-4 text-body"
+                          className="flex items-center gap-3 rounded-[14px] py-2 font-semibold text-ink"
                         >
-                          {child.name}
+                          <span
+                            aria-hidden="true"
+                            className="grid size-9 shrink-0 place-items-center rounded-[10px] bg-[color-mix(in_srgb,var(--c)_14%,transparent)] text-[var(--c)]"
+                            style={{ "--c": serviceColors[service.slug] } as CSSProperties}
+                          >
+                            <Icon icon={ServiceIcon} size={16} />
+                          </span>
+                          {service.name}
                         </Link>
-                      ))}
-                    </li>
-                  ))}
+                        {service.children?.length ? (
+                          <div className="flex flex-wrap gap-2 pb-1 pl-12">
+                            {service.children.map((child) => (
+                              <Link
+                                key={child.slug}
+                                href={child.href}
+                                onClick={close}
+                                className="inline-flex rounded-full border border-line bg-bg-soft px-3 py-1.5 text-sm font-semibold text-body"
+                              >
+                                {child.name}
+                              </Link>
+                            ))}
+                          </div>
+                        ) : null}
+                      </li>
+                    );
+                  })}
                 </ul>
               </li>
               {links.map((link) => (

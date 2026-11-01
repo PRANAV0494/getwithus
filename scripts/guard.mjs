@@ -33,7 +33,7 @@ const rules = [
   {
     name: "forbidden motion library import",
     // No library takes over scrolling (decisions/0008); motion is CSS and small components (0011, 0014).
-    re: /from ["'](lenis|@studio-freight\/lenis|aos|locomotive-scroll|framer-motion)["']/g,
+    re: /from ["'](lenis|@studio-freight\/lenis|aos|locomotive-scroll|framer-motion|motion(\/[\w-]+)?|gsap(\/[\w-]+)?|@gsap\/[\w-]+)["']/g,
   },
 ];
 const strictRules = [{ name: "owner placeholder", re: /\[OWNER:/g }];

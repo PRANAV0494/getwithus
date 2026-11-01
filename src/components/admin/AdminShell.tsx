@@ -20,7 +20,7 @@ export default function AdminShell({ email, unreadCount, children }: AdminShellP
     <div className="grid min-h-svh md:grid-cols-[220px_minmax(0,1fr)]">
       <aside className="border-b border-line bg-card md:border-r md:border-b-0">
         <div className="flex h-16 items-center px-5">
-          <Logo href="/admin" />
+          <Logo size="md" href="/admin" />
         </div>
         <nav aria-label="Admin" className="px-3 pb-4">
           <ul className="flex gap-1 md:grid">

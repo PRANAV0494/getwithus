@@ -1,4 +1,4 @@
-import { site } from "@/config/site";
+import { known, RESPONSE_TIME, site } from "@/config/site";
 
 type Action = { label: string; href: string };
 
@@ -17,7 +17,7 @@ export const homePage = {
     /** Three commitments in a few words each, beside the hero buttons. */
     proof: ["Fixed scope and price", "Weekly demos", "You own everything"],
   },
-  services: { title: "What we do" },
+  services: { title: "Five things we build, all of them yours to keep" },
   process: {
     title: "How a project runs",
     link: { label: "The process in detail", href: "/process" },
@@ -26,11 +26,18 @@ export const homePage = {
   work: { title: "Selected work", link: { label: "All work", href: "/work" } },
 } as const;
 
+const contactEmail = known(site.contact.email);
+
 export const closingCta = {
   title: "Tell us what you need",
-  text: `Answer a few questions about your project and we reply within ${site.responseTime} with next steps and, where possible, a price range.`,
+  text: RESPONSE_TIME
+    ? `Answer a few questions about your project and we reply within ${RESPONSE_TIME} with next steps and, where possible, a price range.`
+    : "Answer a few questions about your project and we reply with next steps and, where possible, a price range.",
   primary: { label: "Start a project", href: "/start" } satisfies Action,
-  secondary: { label: "Email us", href: `mailto:${site.contact.email}` } satisfies Action,
+  /** Left out until the owner's email address is known. */
+  secondary: contactEmail
+    ? ({ label: "Email us", href: `mailto:${contactEmail}` } satisfies Action)
+    : undefined,
 } as const;
 
 export const servicesPage = {

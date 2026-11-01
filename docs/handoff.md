@@ -16,15 +16,40 @@ Design: a design lab at `/design` holds five alternative website directions and 
 
 | Location                | Needed                                                                             |
 | ----------------------- | ---------------------------------------------------------------------------------- |
-| `src/config/site.ts:11` | Confirm whether a designed wordmark or logo exists (the name is written GetWithUs) |
-| `src/config/site.ts:21` | Contact email (hello@domain)                                                       |
-| `src/config/site.ts:22` | Phone or WhatsApp number                                                           |
-| `src/config/site.ts:23` | City and country                                                                   |
-| `src/config/site.ts:24` | Address                                                                            |
-| `src/config/site.ts:26` | Legal entity name                                                                  |
-| `src/config/site.ts:27` | Response time promise, for example "one business day"                              |
-| `src/config/site.ts:28` | Fix window after launch, for example "30-day"                                      |
+| `src/config/site.ts:14` | Confirm whether a designed wordmark or logo exists (the name is written GetWithUs) |
+| `src/config/site.ts:24` | Contact email (hello@domain)                                                       |
+| `src/config/site.ts:25` | Phone or WhatsApp number                                                           |
+| `src/config/site.ts:26` | City and country                                                                   |
+| `src/config/site.ts:27` | Address                                                                            |
+| `src/config/site.ts:29` | Legal entity name                                                                  |
+| `src/config/site.ts:30` | Response time promise, for example "one business day"                              |
+| `src/config/site.ts:31` | Fix window after launch, for example "30-day"                                      |
 | `src/app/layout.tsx:45` | Change `lang` if the site's primary language is not English                        |
+
+### Home page, pricing, and payment
+
+Each of these is hidden on the site until it is filled in; nothing renders a raw placeholder.
+
+| Location                      | Needed                                                                                                     |
+| ----------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `src/config/site.ts:33`       | The month the hero pill says you are booking projects for (the pill is hidden until set)                   |
+| `src/config/site.ts:39`       | Payment schedule, for example a deposit at signing and the rest at milestones                              |
+| `src/config/site.ts:40`       | Currencies you invoice in                                                                                  |
+| `src/config/site.ts:41`       | Tax note, for example "prices exclude GST"                                                                 |
+| `src/config/site.ts:42`       | Accepted payment methods                                                                                   |
+| `src/content/pricing.ts:33`   | Starting price for a website (until set, the card says "Fixed price after a short scoping call")           |
+| `src/content/pricing.ts:41`   | Typical timeline for a website                                                                             |
+| `src/content/pricing.ts:47`   | Starting price for an app                                                                                  |
+| `src/content/pricing.ts:55`   | Typical timeline for an app                                                                                |
+| `src/content/pricing.ts:61`   | Setup price for a WhatsApp or calling agent                                                                |
+| `src/content/pricing.ts:62`   | Monthly fee for an agent                                                                                   |
+| `src/content/pricing.ts:71`   | Typical timeline for an agent                                                                              |
+| `src/content/pricing.ts:76`   | Monthly retainer for digital marketing                                                                     |
+| `src/content/pricing.ts:85`   | Typical time to first results for marketing                                                                |
+| `src/content/pricing.ts:99`   | Typical timeline for custom software                                                                       |
+| `src/content/industries.ts:2` | Confirm the industries to list; the "Industries we build for" section stays hidden while the list is empty |
+
+The website pricing card is marked `featured` (the dark card) for show; move or remove the flag in `src/content/pricing.ts`.
 
 ### Project brief budget ranges (`src/content/brief.ts`)
 

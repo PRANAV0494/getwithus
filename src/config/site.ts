@@ -3,6 +3,9 @@ import { publicEnv } from "@/config/public-env";
 
 export type SocialLink = { label: string; href: string };
 
+/** How every owner placeholder starts. The one place in code that spells it, so `pnpm guard:strict` flags it once. */
+const OWNER_MARK = "[OWNER:";
+
 /**
  * Site-wide facts. Every owner placeholder below is a fact only the business owner
  * can supply; `pnpm guard:strict` fails until all of them are replaced.
@@ -30,6 +33,14 @@ export const site = {
   bookingMonth: "[OWNER: month you are booking projects for, for example March]",
   /** Prefilled text for the WhatsApp button (shown only once the phone number is known). */
   whatsAppMessage: "Hi GetWithUs, I would like to talk about a project.",
+  /** "How payment works" under the pricing cards. Each line is hidden while it is a placeholder. */
+  payment: {
+    schedule:
+      "[OWNER: payment schedule, for example a deposit at signing and the rest at milestones]",
+    currency: "[OWNER: currencies you invoice in, for example INR and USD]",
+    tax: "[OWNER: tax note, for example prices exclude GST]",
+    methods: "[OWNER: accepted payment methods, for example bank transfer, UPI, and card]",
+  },
   copyrightYear: 2026,
   // Real profile URLs only. Empty means no social links are rendered anywhere.
   social: [] as SocialLink[],
@@ -38,7 +49,12 @@ export const site = {
 
 /** A site fact, or undefined while it is still an owner placeholder, so whatever shows it can be left out. */
 export function known(value: string | undefined): string | undefined {
-  return value && !value.startsWith("[OWNER:") ? value : undefined;
+  return value && !value.startsWith(OWNER_MARK) ? value : undefined;
+}
+
+/** False while a sentence still carries an owner placeholder anywhere in it, so lists can leave it out. */
+export function isFilled(text: string): boolean {
+  return !text.includes(OWNER_MARK);
 }
 
 /** How soon we reply, for promises on the page. Undefined until the owner supplies it. */

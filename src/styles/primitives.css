@@ -1402,3 +1402,129 @@
     min-height: 300px;
   }
 }
+
+/* ---------- Home sections ---------- */
+
+/* Service card scenes: browser bars, phone, rising bars, the integration hub. */
+.scene-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 9px;
+  height: 110px;
+}
+.scene-bars span {
+  flex: 1;
+  border-radius: 6px 6px 2px 2px;
+  background: color-mix(in srgb, var(--c-mkt) 30%, transparent);
+  transform-origin: bottom;
+  animation: bar-rise 900ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--i) * 60ms);
+}
+.scene-bars span:last-child {
+  background: var(--c-mkt);
+}
+@keyframes bar-rise {
+  from {
+    transform: scaleY(0);
+  }
+}
+.hub-wire {
+  fill: none;
+  stroke: var(--accent);
+  stroke-opacity: 0.55;
+  stroke-width: 1.6;
+  stroke-dasharray: 2 9;
+  stroke-linecap: round;
+  animation: hub-flow 1.4s linear infinite;
+}
+@keyframes hub-flow {
+  to {
+    stroke-dashoffset: -22;
+  }
+}
+
+/* The closing band's rings and breathing glow. */
+.cta-orb {
+  position: relative;
+  aspect-ratio: 1;
+  width: 100%;
+}
+.cta-orb > span {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px dashed rgb(255 255 255 / 0.22);
+}
+.cta-orb > span:nth-child(1) {
+  inset: 0;
+  animation: spin 40s linear infinite;
+}
+.cta-orb > span:nth-child(2) {
+  inset: 16%;
+  border-style: solid;
+  border-color: rgb(255 255 255 / 0.12);
+  animation: spin 28s linear infinite reverse;
+}
+.cta-orb > span:nth-child(3) {
+  inset: 34%;
+  border: 0;
+  background: radial-gradient(circle, #22d3ee 0%, rgb(34 211 238 / 0.25) 45%, transparent 70%);
+  animation: breathe 4s ease-in-out infinite;
+}
+.cta-orb b {
+  position: absolute;
+  top: -6px;
+  left: calc(50% - 6px);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #22d3ee;
+  box-shadow: 0 0 16px #22d3ee;
+}
+.cta-orb > span:nth-child(2) b {
+  background: #f5b54a;
+  box-shadow: 0 0 16px #f5b54a;
+}
+@keyframes breathe {
+  50% {
+    transform: scale(1.12);
+  }
+}
+
+/* Commitment cards: the second sentence opens on hover or keyboard focus, and is always open without hover. */
+.commit-more {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 400ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 300ms ease-out;
+}
+.commit-card:hover .commit-more,
+.commit-card:focus-visible .commit-more,
+.commit-card:focus-within .commit-more {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+@media (hover: none) {
+  .commit-more {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+}
+.commit-ghost {
+  -webkit-text-stroke: 1.5px var(--line-2);
+  transform: translateZ(30px);
+  transition: -webkit-text-stroke-color 300ms ease-out;
+}
+.commit-card:hover .commit-ghost,
+.commit-card:focus-visible .commit-ghost {
+  -webkit-text-stroke-color: var(--accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene-bars span,
+  .hub-wire,
+  .cta-orb > span {
+    animation: none !important;
+  }
+}

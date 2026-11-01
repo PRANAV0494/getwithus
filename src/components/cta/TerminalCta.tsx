@@ -1,10 +1,9 @@
 "use client";
 
-import { m } from "motion/react";
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import TerminalFrame from "@/components/cta/TerminalFrame";
 import MagneticButton from "@/components/motion/MagneticButton";
-import MotionScope from "@/components/motion/MotionScope";
+import { sleep } from "@/components/motion/sleep";
 import Button from "@/components/ui/Button";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
@@ -26,22 +25,6 @@ const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /** True for an address the terminal accepts: something@something.something, no spaces. */
 export const isEmail = (value: string) => EMAIL.test(value.trim());
-
-/** Resolves after `ms`, or rejects as soon as `signal` aborts; never leaves a timer behind. */
-function wait(ms: number, signal: AbortSignal): Promise<void> {
-  return new Promise<void>((resolve, reject) => {
-    if (signal.aborted) return reject(signal.reason);
-    const onAbort = () => {
-      window.clearTimeout(timer);
-      reject(signal.reason);
-    };
-    const timer = window.setTimeout(() => {
-      signal.removeEventListener("abort", onAbort);
-      resolve();
-    }, ms);
-    signal.addEventListener("abort", onAbort, { once: true });
-  });
-}
 
 type Tone = "plain" | "muted" | "ok" | "err";
 type Item =
@@ -67,11 +50,12 @@ type TerminalCtaProps = {
   responseTime?: string;
 };
 
+/** Line colours on the terminal's dark editor surface, in both themes. */
 const LINE_TONE: Record<Tone, string> = {
-  plain: "text-ink",
-  muted: "text-muted",
-  ok: "text-ok",
-  err: "text-err",
+  plain: "text-[#d6deeb]",
+  muted: "text-[#8b9ab0]",
+  ok: "text-[#3ee08a]",
+  err: "text-[#ff8a80]",
 };
 
 /**
@@ -112,7 +96,7 @@ export default function TerminalCta({ action, responseTime }: TerminalCtaProps) 
       const id = append({ kind: "line", text, tone, prompt, typed: reduce ? text.length : 0 });
       if (reduce) return;
       for (let typed = 1; typed <= text.length; typed++) {
-        await wait(CHAR_MS, signal);
+        await sleep(CHAR_MS, signal);
         setItems((list) =>
           list.map((item) => (item.id === id && item.kind === "line" ? { ...item, typed } : item)),
         );
@@ -170,7 +154,7 @@ export default function TerminalCta({ action, responseTime }: TerminalCtaProps) 
     if (!signal || asked.current[to]) return;
     asked.current[to] = true;
     try {
-      if (!reduce) await wait(PAUSE_MS, signal);
+      if (!reduce) await sleep(PAUSE_MS, signal);
       if (to === "budgets") {
         await type("rough budget?", "plain", true);
         append({ kind: "budgets" });
@@ -212,7 +196,7 @@ export default function TerminalCta({ action, responseTime }: TerminalCtaProps) 
       setItems((list) => list.filter((item) => item.kind !== "email"));
       await type("sending brief…", "muted", false);
       const result = await action({ services: needs, budget: budget ?? "", email: address });
-      if (!reduce) await wait(500, signal);
+      if (!reduce) await sleep(500, signal);
       if (!result.ok) {
         await type("✗ the brief did not go through. Email us instead.", "err", false);
         append({ kind: "restart" });
@@ -240,110 +224,98 @@ export default function TerminalCta({ action, responseTime }: TerminalCtaProps) 
   const chipsLocked = stage === "sending" || stage === "done";
 
   return (
-    <MotionScope>
-      <TerminalFrame ref={root}>
-        {items.map((item) => {
-          if (item.kind === "line") {
-            const done = item.typed >= item.text.length;
-            return (
-              <m.p
-                key={item.id}
-                initial={reduce ? false : { opacity: 0, y: 4 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.2 }}
-                className={cn("mb-3 whitespace-pre-wrap", LINE_TONE[item.tone])}
-              >
-                <span aria-hidden="true">
-                  {item.prompt ? <span className="text-accent">&gt; </span> : null}
-                  {item.text.slice(0, item.typed)}
-                  {item.id === typingId ? <span className="caret" /> : null}
-                </span>
-                {done ? <span className="sr-only">{item.text}</span> : null}
-              </m.p>
-            );
-          }
-          if (item.kind === "needs" || item.kind === "budgets") {
-            const multi = item.kind === "needs";
-            const list = multi ? NEEDS : BUDGETS;
-            return (
-              <m.div
-                key={item.id}
-                role="group"
-                aria-label={multi ? "What do you need?" : "Rough budget"}
-                initial={reduce ? false : { opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3 }}
-                className="mt-1 mb-[26px] flex flex-wrap gap-2.5"
-              >
-                {list.map((label) => {
-                  const pressed = multi ? needs.includes(label) : budget === label;
-                  return (
-                    <m.button
-                      key={label}
-                      type="button"
-                      aria-pressed={pressed}
-                      disabled={chipsLocked}
-                      onClick={() => (multi ? toggleNeed(label) : pickBudget(label))}
-                      whileTap={reduce ? undefined : { scale: 0.96 }}
-                      className={cn(
-                        "border px-3.5 py-2 font-mono text-sm transition-colors duration-200 disabled:cursor-not-allowed",
-                        pressed
-                          ? "border-accent bg-accent text-accent-ink"
-                          : "border-line-2 text-body hover:border-muted hover:text-ink",
-                      )}
-                    >
-                      {pressed ? "✓ " : null}
-                      {label}
-                    </m.button>
-                  );
-                })}
-              </m.div>
-            );
-          }
-          if (item.kind === "email") {
-            return (
-              <m.form
-                key={item.id}
-                noValidate
-                onSubmit={submit}
-                initial={reduce ? false : { opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3 }}
-                className="mt-1 flex flex-wrap items-center gap-2.5"
-              >
-                <span aria-hidden="true" className="text-accent">
-                  $
-                </span>
-                <input
-                  ref={input}
-                  type="email"
-                  inputMode="email"
-                  autoComplete="email"
-                  placeholder="you@company.com"
-                  aria-label="Email address"
-                  value={email}
-                  onChange={(event) => setEmail(event.target.value)}
-                  className="h-12 min-w-[220px] flex-1 border-0 border-b border-line-2 bg-transparent px-1 font-mono text-[0.9375rem] text-ink placeholder:text-muted focus:border-accent"
-                />
-                <MagneticButton>
-                  <Button type="submit">Send brief</Button>
-                </MagneticButton>
-              </m.form>
-            );
-          }
+    <TerminalFrame ref={root}>
+      {items.map((item) => {
+        if (item.kind === "line") {
+          const done = item.typed >= item.text.length;
           return (
-            <p key={item.id} className="mb-3">
-              <button
-                type="button"
-                onClick={() => void start()}
-                className="font-mono text-sm text-accent underline underline-offset-4"
-              >
-                start again
-              </button>
+            <p
+              key={item.id}
+              className={cn("chat-in mb-3 whitespace-pre-wrap", LINE_TONE[item.tone])}
+            >
+              <span aria-hidden="true">
+                {item.prompt ? <span className="text-[#22d3ee]">&gt; </span> : null}
+                {item.text.slice(0, item.typed)}
+                {item.id === typingId ? <span className="code-caret ml-0.5" /> : null}
+              </span>
+              {done ? <span className="sr-only">{item.text}</span> : null}
             </p>
           );
-        })}
-      </TerminalFrame>
-    </MotionScope>
+        }
+        if (item.kind === "needs" || item.kind === "budgets") {
+          const multi = item.kind === "needs";
+          const list = multi ? NEEDS : BUDGETS;
+          return (
+            <div
+              key={item.id}
+              role="group"
+              aria-label={multi ? "What do you need?" : "Rough budget"}
+              className="chat-in mt-1 mb-[26px] flex flex-wrap gap-2.5"
+            >
+              {list.map((label) => {
+                const pressed = multi ? needs.includes(label) : budget === label;
+                return (
+                  <button
+                    key={label}
+                    type="button"
+                    aria-pressed={pressed}
+                    disabled={chipsLocked}
+                    onClick={() => (multi ? toggleNeed(label) : pickBudget(label))}
+                    className={cn(
+                      "rounded-full border px-3.5 py-2 text-sm transition-[color,background-color,border-color,transform] duration-200 active:scale-[0.96] disabled:cursor-not-allowed",
+                      pressed
+                        ? "border-[#22d3ee] bg-[#22d3ee] text-[#06222a]"
+                        : "border-white/20 text-[#c3cdd8] hover:border-white/40 hover:text-white",
+                    )}
+                  >
+                    {pressed ? "✓ " : null}
+                    {label}
+                  </button>
+                );
+              })}
+            </div>
+          );
+        }
+        if (item.kind === "email") {
+          return (
+            <form
+              key={item.id}
+              noValidate
+              onSubmit={submit}
+              className="chat-in mt-1 flex flex-wrap items-center gap-2.5"
+            >
+              <span aria-hidden="true" className="text-[#22d3ee]">
+                $
+              </span>
+              <input
+                ref={input}
+                type="email"
+                inputMode="email"
+                autoComplete="email"
+                placeholder="you@company.com"
+                aria-label="Email address"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                className="h-12 min-w-[200px] flex-1 border-0 border-b border-white/25 bg-transparent px-1 font-mono text-[0.9375rem] text-white placeholder:text-[#8b9ab0] focus:border-[#22d3ee]"
+              />
+              <MagneticButton>
+                <Button type="submit">Send brief</Button>
+              </MagneticButton>
+            </form>
+          );
+        }
+        return (
+          <p key={item.id} className="mb-3">
+            <button
+              type="button"
+              onClick={() => void start()}
+              className="text-sm text-[#22d3ee] underline underline-offset-4"
+            >
+              start again
+            </button>
+          </p>
+        );
+      })}
+    </TerminalFrame>
   );
 }

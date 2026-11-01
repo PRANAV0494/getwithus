@@ -11,6 +11,14 @@ Before editing copy, read the hard rules in [design.md](design.md#hard-rules-che
 | Brand name, contact details, legal entity, response time, fix window, social links    | `src/config/site.ts`                                                                          |
 | Navigation                                                                            | `src/config/site.ts` (`primaryNav`) and `src/content/services/catalog.ts` (the services menu) |
 | Home, services index, process, work, about, contact, and start page copy and metadata | `src/content/pages.ts`                                                                        |
+| Home page sections (hero words, headings and leads of every new section)              | `src/content/home.ts`                                                                         |
+| Pricing cards and the platform costs line                                             | `src/content/pricing.ts`                                                                      |
+| Payment facts under the pricing cards                                                 | `src/config/site.ts` (`payment`)                                                              |
+| Home page questions                                                                   | `src/content/faqs.ts`                                                                         |
+| Industries (hidden while empty)                                                       | `src/content/industries.ts`                                                                   |
+| Tools, their categories, and their official marks                                     | `src/content/tools.ts`                                                                        |
+| Demo scripts (WhatsApp, calling agent, workflow, deploy log)                          | `src/content/demos.ts`                                                                        |
+| Code samples in the home page editor                                                  | `src/content/code-samples.ts`                                                                 |
 | Process steps                                                                         | `src/content/process.ts`                                                                      |
 | Commitments (home and about)                                                          | `src/content/commitments.ts`                                                                  |
 | Each service page                                                                     | `src/content/services/<slug>.ts`                                                              |

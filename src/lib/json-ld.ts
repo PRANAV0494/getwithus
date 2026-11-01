@@ -1,4 +1,4 @@
-import { site } from "@/config/site";
+import { isFilled, known, site } from "@/config/site";
 import type { FaqItem, ServicePage } from "@/content/types";
 import { absoluteUrl } from "@/lib/seo";
 
@@ -6,21 +6,31 @@ type Thing = { "@context"?: "https://schema.org"; "@type": string } & Record<str
 
 export type JsonLdData = Thing | readonly Thing[];
 
-/** The organization behind the site. `sameAs` lists only real profiles from site config. */
+/**
+ * The organization behind the site. Owner facts (legal name, email, phone) are
+ * included only once known; `sameAs` lists only real profiles from site config.
+ */
 export function organizationJsonLd(): Thing {
+  const legalName = known(site.legalEntity);
+  const email = known(site.contact.email);
+  const telephone = known(site.contact.phone);
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: site.name,
-    legalName: site.legalEntity,
+    ...(legalName ? { legalName } : {}),
     url: site.url,
     logo: absoluteUrl("/icon.svg"),
-    contactPoint: {
-      "@type": "ContactPoint",
-      contactType: "sales",
-      email: site.contact.email,
-      telephone: site.contact.phone,
-    },
+    ...(email || telephone
+      ? {
+          contactPoint: {
+            "@type": "ContactPoint",
+            contactType: "sales",
+            ...(email ? { email } : {}),
+            ...(telephone ? { telephone } : {}),
+          },
+        }
+      : {}),
     ...(site.social.length ? { sameAs: site.social.map((link) => link.href) } : {}),
   };
 }
@@ -49,16 +59,18 @@ export function serviceJsonLd(page: ServicePage): Thing {
   };
 }
 
-/** FAQPage built from the same question list the page renders. */
+/** FAQPage built from the same question list the page renders, leaving out answers still waiting on the owner. */
 export function faqJsonLd(faqs: readonly FaqItem[]): Thing {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: faqs.map((faq) => ({
-      "@type": "Question",
-      name: faq.question,
-      acceptedAnswer: { "@type": "Answer", text: faq.answer },
-    })),
+    mainEntity: faqs
+      .filter((faq) => isFilled(faq.question) && isFilled(faq.answer))
+      .map((faq) => ({
+        "@type": "Question",
+        name: faq.question,
+        acceptedAnswer: { "@type": "Answer", text: faq.answer },
+      })),
   };
 }
 

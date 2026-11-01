@@ -1,13 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { isEmail } from "@/components/cta/TerminalCta";
 import { scrambleFrame } from "@/components/motion/ScrambleText";
-import {
-  BASE,
-  LABEL_Y,
-  leaderPoints,
-  plateGap,
-  plateY,
-} from "@/components/services/isoStackGeometry";
 
 describe("scrambleFrame", () => {
   it("never scrambles spaces, slashes, or the prompt mark", () => {
@@ -34,28 +27,5 @@ describe("isEmail", () => {
     for (const value of ["", "name", "name@company", "name @company.com", "@company.com"]) {
       expect(isEmail(value)).toBe(false);
     }
-  });
-});
-
-describe("services stack geometry", () => {
-  it("is together at both ends of the section and spread apart in the middle", () => {
-    expect(plateGap(0)).toBe(24);
-    expect(plateGap(1)).toBeCloseTo(24);
-    expect(plateGap(0.5)).toBeCloseTo(78);
-    expect(plateGap(-1)).toBe(24);
-  });
-
-  it("stacks upward from the base and lifts the active plate by 20", () => {
-    expect(plateY(0, 30, false)).toBe(BASE);
-    expect(plateY(2, 30, false)).toBe(BASE - 60);
-    expect(plateY(2, 30, true)).toBe(BASE - 80);
-  });
-
-  it("keeps labels on fixed rows far enough apart never to overlap", () => {
-    for (let index = 1; index < LABEL_Y.length; index++) {
-      expect(LABEL_Y[index - 1] - LABEL_Y[index]).toBeGreaterThanOrEqual(20);
-    }
-    expect(leaderPoints(300, 1).endsWith(`424,${LABEL_Y[1]}`)).toBe(true);
-    expect(leaderPoints(120, 1).endsWith(`424,${LABEL_Y[1]}`)).toBe(true);
   });
 });

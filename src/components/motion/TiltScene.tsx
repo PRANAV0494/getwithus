@@ -26,9 +26,13 @@ export function TiltScene({
   );
 }
 
-/** The scene well inside a TiltScene: dotted, rounded, and 3D. */
+/** The scene well inside a TiltScene: dotted, rounded, and 3D. Decorative: the card text says the same. */
 export function Scene({ children, className }: { children: ReactNode; className?: string }) {
-  return <div className={cn("tilt-scene-well", className)}>{children}</div>;
+  return (
+    <div aria-hidden="true" className={cn("tilt-scene-well", className)}>
+      {children}
+    </div>
+  );
 }
 
 /** One object in a scene, `z` pixels in front of the scene's surface. */

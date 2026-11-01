@@ -3,8 +3,9 @@ import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
 
 const forbiddenPackages = [
-  // GSAP and Motion leave as the final design replaces their components (docs/decisions/0013, 0014).
-  { name: "framer-motion", message: "No motion package; see docs/decisions/0011." },
+  { name: "framer-motion", message: "No motion package; see docs/decisions/0011 and 0014." },
+  { name: "motion", message: "No motion package; see docs/decisions/0011 and 0014." },
+  { name: "gsap", message: "No animation library; see docs/decisions/0014." },
   { name: "lenis", message: "Native scrolling only; see docs/decisions/0008." },
   { name: "aos", message: "No scroll entrance animations." },
   { name: "locomotive-scroll", message: "Native scrolling only." },
@@ -45,6 +46,10 @@ const eslintConfig = defineConfig([
           paths: forbiddenPackages,
           patterns: [
             { group: ["../../*"], message: "Use the @/ alias instead of climbing directories." },
+            {
+              group: ["motion/*", "gsap/*", "@gsap/*"],
+              message: "No animation library; see docs/decisions/0014.",
+            },
           ],
         },
       ],
@@ -77,6 +82,10 @@ const eslintConfig = defineConfig([
           paths: forbiddenPackages,
           patterns: [
             { group: ["../../*"], message: "Use the @/ alias instead of climbing directories." },
+            {
+              group: ["motion/*", "gsap/*", "@gsap/*"],
+              message: "No animation library; see docs/decisions/0014.",
+            },
             { group: ["@/server/*", "@/server"], message: "Components never import server code." },
             {
               group: ["@/features/*/repository"],

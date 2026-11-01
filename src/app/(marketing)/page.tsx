@@ -1,14 +1,22 @@
 import { submitBrief } from "@/app/actions/submitBrief";
 import CtaSection from "@/components/cta/CtaSection";
+import CodeSection from "@/components/home/CodeSection";
+import HomeFaq from "@/components/home/HomeFaq";
+import HomeHero from "@/components/home/HomeHero";
+import Industries from "@/components/home/Industries";
+import SeeItWorking from "@/components/home/SeeItWorking";
+import ServiceCards from "@/components/home/ServiceCards";
+import StackSection from "@/components/home/StackSection";
+import ToolMarquee from "@/components/home/ToolMarquee";
 import JsonLd from "@/components/layout/JsonLd";
 import Commitments from "@/components/sections/Commitments";
-import Hero from "@/components/sections/Hero";
-import ProcessSteps from "@/components/sections/ProcessSteps";
+import Pricing from "@/components/sections/Pricing";
+import ProcessSection from "@/components/sections/ProcessSection";
 import SelectedWork from "@/components/sections/SelectedWork";
-import ServiceBlocks from "@/components/sections/ServiceBlocks";
 import { site } from "@/config/site";
+import { homeFaqs } from "@/content/faqs";
 import { homePage } from "@/content/pages";
-import { organizationJsonLd, websiteJsonLd } from "@/lib/json-ld";
+import { faqJsonLd, organizationJsonLd, websiteJsonLd } from "@/lib/json-ld";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -18,15 +26,23 @@ export const metadata = pageMetadata({
   absoluteTitle: true,
 });
 
+/** The home page, in the section order of docs/build-final-prompt.md section 5. */
 export default function HomePage() {
   return (
     <>
-      <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
-      <Hero />
-      <ServiceBlocks />
-      <ProcessSteps index="02" title={homePage.process.title} link={homePage.process.link} />
-      <Commitments index="03" />
-      <SelectedWork index="04" />
+      <JsonLd data={[organizationJsonLd(), websiteJsonLd(), faqJsonLd(homeFaqs)]} />
+      <HomeHero />
+      <ToolMarquee />
+      <ServiceCards />
+      <SeeItWorking />
+      <CodeSection />
+      <StackSection />
+      <ProcessSection />
+      <Pricing />
+      <Commitments />
+      <Industries />
+      <SelectedWork />
+      <HomeFaq />
       <CtaSection action={submitBrief} />
     </>
   );

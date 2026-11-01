@@ -1,39 +1,45 @@
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import TiltCard from "@/components/motion/TiltCard";
 import CaseStudyCard from "@/components/sections/CaseStudyCard";
 import Container from "@/components/ui/Container";
-import Section from "@/components/ui/Section";
-import SectionHeading from "@/components/ui/SectionHeading";
+import Icon from "@/components/ui/Icon";
+import SectionIntro from "@/components/ui/SectionIntro";
 import { homePage } from "@/content/pages";
 import { getPublishedCaseStudies } from "@/features/case-studies/getPublishedCaseStudies";
 
-/** Up to three published case studies. Renders nothing at all while there are none. */
-export default function SelectedWork({ index }: { index?: string }) {
+/** Up to three published case studies as tilting cards. Renders nothing at all while there are none. */
+export default function SelectedWork() {
   const studies = getPublishedCaseStudies().slice(0, 3);
   if (studies.length === 0) return null;
 
   return (
-    <Section aria-labelledby="selected-work-title">
+    <section aria-labelledby="selected-work-title" className="py-20 md:py-[120px]">
       <Container>
-        <SectionHeading
-          id="selected-work-title"
-          index={index}
-          label="selected work"
-          title={homePage.work.title}
-        />
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+        <SectionIntro id="selected-work-title" title={homePage.work.title} />
+        <ul className="mt-14 grid gap-6 [perspective:1400px] md:grid-cols-3">
           {studies.map((study) => (
-            <CaseStudyCard key={study.slug} study={study} />
+            <li key={study.slug}>
+              <TiltCard maxDeg={6} className="h-full rounded-card">
+                <CaseStudyCard study={study} />
+              </TiltCard>
+            </li>
           ))}
-        </div>
-        <p className="mt-8">
+        </ul>
+        <p className="mt-10 text-center">
           <Link
             href={homePage.work.link.href}
-            className="text-accent transition-colors duration-150 ease-out hover:text-accent"
+            className="group inline-flex items-center gap-1.5 font-semibold text-accent"
           >
             {homePage.work.link.label}
+            <Icon
+              icon={ArrowRight}
+              size={16}
+              className="transition-transform duration-150 ease-out group-hover:translate-x-0.5"
+            />
           </Link>
         </p>
       </Container>
-    </Section>
+    </section>
   );
 }

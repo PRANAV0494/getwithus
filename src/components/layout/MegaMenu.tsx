@@ -1,16 +1,17 @@
 "use client";
 
-import { ChevronDown } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NavigationMenu } from "radix-ui";
-import { serviceIcons } from "@/components/sections/serviceIcons";
+import type { CSSProperties } from "react";
+import { serviceColors, serviceIcons } from "@/components/sections/serviceIcons";
 import Icon from "@/components/ui/Icon";
 import type { ServiceSummary } from "@/content/types";
 import { cn } from "@/lib/cn";
 
 const navLinkClasses =
-  "inline-flex h-9 items-center gap-1.5 rounded-control px-3 type-button text-body transition-colors duration-150 ease-out hover:bg-card-2 hover:text-ink aria-[current=page]:text-accent data-[state=open]:bg-card-2 data-[state=open]:text-ink";
+  "inline-flex h-10 items-center gap-1.5 rounded-full px-3.5 text-[0.98rem] font-medium text-body transition-colors duration-150 ease-out hover:text-ink aria-[current=page]:text-accent data-[state=open]:text-ink";
 
 /** True when the path is the link or a page below it. */
 function isCurrent(pathname: string, href: string): boolean {
@@ -24,7 +25,9 @@ type MegaMenuProps = {
 
 /**
  * Desktop navigation. "Services" opens a two-column panel on hover (120 ms
- * intent delay), click, or Enter; Escape and moving focus out of the panel close it.
+ * intent delay), click, or Enter: each line with its icon tile and one-line
+ * description, the agentic products as small links under their line.
+ * Escape and moving focus out of the panel close it.
  */
 export default function MegaMenu({ services, links }: MegaMenuProps) {
   const pathname = usePathname();
@@ -50,8 +53,8 @@ export default function MegaMenu({ services, links }: MegaMenuProps) {
               className="transition-transform duration-150 ease-out group-data-[state=open]:rotate-180"
             />
           </NavigationMenu.Trigger>
-          <NavigationMenu.Content className="absolute top-[calc(100%+10px)] left-0 w-[720px] rounded-card border border-line-2 bg-card p-4 data-[state=closed]:animate-menu-out data-[state=open]:animate-menu-in">
-            <ul className="grid grid-cols-2 gap-x-4 gap-y-1">
+          <NavigationMenu.Content className="absolute top-[calc(100%+14px)] left-0 w-[760px] rounded-card border border-line bg-card p-3 shadow-lift data-[state=closed]:animate-menu-out data-[state=open]:animate-menu-in">
+            <ul className="grid grid-cols-2 gap-1">
               {services.map((service) => {
                 const ServiceIcon = serviceIcons[service.slug];
                 return (
@@ -59,15 +62,17 @@ export default function MegaMenu({ services, links }: MegaMenuProps) {
                     <NavigationMenu.Link asChild>
                       <Link
                         href={service.href}
-                        className="grid grid-cols-[16px_1fr] gap-3 rounded-control px-3 py-2.5 transition-colors duration-150 ease-out hover:bg-card-2"
+                        className="flex gap-3.5 rounded-[16px] p-3 transition-colors duration-150 ease-out hover:bg-bg-soft"
                       >
-                        {ServiceIcon ? (
-                          <Icon icon={ServiceIcon} size={16} className="mt-1 text-accent" />
-                        ) : (
-                          <span />
-                        )}
+                        <span
+                          aria-hidden="true"
+                          className="grid size-10 shrink-0 place-items-center rounded-[12px] bg-[color-mix(in_srgb,var(--c)_14%,transparent)] text-[var(--c)]"
+                          style={{ "--c": serviceColors[service.slug] } as CSSProperties}
+                        >
+                          <Icon icon={ServiceIcon} size={20} />
+                        </span>
                         <span>
-                          <span className="block type-h4 text-ink">{service.name}</span>
+                          <span className="block font-bold text-ink">{service.name}</span>
                           <span className="mt-0.5 block type-small text-body">
                             {service.menuDescription}
                           </span>
@@ -75,13 +80,13 @@ export default function MegaMenu({ services, links }: MegaMenuProps) {
                       </Link>
                     </NavigationMenu.Link>
                     {service.children?.length ? (
-                      <ul className="grid gap-0.5 pr-3 pb-1.5 pl-10">
+                      <ul className="flex flex-wrap gap-2 pb-2 pl-[66px]">
                         {service.children.map((child) => (
                           <li key={child.slug}>
                             <NavigationMenu.Link asChild>
                               <Link
                                 href={child.href}
-                                className="block rounded-tag px-2 py-1 type-small text-body transition-colors duration-150 ease-out hover:bg-card-2 hover:text-ink"
+                                className="inline-flex rounded-full border border-line bg-bg-soft px-3 py-1 text-[0.8125rem] font-semibold text-body transition-colors duration-150 ease-out hover:border-accent hover:text-ink"
                               >
                                 {child.name}
                               </Link>
@@ -94,13 +99,18 @@ export default function MegaMenu({ services, links }: MegaMenuProps) {
                 );
               })}
             </ul>
-            <div className="mt-2.5 border-t border-line px-3 pt-3">
+            <div className="mt-1 border-t border-line px-3 pt-3 pb-1">
               <NavigationMenu.Link asChild>
                 <Link
                   href="/services"
-                  className="type-small text-accent transition-colors duration-150 ease-out hover:text-accent"
+                  className="group inline-flex items-center gap-1.5 type-small font-semibold text-accent"
                 >
                   All services
+                  <Icon
+                    icon={ArrowRight}
+                    size={16}
+                    className="transition-transform duration-150 ease-out group-hover:translate-x-0.5"
+                  />
                 </Link>
               </NavigationMenu.Link>
             </div>

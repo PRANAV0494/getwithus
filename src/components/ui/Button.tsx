@@ -3,7 +3,7 @@ import Link from "next/link";
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
-type Variant = "primary" | "secondary" | "ghost";
+type Variant = "primary" | "secondary" | "ghost" | "inverse";
 type Size = "sm" | "md" | "lg";
 
 type CommonProps = {
@@ -24,20 +24,24 @@ type AnchorElementProps = CommonProps &
 type ButtonProps = ButtonElementProps | AnchorElementProps;
 
 const base =
-  "relative inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-control border type-button transition-colors duration-150 ease-out disabled:cursor-not-allowed aria-disabled:cursor-not-allowed";
+  "relative inline-flex items-center justify-center gap-2.5 whitespace-nowrap rounded-full border font-semibold leading-none transition-[box-shadow,background-color,border-color,color] duration-300 ease-out disabled:cursor-not-allowed disabled:shadow-none aria-disabled:cursor-not-allowed";
 
 const variants: Record<Variant, string> = {
   primary:
-    "border-transparent bg-accent text-accent-ink hover:bg-accent active:bg-accent disabled:bg-card-2 disabled:text-muted",
+    "border-accent bg-accent text-accent-ink shadow-[0_10px_26px_var(--glow)] hover:shadow-[0_14px_40px_var(--glow),0_0_0_4px_var(--accent-soft)] disabled:border-line disabled:bg-card-2 disabled:text-muted",
   secondary:
-    "border-line-2 bg-transparent text-ink hover:border-muted hover:bg-card-2 disabled:text-muted",
-  ghost: "border-transparent bg-transparent text-body hover:bg-card-2 disabled:text-muted",
+    "border-line-2 bg-card text-ink hover:border-muted hover:shadow-[0_0_0_4px_var(--accent-soft)] disabled:text-muted",
+  ghost:
+    "border-transparent bg-transparent text-body hover:bg-card-2 hover:text-ink disabled:text-muted",
+  /** On the dark closing band and the featured pricing card. */
+  inverse:
+    "border-white/25 bg-transparent text-cta-ink hover:border-white/50 hover:bg-white/10 disabled:text-cta-body",
 };
 
 const sizes: Record<Size, string> = {
-  sm: "h-9 px-3.5",
-  md: "h-11 px-[18px]",
-  lg: "h-12 px-6",
+  sm: "h-10 px-4 text-[0.9375rem]",
+  md: "h-12 px-6 text-base",
+  lg: "h-[52px] px-[26px] text-[1.03rem]",
 };
 
 function isInternal(href: string): boolean {
@@ -45,8 +49,9 @@ function isInternal(href: string): boolean {
 }
 
 /**
- * The one button. Renders a `<button>`, or a link when `href` is passed. Hover
- * changes background or border color only; nothing moves.
+ * The one button: a pill. Renders a `<button>`, or a link when `href` is passed.
+ * The primary button carries the accent glow, which grows on hover; nothing moves
+ * (MagneticButton adds the pull where it is wanted).
  */
 export default function Button(props: ButtonProps) {
   const { variant = "primary", size = "md", loading = false, className, children } = props;

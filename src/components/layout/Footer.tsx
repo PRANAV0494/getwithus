@@ -6,11 +6,9 @@ import { serviceLines } from "@/content/services/catalog";
 import { getPublishedCaseStudies } from "@/features/case-studies/getPublishedCaseStudies";
 
 const linkClasses = "link-draw text-body transition-colors duration-150 ease-out hover:text-ink";
-const subLinkClasses =
-  "link-draw text-[0.8125rem] text-muted transition-colors duration-150 ease-out hover:text-ink";
-const headingClasses = "mb-4 type-label text-muted";
+const headingClasses = "mb-4 text-sm font-bold text-ink";
 
-/** Site footer: brand, tagline, and contact details, then service, company, and legal links under monospaced titles. */
+/** Site footer: brand, tagline, and contact details (each only once known), then service, company, and legal links. */
 export default function Footer() {
   const email = known(site.contact.email);
   const phone = known(site.contact.phone);
@@ -22,12 +20,12 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="border-t border-line bg-bg-soft pt-16 pb-8 text-body">
+    <footer className="border-t border-line bg-bg-soft pt-16 pb-28 text-body sm:pb-10">
       <Container>
         <div className="grid gap-10 md:grid-cols-[1.5fr_1fr_1fr_1fr] md:gap-8">
           <div className="grid content-start gap-4">
             <Logo />
-            <p className="font-medium text-ink">{site.tagline}</p>
+            <p className="font-display text-lg font-bold text-ink">{site.tagline}</p>
             <p className="max-w-[36ch]">{site.footerDescription}</p>
             {email || phone || city ? (
               <address className="grid gap-1 type-small not-italic">
@@ -51,20 +49,6 @@ export default function Footer() {
                   <Link href={service.href} className={linkClasses}>
                     {service.name}
                   </Link>
-                  {service.children?.length ? (
-                    <ul
-                      aria-label={`${service.name} products`}
-                      className="mt-2 ml-1 grid gap-1.5 border-l border-line pl-3"
-                    >
-                      {service.children.map((child) => (
-                        <li key={child.slug}>
-                          <Link href={child.href} className={subLinkClasses}>
-                            {child.name}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : null}
                 </li>
               ))}
             </ul>

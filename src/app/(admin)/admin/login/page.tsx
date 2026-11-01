@@ -27,7 +27,7 @@ export default function LoginPage({ searchParams }: PageProps<"/admin/login">) {
       className="grid min-h-svh place-items-center px-6 outline-none"
     >
       <div className="w-full max-w-sm">
-        <Logo href="/" />
+        <Logo size="md" href="/" />
         <h1 className="mt-10 type-h2">Sign in to the admin</h1>
         <p className="mt-2 text-body">We email a one-time link to team addresses.</p>
         <div className="mt-8">

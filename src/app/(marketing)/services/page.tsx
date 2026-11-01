@@ -2,7 +2,8 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import ClosingCta from "@/components/sections/ClosingCta";
 import PageHeader from "@/components/sections/PageHeader";
-import ProcessSteps from "@/components/sections/ProcessSteps";
+import Pricing from "@/components/sections/Pricing";
+import ProcessSection from "@/components/sections/ProcessSection";
 import { serviceIcons } from "@/components/sections/serviceIcons";
 import Container from "@/components/ui/Container";
 import Icon from "@/components/ui/Icon";
@@ -87,8 +88,9 @@ export default function ServicesPage() {
           </ul>
         </Container>
       </Section>
-      <ProcessSteps title={servicesPage.processTitle} className="pt-0 md:pt-0" />
-      <ClosingCta className="pt-0 md:pt-0" />
+      <ProcessSection title={servicesPage.processTitle} />
+      <Pricing />
+      <ClosingCta />
     </>
   );
 }
