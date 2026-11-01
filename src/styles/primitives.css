@@ -1624,3 +1624,47 @@
     left: 66.6%;
   }
 }
+
+/* A sample week: the days rise in one after another as the strip enters. */
+@media (prefers-reduced-motion: no-preference) {
+  .week-strip[data-enter="waiting"] .week-day {
+    opacity: 0;
+  }
+  .week-strip[data-enter="shown"] .week-day {
+    animation: fade-up 500ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    animation-delay: calc(var(--i, 0) * 140ms + 150ms);
+  }
+  .week-strip[data-enter="shown"] .week-day[data-last] {
+    animation:
+      fade-up 500ms cubic-bezier(0.2, 0.8, 0.2, 1) both calc(var(--i, 0) * 140ms + 150ms),
+      week-glow 1200ms ease-out both calc(var(--i, 0) * 140ms + 650ms);
+  }
+}
+@keyframes week-glow {
+  from {
+    box-shadow: 0 0 0 0 var(--accent-soft);
+  }
+  to {
+    box-shadow:
+      0 0 0 6px var(--accent-soft),
+      var(--shadow);
+  }
+}
+.week-day[data-last] {
+  box-shadow:
+    0 0 0 6px var(--accent-soft),
+    var(--shadow);
+}
+
+/* Legal pages: a thin reading progress bar under the header. */
+.reading-progress {
+  position: fixed;
+  top: var(--header-h);
+  left: 0;
+  z-index: 39;
+  height: 3px;
+  width: 100%;
+  background: var(--accent);
+  transform-origin: left;
+  transform: scaleX(var(--progress, 0));
+}

@@ -10,13 +10,30 @@ import SuccessStep from "@/components/forms/SuccessStep";
 import VerifyCodeStep from "@/components/forms/VerifyCodeStep";
 import Skeleton from "@/components/ui/Skeleton";
 import { formCopy } from "@/content/forms";
+import { serviceSlugs } from "@/content/services/catalog";
 import { useBriefStore } from "@/stores/brief.store";
+
+/**
+ * A service named in the URL (`/start?service=web-development`, from the
+ * pricing cards and service pages) starts the brief with that service chosen,
+ * unless the visitor has already picked services in this session.
+ */
+function preselectService() {
+  const slug = new URLSearchParams(window.location.search).get("service");
+  const state = useBriefStore.getState();
+  if (!slug || !(serviceSlugs as readonly string[]).includes(slug)) return;
+  if (state.step !== 1 || state.draft.services.length > 0) return;
+  state.update({ services: [slug] });
+}
 
 /** Restores the saved draft from sessionStorage after mount, so server and client render the same first frame. */
 function useBriefHydration(): boolean {
   const [hydrated, setHydrated] = useState(false);
   useEffect(() => {
-    const unsubscribe = useBriefStore.persist.onFinishHydration(() => setHydrated(true));
+    const unsubscribe = useBriefStore.persist.onFinishHydration(() => {
+      preselectService();
+      setHydrated(true);
+    });
     void useBriefStore.persist.rehydrate();
     return unsubscribe;
   }, []);

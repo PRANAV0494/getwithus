@@ -28,11 +28,11 @@ export default function LeadReceived({ kind, name, details, adminUrl }: LeadRece
           display: "inline-block",
           marginTop: 24,
           padding: "12px 18px",
-          borderRadius: 6,
-          backgroundColor: emailColors.signal,
-          color: emailColors.ink,
+          borderRadius: 999,
+          backgroundColor: emailColors.accent,
+          color: emailColors.accentInk,
           fontSize: 15,
-          fontWeight: 500,
+          fontWeight: 600,
           textDecoration: "none",
         }}
       >

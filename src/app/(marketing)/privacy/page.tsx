@@ -9,5 +9,5 @@ export const metadata = pageMetadata({
 });
 
 export default function PrivacyPage() {
-  return <LegalDocumentView document={privacyPolicy} />;
+  return <LegalDocumentView document={privacyPolicy} path="/privacy" model="shield" />;
 }

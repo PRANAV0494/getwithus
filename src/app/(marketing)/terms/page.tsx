@@ -9,5 +9,5 @@ export const metadata = pageMetadata({
 });
 
 export default function TermsPage() {
-  return <LegalDocumentView document={termsOfService} />;
+  return <LegalDocumentView document={termsOfService} path="/terms" model="legal-document" />;
 }

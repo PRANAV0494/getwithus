@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useOnScreen } from "@/components/motion/useOnScreen";
 import { useQuality } from "@/components/three/hooks/useQuality";
-import type { ModelKey } from "@/components/three/models/keys";
+import { STATIC_MODELS, type ModelKey, type ModelProps } from "@/components/three/models/keys";
 import SceneErrorBoundary from "@/components/three/SceneErrorBoundary";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { cn } from "@/lib/cn";
@@ -28,8 +28,11 @@ export default function WebGLModel({
   still,
   label,
   className,
+  modelProps,
 }: {
   model: ModelKey;
+  /** Passed to the model, for example the case study screenshot. */
+  modelProps?: ModelProps;
   still: ReactNode;
   /** Describes the model when it carries meaning; otherwise it is decorative. */
   label?: string;
@@ -87,7 +90,8 @@ export default function WebGLModel({
               model={model}
               quality={quality}
               active={onScreen}
-              still={reduce}
+              still={reduce || STATIC_MODELS.has(model)}
+              modelProps={modelProps}
               onReady={() => setLive(true)}
             />
           </SceneErrorBoundary>

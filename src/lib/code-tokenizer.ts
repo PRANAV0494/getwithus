@@ -11,9 +11,15 @@ export type Token = readonly [TokenKind, string];
 
 const KEYWORDS: Record<CodeLanguage, ReadonlySet<string>> = {
   py: new Set(
-    "from import as async def await return class if else elif for in while True False None with try except".split(" "),
+    "from import as async def await return class if else elif for in while True False None with try except".split(
+      " ",
+    ),
   ),
-  ts: new Set("import from export default async function const let return await if else new type interface".split(" ")),
+  ts: new Set(
+    "import from export default async function const let return await if else new type interface".split(
+      " ",
+    ),
+  ),
   dart: new Set("void const class extends return super final var new import".split(" ")),
   sql: new Set(
     "create table primary key default not null text uuid timestamptz index on references insert into values select where".split(

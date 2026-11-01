@@ -1,4 +1,4 @@
-import { site } from "@/config/site";
+import { known, site } from "@/config/site";
 import type { ProcessStep } from "@/content/types";
 
 /** The same four steps on every project. */
@@ -50,11 +50,16 @@ export const processSteps: readonly ProcessStep[] = [
   },
 ];
 
+/** Where day-to-day conversation happens; left out of the sentence until the owner sets it. */
+const channel = known("[OWNER: Slack, WhatsApp, or email]");
+
 /** The closing "Working together" section on /process. */
 export const workingTogether: readonly { title: string; text: string }[] = [
   {
     title: "Communication",
-    text: "A shared channel on [OWNER: Slack, WhatsApp, or email], a weekly demo, and a written note each week.",
+    text: channel
+      ? `A shared channel on ${channel}, a weekly demo, and a written note each week.`
+      : "A shared channel, a weekly demo, and a written note each week.",
   },
   {
     title: "Tooling",
@@ -64,4 +69,17 @@ export const workingTogether: readonly { title: string; text: string }[] = [
     title: "Changes",
     text: "Anything outside the written scope is estimated in writing before we build it. You approve it or we skip it.",
   },
+];
+
+/**
+ * "A sample week" on /process: how a build week runs, restating the Build
+ * step (weekly increments, questions answered within a day, a Friday demo on
+ * staging with a written note).
+ */
+export const sampleWeek: readonly { day: string; text: string }[] = [
+  { day: "Monday", text: "We agree what this week delivers" },
+  { day: "Tuesday", text: "Build, with your questions answered within a day" },
+  { day: "Wednesday", text: "Build, and changes priced in writing first" },
+  { day: "Thursday", text: "Testing on real devices" },
+  { day: "Friday", text: "Demo on staging and a note of what changed" },
 ];

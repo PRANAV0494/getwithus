@@ -9,10 +9,10 @@ import ErrorState from "@/components/ui/ErrorState";
 import Logo from "@/components/ui/Logo";
 import Prose from "@/components/ui/Prose";
 import Section from "@/components/ui/Section";
+import SectionIntro from "@/components/ui/SectionIntro";
 import Sheet from "@/components/ui/Sheet";
 import Skeleton from "@/components/ui/Skeleton";
 import Table from "@/components/ui/Table";
-import SectionHeading from "@/components/ui/SectionHeading";
 import Tabs from "@/components/ui/Tabs";
 import Toast from "@/components/ui/Toast";
 import Tooltip from "@/components/ui/Tooltip";
@@ -24,12 +24,11 @@ describe("layout primitives", () => {
     expect(render(<Section flush>Body</Section>)).not.toContain("py-16");
   });
 
-  it("SectionHeading pairs the monospaced index with the heading", () => {
-    const html = render(
-      <SectionHeading id="services-title" index="01" label="services" title="What we do" />,
-    );
-    expect(html).toContain("01 / services");
-    expect(html).toContain('<h2 id="services-title"');
+  it("SectionIntro renders its heading as the section's label, with the lead", () => {
+    const html = render(<SectionIntro id="services-title" title="What we do" lead="Five lines" />);
+    expect(html).toContain('id="services-title"');
+    expect(html).toContain("What we do");
+    expect(html).toContain("Five lines");
   });
 
   it("Container and Prose render their children", () => {

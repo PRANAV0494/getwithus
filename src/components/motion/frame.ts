@@ -1,5 +1,5 @@
 /**
- * One requestAnimationFrame loop shared by every motion component (scramble,
+ * One requestAnimationFrame loop shared by every motion component (the orbit,
  * pointer effects, the services stack). It runs only while something is
  * subscribed, so a still page schedules nothing.
  */

@@ -264,6 +264,211 @@ const STILLS: Record<ModelKey, ReactNode> = {
       ))}
     </>
   ),
+  "process-path": (
+    <>
+      {[
+        [80, 210],
+        [160, 180],
+        [240, 150],
+        [320, 120],
+      ].map(([x, y], index) => (
+        <g key={x}>
+          <path
+            d={`M${x - 40} ${y} L${x} ${y - 18} L${x + 40} ${y} L${x} ${y + 18} Z`}
+            fill={index === 3 ? "var(--accent)" : "var(--card)"}
+            stroke="var(--line-2)"
+            strokeWidth={1.5}
+          />
+          <path
+            d={`M${x - 40} ${y} L${x - 40} ${y + 14} L${x} ${y + 32} L${x + 40} ${y + 14} L${x + 40} ${y} L${x} ${y + 18} Z`}
+            fill="var(--line)"
+          />
+        </g>
+      ))}
+      <circle cx={320} cy={92} r={9} fill="var(--amber)" />
+    </>
+  ),
+  "about-cube": (
+    <>
+      <Ring rx={170} ry={46} cy={156} />
+      <path d="M200 70 L268 106 L200 142 L132 106 Z" {...S} />
+      <path
+        d="M132 106 L200 142 L200 222 L132 186 Z"
+        fill="var(--bg-soft)"
+        stroke={S.stroke}
+        strokeWidth={1.5}
+      />
+      <path
+        d="M268 106 L200 142 L200 222 L268 186 Z"
+        fill="var(--card-2)"
+        stroke={S.stroke}
+        strokeWidth={1.5}
+      />
+      <path d="M216 154 L250 136 L250 172 L216 190 Z" fill="var(--accent)" />
+      <path d="M150 136 L184 154 L184 190 L150 172 Z" fill="var(--accent)" opacity={0.85} />
+      {[
+        [56, 150],
+        [330, 176],
+        [300, 120],
+        [96, 196],
+      ].map(([x, y]) => (
+        <rect key={`${x}-${y}`} x={x - 34} y={y - 11} width={68} height={22} rx={11} {...S} />
+      ))}
+    </>
+  ),
+  folders: (
+    <>
+      {["var(--c-web)", "var(--c-mob)", "var(--accent)", "var(--c-mkt)"].map((color, index) => (
+        <g key={color} transform={`rotate(${(index - 1.5) * 9} 200 250)`}>
+          <rect x={120} y={92 - index * 4} width={44} height={14} rx={4} fill={color} />
+          <rect x={120} y={102 - index * 4} width={160} height={110} rx={8} fill={color} />
+          <rect x={132} y={118 - index * 4} width={136} height={84} rx={4} fill="var(--card)" />
+        </g>
+      ))}
+    </>
+  ),
+  "folders-closed": (
+    <>
+      {["var(--c-web)", "var(--c-mob)", "var(--accent)", "var(--c-mkt)"].map((color, index) => (
+        <g key={color}>
+          <rect x={120 + index * 6} y={92 - index * 8} width={44} height={14} rx={4} fill={color} />
+          <rect
+            x={120 + index * 6}
+            y={102 - index * 8}
+            width={160}
+            height={110}
+            rx={8}
+            fill={color}
+          />
+          <rect
+            x={132 + index * 6}
+            y={118 - index * 8}
+            width={136}
+            height={84}
+            rx={4}
+            fill="var(--card)"
+          />
+        </g>
+      ))}
+    </>
+  ),
+  "device-frame": (
+    <>
+      <rect x={70} y={60} width={260} height={180} rx={12} {...S} />
+      <rect x={70} y={60} width={260} height={22} rx={10} fill="var(--line)" />
+      <rect x={84} y={96} width={232} height={130} rx={6} fill="var(--accent-soft)" />
+    </>
+  ),
+  "paper-plane": (
+    <>
+      <ellipse
+        cx={200}
+        cy={150}
+        rx={160}
+        ry={60}
+        fill="none"
+        stroke="var(--accent)"
+        strokeOpacity={0.4}
+        strokeDasharray="6 8"
+        strokeWidth={1.5}
+      />
+      <rect x={140} y={110} width={120} height={80} rx={6} {...S} />
+      <path d="M140 112 L200 156 L260 112" fill="none" stroke="var(--line-2)" strokeWidth={1.5} />
+      <circle cx={200} cy={166} r={8} fill="var(--accent)" />
+      <path d="M300 92 L352 76 L322 112 L314 98 Z" fill="var(--accent)" />
+    </>
+  ),
+  "assembling-cube": (
+    <>
+      <path
+        d="M200 70 L268 106 L200 142 L132 106 Z"
+        fill="none"
+        stroke="var(--accent)"
+        strokeOpacity={0.5}
+        strokeDasharray="5 6"
+        strokeWidth={1.5}
+      />
+      <path
+        d="M132 106 L200 142 L200 222 L132 186 Z"
+        fill="var(--card)"
+        stroke={S.stroke}
+        strokeWidth={1.5}
+      />
+      <path
+        d="M268 106 L200 142 L200 222 L268 186 Z"
+        fill="none"
+        stroke="var(--accent)"
+        strokeOpacity={0.5}
+        strokeDasharray="5 6"
+        strokeWidth={1.5}
+      />
+    </>
+  ),
+  shield: (
+    <>
+      <path
+        d="M200 52 C230 66 260 70 284 70 C284 150 260 200 200 240 C140 200 116 150 116 70 C140 70 170 66 200 52 Z"
+        fill="var(--accent)"
+      />
+      <path
+        d="M168 146 L192 170 L236 122"
+        fill="none"
+        stroke="var(--card)"
+        strokeWidth={14}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </>
+  ),
+  "legal-document": (
+    <>
+      <rect x={156} y={58} width={130} height={176} rx={8} fill="var(--line)" />
+      <rect x={136} y={46} width={130} height={176} rx={8} {...S} />
+      <rect x={154} y={70} width={60} height={9} rx={3} fill="var(--ink)" />
+      {[96, 112, 128, 144, 160].map((y, index) => (
+        <rect
+          key={y}
+          x={154}
+          y={y}
+          width={index % 3 === 2 ? 64 : 94}
+          height={6}
+          rx={3}
+          fill="var(--line)"
+        />
+      ))}
+      <circle cx={234} cy={196} r={12} fill="var(--accent)" />
+    </>
+  ),
+  "drifting-cube": (
+    <>
+      <ellipse
+        cx={170}
+        cy={180}
+        rx={120}
+        ry={32}
+        fill="none"
+        stroke="var(--accent)"
+        strokeOpacity={0.45}
+        strokeWidth={1.5}
+      />
+      <g transform="rotate(14 280 100)">
+        <path d="M280 56 L318 76 L280 96 L242 76 Z" {...S} />
+        <path
+          d="M242 76 L280 96 L280 140 L242 120 Z"
+          fill="var(--bg-soft)"
+          stroke={S.stroke}
+          strokeWidth={1.5}
+        />
+        <path
+          d="M318 76 L280 96 L280 140 L318 120 Z"
+          fill="var(--card-2)"
+          stroke={S.stroke}
+          strokeWidth={1.5}
+        />
+        <path d="M290 104 L308 94 L308 114 L290 124 Z" fill="var(--accent)" />
+      </g>
+    </>
+  ),
 };
 
 /** The still drawing of a page model, at the panel's 4:3. */

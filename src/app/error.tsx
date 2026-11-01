@@ -28,9 +28,11 @@ export default function ErrorPage({ error, retry }: ErrorPageProps) {
 
   return (
     <main id="content" tabIndex={-1} className="outline-none">
-      <Container className="py-24">
-        <p className="type-label text-accent">error</p>
-        <h1 className="mt-5 type-display">Something went wrong</h1>
+      <Container className="dots-bg py-24">
+        <p className="inline-flex items-center gap-2 rounded-full border border-line bg-card px-3.5 py-1.5 text-sm font-semibold text-err shadow-soft">
+          Error
+        </p>
+        <h1 className="mt-5 type-display text-ink">Something went wrong</h1>
         <p className="mt-4 max-w-[52ch] type-lead text-body">
           This page could not load. Try again, and if it keeps happening, contact us with the
           reference below.
@@ -42,7 +44,8 @@ export default function ErrorPage({ error, retry }: ErrorPageProps) {
           </Button>
         </div>
         <p className="mt-6 type-small text-body">
-          Reference: <span className="font-mono text-ink">{reference}</span>
+          Reference:{" "}
+          <span className="rounded-md bg-bg-soft px-2 py-0.5 font-mono text-ink">{reference}</span>
         </p>
       </Container>
     </main>

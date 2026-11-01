@@ -79,7 +79,9 @@ export const aboutPage = {
   updated: "2026-10-31",
   title: `About ${site.name}`,
   description: "Who we are, what we commit to on every project, and how to reach us.",
+  /** Shown once the owner writes it; until then the page uses `leadFallback`. */
   lead: "[OWNER: two sentences: when the company was founded, where it is based, and what the team's background is]",
+  leadFallback: site.footerDescription,
   beliefsTitle: "What we believe about this work",
   teamTitle: "Team",
   contactTitle: "Contact",
@@ -90,7 +92,9 @@ export const contactPage = {
   updated: "2026-10-31",
   title: "Contact",
   description: "Tell us what you are working on. Send a message, email us, or book a call.",
-  lead: `Tell us what you are working on. We reply within ${site.responseTime}.`,
+  lead: RESPONSE_TIME
+    ? `Tell us what you are working on. We reply within ${RESPONSE_TIME}.`
+    : "Tell us what you are working on, and we will reply with next steps.",
   detailsTitle: "Other ways to reach us",
   bookCall: "Book a call",
 } as const;
@@ -101,5 +105,7 @@ export const startPage = {
   title: "Start a project",
   description:
     "Answer five short questions about your project. We read every brief and reply with next steps and, where possible, a price range.",
-  lead: `Five short steps. We read every brief and reply within ${site.responseTime}.`,
+  lead: RESPONSE_TIME
+    ? `Five short steps. We read every brief and reply within ${RESPONSE_TIME}.`
+    : "Five short steps. We read every brief and reply with next steps.",
 } as const;

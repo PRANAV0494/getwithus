@@ -15,7 +15,7 @@ import {
   readModelPalette,
   type ModelPalette,
 } from "@/components/three/models/context";
-import { MODEL_VIEWS, type ModelKey } from "@/components/three/models/keys";
+import { MODEL_VIEWS, type ModelKey, type ModelProps } from "@/components/three/models/keys";
 import { THEME_EVENT } from "@/lib/theme";
 import { useSceneStore, type Quality } from "@/stores/scene.store";
 
@@ -34,11 +34,14 @@ function Driver({
   onReady: () => void;
 }) {
   const invalidate = useThree((state) => state.invalidate);
+  const size = useThree((state) => state.size);
   const reported = useRef(false);
 
+  // A new frame whenever the colours or the canvas size change: a still model's
+  // only frame must come after the canvas has its size, or nothing is drawn.
   useEffect(() => {
     invalidate();
-  }, [palette, invalidate]);
+  }, [palette, size, invalidate]);
 
   useEffect(() => {
     if (!active || still) {
@@ -78,12 +81,14 @@ export default function ModelCanvas({
   active,
   still,
   onReady,
+  modelProps,
 }: {
   model: ModelKey;
   quality: Exclude<Quality, "none">;
   active: boolean;
   still: boolean;
   onReady: () => void;
+  modelProps?: ModelProps;
 }) {
   const Model = MODELS[model];
   const [palette, setPalette] = useState(readModelPalette);
@@ -116,7 +121,7 @@ export default function ModelCanvas({
       <ModelContext value={{ palette, still }}>
         <Lights palette={palette} />
         <Driver active={active} still={still} palette={palette} onReady={onReady} />
-        <Model />
+        <Model {...modelProps} />
       </ModelContext>
     </Canvas>
   );

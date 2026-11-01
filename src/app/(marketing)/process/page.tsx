@@ -1,10 +1,17 @@
+import { Check, Code, FileText, RefreshCw, Rocket } from "lucide-react";
+import type { CSSProperties } from "react";
+import MagneticButton from "@/components/motion/MagneticButton";
+import ProcessStepper from "@/components/motion/ProcessStepper";
 import ClosingCta from "@/components/sections/ClosingCta";
-import PageHeader from "@/components/sections/PageHeader";
+import PageHero from "@/components/sections/PageHero";
+import ModelStill from "@/components/three/ModelStill";
+import WebGLModel from "@/components/three/WebGLModel";
+import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
-import Section from "@/components/ui/Section";
-import SectionHeading from "@/components/ui/SectionHeading";
+import SectionIntro from "@/components/ui/SectionIntro";
+import { isFilled } from "@/config/site";
 import { processPage } from "@/content/pages";
-import { processSteps, workingTogether } from "@/content/process";
+import { processSteps, sampleWeek, workingTogether } from "@/content/process";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -13,92 +20,130 @@ export const metadata = pageMetadata({
   path: processPage.path,
 });
 
-const pad = (index: number) => String(index + 1).padStart(2, "0");
+const ICONS = [FileText, Code, Rocket, RefreshCw];
 
-function StepList({ items }: { items: readonly string[] }) {
+function List({ title, items }: { title: string; items: readonly string[] }) {
   return (
-    <ul className="mt-3 grid gap-2">
-      {items.map((item) => (
-        <li key={item} className="flex gap-3 text-ink">
-          <span aria-hidden="true" className="font-mono text-accent">
-            +
-          </span>
-          {item}
-        </li>
-      ))}
-    </ul>
+    <div className="rounded-[18px] bg-bg-soft p-5">
+      <h4 className="text-sm font-bold text-ink">{title}</h4>
+      <ul className="mt-3 grid gap-2.5">
+        {items.filter(isFilled).map((item) => (
+          <li key={item} className="flex gap-2.5 text-[0.9375rem] text-body">
+            <Check
+              size={16}
+              strokeWidth={2.6}
+              className="mt-1 shrink-0 text-ok"
+              aria-hidden="true"
+            />
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 
+/** /process: the four platforms model, the large stepper with every step's detail, a sample week, and how we work together. */
 export default function ProcessPage() {
+  const steps = processSteps.map((step, index) => {
+    const StepIcon = ICONS[index] ?? FileText;
+    return {
+      title: step.title,
+      icon: <StepIcon strokeWidth={1.6} />,
+      detail: (
+        <>
+          <h3 className="type-h3 text-ink">{step.title}</h3>
+          <p className="mt-2 text-body">{step.detail}</p>
+          <div className="mt-5 grid gap-4 sm:grid-cols-2">
+            <List title={processPage.needFromYouTitle} items={step.needFromYou} />
+            <List title={processPage.youGetTitle} items={step.youGet} />
+          </div>
+        </>
+      ),
+    };
+  });
+
   return (
     <>
-      <PageHeader
+      <PageHero
         id="process-title"
-        label="process"
         title={processPage.title}
         lead={processPage.lead}
+        crumbs={[
+          { name: "Home", path: "/" },
+          { name: processPage.title, path: processPage.path },
+        ]}
+        actions={
+          <MagneticButton>
+            <Button href="/start" size="lg">
+              Start a project
+            </Button>
+          </MagneticButton>
+        }
+        visual={<WebGLModel model="process-path" still={<ModelStill model="process-path" />} />}
       />
-      <Section>
+      <section
+        aria-labelledby="steps-title"
+        className="dots-bg border-b border-line bg-bg-soft py-20 md:py-24"
+      >
         <Container>
-          <ol className="grid gap-14">
-            {processSteps.map((step, index) => {
-              const id = `step-${index + 1}`;
-              return (
-                <li key={step.title}>
-                  <section
-                    aria-labelledby={id}
-                    className="reveal grid gap-3 border-t border-line pt-8 md:grid-cols-[200px_1fr] md:gap-6 [li:first-child>&]:border-t-0 [li:first-child>&]:pt-0"
-                  >
-                    <p className="flex items-center gap-3 pt-1 type-label text-accent md:items-start">
-                      <span
-                        aria-hidden="true"
-                        className="size-2.5 rotate-45 border border-accent bg-bg md:mt-1"
-                      />
-                      step_{pad(index)}
-                    </p>
-                    <div className="grid max-w-[72ch] gap-4">
-                      <h2 id={id} className="type-h2">
-                        <span className="sr-only">Step {index + 1}: </span>
-                        {step.title}
-                      </h2>
-                      <p className="text-body">{step.detail}</p>
-                      <div className="mt-2 grid gap-px border border-line bg-line sm:grid-cols-2">
-                        <div className="bg-bg-soft p-5">
-                          <h3 className="type-label text-muted">{processPage.needFromYouTitle}</h3>
-                          <StepList items={step.needFromYou} />
-                        </div>
-                        <div className="bg-bg-soft p-5">
-                          <h3 className="type-label text-muted">{processPage.youGetTitle}</h3>
-                          <StepList items={step.youGet} />
-                        </div>
-                      </div>
-                    </div>
-                  </section>
-                </li>
-              );
-            })}
+          <SectionIntro
+            id="steps-title"
+            title="Four steps, the same every time"
+            lead="Select a step for what happens, what we need from you, and what you get."
+          />
+          <ProcessStepper
+            steps={steps}
+            label={processPage.title}
+            className="mt-14 [&_.stepper-detail]:max-w-[900px]"
+          />
+        </Container>
+      </section>
+      <section aria-labelledby="week-title" className="py-20 md:py-24">
+        <Container>
+          <SectionIntro
+            id="week-title"
+            title="A sample week"
+            lead="Building happens in weekly increments, and every week ends with something you can open on your own phone."
+          />
+          <ol
+            className="week-strip reveal mt-12 grid gap-3 md:grid-cols-5"
+            style={{ "--n": sampleWeek.length } as CSSProperties}
+          >
+            {sampleWeek.map((day, index) => (
+              <li
+                key={day.day}
+                style={{ "--i": index } as CSSProperties}
+                className="week-day rounded-card border border-line bg-card p-5 shadow-soft data-[last]:border-accent"
+                data-last={index === sampleWeek.length - 1 ? "" : undefined}
+              >
+                <p className="text-sm font-bold text-accent">{day.day}</p>
+                <p className="mt-2 text-ink">{day.text}</p>
+              </li>
+            ))}
           </ol>
         </Container>
-      </Section>
-      <Section aria-labelledby="working-together-title" className="pt-0 md:pt-0">
+      </section>
+      <section
+        aria-labelledby="working-together-title"
+        className="border-t border-line bg-bg-soft py-20 md:py-24"
+      >
         <Container>
-          <SectionHeading
-            id="working-together-title"
-            label="working together"
-            title={processPage.workingTogetherTitle}
-          />
-          <dl className="mt-10 grid gap-px border border-line bg-line md:ml-[224px] lg:grid-cols-3">
+          <SectionIntro id="working-together-title" title={processPage.workingTogetherTitle} />
+          <ul className="mt-12 grid gap-6 lg:grid-cols-3">
             {workingTogether.map((item) => (
-              <div key={item.title} className="reveal bg-bg p-6">
-                <dt className="type-h4">{item.title}</dt>
-                <dd className="mt-2 text-body">{item.text}</dd>
-              </div>
+              <li
+                key={item.title}
+                className="rounded-card border border-line bg-card p-7 shadow-soft"
+              >
+                <h3 className="type-h4 text-ink">{item.title}</h3>
+                <p className="mt-2 text-body">{item.text}</p>
+              </li>
             ))}
-          </dl>
+          </ul>
         </Container>
-      </Section>
-      <ClosingCta className="pt-0 md:pt-0" />
+      </section>
+      <ClosingCta className="pt-20 md:pt-24" />
     </>
   );
 }

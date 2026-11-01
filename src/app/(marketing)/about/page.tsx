@@ -1,9 +1,17 @@
+import { FileCheck, KeyRound, LockOpen, MonitorPlay } from "lucide-react";
 import Image from "next/image";
-import ContactDetails from "@/components/sections/ContactDetails";
-import PageHeader from "@/components/sections/PageHeader";
+import MagneticButton from "@/components/motion/MagneticButton";
+import RevealText from "@/components/motion/RevealText";
+import ClosingCta from "@/components/sections/ClosingCta";
+import ContactDetails, { hasContactDetails } from "@/components/sections/ContactDetails";
+import PageHero from "@/components/sections/PageHero";
+import ModelStill from "@/components/three/ModelStill";
+import WebGLModel from "@/components/three/WebGLModel";
+import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
-import Section from "@/components/ui/Section";
-import SectionHeading from "@/components/ui/SectionHeading";
+import Icon from "@/components/ui/Icon";
+import SectionIntro from "@/components/ui/SectionIntro";
+import { known } from "@/config/site";
 import { commitments } from "@/content/commitments";
 import { aboutPage } from "@/content/pages";
 import { team } from "@/content/team";
@@ -16,6 +24,8 @@ export const metadata = pageMetadata({
   path: aboutPage.path,
 });
 
+const ICONS = [FileCheck, KeyRound, MonitorPlay, LockOpen];
+
 function initials(name: string): string {
   return name
     .split(/\s+/)
@@ -25,36 +35,36 @@ function initials(name: string): string {
     .join("");
 }
 
-function TeamRow({ member }: { member: TeamMember }) {
+function TeamCard({ member }: { member: TeamMember }) {
   return (
-    <li className="grid grid-cols-[64px_1fr] gap-5 border-t border-line py-6">
+    <li className="flex gap-5 rounded-card border border-line bg-card p-6 shadow-soft">
       {member.photo ? (
         <Image
           src={member.photo}
           alt={`Photo of ${member.name}`}
-          width={64}
-          height={64}
-          className="size-16 border border-line object-cover"
+          width={72}
+          height={72}
+          className="size-[72px] rounded-[18px] object-cover"
         />
       ) : (
         <span
           aria-hidden="true"
-          className="grid size-16 place-items-center border border-line bg-card font-mono text-body"
+          className="grid size-[72px] shrink-0 place-items-center rounded-[18px] bg-accent-soft font-display text-xl font-extrabold text-accent"
         >
           {initials(member.name)}
         </span>
       )}
       <div>
-        <h3 className="type-h4">{member.name}</h3>
-        <p className="type-label text-muted">{member.role}</p>
-        <p className="mt-2 max-w-[60ch] text-body">{member.bio}</p>
+        <h3 className="type-h4 text-ink">{member.name}</h3>
+        <p className="text-sm font-semibold text-muted">{member.role}</p>
+        <p className="mt-2 text-body">{member.bio}</p>
         {member.links?.length ? (
           <p className="mt-2 flex flex-wrap gap-x-4 type-small">
             {member.links.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="link-draw text-accent transition-colors duration-150 ease-out hover:text-accent"
+                className="link-draw font-semibold text-accent"
                 rel="noopener noreferrer"
                 target="_blank"
               >
@@ -68,56 +78,79 @@ function TeamRow({ member }: { member: TeamMember }) {
   );
 }
 
+/** /about: the "g" cube with the commitment words orbiting, what we believe, the team when there is one, and contact facts once known. */
 export default function AboutPage() {
+  const lead = known(aboutPage.lead) ?? aboutPage.leadFallback;
   return (
     <>
-      <PageHeader id="about-title" label="about" title={aboutPage.title} lead={aboutPage.lead} />
-      <Section aria-labelledby="beliefs-title">
+      <PageHero
+        id="about-title"
+        title={aboutPage.title}
+        lead={lead}
+        crumbs={[
+          { name: "Home", path: "/" },
+          { name: "About", path: aboutPage.path },
+        ]}
+        actions={
+          <MagneticButton>
+            <Button href="/start" size="lg">
+              Start a project
+            </Button>
+          </MagneticButton>
+        }
+        visual={<WebGLModel model="about-cube" still={<ModelStill model="about-cube" />} />}
+      />
+      <section aria-labelledby="beliefs-title" className="py-20 md:py-24">
         <Container>
-          <SectionHeading
-            id="beliefs-title"
-            index="01"
-            label="beliefs"
-            title={aboutPage.beliefsTitle}
-          />
-          <ul className="mt-12 grid gap-px border border-line bg-line sm:grid-cols-2">
-            {commitments.map((commitment, position) => (
-              <li key={commitment.text} className="reveal bg-bg-soft p-6 md:p-7">
-                <p className="type-label text-accent">
-                  commit_{String(position + 1).padStart(2, "0")}
-                </p>
-                <p className="mt-3 type-h4">{commitment.text}</p>
-                <p className="mt-2 text-body">{commitment.expanded}</p>
-              </li>
-            ))}
+          <SectionIntro id="beliefs-title" title={aboutPage.beliefsTitle} />
+          <ul className="mt-12 grid gap-6 sm:grid-cols-2">
+            {commitments.map((commitment, position) => {
+              const CommitIcon = ICONS[position] ?? FileCheck;
+              return (
+                <li
+                  key={commitment.text}
+                  className="rounded-card border border-line bg-card p-7 shadow-soft md:p-8"
+                >
+                  <span className="grid size-12 place-items-center rounded-[14px] bg-accent-soft text-accent">
+                    <Icon icon={CommitIcon} size={24} />
+                  </span>
+                  <p className="mt-5 type-lead font-semibold text-ink">{commitment.text}</p>
+                  <RevealText as="p" text={commitment.expanded} className="mt-2 text-body" />
+                </li>
+              );
+            })}
           </ul>
         </Container>
-      </Section>
+      </section>
       {team.length > 0 ? (
-        <Section aria-labelledby="team-title" className="pt-0 md:pt-0">
+        <section
+          aria-labelledby="team-title"
+          className="border-t border-line bg-bg-soft py-20 md:py-24"
+        >
           <Container>
-            <SectionHeading id="team-title" index="02" label="team" title={aboutPage.teamTitle} />
-            <ul className="mt-10 max-w-[72ch] border-b border-line md:ml-[224px]">
+            <SectionIntro id="team-title" title={aboutPage.teamTitle} align="left" />
+            <ul className="mt-10 grid gap-6 md:grid-cols-2">
               {team.map((member) => (
-                <TeamRow key={member.name} member={member} />
+                <TeamCard key={member.name} member={member} />
               ))}
             </ul>
           </Container>
-        </Section>
+        </section>
       ) : null}
-      <Section aria-labelledby="about-contact-title" className="pt-0 md:pt-0">
-        <Container>
-          <SectionHeading
-            id="about-contact-title"
-            index={team.length > 0 ? "03" : "02"}
-            label="contact"
-            title={aboutPage.contactTitle}
-          />
-          <div className="reveal mt-10 md:ml-[224px]">
-            <ContactDetails />
-          </div>
-        </Container>
-      </Section>
+      {hasContactDetails() ? (
+        <section
+          aria-labelledby="about-contact-title"
+          className="border-t border-line py-20 md:py-24"
+        >
+          <Container>
+            <SectionIntro id="about-contact-title" title={aboutPage.contactTitle} align="left" />
+            <div className="mt-10 max-w-xl">
+              <ContactDetails />
+            </div>
+          </Container>
+        </section>
+      ) : null}
+      <ClosingCta />
     </>
   );
 }
