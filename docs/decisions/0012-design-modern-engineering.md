@@ -2,6 +2,8 @@
 
 Date: 2026-11-01
 
+Status: superseded for the public site by [0014](0014-final-light-3d-design.md) (light, rounded, 3D on every page). Its finding that WebGL above the fold costs the home page about 25 Lighthouse points still shapes 0014.
+
 ## Context
 
 The site shipped on the spec's "one light" design: an amber lamp as the only accent, Schibsted Grotesk, rounded cards, headings capped at 44 px, and a scroll-driven 3D scene behind the home page. The design lab (`/design`, [design-lab/README.md](../design-lab/README.md)) explored five directions, scored them, and the owner selected D, Modern Engineering, then asked for it to replace the live design on every page. That changes rules the spec set: the accent colour, the fonts, the heading sizes, the corner radii, scroll reveals, and the home page's 3D scene.

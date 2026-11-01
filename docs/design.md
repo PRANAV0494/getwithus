@@ -1,130 +1,162 @@
 # Design system
 
-Concept: Modern Engineering. The site reads like a well-made technical document: carbon surfaces, one signal colour (cyan) for actions and data, square panels marked by corner brackets, a visible layout grid behind every page, and monospaced labels for indices and specifications. Dark theme only. Chosen in the design lab (direction D, see [design-lab/README.md](design-lab/README.md)) and adopted in [decisions/0012-design-modern-engineering.md](decisions/0012-design-modern-engineering.md).
+Concept: the final design. A light, premium site with depth: white and soft-grey surfaces, one teal accent, rounded cards with soft shadows, and a small 3D object or scene on every page that shows the work rather than describing it. A dark theme is one click away. The reference is `docs/prototype/final-3d.html`; the decision is [decisions/0014-final-light-3d-design.md](decisions/0014-final-light-3d-design.md).
 
 Principles:
 
-1. Monospace only for small labels, indices, and specifications ("01 / services", "service_01", "step_01"). Everything people read at length is sans, in sentence case.
-2. Cyan is the signal: primary buttons, links, active states, focus, and data in diagrams. Never large fills or body text.
-3. Panels are square, marked by 12 px corner brackets; brackets turn cyan when the panel is hovered.
-4. The layout grid is always visible behind the content and never competes with it.
-5. One primary button per view. The secondary action is an outline button or a text link.
-6. No motion that runs forever, with one exception: the hero circuit (figure 01) runs continuously while it is on screen, at the owner's request. Everything else answers the visitor or plays once as content enters.
+1. Show the work. Each page has one signature 3D piece and demos (a chat, a call, an editor typing code, a browser building itself) instead of claims.
+2. Light by default. The dark theme is a choice the visitor makes, remembered on their device.
+3. One accent. Teal is for actions, links, focus, and highlights. Category colours mark the five kinds of work and are used for icons and dots, never for text.
+4. Motion runs only on screen and only when the visitor allows it; under reduced motion the page is complete and still.
+5. The text is always real. Animated copies are decoration; the full text is in the DOM for screen readers and search engines.
 
 ## Tokens
 
-Defined once in `src/styles/tokens.css` as a Tailwind `@theme static` block, so each token is both a CSS variable on `:root` and a utility (`bg-ink`, `text-fog-2`, `border-line`). The default Tailwind palette is cleared, so no other hue can be used through a class (`text-white` generates nothing; use a token). The 3D panels read the same variables at mount.
+Defined once in `src/styles/tokens.css` as semantic CSS variables, exposed to Tailwind 4 as theme variables (`bg-card`, `text-body`, `border-line`). Tailwind's default palette stays cleared (`--color-*: initial`), so no other colour can be used through a class. Light values sit on `:root`; dark values under `:root[data-theme="dark"]`, and under `prefers-color-scheme: dark` for `:root:not([data-theme="light"])`.
 
-| Token         | Value     | Use                                                        |
-| ------------- | --------- | ---------------------------------------------------------- |
-| `ink-0`       | `#0B0D0F` | Footer, deepest surface                                    |
-| `ink`         | `#0F1113` | Page background                                            |
-| `ink-1`       | `#13161A` | Raised sections (at 80 percent, so the grid shows faintly) |
-| `ink-2`       | `#171A1E` | Panels: cards, menus, inputs, the diagram                  |
-| `ink-3`       | `#1D2126` | Panel hover                                                |
-| `grid`        | `#1B1F24` | The layout grid behind every page                          |
-| `line`        | `#262B31` | Borders and dividers                                       |
-| `line-strong` | `#353C44` | Outline buttons, timelines, hovered panel edges            |
-| `fog`         | `#E6E9EC` | Primary text                                               |
-| `fog-2`       | `#A0A8B2` | Secondary text, leads                                      |
-| `fog-3`       | `#848D98` | Monospaced labels, captions, placeholders                  |
-| `signal`      | `#2CD5E6` | Accent: primary buttons, links, focus ring, diagram data   |
-| `signal-2`    | `#5FE2EF` | Accent hover and pressed                                   |
-| `signal-tint` | `#0E2A2E` | Icon tiles behind cyan                                     |
-| `ok`          | `#3DD68C` | Success only                                               |
-| `err`         | `#FF7A70` | Errors only                                                |
+| Token                                                 | Light                                                 | Dark                                                  | Use                                               |
+| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ------------------------------------------------- |
+| `--bg`                                                | `#FFFFFF`                                             | `#0E1115`                                             | Page background                                   |
+| `--bg-soft`                                           | `#F4F7F9`                                             | `#12161B`                                             | Alternating bands, scene backgrounds              |
+| `--card`                                              | `#FFFFFF`                                             | `#161B22`                                             | Cards, panels, inputs                             |
+| `--card-2`                                            | `#F7F9FB`                                             | `#1B212A`                                             | Nested surfaces                                   |
+| `--ink`                                               | `#0F1B2D`                                             | `#E9EEF3`                                             | Headings and primary text                         |
+| `--body`                                              | `#46515F`                                             | `#A9B4C0`                                             | Body text, leads                                  |
+| `--muted`                                             | `#5B6673`                                             | `#8E9AA7`                                             | Captions, meta, labels                            |
+| `--line`                                              | `#E4E9EE`                                             | `#232B35`                                             | Borders and dividers                              |
+| `--line-2`                                            | `#D3DBE2`                                             | `#323C48`                                             | Strong borders, dashed tracks                     |
+| `--accent`                                            | `#0E7C86`                                             | `#22D3EE`                                             | Primary buttons, links, focus, highlights         |
+| `--accent-ink`                                        | `#FFFFFF`                                             | `#06222A`                                             | Text on the accent                                |
+| `--accent-soft`                                       | teal at 10%                                           | cyan at 12%                                           | Tints behind accent elements                      |
+| `--glow`                                              | teal at 30%                                           | cyan at 38%                                           | Shadows and radial glows behind 3D                |
+| `--dot`                                               | `#D6DFE6`                                             | `#222A33`                                             | The 24 px dotted background                       |
+| `--hdr`                                               | white at 86%                                          | ink at 86%                                            | Header background, blurred                        |
+| `--shadow`, `--shadow-lg`                             | soft navy                                             | soft black                                            | Card elevation                                    |
+| `--chip`, `--face`                                    | white                                                 | `#1A2029`, card at 94%                                | Chips, 3D faces                                   |
+| `--cta`, `--cta-ink`, `--cta-body`                    | `#0F1B2D`, white, `#C3CDD8`                           | `#151B23`, `#E9EEF3`, `#A9B4C0`                       | The dark closing band                             |
+| `--amber`                                             | `#A05F00`                                             | `#F5B54A`                                             | Live indicators only                              |
+| `--ok`                                                | `#127A43`                                             | `#3EE08A`                                             | Success and check marks                           |
+| `--c-web`, `--c-mob`, `--c-data`, `--c-ai`, `--c-mkt` | `#2563EB`, `#7C3AED`, `#0E7C86`, `#D9480F`, `#BE185D` | `#6B9BFF`, `#A78BFA`, `#22D3EE`, `#FF9F5A`, `#F472B6` | Category icons and dots (3:1 or more, never text) |
+| `--ed-bg`, `--ed-bar`, `--ed-line`                    | `#0F1B2D`, `#0B1524`, `#1D2B40`                       | `#0B0F14`, `#080B0F`, `#18212C`                       | The code editor, dark in both themes              |
 
-Contrast (WCAG ratio):
+Four light values differ from the prototype so text passes 4.5:1: `--amber` (was `#B86E00`), `--ok` (was `#16864B`), the WhatsApp button green `#15803D` (was `#1F9D55`), and the editor's comment `#7F8FA6` and line-number `#76859C` colours.
 
-| Text     | on `ink-0` | on `ink` | on `ink-1` | on `ink-2` | on `ink-3` |
-| -------- | ---------: | -------: | ---------: | ---------: | ---------: |
-| `fog`    |      15.97 |    15.53 |      14.89 |      14.32 |      13.28 |
-| `fog-2`  |       8.10 |     7.87 |       7.55 |       7.26 |       6.73 |
-| `fog-3`  |       5.79 |     5.63 |       5.40 |       5.19 |       4.81 |
-| `signal` |      10.91 |    10.60 |      10.17 |       9.78 |       9.07 |
-| `err`    |       7.67 |     7.45 |       7.15 |       6.87 |       6.37 |
+### Contrast
 
-Button labels are `ink` on `signal` (10.60:1) and on `signal-2` (12.26:1). Every text and background pair stays at or above 4.5:1; body text at or above 7:1. Check contrast after any change.
+Light:
 
-Radius: `rounded-tag` and `rounded-control` are 2 px (tags, inputs, buttons, chips); `rounded-card` and `rounded-panel` are 0 (cards, menus, panels), with corner brackets instead. Radio buttons stay round. No box shadows; depth comes from the carbon steps and borders. 8 px grid; sections pad 96 px from 768 px and 64 px below; the container is 1200 px wide with 24 px side padding (40 px from 768 px).
+| Text       | on `--bg` | on `--bg-soft` | on `--card` | on `--card-2` |
+| ---------- | --------: | -------------: | ----------: | ------------: |
+| `--ink`    |     17.28 |          16.07 |       17.28 |         16.38 |
+| `--body`   |      8.07 |           7.50 |        8.07 |          7.65 |
+| `--muted`  |      5.84 |           5.43 |        5.84 |          5.54 |
+| `--accent` |      4.95 |           4.60 |        4.95 |          4.69 |
+| `--amber`  |      5.08 |           4.72 |        5.08 |          4.82 |
+| `--ok`     |      5.40 |           5.02 |        5.40 |          5.11 |
+
+Dark:
+
+| Text       | on `--bg` | on `--bg-soft` | on `--card` | on `--card-2` |
+| ---------- | --------: | -------------: | ----------: | ------------: |
+| `--ink`    |     16.21 |          15.56 |       14.82 |         13.86 |
+| `--body`   |      8.99 |           8.63 |        8.22 |          7.69 |
+| `--muted`  |      6.61 |           6.34 |        6.04 |          5.65 |
+| `--accent` |     10.47 |          10.05 |        9.57 |          8.96 |
+| `--amber`  |     10.45 |          10.02 |        9.55 |          8.93 |
+| `--ok`     |     11.02 |          10.58 |       10.08 |          9.43 |
+
+Other pairs: `--accent-ink` on `--accent` 4.95 (light) and 9.15 (dark); `--cta-ink` on `--cta` 17.28 and 14.83; `--cta-body` on `--cta` 10.74 and 8.23; editor text `#D6DEEB` 12.76 and 14.19, comments 5.25 and 5.84, line numbers 4.61 and 5.13; the status bar `#E8FBFD` on `#0E7C86` 4.63; white on the WhatsApp button 5.02. Every text pair is at or above 4.5:1 and body text at or above 7:1. Check contrast after any change to a token.
+
+## Theme
+
+- The page is light unless the visitor chose dark. Without a stored choice the inline script in the root layout's `<head>` sets `data-theme="light"`; with one, it applies it before first paint, so there is never a flash. `<html>` carries `suppressHydrationWarning`.
+- The toggle is a `<button>` in the header with a sun or moon icon and an `aria-label` naming the theme it switches to. It stores `light` or `dark` in `localStorage` (inside try/catch) and dispatches a `themechange` event; 3D panels re-read their colours on it.
+- The admin is always dark (`data-theme="dark"` in its layout).
 
 ## Type
 
-Archivo (variable, width axis) through `next/font`, with headings at 92 percent width, and JetBrains Mono 400 for labels and for code and identifiers in the admin. Use the `type-*` utilities from `src/styles/globals.css`, never raw sizes:
+Bricolage Grotesque (600, 700, 800) for headings, Figtree (400 to 700) for body and interface, JetBrains Mono (400, 500) for code and terminals only, all through `next/font`, self-hosted. Use the `type-*` utilities from `src/styles/globals.css`, never raw sizes:
 
-| Utility             | Below 768 px | From 768 px | Line height | Tracking | Weight | Width |
-| ------------------- | -----------: | ----------: | ----------- | -------- | ------ | ----- |
-| `type-display` (h1) |        40 px |       60 px | 1.04        | -0.02em  | 600    | 92    |
-| `type-h2`           |        30 px |       40 px | 1.1         | -0.02em  | 600    | 92    |
-| `type-h3`           |        20 px |       20 px | 1.3         | -0.01em  | 600    | 92    |
-| `type-h4`           |        18 px |       18 px | 1.35        | 0        | 600    | 100   |
-| `type-lead`         |        17 px |       18 px | 1.6         | 0        | 400    | 100   |
-| `type-body`         |        16 px |       16 px | 1.6         | 0        | 400    | 100   |
-| `type-small`        |        14 px |       14 px | 1.5         | 0        | 400    | 100   |
-| `type-label` (mono) |        12 px |       12 px | 1.5         | 0        | 400    | n/a   |
-| `type-button`       |        15 px |       15 px | 1           | 0        | 500    | 100   |
+| Utility             | Size                       | Line height | Tracking |
+| ------------------- | -------------------------- | ----------- | -------- |
+| `type-display` (h1) | `clamp(44px, 5.6vw, 78px)` | 1.02        | -0.04em  |
+| `type-h2`           | `clamp(34px, 4.4vw, 54px)` | 1.04        | -0.03em  |
+| `type-h3`           | 24 to 27 px                | 1.15        | -0.02em  |
+| `type-lead`         | 18 to 19 px                | 1.6         | 0        |
+| `type-body`         | 16 to 17 px                | 1.6         | 0        |
+| `type-small`        | 14 px                      | 1.5         | 0        |
+| `type-code`         | 14 px, mono                | 1.75        | 0        |
 
-60 px is the largest text on the site. `type-label` lowercases with CSS, so the source keeps sentence case for screen readers. Body text is capped near 68 characters, everything is left-aligned (except the 404 page), and headings carry no coloured or italic accents. Heading levels never skip; when a design calls for a smaller look, keep the level and change the utility (footer column titles are `h2` with `type-label`).
+Sentence case everywhere. Body text stays under about 70 characters a line. Heading levels never skip; when a design calls for a smaller look, keep the level and change the utility.
 
-## Layout patterns
+## Shape and surfaces
 
-- `GridBackdrop` (`src/components/layout`): fixed behind the marketing pages; 4 columns below 768 px, 12 from 768 px, aligned to the container, drawn in `grid`.
-- `SectionHeading` (`src/components/ui`): the monospaced index ("01 / services") in a 200 px column from 768 px, then the `h2` and an optional lead. Content below it that should line up with the heading uses `md:ml-[224px]`.
-- `PageHeader` (`src/components/sections`): an inner page's opening; a cyan prompt line ("> services"), the `h1`, the lead, ruled off below.
-- `Brackets` (`src/components/ui`): the four corner brackets; muted at rest and cyan on hover of the parent `group` or while it carries `data-active`, or always cyan (`always`) on the closing call-to-action panel.
-- Figures: numbered, bracketed, with a monospaced caption ("fig. 01 / ..."), decorative (`aria-hidden`) because the text beside them carries the content. Figure 01 is the hero diagram (`ServiceDiagram`); figure 02 is the blueprint (`BlueprintFigure`, drawn in isometric with `blueprintGeometry`, driven by `BlueprintController`), pinned beside the service cards from 1024 px and under the header on smaller screens.
-- Specification lists: one ruled row per item with a monospaced prefix ("+", "step_01"); datasheets are hairline grids (`gap-px bg-line` around `bg-ink` cells).
-- Raised sections (`bg-ink-1/80`) alternate with base sections on the home page.
+- Radii: buttons and chips are pills; cards 22 to 26 px; scenes inside cards 18 px; inputs 12 px.
+- Elevation comes from `--shadow` and `--shadow-lg`, never borders alone.
+- The hero and process sections sit on the dotted background (`--dot`, 24 px); other sections alternate between `--bg` and `--bg-soft` bands.
+- Soft radial glows (`--glow`) sit behind 3D objects; they are the only gradients.
+- The WhatsApp button floats bottom right with a safe-area inset, only when the phone number is known; it is icon-only below 600 px.
 
 ## Components
 
-`src/components/ui`, one component per file, default export, typed props, no business logic. Anything with focus or keyboard behaviour is built on Radix (`radix-ui`).
+`src/components/ui` holds the kit (Button, Field, Input, Select, Checkbox, RadioGroup, ChipGroup, CodeInput, Dialog, Sheet, DropdownMenu, Tooltip, Tabs, Accordion, Badge, Table, Skeleton, EmptyState, ErrorState, Toast, Container, Section, Prose, Logo, Icon), restyled to the tokens above. `TechLogo` renders a tool's official mark from Simple Icons (or `public/logos/` with a recorded source), with a title and label, in the brand colour or `currentColor` where the brand colour falls under 3:1 on the surface.
 
-- Actions: `Button` (`primary`, `secondary`, `ghost`; `sm`, `md`, `lg`; `loading` keeps its width; renders a link with `href`).
-- Forms: `Field` (label, hint, error, and the `aria-describedby` wiring, passed to its control through a render prop), `Input`, `Textarea`, `Select` (native), `Checkbox`, `RadioGroup`, `ChipGroup`, `CodeInput` (six boxes, paste, auto-advance, backspace).
-- Overlays and disclosure: `Dialog`, `Sheet` (mobile menu), `DropdownMenu`, `Tooltip`, `Tabs`, `Accordion` (FAQ, each trigger inside an `h3`, a cyan plus that turns to a cross).
-- Display: `Badge` (always carries text, so colour is never the only signal), `Table` (whole row clickable through a stretched link), `Skeleton`, `EmptyState`, `ErrorState`, `Toast` (sonner, loaded lazily).
-- Layout: `Container`, `Section`, `SectionHeading`, `Brackets`, `Prose`, `Logo`, `Icon` (lucide, stroke 1.75, sizes 16, 20, 24).
+Motion and 3D primitives (`src/components/motion`, `src/components/three`), all client-only, each reserving its space, pausing off screen, and drawing a finished still state under reduced motion:
 
-`src/components/layout` has the header (current page in cyan), mega menu, mobile menu, grid backdrop, footer, and skip link; `src/components/sections` has the page sections, including `ServiceDiagram` (figure 01 on the home page); `src/components/admin` the admin screens.
+| Primitive                                    | What it does                                                                                                                                                                             |
+| -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Typewriter`                                 | Types and deletes a rotating list of words; the home hero's word slot only                                                                                                               |
+| `TypedText`                                  | Types one string once when it enters the screen: search queries, URL bars, terminal lines, chat input                                                                                    |
+| `CodeTypewriter`                             | The editor: tabs, gutter, a small tokenizer with syntax colours, status bar, a terminal line after each file; loops while on screen                                                      |
+| `RevealText`                                 | Headings rise in line by line (word by word when short), once, 60 ms apart, 600 ms; never the above-the-fold `h1`                                                                        |
+| `Marquee`                                    | A duplicated track looping by translateX, edge fade, pauses on hover and focus, reversible                                                                                               |
+| `TiltScene`                                  | A card tilting toward the pointer (up to 9 degrees) whose `Layer` children sit at different depths and lift further on hover                                                             |
+| `Orbit3D`                                    | The hero: a CSS 3D cube, a tilted ring of service chips sorted by depth, wires with travelling packets, an inner ring with satellites, parallax, drag to spin                            |
+| `TagSphere`                                  | Tool chips with logos on a sphere; auto-rotates, drags with inertia, category buttons highlight a group                                                                                  |
+| `ProcessStepper`                             | Circles on a dashed track with a fill and a glowing runner; auto-advances every 2.8 s on screen, pauses 9 s after a click                                                                |
+| `FloatingTiles`, `RotatingSeal`              | Logo tiles bobbing at different depths; circular text turning on a path                                                                                                                  |
+| `ChatDemo`, `CallDemo`                       | A WhatsApp-style chat and a call screen playing scripts from `src/content/demos.ts`                                                                                                      |
+| `WebGLModel`                                 | An inner page's R3F model in its header: a still SVG until the first scroll, pointer move, or key press, then the scene at 30 fps, paused off screen, re-reading colours on theme change |
+| `MagneticButton`, `TiltCard`, `LazyWhenNear` | Kept from earlier work: the pull toward the pointer on primary buttons, pointer tilt, and loading below-the-fold code when it comes near                                                 |
 
 ## Motion
 
-Allowed in exactly these places:
+Allowed, and only in these places:
 
-1. The home hero reveal: the tagline, heading, lead, and actions fade in and rise 8 px over 500 ms with a 60 ms stagger, on the first page load only.
-2. Section reveals: blocks marked `.reveal` that start below the fold rise 18 px and fade in once, over 600 ms, as they enter. `RevealObserver` (`src/components/layout`, an IntersectionObserver) marks blocks already on screen at load as static, so nothing visible is ever hidden and no text rests half faded; without JavaScript every block simply shows. Never on a hero.
-3. The hero circuit (figure 01): on load the wires draw in and the boards and core power on (about 1 s); then current streams along every wire, each board flashes as it fires glowing packets into the core (two per wire, 2.4 s a trip, clockwise in turn), the core breathes, scans, and ripples as packets arrive, and two dashed rings turn around it. It runs only while on screen and the tab is visible (`DiagramLive` pauses the CSS and SVG animations otherwise), it is not shown below 640 px, and under reduced motion it is drawn complete and still, with no packets.
-4. The blueprint (figure 02, home page): beside the service cards, four slabs drop into place one per card as the cards pass the reading line, scrubbing both ways with scroll; the marketing slab's bars rise as it settles, and once all four sit, the uplink pulses three passes. Under reduced motion slabs are either waiting or docked, never in between.
-5. The service page 3D panels: one station turning slowly (0.15 rad/s) at 30 frames per second while on screen.
-6. Transitions that answer an action: menus, accordion, dialog, sheet, toast, code success, the 220 ms link underline, and hover colours. 150 to 250 ms, ease-out. Defined as keyframes and utilities in `globals.css`.
-7. Loading: skeletons and the button spinner.
+1. The home hero's word slot (`Typewriter`) and the hero orbit (`Orbit3D`).
+2. Typed lines in demos and interfaces (`TypedText`, `CodeTypewriter`), and the chat and call demos.
+3. Heading reveals (`RevealText`), once, never on the above-the-fold `h1`.
+4. Marquees of tool logos and industries.
+5. Tilt on cards and scenes, the magnetic pull on primary buttons, and the editor rig following the pointer (fine pointers only).
+6. The tag sphere, the process stepper, floating tiles, the rotating seal, and the closing band's rings and glow.
+7. Each inner page's WebGL model.
+8. Transitions that answer an action (menus, accordion, dialog, sheet, toast, tabs, theme switch), 150 to 300 ms, ease-out, and loading states.
 
-`prefers-reduced-motion` turns off the hero reveal, the section reveals, the pulses, and the transitions, makes the blueprint's slabs jump between waiting and docked, and renders a single still frame in the 3D panels. Buttons never move: hover changes background or border colour only. No smooth scroll library, no parallax, no pinned sections.
+No library takes over scrolling ([decisions/0008-no-smooth-scroll.md](decisions/0008-no-smooth-scroll.md)), and there is no motion package ([decisions/0011-css-transitions.md](decisions/0011-css-transitions.md)): motion is CSS plus small components on one shared frame loop.
 
 ## Hard rules checklist
 
 Run `pnpm guard` (part of `pnpm check` and `pnpm build`); it enforces the mechanical ones under `src/`. The rest need a person.
 
-- [ ] No purple, violet, fuchsia, or indigo anywhere: UI, 3D panels, emails, favicon.
-- [ ] No colour gradients. (The `link-draw` underline is a solid `currentColor` image, not a gradient between colours.)
-- [ ] No moving buttons: no scale, tilt, sliding highlight, animated border, or pointer following.
-- [ ] No fake social proof: no reviews, testimonials, client logos, star ratings, "trusted by" strips, or quotes.
-- [ ] No metrics or statistics unless the owner supplies the figure and its source in a content file.
-- [ ] No heading larger than 60 px on desktop and 40 px on mobile.
-- [ ] No emoji anywhere, including docs and commit messages. Icons from lucide only.
+- [ ] **Motion runs only on screen.** Every looping animation pauses when off screen or in a background tab (IntersectionObserver plus `visibilitychange`).
+- [ ] **Reduced motion gets a calm site.** `prefers-reduced-motion` gives a complete, still, readable page: no typing (show the final text); marquees stop and become horizontally scrollable; no orbit or sphere drift (draw a still frame; dragging still works); no tilt and no magnetic pull; chat and call demos show the full conversation.
+- [ ] **Animated text stays readable for screen readers.** The full text is always in the DOM. Animated copies are `aria-hidden`; the real text is visually hidden or in an `aria-label`. Demos carry a full transcript in a visually hidden list.
+- [ ] **Largest heading:** 80 px on desktop, 44 px on mobile.
+- [ ] **Monospace is for code and terminals only.** No monospaced indexes or labels on marketing pages.
+- [ ] **Logos are always official artwork,** from Simple Icons or the brand's own media kit with the source recorded in `src/content/tools.ts`; never drawn or approximated. A tool without official artwork is shown by name.
+- [ ] **WebGL never above the fold on the home page,** and never probed during hydration; inner-page models mount on the first interaction.
+- [ ] No fake social proof: no reviews, testimonials, client logos, star ratings, "trusted by" strips, or quotes. Tool logos are the tools we build with, not clients.
+- [ ] No metrics or statistics unless the owner supplies the figure and its source in a content file. Demo charts have axes and shapes, no numbers.
+- [ ] No emoji anywhere, including docs and commit messages. Interface icons from lucide; the check and cross marks are typographic and allowed.
 - [ ] No em dashes or en dashes in copy, comments, emails, or docs. Use a comma, period, colon, or "to" for ranges.
-- [ ] No scroll effects besides the one-time section reveals and the home page blueprint: no parallax, other scroll-linked movement or pinned sections, counters, typing text, or marquees.
-- [ ] No endless animation, except the hero circuit, which pauses off screen and in background tabs and is still under reduced motion.
-- [ ] No stock photography or AI imagery. Only the 3D panels, hand-made SVG, and real photos or screenshots with permission.
+- [ ] No stock photography or AI imagery. Only 3D scenes, hand-made SVG scenes, official logos, and real photos or screenshots with permission.
 - [ ] No banned vocabulary (the guard lists it, for example "seamless", "cutting-edge", "unlock", "leverage", "elevate", "harness").
-- [ ] No custom cursors or cursor effects.
-- [ ] No template or tool branding ("Built with", "Powered by", Next.js or Vercel logos).
+- [ ] No custom cursors or cursor effects. Magnetic buttons are allowed.
+- [ ] No template or tool branding ("Built with", "Powered by", Next.js or Vercel badges).
 - [ ] No lorem ipsum, `TODO`, `FIXME`, commented-out code, or unused exports.
-- [ ] Monospace only for labels, indices, specifications, and identifiers; never for paragraphs.
-- [ ] Sentence case for every heading, label, and button in the source; no all-caps labels.
-- [ ] Every call to action names what happens ("Send and verify", "Resend code"), never "Submit" or "Learn more".
+- [ ] Sentence case for every heading, label, and button.
+- [ ] Every call to action names what happens ("Send and verify", "Get a quote for this"), never "Submit" or "Learn more".
 - [ ] Every page has a unique title (under 60 characters) and description (under 160), a canonical URL, an Open Graph image, and JSON-LD where relevant.
-- [ ] Every field has a visible label, an associated error, and works by keyboard; every interactive element shows the cyan focus ring.
+- [ ] Every field has a visible label, an associated error, and works by keyboard; every interactive element shows the accent focus ring (2 px, 3 px offset).
 - [ ] Everything that can fail has a failure state the user can act on, with a reference ID where useful.
-- [ ] Owner facts are written as `[OWNER: ...]` until supplied, never guessed.
+- [ ] Owner facts are written as `[OWNER: ...]` until supplied and shown through `known()`, so a placeholder never renders as a promise.

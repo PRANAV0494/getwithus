@@ -107,6 +107,8 @@ The same pnpm policy later added `lucide-react` 1.66.0 and `@types/three` 0.187.
 
 `motion` 14.9.0 is listed above because section 8.1 names it, but it was never installed: the hero reveal and all transitions are CSS keyframes, which keeps every marketing route under the initial JavaScript budget. See [0011-css-transitions.md](0011-css-transitions.md).
 
+Update 2026-11-01: GSAP 3.15.0, Lenis 1.3.27, and `motion` 14.9.0 were installed for the interim motion system ([0013-interim-motion-system.md](0013-interim-motion-system.md)). Lenis is removed again (0008); GSAP and `motion` are removed as the final design replaces the components that use them ([0014-final-light-3d-design.md](0014-final-light-3d-design.md)).
+
 ## Test tooling
 
 `@playwright/test` 1.64.1 and `@axe-core/playwright` 4.14.0 were installed in phase 8 at the pins above. The suite runs Chromium only. Firefox and WebKit builds from the same Playwright release were used by hand to check pages for console problems (see [handoff.md](../handoff.md)); they are not part of `pnpm test:e2e`.

@@ -3,7 +3,6 @@ import Footer from "@/components/layout/Footer";
 import GridBackdrop from "@/components/layout/GridBackdrop";
 import Header from "@/components/layout/Header";
 import RevealObserver from "@/components/layout/RevealObserver";
-import SmoothScroll from "@/components/motion/SmoothScroll";
 
 /**
  * Every marketing page is fully static: built from src/content and src/config only.
@@ -22,7 +21,6 @@ export default function MarketingLayout({ children }: LayoutProps<"/">) {
       <Footer />
       <UtmCapture />
       <RevealObserver />
-      <SmoothScroll />
     </>
   );
 }

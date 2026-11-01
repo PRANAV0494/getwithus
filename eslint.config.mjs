@@ -3,8 +3,9 @@ import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
 
 const forbiddenPackages = [
-  // gsap, lenis, and motion (from "motion/react") are the motion system; see docs/decisions/0013.
-  { name: "framer-motion", message: "Import from motion/react instead." },
+  // GSAP and Motion leave as the final design replaces their components (docs/decisions/0013, 0014).
+  { name: "framer-motion", message: "No motion package; see docs/decisions/0011." },
+  { name: "lenis", message: "Native scrolling only; see docs/decisions/0008." },
   { name: "aos", message: "No scroll entrance animations." },
   { name: "locomotive-scroll", message: "Native scrolling only." },
   { name: "axios", message: "Use fetch with AbortSignal.timeout." },

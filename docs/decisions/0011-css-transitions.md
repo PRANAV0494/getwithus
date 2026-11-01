@@ -2,6 +2,8 @@
 
 Date: 2026-10-31
 
+Update 2026-11-01: the final design ([0014](0014-final-light-3d-design.md)) adds text animation, marquees, tilt, magnetic buttons, demos, and 3D, built as small custom components on CSS and one shared frame loop. The decision stands: no motion package (the interim GSAP and Motion of [0013](0013-interim-motion-system.md) are removed).
+
 ## Context
 
 Section 4.6 of the spec names the `motion` package for the hero reveal and for transitions that answer an action (menus, accordion, dialog, toast). Every marketing route must ship under 180 KB of gzipped initial JavaScript, and the pages measured between 172 and 178 KB without it.
