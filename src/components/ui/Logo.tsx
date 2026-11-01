@@ -16,11 +16,11 @@ export default function Logo({ href = "/", showWordmark = true, className, onCli
   const content = (
     <>
       <svg viewBox="0 0 64 64" width={24} height={24} aria-hidden="true" focusable="false">
-        <rect width="64" height="64" rx={64 * MARK_RADIUS_RATIO} className="fill-signal" />
-        <path d={MARK_GLYPH_PATH} className="fill-ink" />
+        <rect width="64" height="64" rx={64 * MARK_RADIUS_RATIO} className="fill-accent" />
+        <path d={MARK_GLYPH_PATH} className="fill-accent-ink" />
       </svg>
       {showWordmark ? (
-        <span className="text-[1.125rem] leading-none font-semibold tracking-[-0.01em] text-fog [font-stretch:92%]">
+        <span className="text-[1.125rem] leading-none font-semibold tracking-[-0.01em] text-ink [font-stretch:92%]">
           {site.wordmark}
         </span>
       ) : null}

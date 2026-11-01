@@ -10,7 +10,7 @@ import type { ServiceSummary } from "@/content/types";
 import { cn } from "@/lib/cn";
 
 const navLinkClasses =
-  "inline-flex h-9 items-center gap-1.5 rounded-control px-3 type-button text-fog-2 transition-colors duration-150 ease-out hover:bg-ink-3 hover:text-fog aria-[current=page]:text-signal data-[state=open]:bg-ink-3 data-[state=open]:text-fog";
+  "inline-flex h-9 items-center gap-1.5 rounded-control px-3 type-button text-body transition-colors duration-150 ease-out hover:bg-card-2 hover:text-ink aria-[current=page]:text-accent data-[state=open]:bg-card-2 data-[state=open]:text-ink";
 
 /** True when the path is the link or a page below it. */
 function isCurrent(pathname: string, href: string): boolean {
@@ -40,7 +40,7 @@ export default function MegaMenu({ services, links }: MegaMenuProps) {
             className={cn(
               navLinkClasses,
               "group",
-              isCurrent(pathname, "/services") && "text-signal",
+              isCurrent(pathname, "/services") && "text-accent",
             )}
           >
             Services
@@ -50,7 +50,7 @@ export default function MegaMenu({ services, links }: MegaMenuProps) {
               className="transition-transform duration-150 ease-out group-data-[state=open]:rotate-180"
             />
           </NavigationMenu.Trigger>
-          <NavigationMenu.Content className="absolute top-[calc(100%+10px)] left-0 w-[720px] rounded-card border border-line-strong bg-ink-2 p-4 data-[state=closed]:animate-menu-out data-[state=open]:animate-menu-in">
+          <NavigationMenu.Content className="absolute top-[calc(100%+10px)] left-0 w-[720px] rounded-card border border-line-2 bg-card p-4 data-[state=closed]:animate-menu-out data-[state=open]:animate-menu-in">
             <ul className="grid grid-cols-2 gap-x-4 gap-y-1">
               {services.map((service) => {
                 const ServiceIcon = serviceIcons[service.slug];
@@ -59,16 +59,16 @@ export default function MegaMenu({ services, links }: MegaMenuProps) {
                     <NavigationMenu.Link asChild>
                       <Link
                         href={service.href}
-                        className="grid grid-cols-[16px_1fr] gap-3 rounded-control px-3 py-2.5 transition-colors duration-150 ease-out hover:bg-ink-3"
+                        className="grid grid-cols-[16px_1fr] gap-3 rounded-control px-3 py-2.5 transition-colors duration-150 ease-out hover:bg-card-2"
                       >
                         {ServiceIcon ? (
-                          <Icon icon={ServiceIcon} size={16} className="mt-1 text-signal" />
+                          <Icon icon={ServiceIcon} size={16} className="mt-1 text-accent" />
                         ) : (
                           <span />
                         )}
                         <span>
-                          <span className="block type-h4 text-fog">{service.name}</span>
-                          <span className="mt-0.5 block type-small text-fog-2">
+                          <span className="block type-h4 text-ink">{service.name}</span>
+                          <span className="mt-0.5 block type-small text-body">
                             {service.menuDescription}
                           </span>
                         </span>
@@ -81,7 +81,7 @@ export default function MegaMenu({ services, links }: MegaMenuProps) {
                             <NavigationMenu.Link asChild>
                               <Link
                                 href={child.href}
-                                className="block rounded-tag px-2 py-1 type-small text-fog-2 transition-colors duration-150 ease-out hover:bg-ink-3 hover:text-fog"
+                                className="block rounded-tag px-2 py-1 type-small text-body transition-colors duration-150 ease-out hover:bg-card-2 hover:text-ink"
                               >
                                 {child.name}
                               </Link>
@@ -98,7 +98,7 @@ export default function MegaMenu({ services, links }: MegaMenuProps) {
               <NavigationMenu.Link asChild>
                 <Link
                   href="/services"
-                  className="type-small text-signal transition-colors duration-150 ease-out hover:text-signal-2"
+                  className="type-small text-accent transition-colors duration-150 ease-out hover:text-accent"
                 >
                   All services
                 </Link>

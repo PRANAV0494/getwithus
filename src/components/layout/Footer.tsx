@@ -5,10 +5,10 @@ import { known, site, visibleNav } from "@/config/site";
 import { serviceLines } from "@/content/services/catalog";
 import { getPublishedCaseStudies } from "@/features/case-studies/getPublishedCaseStudies";
 
-const linkClasses = "link-draw text-fog-2 transition-colors duration-150 ease-out hover:text-fog";
+const linkClasses = "link-draw text-body transition-colors duration-150 ease-out hover:text-ink";
 const subLinkClasses =
-  "link-draw text-[0.8125rem] text-fog-3 transition-colors duration-150 ease-out hover:text-fog";
-const headingClasses = "mb-4 type-label text-fog-3";
+  "link-draw text-[0.8125rem] text-muted transition-colors duration-150 ease-out hover:text-ink";
+const headingClasses = "mb-4 type-label text-muted";
 
 /** Site footer: brand, tagline, and contact details, then service, company, and legal links under monospaced titles. */
 export default function Footer() {
@@ -22,12 +22,12 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="border-t border-line bg-ink-0 pt-16 pb-8 text-fog-2">
+    <footer className="border-t border-line bg-bg-soft pt-16 pb-8 text-body">
       <Container>
         <div className="grid gap-10 md:grid-cols-[1.5fr_1fr_1fr_1fr] md:gap-8">
           <div className="grid content-start gap-4">
             <Logo />
-            <p className="font-medium text-fog">{site.tagline}</p>
+            <p className="font-medium text-ink">{site.tagline}</p>
             <p className="max-w-[36ch]">{site.footerDescription}</p>
             {email || phone || city ? (
               <address className="grid gap-1 type-small not-italic">
@@ -101,7 +101,7 @@ export default function Footer() {
             </ul>
           </nav>
         </div>
-        <p className="mt-12 border-t border-line pt-6 type-small text-fog-3">
+        <p className="mt-12 border-t border-line pt-6 type-small text-muted">
           © {site.copyrightYear} {owner}. All rights reserved.
         </p>
       </Container>

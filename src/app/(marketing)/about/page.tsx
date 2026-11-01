@@ -39,22 +39,22 @@ function TeamRow({ member }: { member: TeamMember }) {
       ) : (
         <span
           aria-hidden="true"
-          className="grid size-16 place-items-center border border-line bg-ink-2 font-mono text-fog-2"
+          className="grid size-16 place-items-center border border-line bg-card font-mono text-body"
         >
           {initials(member.name)}
         </span>
       )}
       <div>
         <h3 className="type-h4">{member.name}</h3>
-        <p className="type-label text-fog-3">{member.role}</p>
-        <p className="mt-2 max-w-[60ch] text-fog-2">{member.bio}</p>
+        <p className="type-label text-muted">{member.role}</p>
+        <p className="mt-2 max-w-[60ch] text-body">{member.bio}</p>
         {member.links?.length ? (
           <p className="mt-2 flex flex-wrap gap-x-4 type-small">
             {member.links.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="link-draw text-signal transition-colors duration-150 ease-out hover:text-signal-2"
+                className="link-draw text-accent transition-colors duration-150 ease-out hover:text-accent"
                 rel="noopener noreferrer"
                 target="_blank"
               >
@@ -82,12 +82,12 @@ export default function AboutPage() {
           />
           <ul className="mt-12 grid gap-px border border-line bg-line sm:grid-cols-2">
             {commitments.map((commitment, position) => (
-              <li key={commitment.text} className="reveal bg-ink-1 p-6 md:p-7">
-                <p className="type-label text-signal">
+              <li key={commitment.text} className="reveal bg-bg-soft p-6 md:p-7">
+                <p className="type-label text-accent">
                   commit_{String(position + 1).padStart(2, "0")}
                 </p>
                 <p className="mt-3 type-h4">{commitment.text}</p>
-                <p className="mt-2 text-fog-2">{commitment.expanded}</p>
+                <p className="mt-2 text-body">{commitment.expanded}</p>
               </li>
             ))}
           </ul>

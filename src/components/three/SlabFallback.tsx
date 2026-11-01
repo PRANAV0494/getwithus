@@ -15,7 +15,7 @@ export default function SlabFallback({ className }: { className?: string }) {
       aria-hidden="true"
       focusable="false"
       data-fallback="slab"
-      className={cn("text-fog opacity-20", className)}
+      className={cn("text-ink opacity-20", className)}
     >
       <path d="M120 150 L420 60 L560 130 L260 220 Z" />
       <path d="M120 150 L120 190 L260 260 L560 170 L560 130" />

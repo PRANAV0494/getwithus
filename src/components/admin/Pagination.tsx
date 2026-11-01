@@ -11,7 +11,7 @@ type PaginationProps = {
 };
 
 const linkClasses =
-  "inline-flex h-9 items-center gap-1.5 rounded-control border border-line-strong px-3 type-small text-fog transition-colors duration-150 ease-out hover:border-fog-3";
+  "inline-flex h-9 items-center gap-1.5 rounded-control border border-line-2 px-3 type-small text-ink transition-colors duration-150 ease-out hover:border-muted";
 
 function hrefFor(params: PaginationProps["params"], page: number): string {
   const query = new URLSearchParams();
@@ -25,7 +25,7 @@ function hrefFor(params: PaginationProps["params"], page: number): string {
 export default function Pagination({ page, pageCount, total, params }: PaginationProps) {
   return (
     <nav aria-label="Pages" className="flex flex-wrap items-center justify-between gap-4">
-      <p className="type-small text-fog-2">
+      <p className="type-small text-body">
         Page {page} of {pageCount}, {total} {total === 1 ? "lead" : "leads"}
       </p>
       <div className="flex gap-2">

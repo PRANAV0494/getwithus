@@ -17,17 +17,17 @@ export default function Accordion({ items, className }: AccordionProps) {
       {items.map((item) => (
         <RadixAccordion.Item key={item.id} value={item.id} className="border-b border-line">
           <RadixAccordion.Header className="m-0">
-            <RadixAccordion.Trigger className="group flex w-full items-center justify-between gap-4 py-5 text-left type-h4 text-fog transition-colors duration-150 ease-out hover:text-signal">
+            <RadixAccordion.Trigger className="group flex w-full items-center justify-between gap-4 py-5 text-left type-h4 text-ink transition-colors duration-150 ease-out hover:text-accent">
               {item.question}
               <Icon
                 icon={Plus}
                 size={20}
-                className="shrink-0 text-signal transition-transform duration-200 ease-out group-data-[state=open]:rotate-45"
+                className="shrink-0 text-accent transition-transform duration-200 ease-out group-data-[state=open]:rotate-45"
               />
             </RadixAccordion.Trigger>
           </RadixAccordion.Header>
           <RadixAccordion.Content className="overflow-hidden data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down">
-            <div className="max-w-[68ch] pb-5 text-fog-2">{item.answer}</div>
+            <div className="max-w-[68ch] pb-5 text-body">{item.answer}</div>
           </RadixAccordion.Content>
         </RadixAccordion.Item>
       ))}

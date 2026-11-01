@@ -45,13 +45,13 @@ function Chip({
       />
       <span
         className={cn(
-          "inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-control border border-line-strong bg-ink-2 px-3.5 type-small text-fog transition-colors duration-150 ease-out",
-          "peer-checked:border-signal peer-checked:bg-ink-3 hover:border-fog-3",
-          "peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-signal",
-          "peer-disabled:cursor-not-allowed peer-disabled:text-fog-3",
+          "inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-control border border-line-2 bg-card px-3.5 type-small text-ink transition-colors duration-150 ease-out",
+          "peer-checked:border-accent peer-checked:bg-card-2 hover:border-muted",
+          "peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-accent",
+          "peer-disabled:cursor-not-allowed peer-disabled:text-muted",
         )}
       >
-        <span className={cn("text-signal", checked ? "inline-flex" : "hidden")}>
+        <span className={cn("text-accent", checked ? "inline-flex" : "hidden")}>
           <Icon icon={Check} size={16} />
         </span>
         {option.label}
@@ -103,7 +103,7 @@ export default function ChipGroup({
             key={option.value}
             className="flex flex-wrap items-center gap-2 border-l-2 border-line pl-4"
           >
-            <span className="mr-1 type-small text-fog-2">{option.label}:</span>
+            <span className="mr-1 type-small text-body">{option.label}:</span>
             {option.children?.map((child) => (
               <Chip
                 key={child.value}

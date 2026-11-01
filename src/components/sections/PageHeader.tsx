@@ -17,14 +17,14 @@ export default function PageHeader({ id, label, title, lead, className }: PageHe
   return (
     <Section aria-labelledby={id} className={cn("border-b border-line", className)}>
       <Container>
-        <p className="type-label text-signal">
+        <p className="type-label text-accent">
           <span aria-hidden="true">&gt; </span>
           {label}
         </p>
         <h1 id={id} className="mt-5 max-w-[20ch] type-display">
           {title}
         </h1>
-        {lead ? <div className="mt-6 max-w-[62ch] type-lead text-fog-2">{lead}</div> : null}
+        {lead ? <div className="mt-6 max-w-[62ch] type-lead text-body">{lead}</div> : null}
       </Container>
     </Section>
   );

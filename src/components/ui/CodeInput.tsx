@@ -129,11 +129,11 @@ export default function CodeInput({
           aria-describedby={aria["aria-describedby"]}
           aria-invalid={aria["aria-invalid"]}
           className={cn(
-            "h-14 w-11 rounded-control border bg-ink-2 text-center text-[1.375rem] font-semibold text-fog tabular-nums transition-colors duration-200 ease-out sm:w-12",
-            "hover:border-fog-3 disabled:cursor-not-allowed disabled:text-fog-3",
+            "h-14 w-11 rounded-control border bg-card text-center text-[1.375rem] font-semibold text-ink tabular-nums transition-colors duration-200 ease-out sm:w-12",
+            "hover:border-muted disabled:cursor-not-allowed disabled:text-muted",
             status === "error" && "border-err",
             status === "success" && "border-ok",
-            status === "idle" && "border-line-strong",
+            status === "idle" && "border-line-2",
           )}
         />
       ))}

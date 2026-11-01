@@ -53,14 +53,14 @@ export default function Field({
   const labelText = (
     <>
       {label}
-      {optional ? <span className="font-normal text-fog-2"> (optional)</span> : null}
+      {optional ? <span className="font-normal text-body"> (optional)</span> : null}
     </>
   );
 
   const body = (
     <>
       {hint ? (
-        <p id={hintId} className="mt-1 type-small text-fog-2">
+        <p id={hintId} className="mt-1 type-small text-body">
           {hint}
         </p>
       ) : null}
@@ -74,7 +74,7 @@ export default function Field({
   if (group) {
     return (
       <fieldset className={cn("min-w-0", className)} aria-describedby={describedBy || undefined}>
-        <legend className="type-body font-medium text-fog">{labelText}</legend>
+        <legend className="type-body font-medium text-ink">{labelText}</legend>
         {body}
       </fieldset>
     );
@@ -82,7 +82,7 @@ export default function Field({
 
   return (
     <div className={className}>
-      <label htmlFor={id} className="block type-body font-medium text-fog">
+      <label htmlFor={id} className="block type-body font-medium text-ink">
         {labelText}
       </label>
       {body}

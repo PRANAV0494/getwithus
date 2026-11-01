@@ -32,7 +32,7 @@ function DeviceFrame({ entry, device }: { entry: Entry; device: Device }) {
   return (
     <div ref={box} className="w-full">
       <div
-        className="relative mx-auto overflow-hidden rounded-card border border-line-strong bg-ink-2"
+        className="relative mx-auto overflow-hidden rounded-card border border-line-2 bg-card"
         style={{ width: device.width * scale, height: device.height * scale }}
       >
         {scale > 0 ? (
@@ -47,7 +47,7 @@ function DeviceFrame({ entry, device }: { entry: Entry; device: Device }) {
           />
         ) : null}
       </div>
-      <p className="mt-3 flex items-center justify-between gap-4 type-small text-fog-2">
+      <p className="mt-3 flex items-center justify-between gap-4 type-small text-body">
         <span>
           {entry.label}, {device.label} px
           {scale < 1 ? `, shown at ${Math.round(scale * 100)} percent` : ""}
@@ -56,7 +56,7 @@ function DeviceFrame({ entry, device }: { entry: Entry; device: Device }) {
           href={entry.href}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center gap-1.5 text-signal hover:text-signal-2"
+          className="inline-flex items-center gap-1.5 text-accent hover:text-accent"
         >
           Open full page
           <Icon icon={ExternalLink} size={16} />
@@ -81,7 +81,7 @@ function Segmented<T extends string>({
     <div
       role="group"
       aria-label={label}
-      className="inline-flex flex-wrap gap-1 rounded-control border border-line bg-ink-2 p-1"
+      className="inline-flex flex-wrap gap-1 rounded-control border border-line bg-card p-1"
     >
       {options.map((option) => (
         <button
@@ -90,8 +90,8 @@ function Segmented<T extends string>({
           aria-pressed={value === option.value}
           onClick={() => onChange(option.value)}
           className={cn(
-            "rounded-[4px] px-3 py-1.5 type-small font-medium text-fog-2 transition-colors duration-150 hover:text-fog",
-            value === option.value && "bg-signal text-ink hover:text-ink",
+            "rounded-[4px] px-3 py-1.5 type-small font-medium text-body transition-colors duration-150 hover:text-ink",
+            value === option.value && "bg-accent text-accent-ink hover:text-accent-ink",
           )}
         >
           {option.label}
@@ -115,13 +115,13 @@ function ConceptSelect({
   onChange: (value: string) => void;
 }) {
   return (
-    <label htmlFor={id} className="grid gap-1.5 type-small text-fog-2">
+    <label htmlFor={id} className="grid gap-1.5 type-small text-body">
       {label}
       <select
         id={id}
         value={value}
         onChange={(event) => onChange(event.currentTarget.value)}
-        className="h-10 rounded-control border border-line-strong bg-ink-2 px-3 text-fog"
+        className="h-10 rounded-control border border-line-2 bg-card px-3 text-ink"
       >
         {entries.map((entry) => (
           <option key={entry.key} value={entry.key}>

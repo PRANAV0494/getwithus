@@ -20,11 +20,11 @@ export default function Hero() {
       <GridSpotlight />
       <Container className="grid items-center gap-12 pt-14 pb-14 md:pt-20 md:pb-20 lg:grid-cols-[1.05fr_0.95fr]">
         <RevealOnce className="grid gap-5">
-          <p className="font-mono text-[0.8125rem] text-signal">&gt; {site.tagline}</p>
+          <p className="font-mono text-[0.8125rem] text-accent">&gt; {site.tagline}</p>
           <h1 id="hero-title" className="type-display">
             {hero.title}
           </h1>
-          <p className="max-w-[56ch] type-lead text-fog-2">{hero.lead}</p>
+          <p className="max-w-[56ch] type-lead text-body">{hero.lead}</p>
           <div className="mt-2 grid gap-7">
             <div className="flex flex-col gap-3 sm:flex-row">
               <MagneticButton>
@@ -36,8 +36,8 @@ export default function Hero() {
             </div>
             <ul className="flex flex-wrap gap-x-6 gap-y-2.5 border-t border-line pt-6">
               {hero.proof.map((item) => (
-                <li key={item} className="flex items-center gap-2 type-small text-fog-2">
-                  <Icon icon={Check} size={16} className="text-signal" />
+                <li key={item} className="flex items-center gap-2 type-small text-body">
+                  <Icon icon={Check} size={16} className="text-accent" />
                   {item}
                 </li>
               ))}

@@ -6,11 +6,11 @@
 export default function GridBackdrop() {
   return (
     <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10">
-      <div className="mx-auto grid h-full max-w-[1200px] grid-cols-4 border-x border-grid px-6 md:grid-cols-12 md:px-10">
+      <div className="mx-auto grid h-full max-w-[1200px] grid-cols-4 border-x border-line px-6 md:grid-cols-12 md:px-10">
         {Array.from({ length: 12 }, (_, index) => (
           <span
             key={index}
-            className="border-r border-grid last:border-r-0 max-md:[&:nth-child(n+5)]:hidden"
+            className="border-r border-line last:border-r-0 max-md:[&:nth-child(n+5)]:hidden"
           />
         ))}
       </div>

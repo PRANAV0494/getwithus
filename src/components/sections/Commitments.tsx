@@ -14,7 +14,7 @@ import { homePage } from "@/content/pages";
  */
 export default function Commitments({ index }: { index?: string }) {
   return (
-    <Section aria-labelledby="commitments-title" className="border-y border-line bg-ink-1/80">
+    <Section aria-labelledby="commitments-title" className="border-y border-line bg-bg-soft/80">
       <Container>
         <SectionHeading
           id="commitments-title"
@@ -29,7 +29,7 @@ export default function Commitments({ index }: { index?: string }) {
               <li key={commitment.text} className="reveal">
                 <TiltCard
                   maxDeg={4}
-                  className="h-full min-h-[200px] border border-line bg-ink-2 px-9 py-[34px] hover:border-line-strong hover:bg-ink-3"
+                  className="h-full min-h-[200px] border border-line bg-card px-9 py-[34px] hover:border-line-2 hover:bg-card-2"
                 >
                   <Brackets spread />
                   <span
@@ -38,8 +38,8 @@ export default function Commitments({ index }: { index?: string }) {
                   >
                     {number}
                   </span>
-                  <ScrambleText text={`commit_${number}`} className="type-label text-signal" />
-                  <p className="relative mt-4 max-w-[30ch] [transform:translateZ(20px)] type-lead text-fog">
+                  <ScrambleText text={`commit_${number}`} className="type-label text-accent" />
+                  <p className="relative mt-4 max-w-[30ch] [transform:translateZ(20px)] type-lead text-ink">
                     {commitment.text}
                   </p>
                 </TiltCard>

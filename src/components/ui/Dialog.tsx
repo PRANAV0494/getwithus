@@ -31,25 +31,25 @@ export default function Dialog({
     <RadixDialog.Root open={open} onOpenChange={onOpenChange}>
       {trigger ? <RadixDialog.Trigger asChild>{trigger}</RadixDialog.Trigger> : null}
       <RadixDialog.Portal>
-        <RadixDialog.Overlay className="fixed inset-0 z-50 bg-ink/80 data-[state=closed]:animate-overlay-out data-[state=open]:animate-overlay-in" />
+        <RadixDialog.Overlay className="fixed inset-0 z-50 bg-bg/80 data-[state=closed]:animate-overlay-out data-[state=open]:animate-overlay-in" />
         <RadixDialog.Content
           className={cn(
-            "fixed top-1/2 left-1/2 z-50 w-[calc(100vw-48px)] max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-card border border-line bg-ink-2 p-6",
+            "fixed top-1/2 left-1/2 z-50 w-[calc(100vw-48px)] max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-card border border-line bg-card p-6",
             "data-[state=closed]:animate-dialog-out data-[state=open]:animate-dialog-in",
             className,
           )}
         >
           <div className="flex items-start justify-between gap-4">
-            <RadixDialog.Title className="type-h4 text-fog">{title}</RadixDialog.Title>
+            <RadixDialog.Title className="type-h4 text-ink">{title}</RadixDialog.Title>
             <RadixDialog.Close
-              className="-m-2 rounded-control p-2 text-fog-2 transition-colors duration-150 ease-out hover:bg-ink-3"
+              className="-m-2 rounded-control p-2 text-body transition-colors duration-150 ease-out hover:bg-card-2"
               aria-label="Close"
             >
               <Icon icon={X} size={20} />
             </RadixDialog.Close>
           </div>
           {description ? (
-            <RadixDialog.Description className="mt-2 text-fog-2">
+            <RadixDialog.Description className="mt-2 text-body">
               {description}
             </RadixDialog.Description>
           ) : (

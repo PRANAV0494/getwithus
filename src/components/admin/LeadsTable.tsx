@@ -18,14 +18,14 @@ export default function LeadsTable({ leads, now }: { leads: readonly Lead[]; now
         {
           key: "company",
           header: "Company",
-          cell: (lead) => lead.company ?? <span className="text-fog-3">None</span>,
+          cell: (lead) => lead.company ?? <span className="text-muted">None</span>,
         },
         { key: "source", header: "Source", cell: (lead) => sourceLabels[lead.source] },
         {
           key: "services",
           header: "Services",
           cell: (lead) =>
-            lead.services.map(serviceName).join(", ") || <span className="text-fog-3">None</span>,
+            lead.services.map(serviceName).join(", ") || <span className="text-muted">None</span>,
         },
         {
           key: "status",

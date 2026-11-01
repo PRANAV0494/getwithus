@@ -26,7 +26,7 @@ export default function LoginForm({ next, authError }: { next?: string; authErro
         <Icon icon={MailCheck} size={24} className="mt-0.5 text-ok" />
         <div>
           <h2 className="type-h4">Check your email</h2>
-          <p className="mt-1 text-fog-2">
+          <p className="mt-1 text-body">
             If that address is on the team list, a link is on its way.
           </p>
         </div>

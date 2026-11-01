@@ -303,12 +303,12 @@ export default function IsoStack({ names, labels, listId, sectionId, className }
   }, [listId, sectionId, labels, reduce]);
 
   return (
-    <div className={cn("relative border border-line bg-ink-1 p-3 min-[900px]:p-[22px]", className)}>
+    <div className={cn("relative border border-line bg-bg-soft p-3 min-[900px]:p-[22px]", className)}>
       <Brackets />
-      <p className="mb-2 min-h-[22px] type-label text-fog-2 min-[900px]:mb-4">
-        fig. 02 / <ScrambleText text={names[active] ?? ""} className="text-fog" />
+      <p className="mb-2 min-h-[22px] type-label text-body min-[900px]:mb-4">
+        fig. 02 / <ScrambleText text={names[active] ?? ""} className="text-ink" />
       </p>
-      <div className="border border-line bg-ink-0">
+      <div className="border border-line bg-bg-soft">
         <svg
           viewBox={`0 0 ${VIEW.width} ${VIEW.height}`}
           role="img"
@@ -359,7 +359,7 @@ export default function IsoStack({ names, labels, listId, sectionId, className }
           <li
             key={label}
             data-on={index <= active ? "" : undefined}
-            className="progress-seg h-0.5 overflow-hidden bg-line-strong"
+            className="progress-seg h-0.5 overflow-hidden bg-line-2"
           />
         ))}
       </ol>

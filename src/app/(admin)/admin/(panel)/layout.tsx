@@ -18,7 +18,7 @@ async function AdminGate({ children }: { children: ReactNode }) {
 function ShellSkeleton() {
   return (
     <div className="grid min-h-svh md:grid-cols-[220px_minmax(0,1fr)]" aria-busy="true">
-      <div className="hidden border-r border-line bg-ink-2 md:block" />
+      <div className="hidden border-r border-line bg-card md:block" />
       <div className="grid content-start gap-6 px-10 py-24">
         <Skeleton className="h-8 w-48" />
         <Skeleton className="h-40 w-full" />

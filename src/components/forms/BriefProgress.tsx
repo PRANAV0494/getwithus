@@ -19,10 +19,10 @@ export default function BriefProgress({ step, done }: { step: number; done: bool
             className={cn(
               "flex items-center gap-2 border-t-2 pt-3 type-small",
               current
-                ? "border-signal text-fog"
+                ? "border-accent text-ink"
                 : complete
-                  ? "border-fog-3 text-fog-2"
-                  : "border-line text-fog-3",
+                  ? "border-muted text-body"
+                  : "border-line text-muted",
             )}
           >
             <span className="inline-flex size-5 shrink-0 items-center justify-center font-semibold tabular-nums">

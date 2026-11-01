@@ -27,7 +27,7 @@ export default function Select({ options, placeholder, className, ...props }: Se
         size={16}
         strokeWidth={1.75}
         aria-hidden="true"
-        className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-fog-2"
+        className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-body"
       />
     </div>
   );

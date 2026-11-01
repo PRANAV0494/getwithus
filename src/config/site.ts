@@ -26,6 +26,10 @@ export const site = {
   legalEntity: "[OWNER: legal entity name]",
   responseTime: "[OWNER: response time, for example one business day]",
   fixWindow: "[OWNER: fix window, for example 30-day]",
+  /** The month the hero pill says we are booking projects for. Hidden while a placeholder. */
+  bookingMonth: "[OWNER: month you are booking projects for, for example March]",
+  /** Prefilled text for the WhatsApp button (shown only once the phone number is known). */
+  whatsAppMessage: "Hi GetWithUs, I would like to talk about a project.",
   copyrightYear: 2026,
   // Real profile URLs only. Empty means no social links are rendered anywhere.
   social: [] as SocialLink[],

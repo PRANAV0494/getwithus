@@ -90,11 +90,11 @@ export default function ProcessTimeline({ steps }: { steps: readonly Step[] }) {
     <div ref={root} className="timeline relative">
       <div
         data-track
-        className="absolute top-[7px] bottom-0 left-[7px] w-px bg-line-strong min-[860px]:right-0 min-[860px]:bottom-auto min-[860px]:h-px min-[860px]:w-auto"
+        className="absolute top-[7px] bottom-0 left-[7px] w-px bg-line-2 min-[860px]:right-0 min-[860px]:bottom-auto min-[860px]:h-px min-[860px]:w-auto"
       >
         <div
           data-fill
-          className="absolute inset-0 origin-top bg-signal shadow-[0_0_12px_var(--color-signal-glow)] min-[860px]:origin-left"
+          className="absolute inset-0 origin-top bg-accent shadow-[0_0_12px_var(--glow)] min-[860px]:origin-left"
         />
       </div>
       <ol className="grid gap-11 pl-10 min-[860px]:grid-cols-4 min-[860px]:gap-8 min-[860px]:pl-0">
@@ -114,7 +114,7 @@ export default function ProcessTimeline({ steps }: { steps: readonly Step[] }) {
                 <span className="sr-only">Step {index + 1}: </span>
                 {step.title}
               </h3>
-              <p className="text-fog-2">{step.short}</p>
+              <p className="text-body">{step.short}</p>
             </div>
           </li>
         ))}

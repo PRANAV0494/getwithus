@@ -11,15 +11,15 @@ export default function ClosingCta({ className }: { className?: string }) {
   return (
     <Section aria-labelledby="closing-cta-title" className={cn(className)}>
       <Container>
-        <div className="reveal relative border border-line-strong bg-ink-2 px-6 py-12 md:px-12 md:py-14">
+        <div className="reveal relative border border-line-2 bg-card px-6 py-12 md:px-12 md:py-14">
           <Brackets always />
-          <p className="type-label text-fog-3">next step</p>
+          <p className="type-label text-muted">next step</p>
           <div className="mt-6 grid gap-8 lg:grid-cols-[1.1fr_1fr]">
             <h2 id="closing-cta-title" className="max-w-[20ch] type-h2">
               {closingCta.title}
             </h2>
             <div>
-              <p className="type-lead text-fog-2">{closingCta.text}</p>
+              <p className="type-lead text-body">{closingCta.text}</p>
               <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                 <MagneticButton>
                   <Button href={closingCta.primary.href}>{closingCta.primary.label}</Button>

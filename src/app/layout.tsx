@@ -1,22 +1,30 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, JetBrains_Mono } from "next/font/google";
+import { Bricolage_Grotesque, Figtree, JetBrains_Mono } from "next/font/google";
 import SkipLink from "@/components/layout/SkipLink";
 import Toast from "@/components/ui/Toast";
 import { site } from "@/config/site";
+import { THEME_SCRIPT } from "@/lib/theme";
 import "@/styles/globals.css";
 
-// Archivo carries every word people read; the width axis gives headings their 92% width.
-const archivo = Archivo({
+// Headings: Bricolage Grotesque, variable, with its optical-size axis.
+const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
-  axes: ["wdth"],
+  axes: ["opsz"],
   display: "swap",
-  variable: "--font-archivo",
+  variable: "--font-bricolage",
 });
 
-// JetBrains Mono is only for small labels, ids, and specifications (and identifiers in the admin).
+// Body and interface: Figtree, variable.
+const figtree = Figtree({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-figtree",
+});
+
+// Code and terminals only.
 const jetbrains = JetBrains_Mono({
   subsets: ["latin"],
-  weight: ["400"],
+  weight: ["400", "500"],
   display: "swap",
   variable: "--font-jetbrains",
 });
@@ -37,14 +45,23 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0F1113",
-  colorScheme: "dark",
+  themeColor: "#FFFFFF",
+  colorScheme: "light",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   // [OWNER: change lang if the primary language of the site is not English]
   return (
-    <html lang="en" className={`${archivo.variable} ${jetbrains.variable}`}>
+    <html
+      lang="en"
+      data-theme="light"
+      suppressHydrationWarning
+      className={`${bricolage.variable} ${figtree.variable} ${jetbrains.variable}`}
+    >
+      <head>
+        {/* Applies the stored theme before first paint (src/lib/theme.ts); the CSP allows inline scripts. */}
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+      </head>
       <body>
         <SkipLink />
         {children}

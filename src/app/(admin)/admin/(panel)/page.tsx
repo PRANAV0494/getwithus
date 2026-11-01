@@ -28,10 +28,10 @@ export default async function DashboardPage() {
         </h2>
         <dl className="grid grid-cols-2 gap-3 sm:grid-cols-4 xl:grid-cols-7">
           {LEAD_STATUSES.map((status) => (
-            <div key={status} className="rounded-card border border-line bg-ink-2 p-4">
-              <dt className="type-small text-fog-2">{statusLabels[status]}</dt>
+            <div key={status} className="rounded-card border border-line bg-card p-4">
+              <dt className="type-small text-body">{statusLabels[status]}</dt>
               <dd className="mt-1 type-h3 tabular-nums">
-                <Link href={`/admin/leads?status=${status}`} className="hover:text-signal">
+                <Link href={`/admin/leads?status=${status}`} className="hover:text-accent">
                   {counts[status] ?? 0}
                 </Link>
               </dd>
@@ -44,7 +44,7 @@ export default async function DashboardPage() {
           <h2 id="recent-title" className="type-h4">
             Recent leads
           </h2>
-          <Link href="/admin/leads" className="type-small text-signal hover:text-signal-2">
+          <Link href="/admin/leads" className="type-small text-accent hover:text-accent">
             All leads
           </Link>
         </div>
@@ -61,7 +61,7 @@ export default async function DashboardPage() {
           <h2 id="unread-title" className="type-h4">
             Unread notifications
           </h2>
-          <Link href="/admin/notifications" className="type-small text-signal hover:text-signal-2">
+          <Link href="/admin/notifications" className="type-small text-accent hover:text-accent">
             All notifications
           </Link>
         </div>

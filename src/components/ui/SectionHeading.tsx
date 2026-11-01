@@ -26,14 +26,14 @@ export default function SectionHeading({
 }: SectionHeadingProps) {
   return (
     <div className={cn("reveal grid gap-3 md:grid-cols-[200px_1fr] md:gap-6", className)}>
-      <p className="pt-2 type-label text-fog-3">
+      <p className="pt-2 type-label text-muted">
         <ScrambleText text={index ? `${index} / ${label}` : label} />
       </p>
       <div className="max-w-2xl">
         <h2 id={id} className="type-h2">
           {title}
         </h2>
-        {lead ? <div className="mt-4 type-lead text-fog-2">{lead}</div> : null}
+        {lead ? <div className="mt-4 type-lead text-body">{lead}</div> : null}
       </div>
     </div>
   );

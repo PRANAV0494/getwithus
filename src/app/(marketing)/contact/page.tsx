@@ -32,7 +32,7 @@ export default function ContactPage() {
           </div>
           <aside
             aria-labelledby="contact-details-title"
-            className="group relative border border-line bg-ink-1 p-6 md:p-7"
+            className="group relative border border-line bg-bg-soft p-6 md:p-7"
           >
             <Brackets />
             <h2 id="contact-details-title" className="type-h4">

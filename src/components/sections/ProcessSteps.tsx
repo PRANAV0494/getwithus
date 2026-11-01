@@ -33,7 +33,7 @@ export default function ProcessSteps({ title, link, index, className }: ProcessS
           <p className="mt-10">
             <Link
               href={link.href}
-              className="inline-flex items-center gap-2 font-medium text-signal transition-colors duration-150 ease-out hover:text-signal-2"
+              className="inline-flex items-center gap-2 font-medium text-accent transition-colors duration-150 ease-out hover:text-accent"
             >
               {link.label}
               <Icon icon={ArrowRight} size={16} />

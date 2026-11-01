@@ -58,36 +58,36 @@ export default function DesignLabGallery() {
   return (
     <main id="content" tabIndex={-1} className="outline-none">
       <div className="mx-auto w-full max-w-[1400px] px-6 py-14 md:px-10">
-        <p className="type-small font-medium text-signal">GetWithUs design lab</p>
+        <p className="type-small font-medium text-accent">GetWithUs design lab</p>
         <h1 className="mt-3 type-display">Five directions, one recommendation.</h1>
-        <p className="mt-4 max-w-[72ch] text-lg text-fog-2">
+        <p className="mt-4 max-w-[72ch] text-lg text-body">
           Five complete homepages for GetWithUs, each built from the same content and structure so
           they can be compared on design alone, then scored and refined. Nothing here is linked from
           the live site or indexed by search engines.
         </p>
         <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 type-small">
           <li>
-            <a href="#inspect" className="text-signal hover:text-signal-2">
+            <a href="#inspect" className="text-accent hover:text-accent">
               Inspect and compare
             </a>
           </li>
           <li>
-            <a href="#scorecard" className="text-signal hover:text-signal-2">
+            <a href="#scorecard" className="text-accent hover:text-accent">
               Scorecard
             </a>
           </li>
           <li>
-            <a href="#evaluations" className="text-signal hover:text-signal-2">
+            <a href="#evaluations" className="text-accent hover:text-accent">
               Evaluations
             </a>
           </li>
           <li>
-            <a href="#colour" className="text-signal hover:text-signal-2">
+            <a href="#colour" className="text-accent hover:text-accent">
               Colour systems
             </a>
           </li>
           <li>
-            <a href="#selected" className="text-signal hover:text-signal-2">
+            <a href="#selected" className="text-accent hover:text-accent">
               Recommendation
             </a>
           </li>
@@ -97,7 +97,7 @@ export default function DesignLabGallery() {
           <h2 id="inspect-title" className="type-h2">
             Inspect and compare
           </h2>
-          <p className="mt-2 max-w-[72ch] text-fog-2">
+          <p className="mt-2 max-w-[72ch] text-body">
             Each frame is the real page at a real device width, scaled to fit. Menus, tabs, hover
             states, and scroll reveals all work inside it. Open any of them full size for the true
             experience.
@@ -111,7 +111,7 @@ export default function DesignLabGallery() {
           <h2 id="scorecard-title" className="type-h2">
             Weighted scorecard
           </h2>
-          <p className="mt-2 max-w-[72ch] text-fog-2">
+          <p className="mt-2 max-w-[72ch] text-body">
             Scores are design judgement anchored to measurements from a local production build:
             Lighthouse on a simulated mid-range phone, initial JavaScript, axe, and measured
             contrast. Weights follow the brief.
@@ -132,36 +132,36 @@ export default function DesignLabGallery() {
                 <article
                   key={evaluation.slug}
                   aria-labelledby={`eval-${evaluation.slug}`}
-                  className="rounded-card border border-line bg-ink-2 p-6"
+                  className="rounded-card border border-line bg-card p-6"
                 >
                   <div className="flex items-baseline justify-between gap-4">
                     <h3 id={`eval-${evaluation.slug}`} className="type-h3">
                       {concept?.letter}: {concept?.name}
                     </h3>
-                    <p className="type-h4 text-signal tabular-nums">
+                    <p className="type-h4 text-accent tabular-nums">
                       {weightedScore(evaluation.scores).toFixed(1)}
                     </p>
                   </div>
-                  <h4 className="mt-4 type-small font-semibold text-fog">Strengths</h4>
-                  <ul className="mt-1 grid gap-1.5 type-small text-fog-2">
+                  <h4 className="mt-4 type-small font-semibold text-ink">Strengths</h4>
+                  <ul className="mt-1 grid gap-1.5 type-small text-body">
                     {evaluation.strengths.map((item) => (
                       <li key={item}>{item}</li>
                     ))}
                   </ul>
-                  <h4 className="mt-4 type-small font-semibold text-fog">Weaknesses</h4>
-                  <ul className="mt-1 grid gap-1.5 type-small text-fog-2">
+                  <h4 className="mt-4 type-small font-semibold text-ink">Weaknesses</h4>
+                  <ul className="mt-1 grid gap-1.5 type-small text-body">
                     {evaluation.weaknesses.map((item) => (
                       <li key={item}>{item}</li>
                     ))}
                   </ul>
-                  <h4 className="mt-4 type-small font-semibold text-fog">Fit for GetWithUs</h4>
-                  <p className="mt-1 type-small text-fog-2">{evaluation.suitability}</p>
-                  <h4 className="mt-4 type-small font-semibold text-fog">International clients</h4>
-                  <p className="mt-1 type-small text-fog-2">{evaluation.international}</p>
-                  <h4 className="mt-4 type-small font-semibold text-fog">
+                  <h4 className="mt-4 type-small font-semibold text-ink">Fit for GetWithUs</h4>
+                  <p className="mt-1 type-small text-body">{evaluation.suitability}</p>
+                  <h4 className="mt-4 type-small font-semibold text-ink">International clients</h4>
+                  <p className="mt-1 type-small text-body">{evaluation.international}</p>
+                  <h4 className="mt-4 type-small font-semibold text-ink">
                     Conflicts with the current build spec
                   </h4>
-                  <ul className="mt-1 grid gap-1.5 type-small text-fog-2">
+                  <ul className="mt-1 grid gap-1.5 type-small text-body">
                     {evaluation.ruleConflicts.map((item) => (
                       <li key={item}>{item}</li>
                     ))}
@@ -176,7 +176,7 @@ export default function DesignLabGallery() {
           <h2 id="colour-title" className="type-h2">
             Five colour systems
           </h2>
-          <p className="mt-2 max-w-[72ch] text-fog-2">
+          <p className="mt-2 max-w-[72ch] text-body">
             Exact values for every role, the type and component choices, and the contrast of each
             text pairing, calculated with the WCAG 2.2 formula.
           </p>
@@ -191,7 +191,7 @@ export default function DesignLabGallery() {
           <h2 id="selected-title" className="type-h2">
             Selected direction: D: Modern Engineering, refined
           </h2>
-          <div className="mt-4 grid max-w-[80ch] gap-3 text-fog-2">
+          <div className="mt-4 grid max-w-[80ch] gap-3 text-body">
             <p>
               You chose Modern Engineering. It is a sound choice for an agency that wants to lead
               with technical credibility: it shows engineering competence on sight, it is ownable
@@ -208,16 +208,16 @@ export default function DesignLabGallery() {
           <dl className="mt-8 grid gap-x-10 gap-y-5 md:grid-cols-2">
             {refinements.map(([term, detail]) => (
               <div key={term}>
-                <dt className="font-semibold text-fog">{term}</dt>
-                <dd className="mt-1 type-small text-fog-2">{detail}</dd>
+                <dt className="font-semibold text-ink">{term}</dt>
+                <dd className="mt-1 type-small text-body">{detail}</dd>
               </div>
             ))}
           </dl>
           <table className="mt-8 w-full max-w-[760px] text-left type-small">
-            <caption className="mb-2 text-left font-medium text-fog">
+            <caption className="mb-2 text-left font-medium text-ink">
               D before and after refinement, measured on the same production build
             </caption>
-            <thead className="text-fog-2">
+            <thead className="text-body">
               <tr>
                 <th scope="col" className="py-1.5 font-normal">
                   Measure
@@ -232,70 +232,70 @@ export default function DesignLabGallery() {
             </thead>
             <tbody>
               <tr className="border-t border-line">
-                <th scope="row" className="py-1.5 font-normal text-fog">
+                <th scope="row" className="py-1.5 font-normal text-ink">
                   Lighthouse performance, mobile
                 </th>
-                <td className="py-1.5 text-fog-2">98 (runs 97, 98, 98)</td>
-                <td className="py-1.5 text-fog">100 (runs 99, 100, 100)</td>
+                <td className="py-1.5 text-body">98 (runs 97, 98, 98)</td>
+                <td className="py-1.5 text-ink">100 (runs 99, 100, 100)</td>
               </tr>
               <tr className="border-t border-line">
-                <th scope="row" className="py-1.5 font-normal text-fog">
+                <th scope="row" className="py-1.5 font-normal text-ink">
                   Total blocking time
                 </th>
-                <td className="py-1.5 text-fog-2">180 ms</td>
-                <td className="py-1.5 text-fog">80 ms</td>
+                <td className="py-1.5 text-body">180 ms</td>
+                <td className="py-1.5 text-ink">80 ms</td>
               </tr>
               <tr className="border-t border-line">
-                <th scope="row" className="py-1.5 font-normal text-fog">
+                <th scope="row" className="py-1.5 font-normal text-ink">
                   Initial JavaScript, gzipped
                 </th>
-                <td className="py-1.5 text-fog-2">195.8 KB</td>
-                <td className="py-1.5 text-fog">177.0 KB</td>
+                <td className="py-1.5 text-body">195.8 KB</td>
+                <td className="py-1.5 text-ink">177.0 KB</td>
               </tr>
               <tr className="border-t border-line">
-                <th scope="row" className="py-1.5 font-normal text-fog">
+                <th scope="row" className="py-1.5 font-normal text-ink">
                   axe violations (WCAG 2.2 AA)
                 </th>
-                <td className="py-1.5 text-fog-2">0</td>
-                <td className="py-1.5 text-fog">0</td>
+                <td className="py-1.5 text-body">0</td>
+                <td className="py-1.5 text-ink">0</td>
               </tr>
               <tr className="border-t border-line">
-                <th scope="row" className="py-1.5 font-normal text-fog">
+                <th scope="row" className="py-1.5 font-normal text-ink">
                   Animation that never stops
                 </th>
-                <td className="py-1.5 text-fog-2">Yes, diagram pulses</td>
-                <td className="py-1.5 text-fog">No, three passes then stop</td>
+                <td className="py-1.5 text-body">Yes, diagram pulses</td>
+                <td className="py-1.5 text-ink">No, three passes then stop</td>
               </tr>
               <tr className="border-t border-line">
-                <th scope="row" className="py-1.5 font-normal text-fog">
+                <th scope="row" className="py-1.5 font-normal text-ink">
                   Focus after closing the phone menu
                 </th>
-                <td className="py-1.5 text-fog-2">Menu button</td>
-                <td className="py-1.5 text-fog">Menu button</td>
+                <td className="py-1.5 text-body">Menu button</td>
+                <td className="py-1.5 text-ink">Menu button</td>
               </tr>
             </tbody>
           </table>
           <div className="mt-8 flex flex-wrap gap-4">
             <Link
               href="/design/final"
-              className="inline-flex h-11 items-center rounded-control bg-signal px-5 font-medium text-ink hover:bg-signal-2"
+              className="inline-flex h-11 items-center rounded-control bg-accent px-5 font-medium text-accent-ink hover:bg-accent"
             >
               Open the final homepage
             </Link>
             <Link
               href="/design/system"
-              className="inline-flex h-11 items-center rounded-control border border-line-strong px-5 font-medium text-fog hover:border-fog-3"
+              className="inline-flex h-11 items-center rounded-control border border-line-2 px-5 font-medium text-ink hover:border-muted"
             >
               Open the design system
             </Link>
             <Link
               href="/design/hybrid-final"
-              className="inline-flex h-11 items-center rounded-control px-2 font-medium text-signal hover:text-signal-2"
+              className="inline-flex h-11 items-center rounded-control px-2 font-medium text-accent hover:text-accent"
             >
               See the E alternative
             </Link>
           </div>
-          <p className="mt-6 max-w-[80ch] type-small text-fog-2">
+          <p className="mt-6 max-w-[80ch] type-small text-body">
             D now runs the live site (ADR 0012): headings up to 60 px, cyan in place of the lamp
             accent, Archivo and JetBrains Mono in place of Schibsted Grotesk, section reveals, and
             an assembling blueprint in place of the homepage 3D scene. The full report is in

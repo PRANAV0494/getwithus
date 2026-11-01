@@ -27,7 +27,7 @@ type Status =
   | { name: "error"; message: string };
 
 const textButton =
-  "rounded-tag type-small text-fog-2 underline decoration-line-strong underline-offset-[3px] transition-colors duration-150 ease-out hover:text-fog disabled:cursor-not-allowed disabled:text-fog-3 disabled:no-underline";
+  "rounded-tag type-small text-body underline decoration-line-2 underline-offset-[3px] transition-colors duration-150 ease-out hover:text-ink disabled:cursor-not-allowed disabled:text-muted disabled:no-underline";
 
 /**
  * "We sent a 6-digit code": the code boxes, Confirm, Resend with a 60 second

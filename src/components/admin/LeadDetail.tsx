@@ -70,19 +70,19 @@ export default function LeadDetail({ lead, events, deliveries, now }: LeadDetail
       <dl className="grid gap-x-8 gap-y-4 sm:grid-cols-[200px_minmax(0,1fr)]">
         {details.map((detail) => (
           <div key={detail.label} className="contents">
-            <dt className="type-small text-fog-2">{detail.label}</dt>
-            <dd className="break-words text-fog">{detail.value}</dd>
+            <dt className="type-small text-body">{detail.label}</dt>
+            <dd className="break-words text-ink">{detail.value}</dd>
           </div>
         ))}
-        <dt className="type-small text-fog-2">Lead ID</dt>
-        <dd className="font-mono type-small text-fog">{lead.id}</dd>
+        <dt className="type-small text-body">Lead ID</dt>
+        <dd className="font-mono type-small text-ink">{lead.id}</dd>
       </dl>
       {lead.message ? (
         <section aria-labelledby="message-title">
           <h2 id="message-title" className="type-h4">
             {lead.source === "brief" ? "Project description" : "Message"}
           </h2>
-          <p className="mt-3 max-w-[68ch] whitespace-pre-wrap text-fog">{lead.message}</p>
+          <p className="mt-3 max-w-[68ch] whitespace-pre-wrap text-ink">{lead.message}</p>
         </section>
       ) : null}
     </div>
@@ -93,11 +93,11 @@ export default function LeadDetail({ lead, events, deliveries, now }: LeadDetail
       <ol className="grid gap-4">
         {events.map((event) => (
           <li key={event.id} className="grid gap-1 border-l-2 border-line pl-4">
-            <p className="text-fog">{describe(event)}</p>
+            <p className="text-ink">{describe(event)}</p>
             {event.type === "notification_failed" && event.data.error ? (
               <p className="font-mono type-small text-err">{String(event.data.error)}</p>
             ) : null}
-            <p className="type-small text-fog-2">
+            <p className="type-small text-body">
               <Timestamp value={event.createdAt} now={now} />
             </p>
           </li>
@@ -149,7 +149,7 @@ export default function LeadDetail({ lead, events, deliveries, now }: LeadDetail
       <div>
         <Link
           href="/admin/leads"
-          className="inline-flex items-center gap-1.5 type-small text-fog-2 transition-colors duration-150 ease-out hover:text-fog"
+          className="inline-flex items-center gap-1.5 type-small text-body transition-colors duration-150 ease-out hover:text-ink"
         >
           <Icon icon={ArrowLeft} size={16} />
           All leads
@@ -158,10 +158,10 @@ export default function LeadDetail({ lead, events, deliveries, now }: LeadDetail
           <h1 className="type-h2">{lead.name}</h1>
           <Badge tone={statusTones[lead.status]}>{statusLabels[lead.status]}</Badge>
         </div>
-        <p className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 type-small text-fog-2">
+        <p className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 type-small text-body">
           <a
             href={`mailto:${lead.email}`}
-            className="inline-flex items-center gap-1.5 text-signal hover:text-signal-2"
+            className="inline-flex items-center gap-1.5 text-accent hover:text-accent"
           >
             <Icon icon={Mail} size={16} />
             Reply by email
@@ -179,7 +179,7 @@ export default function LeadDetail({ lead, events, deliveries, now }: LeadDetail
             { value: "timeline", label: `Timeline (${events.length})`, content: timelineTab },
           ]}
         />
-        <aside className="grid gap-8 rounded-card border border-line bg-ink-2 p-5">
+        <aside className="grid gap-8 rounded-card border border-line bg-card p-5">
           <div className="grid gap-3">
             <StatusSelect leadId={lead.id} status={lead.status} />
             {lead.status !== "spam" ? (

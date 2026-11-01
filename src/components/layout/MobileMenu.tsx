@@ -20,7 +20,7 @@ const loadSheet = () => import("@/components/ui/Sheet");
 const Sheet = dynamic(loadSheet, { ssr: false });
 
 const menuButtonClasses =
-  "inline-flex h-9 items-center gap-2 rounded-control border border-line-strong px-3 type-button text-fog transition-colors duration-150 ease-out hover:border-fog-3";
+  "inline-flex h-9 items-center gap-2 rounded-control border border-line-2 px-3 type-button text-ink transition-colors duration-150 ease-out hover:border-muted";
 
 /** Below 1024 px: a menu button that opens a full-height sheet with every link. */
 export default function MobileMenu({ services, links }: MobileMenuProps) {
@@ -68,13 +68,13 @@ export default function MobileMenu({ services, links }: MobileMenuProps) {
           <nav aria-label="Mobile" className="mt-8">
             <ul className="border-b border-line">
               <li className="border-t border-line">
-                <Link href="/services" onClick={close} className="block py-3.5 type-h4 text-fog">
+                <Link href="/services" onClick={close} className="block py-3.5 type-h4 text-ink">
                   Services
                 </Link>
                 <ul className="grid gap-0.5 pb-3 pl-4">
                   {services.map((service) => (
                     <li key={service.slug}>
-                      <Link href={service.href} onClick={close} className="block py-2 text-fog-2">
+                      <Link href={service.href} onClick={close} className="block py-2 text-body">
                         {service.name}
                       </Link>
                       {service.children?.map((child) => (
@@ -82,7 +82,7 @@ export default function MobileMenu({ services, links }: MobileMenuProps) {
                           key={child.slug}
                           href={child.href}
                           onClick={close}
-                          className="block py-2 pl-4 text-fog-2"
+                          className="block py-2 pl-4 text-body"
                         >
                           {child.name}
                         </Link>
@@ -93,7 +93,7 @@ export default function MobileMenu({ services, links }: MobileMenuProps) {
               </li>
               {links.map((link) => (
                 <li key={link.href} className="border-t border-line">
-                  <Link href={link.href} onClick={close} className="block py-3.5 type-h4 text-fog">
+                  <Link href={link.href} onClick={close} className="block py-3.5 type-h4 text-ink">
                     {link.label}
                   </Link>
                 </li>

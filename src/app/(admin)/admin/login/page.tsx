@@ -29,7 +29,7 @@ export default function LoginPage({ searchParams }: PageProps<"/admin/login">) {
       <div className="w-full max-w-sm">
         <Logo href="/" />
         <h1 className="mt-10 type-h2">Sign in to the admin</h1>
-        <p className="mt-2 text-fog-2">We email a one-time link to team addresses.</p>
+        <p className="mt-2 text-body">We email a one-time link to team addresses.</p>
         <div className="mt-8">
           <Suspense fallback={<Skeleton className="h-36 w-full" />}>
             <SignIn searchParams={searchParams} />

@@ -56,8 +56,8 @@ export default function NotesList({ leadId, notes }: { leadId: string; notes: re
         <ul className="grid gap-4">
           {notes.map((note) => (
             <li key={note.id} className="border-l-2 border-line pl-4">
-              <p className="whitespace-pre-wrap text-fog">{note.body}</p>
-              <p className="mt-1 type-small text-fog-2">
+              <p className="whitespace-pre-wrap text-ink">{note.body}</p>
+              <p className="mt-1 type-small text-body">
                 <span className="font-mono">{note.actor}</span>,{" "}
                 <time dateTime={note.createdAt}>{note.createdLabel}</time>
               </p>
@@ -65,7 +65,7 @@ export default function NotesList({ leadId, notes }: { leadId: string; notes: re
           ))}
         </ul>
       ) : (
-        <p className="type-small text-fog-2">No notes yet.</p>
+        <p className="type-small text-body">No notes yet.</p>
       )}
     </section>
   );

@@ -15,11 +15,11 @@ export default function TerminalFrame({
   return (
     <div
       ref={ref}
-      className="relative max-w-[880px] border border-line-strong bg-[#0a0d10] shadow-[0_30px_80px_rgb(0_0_0/0.45)]"
+      className="relative max-w-[880px] border border-line-2 bg-[#0a0d10] shadow-[0_30px_80px_rgb(0_0_0/0.45)]"
     >
-      <div className="flex items-center gap-2 border-b border-line px-4 py-3 text-fog-3">
+      <div className="flex items-center gap-2 border-b border-line px-4 py-3 text-muted">
         {[0, 1, 2].map((dot) => (
-          <span key={dot} aria-hidden="true" className="size-2.5 rounded-full bg-line-strong" />
+          <span key={dot} aria-hidden="true" className="size-2.5 rounded-full bg-line-2" />
         ))}
         <span className="ml-2.5 font-mono text-[0.8125rem]">getwithus: start_project</span>
       </div>

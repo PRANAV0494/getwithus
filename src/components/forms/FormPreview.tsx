@@ -7,7 +7,7 @@ import Textarea from "@/components/ui/Textarea";
 import { formCopy } from "@/content/forms";
 
 const pill =
-  "inline-flex h-9 items-center rounded-control border border-line-strong bg-ink-2 px-3.5 type-small text-fog-3";
+  "inline-flex h-9 items-center rounded-control border border-line-2 bg-card px-3.5 type-small text-muted";
 
 /** The service chips as static pills, laid out exactly like ChipGroup. */
 function ChipsPreview() {
@@ -27,7 +27,7 @@ function ChipsPreview() {
             key={option.value}
             className="flex flex-wrap items-center gap-2 border-l-2 border-line pl-4"
           >
-            <span className="mr-1 type-small text-fog-2">{option.label}:</span>
+            <span className="mr-1 type-small text-body">{option.label}:</span>
             {option.children?.map((child) => (
               <span key={child.value} className={pill}>
                 {child.label}
@@ -47,7 +47,7 @@ function ChipsPreview() {
 export default function FormPreview({ form }: { form: "contact" | "brief" }) {
   if (form === "brief") {
     return (
-      <div className="grid gap-10 rounded-panel border border-line bg-ink-2 p-6 md:p-10">
+      <div className="grid gap-10 rounded-panel border border-line bg-card p-6 md:p-10">
         <BriefProgress step={1} done={false} />
         <div className="grid gap-6">
           <h2 className="type-h3">{formCopy.brief.steps[0]}</h2>

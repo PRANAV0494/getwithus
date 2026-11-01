@@ -109,11 +109,11 @@ export function readPalette(): Palette {
   const css = getComputedStyle(document.documentElement);
   const token = (name: string, fallback: string) => css.getPropertyValue(name).trim() || fallback;
   return {
-    ink: new Color(token("--color-ink", "#0b0e13")),
-    ink2: new Color(token("--color-ink-2", "#121721")),
-    ink3: new Color(token("--color-ink-3", "#1a2130")),
-    fog2: new Color(token("--color-fog-2", "#9aa3b2")),
-    lamp: new Color(token("--color-signal", "#2cd5e6")),
+    ink: new Color(token("--bg", "#0b0e13")),
+    ink2: new Color(token("--card", "#121721")),
+    ink3: new Color(token("--card-2", "#1a2130")),
+    fog2: new Color(token("--body", "#9aa3b2")),
+    lamp: new Color(token("--accent", "#2cd5e6")),
     base: new Color(BASE_COLOR),
   };
 }

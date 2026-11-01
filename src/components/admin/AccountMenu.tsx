@@ -14,7 +14,7 @@ export default function AccountMenu({ email }: { email: string }) {
       trigger={
         <button
           type="button"
-          className="inline-flex h-9 max-w-[16rem] items-center gap-2 rounded-control px-2.5 type-small text-fog-2 transition-colors duration-150 ease-out hover:bg-ink-3"
+          className="inline-flex h-9 max-w-[16rem] items-center gap-2 rounded-control px-2.5 type-small text-body transition-colors duration-150 ease-out hover:bg-card-2"
         >
           <span className="truncate font-mono">{email}</span>
           <Icon icon={ChevronDown} size={16} />

@@ -31,23 +31,23 @@ export default function NotificationFeed({
         <li
           key={notification.id}
           className={cn(
-            "grid gap-1 rounded-card border bg-ink-2 p-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-start sm:gap-4",
-            notification.readAt ? "border-line" : "border-signal/50",
+            "grid gap-1 rounded-card border bg-card p-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-start sm:gap-4",
+            notification.readAt ? "border-line" : "border-accent/50",
           )}
         >
           <div className="min-w-0">
-            <p className="text-fog">
-              <Link href={notification.href} className="font-medium hover:text-signal">
+            <p className="text-ink">
+              <Link href={notification.href} className="font-medium hover:text-accent">
                 {notification.title}
               </Link>
               {notification.readAt ? null : (
-                <span className="ml-2 type-small text-signal">Unread</span>
+                <span className="ml-2 type-small text-accent">Unread</span>
               )}
             </p>
             {!compact && notification.body ? (
-              <p className="mt-1 line-clamp-2 type-small text-fog-2">{notification.body}</p>
+              <p className="mt-1 line-clamp-2 type-small text-body">{notification.body}</p>
             ) : null}
-            <p className="mt-1 type-small text-fog-2">
+            <p className="mt-1 type-small text-body">
               <Timestamp value={notification.createdAt} now={now} />
             </p>
           </div>

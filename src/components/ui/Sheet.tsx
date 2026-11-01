@@ -30,7 +30,7 @@ export default function Sheet({
   return (
     <RadixDialog.Root open={open} onOpenChange={onOpenChange}>
       <RadixDialog.Portal>
-        <RadixDialog.Overlay className="fixed inset-0 z-50 bg-ink/80 data-[state=closed]:animate-overlay-out data-[state=open]:animate-overlay-in" />
+        <RadixDialog.Overlay className="fixed inset-0 z-50 bg-bg/80 data-[state=closed]:animate-overlay-out data-[state=open]:animate-overlay-in" />
         <RadixDialog.Content
           aria-describedby={undefined}
           onCloseAutoFocus={(event) => {
@@ -39,7 +39,7 @@ export default function Sheet({
             returnFocusRef.current?.focus();
           }}
           className={cn(
-            "fixed inset-y-0 right-0 z-50 flex w-full max-w-md flex-col overflow-y-auto bg-ink-2 px-6 pt-3 pb-6",
+            "fixed inset-y-0 right-0 z-50 flex w-full max-w-md flex-col overflow-y-auto bg-card px-6 pt-3 pb-6",
             "data-[state=closed]:animate-sheet-out data-[state=open]:animate-sheet-in",
             className,
           )}

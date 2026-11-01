@@ -20,7 +20,7 @@ export default function Tooltip({ content, children, side = "top" }: TooltipProp
           <RadixTooltip.Content
             side={side}
             sideOffset={6}
-            className="z-50 max-w-xs rounded-control border border-line-strong bg-ink-3 px-2.5 py-1.5 type-small text-fog data-[state=closed]:animate-menu-out data-[state=delayed-open]:animate-menu-in"
+            className="z-50 max-w-xs rounded-control border border-line-2 bg-card-2 px-2.5 py-1.5 type-small text-ink data-[state=closed]:animate-menu-out data-[state=delayed-open]:animate-menu-in"
           >
             {content}
           </RadixTooltip.Content>

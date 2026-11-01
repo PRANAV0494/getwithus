@@ -21,7 +21,7 @@ function Block({ index, block }: { index: number; block: BlockSpec }) {
       aria-labelledby={block.id}
       className="reveal grid gap-3 border-t border-line pt-8 first:border-t-0 first:pt-0 md:grid-cols-[200px_1fr] md:gap-6"
     >
-      <p className="pt-1 type-label text-fog-3">
+      <p className="pt-1 type-label text-muted">
         {String(index + 1).padStart(2, "0")} / {block.label}
       </p>
       <div className="min-w-0">
@@ -49,7 +49,7 @@ function SpecList({
           key={item}
           className="grid grid-cols-[64px_1fr] items-baseline gap-4 border-b border-line py-3"
         >
-          <span aria-hidden="true" className="type-label text-signal">
+          <span aria-hidden="true" className="type-label text-accent">
             {prefix(index)}
           </span>
           {item}
@@ -80,7 +80,7 @@ export default function ServicePageLayout({ page }: { page: ServicePage }) {
         id: "note",
         label: "note",
         title: page.note.title,
-        body: <p className="max-w-[68ch] text-fog-2">{page.note.body}</p>,
+        body: <p className="max-w-[68ch] text-body">{page.note.body}</p>,
       }
     : null;
 
@@ -103,7 +103,7 @@ export default function ServicePageLayout({ page }: { page: ServicePage }) {
               key={step}
               className="grid grid-cols-[64px_1fr] items-baseline gap-4 border-b border-line py-3"
             >
-              <span aria-hidden="true" className="type-label text-signal">
+              <span aria-hidden="true" className="type-label text-accent">
                 step_{pad(index)}
               </span>
               {step}
@@ -121,7 +121,7 @@ export default function ServicePageLayout({ page }: { page: ServicePage }) {
           {page.tools.map((tool) => (
             <li
               key={tool}
-              className="rounded-tag border border-line bg-ink-2 px-2.5 py-1 font-mono text-[0.8125rem] text-fog"
+              className="rounded-tag border border-line bg-card px-2.5 py-1 font-mono text-[0.8125rem] text-ink"
             >
               {tool}
             </li>
@@ -134,7 +134,7 @@ export default function ServicePageLayout({ page }: { page: ServicePage }) {
       id: "pricing",
       label: "pricing",
       title: "How it is priced",
-      body: <p className="max-w-[68ch] type-lead text-fog-2">{page.pricing}</p>,
+      body: <p className="max-w-[68ch] type-lead text-body">{page.pricing}</p>,
     },
     {
       id: "questions",
@@ -160,16 +160,16 @@ export default function ServicePageLayout({ page }: { page: ServicePage }) {
       <JsonLd data={[serviceJsonLd(page), faqJsonLd(page.faqs), breadcrumbJsonLd(crumbs)]} />
       <Section aria-labelledby="service-title" className="border-b border-line">
         <Container>
-          <nav aria-label="Breadcrumb" className="mb-8 type-label text-fog-3">
+          <nav aria-label="Breadcrumb" className="mb-8 type-label text-muted">
             <ol className="flex flex-wrap gap-x-2">
               {crumbs.slice(1, -1).map((crumb) => (
                 <li key={crumb.path} className="after:ml-2 after:content-['/']">
-                  <Link href={crumb.path} className="link-draw hover:text-fog">
+                  <Link href={crumb.path} className="link-draw hover:text-ink">
                     {crumb.name}
                   </Link>
                 </li>
               ))}
-              <li aria-current="page" className="text-signal">
+              <li aria-current="page" className="text-accent">
                 {page.name}
               </li>
             </ol>
@@ -179,16 +179,16 @@ export default function ServicePageLayout({ page }: { page: ServicePage }) {
               <h1 id="service-title" className="max-w-[16ch] type-display">
                 {page.name}
               </h1>
-              <p className="mt-6 max-w-[60ch] type-lead text-fog-2">{page.lead}</p>
+              <p className="mt-6 max-w-[60ch] type-lead text-body">{page.lead}</p>
               {page.products?.length ? (
                 <ul className="mt-8 grid max-w-[64ch] gap-px border border-line bg-line">
                   {page.products.map((product, index) => (
-                    <li key={product.name} className="bg-ink-1 p-5">
-                      <p className="type-label text-fog-3">product_{pad(index)}</p>
+                    <li key={product.name} className="bg-bg-soft p-5">
+                      <p className="type-label text-muted">product_{pad(index)}</p>
                       {product.href ? (
                         <Link
                           href={product.href}
-                          className="mt-2 inline-flex items-center gap-2 type-h4 text-signal transition-colors duration-150 ease-out hover:text-signal-2"
+                          className="mt-2 inline-flex items-center gap-2 type-h4 text-accent transition-colors duration-150 ease-out hover:text-accent"
                         >
                           {product.name}
                           <Icon icon={ArrowRight} size={16} />
@@ -196,15 +196,15 @@ export default function ServicePageLayout({ page }: { page: ServicePage }) {
                       ) : (
                         <p className="mt-2 type-h4">{product.name}</p>
                       )}
-                      <p className="mt-1 text-fog-2">{product.description}</p>
+                      <p className="mt-1 text-body">{product.description}</p>
                     </li>
                   ))}
                 </ul>
               ) : null}
             </div>
-            <div aria-hidden="true" className="group relative border border-line bg-ink-1 p-4">
+            <div aria-hidden="true" className="group relative border border-line bg-bg-soft p-4">
               <Brackets />
-              <p className="mb-3 type-label text-fog-3">fig. 01 / {page.name}</p>
+              <p className="mb-3 type-label text-muted">fig. 01 / {page.name}</p>
               {/* Each Suspense boundary hydrates as its own unit, so the page never pays for every island in one long task. */}
               <Suspense>
                 <StationObject station={page.station} />

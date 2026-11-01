@@ -16,7 +16,7 @@ export default function FormAlert({
     <div aria-live="polite" className="empty:hidden">
       {message ? (
         <p
-          className={`flex items-start gap-2 type-small ${tone === "error" ? "text-err" : "text-fog-2"}`}
+          className={`flex items-start gap-2 type-small ${tone === "error" ? "text-err" : "text-body"}`}
         >
           {tone === "error" ? <Icon icon={CircleAlert} size={16} className="mt-0.5" /> : null}
           {message}

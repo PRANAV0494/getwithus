@@ -85,9 +85,9 @@ const vars = (values: Record<string, string | number>) => values as CSSPropertie
 function Packet({ wire, begin }: { wire: string; begin: string }) {
   return (
     <g data-packet opacity={0} filter="url(#circuit-glow)">
-      <path d="M-20 0 H-3" className="stroke-signal" strokeWidth={2} opacity={0.45} />
-      <circle r={6} className="fill-signal" opacity={0.22} />
-      <circle r={2.6} className="fill-signal-2" />
+      <path d="M-20 0 H-3" className="stroke-accent" strokeWidth={2} opacity={0.45} />
+      <circle r={6} className="fill-accent" opacity={0.22} />
+      <circle r={2.6} className="fill-accent" />
       <animateMotion
         dur={`${TRIP}s`}
         begin={begin}
@@ -121,10 +121,10 @@ export default function ServiceDiagram({ className }: { className?: string }) {
     <figure
       id={FIGURE_ID}
       aria-hidden="true"
-      className={cn("diagram group relative border border-line bg-ink-1 p-5", className)}
+      className={cn("diagram group relative border border-line bg-bg-soft p-5", className)}
     >
       <Brackets />
-      <figcaption className="flex items-center justify-between gap-4 type-label text-fog-3">
+      <figcaption className="flex items-center justify-between gap-4 type-label text-muted">
         <span>fig. 01 / what we build around your business</span>
         <span className="flex items-center gap-2 text-amber">
           <span data-live-dot className="size-1.5 bg-amber" />
@@ -150,7 +150,7 @@ export default function ServiceDiagram({ className }: { className?: string }) {
           cx={CENTER.x}
           cy={CENTER.y}
           r={74}
-          className="stroke-signal"
+          className="stroke-accent"
           strokeDasharray="2 9"
           opacity={0.4}
         />
@@ -159,7 +159,7 @@ export default function ServiceDiagram({ className }: { className?: string }) {
           cx={CENTER.x}
           cy={CENTER.y}
           r={88}
-          className="stroke-line-strong"
+          className="stroke-line-2"
           strokeDasharray="16 22"
         />
 
@@ -169,13 +169,13 @@ export default function ServiceDiagram({ className }: { className?: string }) {
               data-wire-base
               d={node.wire}
               pathLength={1}
-              className="stroke-line-strong"
+              className="stroke-line-2"
               strokeWidth={1.5}
             />
             <path
               data-wire-current
               d={node.wire}
-              className="stroke-signal"
+              className="stroke-accent"
               strokeWidth={1}
               strokeDasharray="1 7"
             />
@@ -191,7 +191,7 @@ export default function ServiceDiagram({ className }: { className?: string }) {
             width={CORE.width}
             height={CORE.height}
             rx={2}
-            className="stroke-signal"
+            className="stroke-accent"
             style={vars({ "--delay": `${FLOW_START + TRIP + offset}s` })}
           />
         ))}
@@ -204,7 +204,7 @@ export default function ServiceDiagram({ className }: { className?: string }) {
             width={CORE.width}
             height={CORE.height}
             rx={2}
-            className="stroke-signal"
+            className="stroke-accent"
             strokeWidth={3}
             filter="url(#circuit-glow)"
             opacity={0.3}
@@ -215,13 +215,13 @@ export default function ServiceDiagram({ className }: { className?: string }) {
             width={CORE.width}
             height={CORE.height}
             rx={2}
-            className="fill-ink-3 stroke-signal"
+            className="fill-card-2 stroke-accent"
           />
           <g clipPath="url(#circuit-core)">
             <path
               data-scan
               d={`M${CORE.x} ${CORE.y + 2} H${CORE.x + CORE.width}`}
-              className="stroke-signal"
+              className="stroke-accent"
               strokeWidth={1.5}
               opacity={0.35}
             />
@@ -232,7 +232,7 @@ export default function ServiceDiagram({ className }: { className?: string }) {
             textAnchor="middle"
             fontSize={14}
             fontWeight={600}
-            className="fill-fog font-sans"
+            className="fill-ink font-sans"
           >
             Your
           </text>
@@ -242,7 +242,7 @@ export default function ServiceDiagram({ className }: { className?: string }) {
             textAnchor="middle"
             fontSize={14}
             fontWeight={600}
-            className="fill-fog font-sans"
+            className="fill-ink font-sans"
           >
             business
           </text>
@@ -253,7 +253,7 @@ export default function ServiceDiagram({ className }: { className?: string }) {
               y={y - 2.5}
               width={5}
               height={5}
-              className="fill-signal"
+              className="fill-accent"
             />
           ))}
         </g>
@@ -267,10 +267,10 @@ export default function ServiceDiagram({ className }: { className?: string }) {
               width={176}
               height={72}
               rx={2}
-              className="fill-ink-2 stroke-line-strong"
+              className="fill-card stroke-line-2"
             />
-            <circle data-led cx={node.x + 16} cy={node.y + 20} r={3} className="fill-signal" />
-            <text x={node.x + 28} y={node.y + 24} fontSize={11} className="fill-fog-3 font-mono">
+            <circle data-led cx={node.x + 16} cy={node.y + 20} r={3} className="fill-accent" />
+            <text x={node.x + 28} y={node.y + 24} fontSize={11} className="fill-muted font-mono">
               service_{String(index + 1).padStart(2, "0")}
             </text>
             <text
@@ -278,7 +278,7 @@ export default function ServiceDiagram({ className }: { className?: string }) {
               y={node.y + 54}
               fontSize={16}
               fontWeight={600}
-              className="fill-fog font-sans"
+              className="fill-ink font-sans"
             >
               {findServicePage(node.slug)?.name}
             </text>
@@ -287,7 +287,7 @@ export default function ServiceDiagram({ className }: { className?: string }) {
               y={node.port[1] - 2.5}
               width={5}
               height={5}
-              className="fill-signal"
+              className="fill-accent"
             />
           </g>
         ))}

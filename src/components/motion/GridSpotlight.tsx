@@ -31,11 +31,11 @@ export default function GridSpotlight() {
       aria-hidden="true"
       className="grid-spotlight pointer-events-none absolute inset-0 -z-10"
     >
-      <div className="mx-auto grid h-full max-w-[1200px] grid-cols-4 border-x border-signal/45 px-6 md:grid-cols-12 md:px-10">
+      <div className="mx-auto grid h-full max-w-[1200px] grid-cols-4 border-x border-accent/45 px-6 md:grid-cols-12 md:px-10">
         {Array.from({ length: 12 }, (_, index) => (
           <span
             key={index}
-            className="border-r border-signal/45 last:border-r-0 max-md:[&:nth-child(n+5)]:hidden"
+            className="border-r border-accent/45 last:border-r-0 max-md:[&:nth-child(n+5)]:hidden"
           />
         ))}
       </div>

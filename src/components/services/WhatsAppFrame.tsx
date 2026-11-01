@@ -22,7 +22,7 @@ export default function WhatsAppFrame({
   children,
 }: WhatsAppFrameProps) {
   return (
-    <div ref={ref} className="mt-7 max-w-[420px] border border-line-strong bg-[#0b0f13]">
+    <div ref={ref} className="mt-7 max-w-[420px] border border-line-2 bg-[#0b0f13]">
       <p className="sr-only">
         Example WhatsApp conversation: a customer asks to book a haircut on Saturday, the AI
         assistant offers three times, books 14:30 with Priya, and sets a reminder for Friday at
@@ -38,7 +38,7 @@ export default function WhatsAppFrame({
             <span
               className={cn(
                 "block min-h-4 text-[0.78rem] leading-snug",
-                typing ? "text-[#7ee2b8]" : "text-fog-2",
+                typing ? "text-[#7ee2b8]" : "text-body",
               )}
             >
               {typing ? "typing…" : "AI assistant, online"}

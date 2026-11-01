@@ -20,19 +20,19 @@ export default function RadioGroup({ options, className, ...props }: RadioGroupP
         return (
           <div
             key={option.value}
-            className="flex items-start gap-3 rounded-control border border-line bg-ink-2 px-4 py-3 transition-colors duration-150 ease-out hover:border-line-strong has-data-[state=checked]:border-signal"
+            className="flex items-start gap-3 rounded-control border border-line bg-card px-4 py-3 transition-colors duration-150 ease-out hover:border-line-2 has-data-[state=checked]:border-accent"
           >
             <RadixRadioGroup.Item
               id={itemId}
               value={option.value}
-              className="mt-1 flex size-4 shrink-0 items-center justify-center rounded-full border border-line-strong bg-ink transition-colors duration-150 ease-out data-[state=checked]:border-signal"
+              className="mt-1 flex size-4 shrink-0 items-center justify-center rounded-full border border-line-2 bg-bg transition-colors duration-150 ease-out data-[state=checked]:border-accent"
             >
-              <RadixRadioGroup.Indicator className="block size-2 rounded-full bg-signal" />
+              <RadixRadioGroup.Indicator className="block size-2 rounded-full bg-accent" />
             </RadixRadioGroup.Item>
-            <label htmlFor={itemId} className="flex-1 cursor-pointer text-fog">
+            <label htmlFor={itemId} className="flex-1 cursor-pointer text-ink">
               {option.label}
               {option.description ? (
-                <span className="mt-0.5 block type-small text-fog-2">{option.description}</span>
+                <span className="mt-0.5 block type-small text-body">{option.description}</span>
               ) : null}
             </label>
           </div>

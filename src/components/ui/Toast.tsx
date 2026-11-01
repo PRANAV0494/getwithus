@@ -19,9 +19,9 @@ export default function Toast() {
         unstyled: true,
         classNames: {
           toast:
-            "flex w-[min(356px,calc(100vw-32px))] items-start gap-3 rounded-card border border-line-strong bg-ink-3 p-4 type-small text-fog",
-          title: "font-medium text-fog",
-          description: "mt-0.5 text-fog-2",
+            "flex w-[min(356px,calc(100vw-32px))] items-start gap-3 rounded-card border border-line-2 bg-card-2 p-4 type-small text-ink",
+          title: "font-medium text-ink",
+          description: "mt-0.5 text-body",
           success: "[&_[data-icon]]:text-ok",
           error: "[&_[data-icon]]:text-err",
           icon: "mt-0.5 shrink-0",

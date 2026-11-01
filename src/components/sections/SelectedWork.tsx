@@ -28,7 +28,7 @@ export default function SelectedWork({ index }: { index?: string }) {
         <p className="mt-8">
           <Link
             href={homePage.work.link.href}
-            className="text-signal transition-colors duration-150 ease-out hover:text-signal-2"
+            className="text-accent transition-colors duration-150 ease-out hover:text-accent"
           >
             {homePage.work.link.label}
           </Link>

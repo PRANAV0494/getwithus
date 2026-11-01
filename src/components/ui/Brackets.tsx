@@ -17,8 +17,8 @@ export default function Brackets({ always = false, spread = false }: BracketsPro
   const corner = cn(
     "absolute size-3 transition-[border-color,translate] duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)]",
     always
-      ? "border-signal"
-      : "border-fog-3 group-hover:border-signal group-data-[active]:border-signal",
+      ? "border-accent"
+      : "border-muted group-hover:border-accent group-data-[active]:border-accent",
   );
   return (
     <span aria-hidden="true" className="contents">

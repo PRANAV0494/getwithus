@@ -19,8 +19,8 @@ function StepList({ items }: { items: readonly string[] }) {
   return (
     <ul className="mt-3 grid gap-2">
       {items.map((item) => (
-        <li key={item} className="flex gap-3 text-fog">
-          <span aria-hidden="true" className="font-mono text-signal">
+        <li key={item} className="flex gap-3 text-ink">
+          <span aria-hidden="true" className="font-mono text-accent">
             +
           </span>
           {item}
@@ -50,10 +50,10 @@ export default function ProcessPage() {
                     aria-labelledby={id}
                     className="reveal grid gap-3 border-t border-line pt-8 md:grid-cols-[200px_1fr] md:gap-6 [li:first-child>&]:border-t-0 [li:first-child>&]:pt-0"
                   >
-                    <p className="flex items-center gap-3 pt-1 type-label text-signal md:items-start">
+                    <p className="flex items-center gap-3 pt-1 type-label text-accent md:items-start">
                       <span
                         aria-hidden="true"
-                        className="size-2.5 rotate-45 border border-signal bg-ink md:mt-1"
+                        className="size-2.5 rotate-45 border border-accent bg-bg md:mt-1"
                       />
                       step_{pad(index)}
                     </p>
@@ -62,14 +62,14 @@ export default function ProcessPage() {
                         <span className="sr-only">Step {index + 1}: </span>
                         {step.title}
                       </h2>
-                      <p className="text-fog-2">{step.detail}</p>
+                      <p className="text-body">{step.detail}</p>
                       <div className="mt-2 grid gap-px border border-line bg-line sm:grid-cols-2">
-                        <div className="bg-ink-1 p-5">
-                          <h3 className="type-label text-fog-3">{processPage.needFromYouTitle}</h3>
+                        <div className="bg-bg-soft p-5">
+                          <h3 className="type-label text-muted">{processPage.needFromYouTitle}</h3>
                           <StepList items={step.needFromYou} />
                         </div>
-                        <div className="bg-ink-1 p-5">
-                          <h3 className="type-label text-fog-3">{processPage.youGetTitle}</h3>
+                        <div className="bg-bg-soft p-5">
+                          <h3 className="type-label text-muted">{processPage.youGetTitle}</h3>
                           <StepList items={step.youGet} />
                         </div>
                       </div>
@@ -90,9 +90,9 @@ export default function ProcessPage() {
           />
           <dl className="mt-10 grid gap-px border border-line bg-line md:ml-[224px] lg:grid-cols-3">
             {workingTogether.map((item) => (
-              <div key={item.title} className="reveal bg-ink p-6">
+              <div key={item.title} className="reveal bg-bg p-6">
                 <dt className="type-h4">{item.title}</dt>
-                <dd className="mt-2 text-fog-2">{item.text}</dd>
+                <dd className="mt-2 text-body">{item.text}</dd>
               </div>
             ))}
           </dl>

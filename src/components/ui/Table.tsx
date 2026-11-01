@@ -37,14 +37,14 @@ export default function Table<T>({
     <div className={cn("overflow-x-auto rounded-card border border-line", className)}>
       <table className="w-full border-collapse text-left type-small">
         <caption className="sr-only">{caption}</caption>
-        <thead className="bg-ink-2">
+        <thead className="bg-card">
           <tr>
             {columns.map((column) => (
               <th
                 key={column.key}
                 scope="col"
                 className={cn(
-                  "border-b border-line px-4 py-3 font-medium whitespace-nowrap text-fog-2",
+                  "border-b border-line px-4 py-3 font-medium whitespace-nowrap text-body",
                   column.className,
                 )}
               >
@@ -61,18 +61,18 @@ export default function Table<T>({
                 key={rowKey(row)}
                 className={cn(
                   "border-b border-line last:border-b-0",
-                  href && "relative transition-colors duration-150 ease-out hover:bg-ink-2",
+                  href && "relative transition-colors duration-150 ease-out hover:bg-card",
                 )}
               >
                 {columns.map((column, index) => (
                   <td
                     key={column.key}
-                    className={cn("px-4 py-3 align-top text-fog", column.className)}
+                    className={cn("px-4 py-3 align-top text-ink", column.className)}
                   >
                     {href && index === 0 ? (
                       <Link
                         href={href}
-                        className="font-medium text-fog after:absolute after:inset-0 after:content-['']"
+                        className="font-medium text-ink after:absolute after:inset-0 after:content-['']"
                       >
                         {column.cell(row)}
                       </Link>

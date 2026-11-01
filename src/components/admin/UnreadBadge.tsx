@@ -29,11 +29,11 @@ export default function UnreadBadge({ initialCount }: { initialCount: number }) 
     <Link
       href="/admin/notifications"
       aria-label={label}
-      className="relative inline-flex h-9 items-center gap-2 rounded-control px-2.5 text-fog-2 transition-colors duration-150 ease-out hover:bg-ink-3"
+      className="relative inline-flex h-9 items-center gap-2 rounded-control px-2.5 text-body transition-colors duration-150 ease-out hover:bg-card-2"
     >
       <Icon icon={Bell} size={20} />
       {count > 0 ? (
-        <span className="min-w-5 rounded-tag bg-signal px-1.5 text-center type-small font-semibold text-ink tabular-nums">
+        <span className="min-w-5 rounded-tag bg-accent px-1.5 text-center type-small font-semibold text-accent-ink tabular-nums">
           {count > 99 ? "99+" : count}
         </span>
       ) : null}

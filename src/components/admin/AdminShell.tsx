@@ -18,7 +18,7 @@ type AdminShellProps = { email: string; unreadCount: number; children: ReactNode
 export default function AdminShell({ email, unreadCount, children }: AdminShellProps) {
   return (
     <div className="grid min-h-svh md:grid-cols-[220px_minmax(0,1fr)]">
-      <aside className="border-b border-line bg-ink-2 md:border-r md:border-b-0">
+      <aside className="border-b border-line bg-card md:border-r md:border-b-0">
         <div className="flex h-16 items-center px-5">
           <Logo href="/admin" />
         </div>
@@ -28,7 +28,7 @@ export default function AdminShell({ email, unreadCount, children }: AdminShellP
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="flex items-center gap-2.5 rounded-control px-3 py-2 type-small text-fog-2 transition-colors duration-150 ease-out hover:bg-ink-3 hover:text-fog"
+                  className="flex items-center gap-2.5 rounded-control px-3 py-2 type-small text-body transition-colors duration-150 ease-out hover:bg-card-2 hover:text-ink"
                 >
                   <Icon icon={item.icon} size={16} />
                   {item.label}

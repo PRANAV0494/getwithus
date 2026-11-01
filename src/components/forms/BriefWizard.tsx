@@ -77,7 +77,7 @@ export default function BriefWizard() {
   );
 
   return (
-    <div ref={panel} className="grid gap-10 rounded-panel border border-line bg-ink-2 p-6 md:p-10">
+    <div ref={panel} className="grid gap-10 rounded-panel border border-line bg-card p-6 md:p-10">
       <BriefProgress step={hydrated ? step : 1} done={done} />
       {body}
     </div>

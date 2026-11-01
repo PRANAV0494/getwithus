@@ -28,9 +28,9 @@ export default function CtaSection({
           <TerminalCtaLazy action={action} responseTime={RESPONSE_TIME} />
         </div>
         {email ? (
-          <p className="mt-6 type-small text-fog-2">
+          <p className="mt-6 type-small text-body">
             Rather write?{" "}
-            <a href={`mailto:${email}`} className="link-draw text-signal hover:text-signal-2">
+            <a href={`mailto:${email}`} className="link-draw text-accent hover:text-accent">
               Email us
             </a>
           </p>

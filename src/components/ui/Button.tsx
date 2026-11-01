@@ -28,10 +28,10 @@ const base =
 
 const variants: Record<Variant, string> = {
   primary:
-    "border-transparent bg-signal text-ink hover:bg-signal-2 active:bg-signal-2 disabled:bg-ink-3 disabled:text-fog-3",
+    "border-transparent bg-accent text-accent-ink hover:bg-accent active:bg-accent disabled:bg-card-2 disabled:text-muted",
   secondary:
-    "border-line-strong bg-transparent text-fog hover:border-fog-3 hover:bg-ink-3 disabled:text-fog-3",
-  ghost: "border-transparent bg-transparent text-fog-2 hover:bg-ink-3 disabled:text-fog-3",
+    "border-line-2 bg-transparent text-ink hover:border-muted hover:bg-card-2 disabled:text-muted",
+  ghost: "border-transparent bg-transparent text-body hover:bg-card-2 disabled:text-muted",
 };
 
 const sizes: Record<Size, string> = {

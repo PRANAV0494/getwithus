@@ -17,13 +17,13 @@ export default function Scorecard() {
     total: weightedScore(evaluation.scores),
   }));
   const cell = (slug: string) =>
-    cn("px-3 py-2.5 text-right tabular-nums", slug === selectedSlug && "bg-signal/10 text-fog");
+    cn("px-3 py-2.5 text-right tabular-nums", slug === selectedSlug && "bg-accent/10 text-ink");
 
   return (
     <div className="overflow-x-auto rounded-card border border-line">
       <table className="w-full min-w-[760px] text-left type-small">
         <caption className="sr-only">Weighted evaluation of the five design directions</caption>
-        <thead className="bg-ink-2 text-fog-2">
+        <thead className="bg-card text-body">
           <tr>
             <th scope="col" className="px-3 py-3 font-medium">
               Criterion
@@ -42,10 +42,10 @@ export default function Scorecard() {
             ))}
           </tr>
         </thead>
-        <tbody className="text-fog-2">
+        <tbody className="text-body">
           {criteria.map((criterion) => (
             <tr key={criterion.id} className="border-t border-line">
-              <th scope="row" className="px-3 py-2.5 font-normal text-fog">
+              <th scope="row" className="px-3 py-2.5 font-normal text-ink">
                 {criterion.name}
               </th>
               <td className="px-3 py-2.5 text-right tabular-nums">{criterion.weight}%</td>
@@ -56,7 +56,7 @@ export default function Scorecard() {
               ))}
             </tr>
           ))}
-          <tr className="border-t-2 border-line-strong text-fog">
+          <tr className="border-t-2 border-line-2 text-ink">
             <th scope="row" className="px-3 py-3 font-semibold">
               Weighted score (of 100)
             </th>
@@ -68,10 +68,10 @@ export default function Scorecard() {
               >
                 {total.toFixed(1)}
                 {evaluation.slug === selectedSlug ? (
-                  <span className="block type-small font-medium text-signal">Selected</span>
+                  <span className="block type-small font-medium text-accent">Selected</span>
                 ) : null}
                 {evaluation.slug === highest ? (
-                  <span className="block type-small font-medium text-fog-2">Highest score</span>
+                  <span className="block type-small font-medium text-body">Highest score</span>
                 ) : null}
               </td>
             ))}
@@ -113,7 +113,7 @@ export default function Scorecard() {
             ],
           ].map(([label, value]) => (
             <tr key={label as string} className="border-t border-line">
-              <th scope="row" className="px-3 py-2.5 font-normal text-fog-2">
+              <th scope="row" className="px-3 py-2.5 font-normal text-body">
                 {label as string}
               </th>
               <td className="px-3 py-2.5 text-right">Measured</td>

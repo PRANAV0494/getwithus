@@ -23,16 +23,16 @@ export default function ErrorState({
   return (
     <div
       role="alert"
-      className={cn("rounded-card border border-err/40 bg-ink-2 p-6 md:p-8", className)}
+      className={cn("rounded-card border border-err/40 bg-card p-6 md:p-8", className)}
     >
       <div className="flex items-start gap-3">
         <Icon icon={CircleAlert} size={20} className="mt-0.5 text-err" />
         <div>
-          <p className="type-h4 text-fog">{title}</p>
-          {children ? <div className="mt-2 max-w-[60ch] text-fog-2">{children}</div> : null}
+          <p className="type-h4 text-ink">{title}</p>
+          {children ? <div className="mt-2 max-w-[60ch] text-body">{children}</div> : null}
           {reference ? (
-            <p className="mt-3 type-small text-fog-2">
-              Reference: <span className="text-fog tabular-nums">{reference}</span>
+            <p className="mt-3 type-small text-body">
+              Reference: <span className="text-ink tabular-nums">{reference}</span>
             </p>
           ) : null}
           {action ? <div className="mt-6">{action}</div> : null}

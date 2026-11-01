@@ -68,8 +68,8 @@ type TerminalCtaProps = {
 };
 
 const LINE_TONE: Record<Tone, string> = {
-  plain: "text-fog",
-  muted: "text-fog-3",
+  plain: "text-ink",
+  muted: "text-muted",
   ok: "text-ok",
   err: "text-err",
 };
@@ -254,7 +254,7 @@ export default function TerminalCta({ action, responseTime }: TerminalCtaProps) 
                 className={cn("mb-3 whitespace-pre-wrap", LINE_TONE[item.tone])}
               >
                 <span aria-hidden="true">
-                  {item.prompt ? <span className="text-signal">&gt; </span> : null}
+                  {item.prompt ? <span className="text-accent">&gt; </span> : null}
                   {item.text.slice(0, item.typed)}
                   {item.id === typingId ? <span className="caret" /> : null}
                 </span>
@@ -288,8 +288,8 @@ export default function TerminalCta({ action, responseTime }: TerminalCtaProps) 
                       className={cn(
                         "border px-3.5 py-2 font-mono text-sm transition-colors duration-200 disabled:cursor-not-allowed",
                         pressed
-                          ? "border-signal bg-signal text-ink"
-                          : "border-line-strong text-fog-2 hover:border-fog-3 hover:text-fog",
+                          ? "border-accent bg-accent text-accent-ink"
+                          : "border-line-2 text-body hover:border-muted hover:text-ink",
                       )}
                     >
                       {pressed ? "✓ " : null}
@@ -311,7 +311,7 @@ export default function TerminalCta({ action, responseTime }: TerminalCtaProps) 
                 transition={{ duration: 0.3 }}
                 className="mt-1 flex flex-wrap items-center gap-2.5"
               >
-                <span aria-hidden="true" className="text-signal">
+                <span aria-hidden="true" className="text-accent">
                   $
                 </span>
                 <input
@@ -323,7 +323,7 @@ export default function TerminalCta({ action, responseTime }: TerminalCtaProps) 
                   aria-label="Email address"
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
-                  className="h-12 min-w-[220px] flex-1 border-0 border-b border-line-strong bg-transparent px-1 font-mono text-[0.9375rem] text-fog placeholder:text-fog-3 focus:border-signal"
+                  className="h-12 min-w-[220px] flex-1 border-0 border-b border-line-2 bg-transparent px-1 font-mono text-[0.9375rem] text-ink placeholder:text-muted focus:border-accent"
                 />
                 <MagneticButton>
                   <Button type="submit">Send brief</Button>
@@ -336,7 +336,7 @@ export default function TerminalCta({ action, responseTime }: TerminalCtaProps) 
               <button
                 type="button"
                 onClick={() => void start()}
-                className="font-mono text-sm text-signal underline underline-offset-4"
+                className="font-mono text-sm text-accent underline underline-offset-4"
               >
                 start again
               </button>

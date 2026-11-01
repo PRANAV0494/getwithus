@@ -53,7 +53,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
       <Section>
         <Container>
           <article aria-labelledby="study-title" className="max-w-[72ch]">
-            <p className="type-label text-signal">
+            <p className="type-label text-accent">
               <span aria-hidden="true">&gt; </span>work
             </p>
             <h1 id="study-title" className="mt-5 type-display">
@@ -66,27 +66,27 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
                 { term: "services", value: study.services.map(serviceName).join(", ") },
               ].map((row) => (
                 <div key={row.term} className="grid grid-cols-[88px_1fr] gap-3">
-                  <dt className="type-label leading-5 text-fog-3">{row.term}</dt>
-                  <dd className="text-fog-2">{row.value}</dd>
+                  <dt className="type-label leading-5 text-muted">{row.term}</dt>
+                  <dd className="text-body">{row.value}</dd>
                 </div>
               ))}
               <div className="grid grid-cols-[88px_1fr] gap-3">
-                <dt className="type-label leading-5 text-fog-3">date</dt>
-                <dd className="text-fog-2">
+                <dt className="type-label leading-5 text-muted">date</dt>
+                <dd className="text-body">
                   <time dateTime={study.date}>{formatDate(study.date)}</time>
                 </dd>
               </div>
             </dl>
-            <p className="mt-8 type-lead text-fog-2">{study.summary}</p>
+            <p className="mt-8 type-lead text-body">{study.summary}</p>
             {sections.map((section, index) => (
               <section key={section.id} aria-labelledby={section.id} className="mt-12">
-                <p className="type-label text-fog-3">
+                <p className="type-label text-muted">
                   {String(index + 1).padStart(2, "0")} / {section.id}
                 </p>
                 <h2 id={section.id} className="mt-2 type-h3">
                   {section.title}
                 </h2>
-                <p className="mt-4 text-fog-2">{section.text}</p>
+                <p className="mt-4 text-body">{section.text}</p>
               </section>
             ))}
             {study.metricsApproved && study.metrics.length > 0 ? (
@@ -96,10 +96,10 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
                 </h2>
                 <dl className="mt-4 grid gap-px border border-line bg-line sm:grid-cols-2">
                   {study.metrics.map((metric) => (
-                    <div key={metric.label} className="bg-ink-1 p-5">
-                      <dt className="text-fog-2">{metric.label}</dt>
-                      <dd className="type-h4 text-fog">{metric.value}</dd>
-                      <dd className="type-small text-fog-2">Source: {metric.source}</dd>
+                    <div key={metric.label} className="bg-bg-soft p-5">
+                      <dt className="text-body">{metric.label}</dt>
+                      <dd className="type-h4 text-ink">{metric.value}</dd>
+                      <dd className="type-small text-body">Source: {metric.source}</dd>
                     </div>
                   ))}
                 </dl>
@@ -114,7 +114,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
                   {study.stack.map((item) => (
                     <li
                       key={item}
-                      className="rounded-tag border border-line bg-ink-2 px-2.5 py-1 font-mono text-[0.8125rem]"
+                      className="rounded-tag border border-line bg-card px-2.5 py-1 font-mono text-[0.8125rem]"
                     >
                       {item}
                     </li>

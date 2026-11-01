@@ -65,7 +65,7 @@ function Bubble({ message, still }: { message: Message; still: boolean }) {
           <span className="text-[#a8d8de]">with Priya &middot; reminder Friday 18:00</span>
         </span>
       ) : null}
-      <span className="mt-0.5 block text-right text-[0.66rem] text-fog/50">
+      <span className="mt-0.5 block text-right text-[0.66rem] text-ink/50">
         {message.time}
         {agent ? <span className="text-[#5ee0f0]"> {"✓✓"}</span> : null}
       </span>
