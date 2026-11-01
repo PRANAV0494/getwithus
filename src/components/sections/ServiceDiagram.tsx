@@ -14,9 +14,10 @@ const TRIP = 2.4;
 const PACKETS = 2;
 
 /**
- * The four service lines around the client's business, in figure order, each
+ * The five service lines around the client's business, in figure order, each
  * with the wire it feeds into the core and its firing phase (clockwise from
- * web development, so the packets go round the board).
+ * web development, so the packets go round the board). Custom software sits
+ * under the core.
  */
 const NODES: readonly {
   slug: ServiceSlug;
@@ -30,43 +31,52 @@ const NODES: readonly {
     slug: "web-development",
     x: 16,
     y: 24,
-    wire: "M192 60 C 230 60, 244 110, 244 150",
+    wire: "M192 60 C 230 60, 244 90, 244 130",
     port: [192, 60],
     phase: 0,
   },
   {
     slug: "app-development",
     x: 16,
-    y: 304,
-    wire: "M192 340 C 230 340, 244 290, 244 250",
-    port: [192, 340],
-    phase: 0.9,
+    y: 264,
+    wire: "M192 300 C 230 300, 244 270, 244 230",
+    port: [192, 300],
+    phase: 0.96,
   },
   {
     slug: "agentic-automation",
     x: 368,
     y: 24,
-    wire: "M368 60 C 330 60, 316 110, 316 150",
+    wire: "M368 60 C 330 60, 316 90, 316 130",
     port: [368, 60],
-    phase: 0.3,
+    phase: 0.24,
   },
   {
     slug: "digital-marketing",
     x: 368,
-    y: 304,
-    wire: "M368 340 C 330 340, 316 290, 316 250",
-    port: [368, 340],
-    phase: 0.6,
+    y: 264,
+    wire: "M368 300 C 330 300, 316 270, 316 230",
+    port: [368, 300],
+    phase: 0.48,
+  },
+  {
+    slug: "custom-software",
+    x: 192,
+    y: 372,
+    wire: "M280 372 V 230",
+    port: [280, 372],
+    phase: 0.72,
   },
 ];
 
-const CORE = { x: 224, y: 150, width: 112, height: 100 } as const;
+const CORE = { x: 224, y: 130, width: 112, height: 100 } as const;
 const CENTER = { x: CORE.x + CORE.width / 2, y: CORE.y + CORE.height / 2 } as const;
 const CORE_PORTS = [
-  [244, 150],
-  [244, 250],
-  [316, 150],
-  [316, 250],
+  [244, 130],
+  [244, 230],
+  [316, 130],
+  [316, 230],
+  [280, 230],
 ] as const;
 
 const vars = (values: Record<string, string | number>) => values as CSSProperties;
@@ -98,7 +108,7 @@ function Packet({ wire, begin }: { wire: string; begin: string }) {
 }
 
 /**
- * Figure 01 on the home page: a live circuit. The four service lines are wired
+ * Figure 01 on the home page: a live circuit. The five service lines are wired
  * to the client's business; on load the wires draw in, the boards and the core
  * power on, then current streams along every wire, each board fires packets
  * into the core in turn, the core takes them in with a ripple, and its rings
@@ -116,12 +126,12 @@ export default function ServiceDiagram({ className }: { className?: string }) {
       <Brackets />
       <figcaption className="flex items-center justify-between gap-4 type-label text-fog-3">
         <span>fig. 01 / what we build around your business</span>
-        <span className="flex items-center gap-2 text-signal">
-          <span data-live-dot className="size-1.5 bg-signal" />
+        <span className="flex items-center gap-2 text-amber">
+          <span data-live-dot className="size-1.5 bg-amber" />
           live
         </span>
       </figcaption>
-      <svg viewBox="0 0 560 400" focusable="false" fill="none" className="mt-3 h-auto w-full">
+      <svg viewBox="0 0 560 460" focusable="false" fill="none" className="mt-3 h-auto w-full">
         <defs>
           <filter id="circuit-glow" x="-100%" y="-100%" width="300%" height="300%">
             <feGaussianBlur stdDeviation="2.5" result="blur" />
@@ -218,7 +228,7 @@ export default function ServiceDiagram({ className }: { className?: string }) {
           </g>
           <text
             x={CENTER.x}
-            y={196}
+            y={CENTER.y - 4}
             textAnchor="middle"
             fontSize={14}
             fontWeight={600}
@@ -228,7 +238,7 @@ export default function ServiceDiagram({ className }: { className?: string }) {
           </text>
           <text
             x={CENTER.x}
-            y={214}
+            y={CENTER.y + 14}
             textAnchor="middle"
             fontSize={14}
             fontWeight={600}

@@ -12,7 +12,8 @@ const rules = [
   { name: "em or en dash", re: /[\u2013\u2014]/g },
   {
     name: "emoji",
-    re: /[\u{1F300}-\u{1FAFF}\u{1F900}-\u{1F9FF}\u{2600}-\u{27BF}\u{1F600}-\u{1F64F}\u{1F680}-\u{1F6FF}]/gu,
+    // Check and cross marks (U+2713, U+2717) are typographic; the terminal and chat demos use them.
+    re: /[\u{1F300}-\u{1FAFF}\u{1F900}-\u{1F9FF}\u{2600}-\u{2712}\u{2714}-\u{2716}\u{2718}-\u{27BF}\u{1F600}-\u{1F64F}\u{1F680}-\u{1F6FF}]/gu,
   },
   {
     name: "purple family token or utility",
@@ -31,14 +32,16 @@ const rules = [
     name: "fake social proof",
     re: /\btestimonials?\b|\btrusted by\b|\brated \d|[\u2605\u2B50]|\b\d+(\.\d+)?x (faster|more|better)\b|\b\d{2,}\+ (clients|customers|projects|companies|businesses)\b/gi,
   },
-  { name: "custom cursor", re: /CustomCursor|cursor-none|mix-blend-difference|magnetic/gi },
+  // Magnetic buttons are part of the motion system (decisions/0013); cursor replacements are not.
+  { name: "custom cursor", re: /CustomCursor|cursor-none|mix-blend-difference/gi },
   {
     name: "slop vocabulary",
     re: /\b(seamless(ly)?|cutting[- ]edge|next[- ]gen(eration)?|unlock|elevate|empower(ing)?|supercharge|revolutioni[sz]e|game[- ]chang(ing|er)|leverage|synerg(y|ies)|best[- ]in[- ]class|world[- ]class|state[- ]of[- ]the[- ]art|unleash|transform your|delve|harness|effortless(ly)?|innovative solutions|tailored solutions|holistic|bespoke|passionate about|dedicated team|trusted partner|end[- ]to[- ]end solutions|digital transformation journey|360[- ]degree)\b/gi,
   },
   {
     name: "forbidden motion library import",
-    re: /from ["'](gsap|lenis|@studio-freight\/lenis|aos|locomotive-scroll|framer-motion)["']/g,
+    // gsap, lenis, and motion form the motion system (decisions/0013); these would duplicate it.
+    re: /from ["'](@studio-freight\/lenis|aos|locomotive-scroll|framer-motion)["']/g,
   },
 ];
 const strictRules = [{ name: "owner placeholder", re: /\[OWNER:/g }];

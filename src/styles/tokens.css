@@ -25,6 +25,10 @@
   --color-signal: #2cd5e6;
   --color-signal-2: #5fe2ef;
   --color-signal-tint: #0e2a2e;
+  /* The glow under hovered primary buttons and the process fill. */
+  --color-signal-glow: rgb(44 213 230 / 0.35);
+  /* Live indicators only (the hero circuit, the WhatsApp demo). */
+  --color-amber: #f5b54a;
   --color-ok: #3dd68c;
   --color-err: #ff7a70;
 

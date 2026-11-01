@@ -1,5 +1,6 @@
+import { submitBrief } from "@/app/actions/submitBrief";
+import CtaSection from "@/components/cta/CtaSection";
 import JsonLd from "@/components/layout/JsonLd";
-import ClosingCta from "@/components/sections/ClosingCta";
 import Commitments from "@/components/sections/Commitments";
 import Hero from "@/components/sections/Hero";
 import ProcessSteps from "@/components/sections/ProcessSteps";
@@ -26,7 +27,7 @@ export default function HomePage() {
       <ProcessSteps index="02" title={homePage.process.title} link={homePage.process.link} />
       <Commitments index="03" />
       <SelectedWork index="04" />
-      <ClosingCta />
+      <CtaSection action={submitBrief} />
     </>
   );
 }

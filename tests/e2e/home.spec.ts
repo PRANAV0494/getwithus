@@ -8,34 +8,57 @@ test.describe("home", () => {
     await expect(page.getByRole("heading", { level: 2, name: "What we do" })).toBeAttached();
   });
 
-  test("the services blueprint assembles one slab per card, with no 3D on the page", async ({
-    page,
-  }) => {
+  test("the services stack follows the card nearest the reading line", async ({ page }) => {
     await page.goto("/");
-    const figure = page.locator("#service-blueprint");
-    const slabs = figure.locator("[data-layer]");
-    await expect(slabs).toHaveCount(4);
-    await expect(slabs.first()).toHaveAttribute("data-state", "waiting");
-    const cards = page.locator("#service-lines > li");
+    const stack = page.getByRole("img", { name: /Isometric stack of 5 service layers/ });
+    const plates = stack.locator("[data-layer]");
+    await expect(plates).toHaveCount(5);
+    const cards = page.locator("#service-lines [data-service-card]");
+    await expect(cards).toHaveCount(5);
 
-    await cards.nth(1).evaluate((card) => card.scrollIntoView({ block: "start" }));
-    await expect(figure).toContainText("fig. 02 / App development");
-    await expect(slabs.nth(0)).toHaveAttribute("data-state", "docked");
-    await expect(slabs.nth(1)).toHaveAttribute("data-state", "docked");
-    await expect(slabs.nth(3)).toHaveAttribute("data-state", "waiting");
-    await expect(cards.nth(1)).toHaveAttribute("data-active", "");
-    await expect(figure).not.toHaveAttribute("data-complete");
+    await cards.nth(2).evaluate((card) => {
+      const rect = card.getBoundingClientRect();
+      window.scrollTo(0, window.scrollY + rect.top - window.innerHeight * 0.3);
+    });
+    await expect(cards.nth(2)).toHaveAttribute("data-active", "");
+    await expect(plates.nth(2)).toHaveAttribute("data-state", "active");
+    await expect(plates.nth(1)).toHaveAttribute("data-state", "done");
+    await expect(plates.nth(3)).toHaveAttribute("data-state", "ghost");
+    await expect(page.getByText("fig. 02 /")).toContainText("Agentic automation");
 
-    await cards.nth(3).evaluate((card) => card.scrollIntoView({ block: "start" }));
-    await expect(figure).toContainText("fig. 02 / Digital marketing");
-    await expect(slabs.nth(3)).toHaveAttribute("data-state", "docked");
-    await expect(figure).toHaveAttribute("data-complete", "");
-    await expect(cards.nth(1)).not.toHaveAttribute("data-active");
-
-    // Scrolling back takes the slabs apart again.
-    await page.evaluate(() => window.scrollTo(0, 0));
-    await expect(slabs.first()).toHaveAttribute("data-state", "waiting");
+    // The WhatsApp demo in that card starts playing once it is in view.
+    await expect(page.getByText("Hi! Can I book a haircut this Saturday?")).toBeVisible({
+      timeout: 5000,
+    });
     await expect(page.locator("canvas")).toHaveCount(0);
+  });
+
+  test("the terminal takes a brief: chips, email check, and confirmation", async ({ page }) => {
+    await page.goto("/");
+    await page.locator("#closing-cta-title").scrollIntoViewIfNeeded();
+    const website = page.getByRole("button", { name: "Website" });
+    await expect(website).toBeVisible({ timeout: 10_000 });
+    await website.click();
+    await expect(website).toHaveAttribute("aria-pressed", "true");
+    const budget = page.getByRole("button", { name: "$15k+" });
+    await expect(budget).toBeVisible();
+    await budget.click();
+    const email = page.getByLabel("Email address");
+    await expect(email).toBeVisible();
+
+    await email.fill("not-an-email");
+    await page.getByRole("button", { name: "Send brief" }).click();
+    // Each finished line is in the DOM twice: typed (hidden from screen readers) and announced.
+    await expect(
+      page.getByText("enter an email address like name@company.com").first(),
+    ).toBeVisible();
+
+    await email.fill("name@company.com");
+    await page.getByRole("button", { name: "Send brief" }).click();
+    await expect(page.getByText("brief sent: Website · $15k+").first()).toBeVisible({
+      timeout: 10_000,
+    });
+    await expect(page.getByRole("button", { name: "start again" })).toBeVisible();
   });
 
   test("header links navigate", async ({ page }) => {

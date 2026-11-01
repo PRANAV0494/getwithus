@@ -3,9 +3,8 @@ import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
 
 const forbiddenPackages = [
-  { name: "framer-motion", message: "Use CSS transitions; see docs/design.md motion rules." },
-  { name: "gsap", message: "No scroll or animation libraries. See docs/design.md." },
-  { name: "lenis", message: "Native scrolling only." },
+  // gsap, lenis, and motion (from "motion/react") are the motion system; see docs/decisions/0013.
+  { name: "framer-motion", message: "Import from motion/react instead." },
   { name: "aos", message: "No scroll entrance animations." },
   { name: "locomotive-scroll", message: "Native scrolling only." },
   { name: "axios", message: "Use fetch with AbortSignal.timeout." },

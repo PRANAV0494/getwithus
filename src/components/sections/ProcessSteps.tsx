@@ -1,10 +1,13 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import GridSpotlight from "@/components/motion/GridSpotlight";
+import ProcessTimeline from "@/components/process/ProcessTimeline";
 import Container from "@/components/ui/Container";
 import Icon from "@/components/ui/Icon";
 import Section from "@/components/ui/Section";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { processSteps } from "@/content/process";
+import { cn } from "@/lib/cn";
 
 type ProcessStepsProps = {
   title: string;
@@ -14,31 +17,18 @@ type ProcessStepsProps = {
   className?: string;
 };
 
-/** The four steps as a pipeline: numbered, because they are a sequence. */
+/** The four steps on a timeline that fills as the section scrolls in: numbered, because they are a sequence. */
 export default function ProcessSteps({ title, link, index, className }: ProcessStepsProps) {
   return (
-    <Section aria-labelledby="process-steps-title" className={className}>
+    <Section aria-labelledby="process-steps-title" className={cn("relative isolate", className)}>
+      <GridSpotlight />
       <Container>
         <SectionHeading id="process-steps-title" index={index} label="process" title={title} />
-        <ol className="mt-12 grid lg:grid-cols-4">
-          {processSteps.map((step, position) => (
-            <li
-              key={step.title}
-              className="reveal relative border-l border-line-strong pb-9 pl-6 last:pb-0 lg:border-t lg:border-l-0 lg:pt-6 lg:pr-6 lg:pb-0 lg:pl-0"
-            >
-              <span
-                aria-hidden="true"
-                className="absolute top-0 -left-[5px] size-[9px] rotate-45 border border-signal bg-ink lg:-top-[5px] lg:left-0"
-              />
-              <p className="type-label text-signal">step_{String(position + 1).padStart(2, "0")}</p>
-              <h3 className="mt-2 type-h4">
-                <span className="sr-only">Step {position + 1}: </span>
-                {step.title}
-              </h3>
-              <p className="mt-2 text-fog-2">{step.short}</p>
-            </li>
-          ))}
-        </ol>
+        <div className="mt-12">
+          <ProcessTimeline
+            steps={processSteps.map((step) => ({ title: step.title, short: step.short }))}
+          />
+        </div>
         {link ? (
           <p className="mt-10">
             <Link

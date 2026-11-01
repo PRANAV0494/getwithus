@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import ScrambleText from "@/components/motion/ScrambleText";
 import { cn } from "@/lib/cn";
 
 type SectionHeadingProps = {
@@ -25,7 +26,9 @@ export default function SectionHeading({
 }: SectionHeadingProps) {
   return (
     <div className={cn("reveal grid gap-3 md:grid-cols-[200px_1fr] md:gap-6", className)}>
-      <p className="pt-2 type-label text-fog-3">{index ? `${index} / ${label}` : label}</p>
+      <p className="pt-2 type-label text-fog-3">
+        <ScrambleText text={index ? `${index} / ${label}` : label} />
+      </p>
       <div className="max-w-2xl">
         <h2 id={id} className="type-h2">
           {title}

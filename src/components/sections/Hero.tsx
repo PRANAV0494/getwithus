@@ -1,4 +1,6 @@
 import { Check } from "lucide-react";
+import GridSpotlight from "@/components/motion/GridSpotlight";
+import MagneticButton from "@/components/motion/MagneticButton";
 import RevealOnce from "@/components/sections/RevealOnce";
 import ServiceDiagram from "@/components/sections/ServiceDiagram";
 import Button from "@/components/ui/Button";
@@ -14,7 +16,8 @@ import { homePage } from "@/content/pages";
 export default function Hero() {
   const { hero } = homePage;
   return (
-    <section aria-labelledby="hero-title" className="border-b border-line">
+    <section aria-labelledby="hero-title" className="relative isolate border-b border-line">
+      <GridSpotlight />
       <Container className="grid items-center gap-12 pt-14 pb-14 md:pt-20 md:pb-20 lg:grid-cols-[1.05fr_0.95fr]">
         <RevealOnce className="grid gap-5">
           <p className="font-mono text-[0.8125rem] text-signal">&gt; {site.tagline}</p>
@@ -24,7 +27,9 @@ export default function Hero() {
           <p className="max-w-[56ch] type-lead text-fog-2">{hero.lead}</p>
           <div className="mt-2 grid gap-7">
             <div className="flex flex-col gap-3 sm:flex-row">
-              <Button href={hero.primary.href}>{hero.primary.label}</Button>
+              <MagneticButton>
+                <Button href={hero.primary.href}>{hero.primary.label}</Button>
+              </MagneticButton>
               <Button href={hero.secondary.href} variant="secondary">
                 {hero.secondary.label}
               </Button>

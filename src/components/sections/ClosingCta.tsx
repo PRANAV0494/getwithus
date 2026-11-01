@@ -1,3 +1,4 @@
+import MagneticButton from "@/components/motion/MagneticButton";
 import Brackets from "@/components/ui/Brackets";
 import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
@@ -20,7 +21,9 @@ export default function ClosingCta({ className }: { className?: string }) {
             <div>
               <p className="type-lead text-fog-2">{closingCta.text}</p>
               <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                <Button href={closingCta.primary.href}>{closingCta.primary.label}</Button>
+                <MagneticButton>
+                  <Button href={closingCta.primary.href}>{closingCta.primary.label}</Button>
+                </MagneticButton>
                 <Button href={closingCta.secondary.href} variant="secondary">
                   {closingCta.secondary.label}
                 </Button>

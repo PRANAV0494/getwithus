@@ -1,5 +1,6 @@
 import MegaMenu from "@/components/layout/MegaMenu";
 import MobileMenu from "@/components/layout/MobileMenu";
+import MagneticButton from "@/components/motion/MagneticButton";
 import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
 import Logo from "@/components/ui/Logo";
@@ -16,9 +17,11 @@ export default function Header() {
         <Logo />
         <MegaMenu services={serviceLines} links={links} />
         <div className="hidden lg:block">
-          <Button href="/start" size="sm">
-            Start a project
-          </Button>
+          <MagneticButton>
+            <Button href="/start" size="sm">
+              Start a project
+            </Button>
+          </MagneticButton>
         </div>
         <MobileMenu services={serviceLines} links={links} />
       </Container>

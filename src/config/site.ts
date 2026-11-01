@@ -32,6 +32,14 @@ export const site = {
   schedulingUrl: publicEnv.schedulingUrl,
 } as const;
 
+/** A site fact, or undefined while it is still an owner placeholder, so whatever shows it can be left out. */
+export function known(value: string | undefined): string | undefined {
+  return value && !value.startsWith("[OWNER:") ? value : undefined;
+}
+
+/** How soon we reply, for promises on the page. Undefined until the owner supplies it. */
+export const RESPONSE_TIME = known(site.responseTime);
+
 type NavLink = {
   label: string;
   href: string;

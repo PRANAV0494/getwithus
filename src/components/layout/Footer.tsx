@@ -1,15 +1,21 @@
 import Link from "next/link";
 import Container from "@/components/ui/Container";
 import Logo from "@/components/ui/Logo";
-import { site, visibleNav } from "@/config/site";
+import { known, site, visibleNav } from "@/config/site";
 import { serviceLines } from "@/content/services/catalog";
 import { getPublishedCaseStudies } from "@/features/case-studies/getPublishedCaseStudies";
 
 const linkClasses = "link-draw text-fog-2 transition-colors duration-150 ease-out hover:text-fog";
+const subLinkClasses =
+  "link-draw text-[0.8125rem] text-fog-3 transition-colors duration-150 ease-out hover:text-fog";
 const headingClasses = "mb-4 type-label text-fog-3";
 
 /** Site footer: brand, tagline, and contact details, then service, company, and legal links under monospaced titles. */
 export default function Footer() {
+  const email = known(site.contact.email);
+  const phone = known(site.contact.phone);
+  const city = known(site.contact.city);
+  const owner = known(site.legalEntity) ?? site.name;
   const companyLinks = [
     ...visibleNav(getPublishedCaseStudies().length > 0),
     { label: "Start a project", href: "/start" },
@@ -23,13 +29,17 @@ export default function Footer() {
             <Logo />
             <p className="font-medium text-fog">{site.tagline}</p>
             <p className="max-w-[36ch]">{site.footerDescription}</p>
-            <address className="grid gap-1 type-small not-italic">
-              <a href={`mailto:${site.contact.email}`} className={linkClasses}>
-                {site.contact.email}
-              </a>
-              <span>{site.contact.phone}</span>
-              <span>{site.contact.city}</span>
-            </address>
+            {email || phone || city ? (
+              <address className="grid gap-1 type-small not-italic">
+                {email ? (
+                  <a href={`mailto:${email}`} className={linkClasses}>
+                    {email}
+                  </a>
+                ) : null}
+                {phone ? <span>{phone}</span> : null}
+                {city ? <span>{city}</span> : null}
+              </address>
+            ) : null}
           </div>
           <nav aria-labelledby="footer-services">
             <h2 id="footer-services" className={headingClasses}>
@@ -42,10 +52,13 @@ export default function Footer() {
                     {service.name}
                   </Link>
                   {service.children?.length ? (
-                    <ul className="mt-2 grid gap-2 pl-3.5">
+                    <ul
+                      aria-label={`${service.name} products`}
+                      className="mt-2 ml-1 grid gap-1.5 border-l border-line pl-3"
+                    >
                       {service.children.map((child) => (
                         <li key={child.slug}>
-                          <Link href={child.href} className={linkClasses}>
+                          <Link href={child.href} className={subLinkClasses}>
                             {child.name}
                           </Link>
                         </li>
@@ -89,7 +102,7 @@ export default function Footer() {
           </nav>
         </div>
         <p className="mt-12 border-t border-line pt-6 type-small text-fog-3">
-          © {site.copyrightYear} {site.legalEntity}. All rights reserved.
+          © {site.copyrightYear} {owner}. All rights reserved.
         </p>
       </Container>
     </footer>

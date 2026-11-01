@@ -17,14 +17,7 @@ export const homePage = {
     /** Three commitments in a few words each, beside the hero buttons. */
     proof: ["Fixed scope and price", "Weekly demos", "You own everything"],
   },
-  services: {
-    title: "What we do",
-    also: {
-      prefix: "Also:",
-      label: "internal tools, integrations, cloud setup, and maintenance",
-      href: "/services/custom-software",
-    },
-  },
+  services: { title: "What we do" },
   process: {
     title: "How a project runs",
     link: { label: "The process in detail", href: "/process" },
