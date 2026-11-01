@@ -270,10 +270,163 @@
   background-size: 100% 1px;
 }
 
-/* Diagram data pulses: three passes along a path, then still. */
+/* A dash travelling a path; one pass per cycle (the blueprint's uplink). */
 @keyframes pulse-travel {
   to {
     stroke-dashoffset: -120;
+  }
+}
+
+/*
+ * Figure 01, the live circuit in the home hero. On load the wires draw in and
+ * the boards and core power on; then current streams along the wires, each
+ * board fires (its frame flashes when its packets leave), the core breathes,
+ * scans, and ripples as packets arrive, and its rings turn. The packets
+ * themselves are SVG animations in ServiceDiagram. DiagramLive sets
+ * data-paused while the figure is off screen or the tab is hidden. Under
+ * reduced motion the circuit stands still, fully drawn, with no packets.
+ */
+.diagram [data-wire-base] {
+  stroke-dasharray: 1;
+}
+.diagram [data-ripple] {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.diagram [data-ring] {
+  transform-box: view-box;
+  transform-origin: 280px 200px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .diagram [data-wire-base] {
+    animation: diagram-draw 900ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    animation-delay: calc(var(--i) * 90ms);
+  }
+  .diagram [data-node] {
+    animation: diagram-in 500ms ease-out both;
+    animation-delay: calc(150ms + var(--i) * 90ms);
+  }
+  .diagram [data-core] {
+    animation: diagram-in 500ms ease-out 550ms both;
+  }
+  .diagram [data-wire-current] {
+    animation:
+      diagram-fade 400ms ease-out 1.1s both,
+      diagram-current 320ms linear 1.1s infinite;
+  }
+  .diagram [data-node-frame] {
+    animation: diagram-fire 1.2s ease-out infinite;
+    animation-delay: calc(1.1s + var(--phase));
+  }
+  .diagram [data-led] {
+    animation: diagram-blink 600ms steps(2, jump-none) infinite;
+    animation-delay: var(--phase);
+  }
+  .diagram [data-live-dot] {
+    animation: diagram-blink 1.2s steps(2, jump-none) infinite;
+  }
+  .diagram [data-ring="inner"] {
+    animation:
+      diagram-fade 600ms ease-out 1s both,
+      diagram-spin 24s linear infinite;
+  }
+  .diagram [data-ring="outer"] {
+    animation:
+      diagram-fade 600ms ease-out 1.2s both,
+      diagram-spin 40s linear infinite reverse;
+  }
+  .diagram [data-core-glow] {
+    animation: diagram-breathe 2.4s ease-in-out 1.1s infinite;
+  }
+  .diagram [data-scan] {
+    animation: diagram-scan 2.4s linear 1.1s infinite;
+  }
+  .diagram [data-ripple] {
+    animation: diagram-ripple 1.2s ease-out infinite;
+    animation-delay: var(--delay);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .diagram [data-packet],
+  .diagram [data-scan],
+  .diagram [data-ripple] {
+    display: none;
+  }
+}
+.diagram[data-paused],
+.diagram[data-paused] * {
+  animation-play-state: paused !important;
+}
+
+@keyframes diagram-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes diagram-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+@keyframes diagram-fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes diagram-current {
+  to {
+    stroke-dashoffset: -8;
+  }
+}
+@keyframes diagram-fire {
+  0% {
+    stroke: var(--color-signal);
+  }
+  35%,
+  100% {
+    stroke: var(--color-line-strong);
+  }
+}
+@keyframes diagram-blink {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.25;
+  }
+}
+@keyframes diagram-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes diagram-breathe {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.75;
+  }
+}
+@keyframes diagram-scan {
+  to {
+    transform: translateY(96px);
+  }
+}
+@keyframes diagram-ripple {
+  0% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
   }
 }
 

@@ -161,7 +161,7 @@ Initial JavaScript (module scripts the page loads, gzipped at level 9; the 38.6 
 
 | Route                                                | Initial JS |
 | ---------------------------------------------------- | ---------- |
-| `/`                                                  | 174.4 KB   |
+| `/`                                                  | 174.6 KB   |
 | `/services`                                          | 172.8 KB   |
 | `/services/web-development` (and every service page) | 178.6 KB   |
 | `/process`, `/work`, `/privacy`, `/terms`            | 172.8 KB   |
@@ -169,7 +169,7 @@ Initial JavaScript (module scripts the page loads, gzipped at level 9; the 38.6 
 | `/contact`, `/start`                                 | 173.2 KB   |
 | `/admin/login`                                       | 178.4 KB   |
 
-The home page went from 176.3 KB to 174.4 KB: the scene loader left it, and the reveal observer (0.3 KB, every marketing page) and the blueprint controller (1.3 KB) came in. 3D chunk (three, fiber, drei, and the scene), loaded only on service pages after the page settles and the panel comes near: 261.4 KB gzipped (budget 450 KB).
+The home page went from 176.3 KB to 174.6 KB: the scene loader left it, and the reveal observer (0.3 KB, every marketing page), the blueprint controller (1.3 KB), and the hero circuit's pause controller (0.2 KB) came in. 3D chunk (three, fiber, drei, and the scene), loaded only on service pages after the page settles and the panel comes near: 261.4 KB gzipped (budget 450 KB).
 
 ### Lighthouse (local)
 
@@ -177,7 +177,7 @@ Mobile, Lighthouse 13.6 defaults (simulated 4G, 4x CPU slowdown), against `next 
 
 | Page                        | Performance      | Accessibility | Best practices | SEO | LCP   | TBT    | CLS | Target      |
 | --------------------------- | ---------------- | ------------- | -------------- | --- | ----- | ------ | --- | ----------- |
-| `/`                         | 98 (98, 93, 99)  | 100           | 100            | 100 | 0.9 s | 160 ms | 0   | 90, met     |
+| `/`                         | 99 (99, 99, 99)  | 100           | 100            | 100 | 0.9 s | 110 ms | 0   | 90, met     |
 | `/services`                 | 99 (100, 98, 99) | 100           | 100            | 100 | 0.9 s | 100 ms | 0   | 95, met     |
 | `/process`                  | 99 (99, 99, 96)  | 100           | 100            | 100 | 1.3 s | 80 ms  | 0   | 95, met     |
 | `/about`                    | 96 (95, 96, 97)  | 100           | 100            | 100 | 0.9 s | 240 ms | 0   | 95, met     |

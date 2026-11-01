@@ -9,7 +9,7 @@ Principles:
 3. Panels are square, marked by 12 px corner brackets; brackets turn cyan when the panel is hovered.
 4. The layout grid is always visible behind the content and never competes with it.
 5. One primary button per view. The secondary action is an outline button or a text link.
-6. No motion that runs forever: the diagram pulses three times and stops; everything else answers the visitor or plays once as content enters.
+6. No motion that runs forever, with one exception: the hero circuit (figure 01) runs continuously while it is on screen, at the owner's request. Everything else answers the visitor or plays once as content enters.
 
 ## Tokens
 
@@ -94,7 +94,7 @@ Allowed in exactly these places:
 
 1. The home hero reveal: the tagline, heading, lead, and actions fade in and rise 8 px over 500 ms with a 60 ms stagger, on the first page load only.
 2. Section reveals: blocks marked `.reveal` that start below the fold rise 18 px and fade in once, over 600 ms, as they enter. `RevealObserver` (`src/components/layout`, an IntersectionObserver) marks blocks already on screen at load as static, so nothing visible is ever hidden and no text rests half faded; without JavaScript every block simply shows. Never on a hero.
-3. The diagram pulses: data travels each connection of figure 01 three times (3.2 s per pass) when the page opens, then stops.
+3. The hero circuit (figure 01): on load the wires draw in and the boards and core power on (about 1 s); then current streams along every wire, each board flashes as it fires glowing packets into the core (two per wire, 2.4 s a trip, clockwise in turn), the core breathes, scans, and ripples as packets arrive, and two dashed rings turn around it. It runs only while on screen and the tab is visible (`DiagramLive` pauses the CSS and SVG animations otherwise), it is not shown below 640 px, and under reduced motion it is drawn complete and still, with no packets.
 4. The blueprint (figure 02, home page): beside the service cards, four slabs drop into place one per card as the cards pass the reading line, scrubbing both ways with scroll; the marketing slab's bars rise as it settles, and once all four sit, the uplink pulses three passes. Under reduced motion slabs are either waiting or docked, never in between.
 5. The service page 3D panels: one station turning slowly (0.15 rad/s) at 30 frames per second while on screen.
 6. Transitions that answer an action: menus, accordion, dialog, sheet, toast, code success, the 220 ms link underline, and hover colours. 150 to 250 ms, ease-out. Defined as keyframes and utilities in `globals.css`.
@@ -115,7 +115,7 @@ Run `pnpm guard` (part of `pnpm check` and `pnpm build`); it enforces the mechan
 - [ ] No emoji anywhere, including docs and commit messages. Icons from lucide only.
 - [ ] No em dashes or en dashes in copy, comments, emails, or docs. Use a comma, period, colon, or "to" for ranges.
 - [ ] No scroll effects besides the one-time section reveals and the home page blueprint: no parallax, other scroll-linked movement or pinned sections, counters, typing text, or marquees.
-- [ ] No endless animation: everything that moves on its own stops (the diagram pulses run three passes).
+- [ ] No endless animation, except the hero circuit, which pauses off screen and in background tabs and is still under reduced motion.
 - [ ] No stock photography or AI imagery. Only the 3D panels, hand-made SVG, and real photos or screenshots with permission.
 - [ ] No banned vocabulary (the guard lists it, for example "seamless", "cutting-edge", "unlock", "leverage", "elevate", "harness").
 - [ ] No custom cursors or cursor effects.
