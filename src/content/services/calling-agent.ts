@@ -56,6 +56,5 @@ export const callingAgent: ServiceContent = {
       answer: "[OWNER: supported languages].",
     },
   ],
-  station: "automation",
   updated: "2026-10-31",
 };

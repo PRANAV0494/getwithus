@@ -15,7 +15,7 @@ import {
   readModelPalette,
   type ModelPalette,
 } from "@/components/three/models/context";
-import type { ModelKey } from "@/components/three/models/keys";
+import { MODEL_VIEWS, type ModelKey } from "@/components/three/models/keys";
 import { THEME_EVENT } from "@/lib/theme";
 import { useSceneStore, type Quality } from "@/stores/scene.store";
 
@@ -100,7 +100,12 @@ export default function ModelCanvas({
       dpr={TIERS[quality].dpr}
       frameloop="demand"
       gl={{ antialias: quality !== "low", alpha: true, powerPreference: "high-performance" }}
-      camera={{ fov: 32, near: 0.1, far: 50, position: [0, 0.5, 7.2] }}
+      camera={{
+        fov: MODEL_VIEWS[model]?.fov ?? 32,
+        near: 0.1,
+        far: 60,
+        position: MODEL_VIEWS[model]?.position ?? [0, 0.5, 7.2],
+      }}
       onCreated={({ gl }) => {
         gl.setClearColor(0x000000, 0);
         gl.domElement.addEventListener("webglcontextlost", () => setQuality("none"), {

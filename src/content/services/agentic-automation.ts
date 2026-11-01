@@ -81,6 +81,5 @@ export const agenticAutomation: ServiceContent = {
       answer: "Yes. Pilots usually cover one conversation type, one channel, and one integration.",
     },
   ],
-  station: "automation",
   updated: "2026-10-31",
 };

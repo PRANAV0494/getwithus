@@ -18,15 +18,17 @@ const SPANS = ["lg:col-span-3", "lg:col-span-3", "lg:col-span-2", "lg:col-span-2
  * own small 3D scene, then the summary and highlights from the service file.
  * The agentic card links its two products.
  */
-export default function ServiceCards() {
+export default function ServiceCards({
+  title = homePage.services.title,
+  lead = home.services.lead,
+}: {
+  title?: string;
+  lead?: string;
+}) {
   return (
     <section aria-labelledby="services-title" className="py-20 md:py-[120px]">
       <Container>
-        <SectionIntro
-          id="services-title"
-          title={homePage.services.title}
-          lead={home.services.lead}
-        />
+        <SectionIntro id="services-title" title={title} lead={lead} />
         <ul className="mt-14 grid gap-[26px] [perspective:1600px] md:grid-cols-2 lg:grid-cols-6">
           {serviceLinePages.map((page, index) => {
             const SceneContent = serviceScenes[page.slug];

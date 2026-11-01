@@ -14,6 +14,7 @@ export type ModelPalette = {
   accent: Color;
   amber: Color;
   ok: Color;
+  wa: Color;
   web: Color;
   mob: Color;
   data: Color;
@@ -30,6 +31,7 @@ const TOKENS: Record<keyof ModelPalette, readonly [string, string]> = {
   accent: ["--accent", "#0e7c86"],
   amber: ["--amber", "#a05f00"],
   ok: ["--ok", "#127a43"],
+  wa: ["--wa", "#15803d"],
   web: ["--c-web", "#2563eb"],
   mob: ["--c-mob", "#7c3aed"],
   data: ["--c-data", "#0e7c86"],

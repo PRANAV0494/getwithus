@@ -1,15 +1,14 @@
-import { ArrowRight } from "lucide-react";
-import Link from "next/link";
+import ServiceCards from "@/components/home/ServiceCards";
+import MagneticButton from "@/components/motion/MagneticButton";
 import ClosingCta from "@/components/sections/ClosingCta";
-import PageHeader from "@/components/sections/PageHeader";
+import PageHero from "@/components/sections/PageHero";
 import Pricing from "@/components/sections/Pricing";
 import ProcessSection from "@/components/sections/ProcessSection";
-import { serviceIcons } from "@/components/sections/serviceIcons";
-import Container from "@/components/ui/Container";
-import Icon from "@/components/ui/Icon";
-import Section from "@/components/ui/Section";
+import ModelStill from "@/components/three/ModelStill";
+import WebGLModel from "@/components/three/WebGLModel";
+import Button from "@/components/ui/Button";
+import { home } from "@/content/home";
 import { servicesPage } from "@/content/pages";
-import { serviceLinePages } from "@/content/services";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -18,76 +17,38 @@ export const metadata = pageMetadata({
   path: servicesPage.path,
 });
 
+/** The services index: the five models on a turntable, the service cards, the process, and pricing. */
 export default function ServicesPage() {
   return (
     <>
-      <PageHeader
-        id="services-title"
-        label="services"
+      <PageHero
+        id="services-page-title"
         title={servicesPage.title}
         lead={servicesPage.lead}
+        crumbs={[
+          { name: "Home", path: "/" },
+          { name: servicesPage.title, path: servicesPage.path },
+        ]}
+        actions={
+          <>
+            <MagneticButton>
+              <Button href="/start" size="lg">
+                Start a project
+              </Button>
+            </MagneticButton>
+            <Button href="#pricing-title" variant="secondary" size="lg">
+              {home.pricing.title}
+            </Button>
+          </>
+        }
+        visual={
+          <WebGLModel
+            model="services-turntable"
+            still={<ModelStill model="services-turntable" />}
+          />
+        }
       />
-      <Section>
-        <Container>
-          <ul aria-label={servicesPage.listTitle} className="border-b border-line">
-            {serviceLinePages.map((page, index) => {
-              const ServiceIcon = serviceIcons[page.slug];
-              return (
-                <li
-                  key={page.slug}
-                  className="reveal grid gap-5 border-t border-line py-8 md:grid-cols-[200px_minmax(0,1fr)_minmax(0,1fr)] md:gap-8"
-                >
-                  <p className="flex items-center gap-3 type-label text-muted md:items-start md:pt-1.5">
-                    {ServiceIcon ? (
-                      <Icon icon={ServiceIcon} size={16} className="text-accent" />
-                    ) : null}
-                    service_{String(index + 1).padStart(2, "0")}
-                  </p>
-                  <div>
-                    <h2 className="type-h3">
-                      <Link
-                        href={page.href}
-                        className="group inline-flex items-center gap-2 transition-colors duration-150 ease-out hover:text-accent"
-                      >
-                        {page.name}
-                        <Icon
-                          icon={ArrowRight}
-                          size={20}
-                          className="text-accent transition-transform duration-200 ease-out group-hover:translate-x-1"
-                        />
-                      </Link>
-                    </h2>
-                    <p className="mt-3 max-w-[60ch] text-body">{page.summary}</p>
-                    {page.children?.length ? (
-                      <p className="mt-3 flex flex-wrap gap-x-5 gap-y-1 type-small">
-                        {page.children.map((child) => (
-                          <Link
-                            key={child.slug}
-                            href={child.href}
-                            className="link-draw text-accent transition-colors duration-150 ease-out hover:text-accent"
-                          >
-                            {child.name}
-                          </Link>
-                        ))}
-                      </p>
-                    ) : null}
-                  </div>
-                  <ul className="grid content-start gap-2">
-                    {(page.highlights ?? []).map((item) => (
-                      <li key={item} className="flex gap-3">
-                        <span aria-hidden="true" className="font-mono text-accent">
-                          +
-                        </span>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </li>
-              );
-            })}
-          </ul>
-        </Container>
-      </Section>
+      <ServiceCards title={servicesPage.listTitle} lead={home.services.lead} />
       <ProcessSection title={servicesPage.processTitle} />
       <Pricing />
       <ClosingCta />

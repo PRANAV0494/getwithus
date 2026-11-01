@@ -52,6 +52,5 @@ export const customSoftware: ServiceContent = {
     },
     { question: "Will you sign an NDA?", answer: "Yes." },
   ],
-  station: "custom",
   updated: "2026-10-31",
 };

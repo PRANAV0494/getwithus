@@ -1,25 +1,15 @@
 import { create } from "zustand";
-import { subscribeWithSelector } from "zustand/middleware";
 
 export type Quality = "high" | "medium" | "low" | "none";
 
 type SceneState = {
-  /** Undecided until a panel picks a tier at mount. */
+  /** Undecided until a panel picks a tier as it mounts. */
   quality: Quality | null;
-  reducedMotion: boolean;
   setQuality: (quality: Quality) => void;
-  setReducedMotion: (reducedMotion: boolean) => void;
 };
 
-/**
- * Client state shared by the service page panels and their 3D scene. `useFrame`
- * reads it with getState() so the render loop never re-renders React.
- */
-export const useSceneStore = create<SceneState>()(
-  subscribeWithSelector((set) => ({
-    quality: null,
-    reducedMotion: false,
-    setQuality: (quality) => set({ quality }),
-    setReducedMotion: (reducedMotion) => set({ reducedMotion }),
-  })),
-);
+/** The 3D quality tier for this visit, shared by every model panel on the page. */
+export const useSceneStore = create<SceneState>()((set) => ({
+  quality: null,
+  setQuality: (quality) => set({ quality }),
+}));

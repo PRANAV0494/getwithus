@@ -63,9 +63,6 @@ export type LegalDocument = {
   sections: readonly LegalSection[];
 };
 
-/** Which 3D station object a service page shows in its panel. */
-export type StationKey = "web" | "app" | "automation" | "marketing" | "custom";
-
 export type FaqItem = { question: string; answer: string };
 
 /** A short titled paragraph some service pages carry (limits, platform rules, consent). */
@@ -91,7 +88,6 @@ export type ServiceContent = {
   tools: readonly string[];
   pricing: string;
   faqs: readonly FaqItem[];
-  station: StationKey;
   /** ISO date of the last content change, used by the sitemap. */
   updated: string;
 };

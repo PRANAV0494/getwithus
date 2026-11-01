@@ -30,6 +30,7 @@ import TagSphere from "@/components/motion/TagSphere";
 import { Layer, Scene, TiltScene } from "@/components/motion/TiltScene";
 import TypedText from "@/components/motion/TypedText";
 import Typewriter from "@/components/motion/Typewriter";
+import ModelStill from "@/components/three/ModelStill";
 import WebGLModel from "@/components/three/WebGLModel";
 import TechLogo from "@/components/ui/TechLogo";
 import { codeSamples } from "@/content/code-samples";
@@ -152,50 +153,6 @@ const tiles: FloatingTile[] = [
     content: <TechLogo slug="nextdotjs" />,
   },
 ];
-
-function CubeStill() {
-  return (
-    <svg viewBox="0 0 400 300" className="h-auto w-4/5" aria-hidden="true" focusable="false">
-      <path
-        d="M30 160 A170 46 0 0 1 370 160"
-        fill="none"
-        stroke="var(--accent)"
-        strokeOpacity="0.55"
-        strokeWidth="1.5"
-      />
-      <path
-        d="M200 72 L264 106 L200 140 L136 106 Z"
-        fill="var(--card)"
-        stroke="var(--line-2)"
-        strokeWidth="1.5"
-      />
-      <path
-        d="M136 106 L200 140 L200 214 L136 180 Z"
-        fill="var(--bg-soft)"
-        stroke="var(--line-2)"
-        strokeWidth="1.5"
-      />
-      <path
-        d="M264 106 L200 140 L200 214 L264 180 Z"
-        fill="var(--card-2)"
-        stroke="var(--line-2)"
-        strokeWidth="1.5"
-      />
-      <path d="M216 150 L248 133 L248 167 L216 184 Z" fill="var(--accent)" />
-      <path d="M152 133 L184 150 L184 184 L152 167 Z" fill="var(--accent)" opacity="0.85" />
-      <path
-        d="M30 160 A170 46 0 0 0 370 160"
-        fill="none"
-        stroke="var(--accent)"
-        strokeOpacity="0.55"
-        strokeWidth="1.5"
-      />
-      <circle cx="368" cy="166" r="6" fill="var(--amber)" />
-      <circle cx="96" cy="196" r="6" fill="var(--amber)" />
-      <circle cx="120" cy="122" r="5" fill="var(--amber)" opacity="0.6" />
-    </svg>
-  );
-}
 
 function KitSection({
   title,
@@ -425,7 +382,11 @@ export default function FinalKitPage() {
         title="WebGLModel"
         note="A still SVG until the first scroll, pointer move, or key press; then the model loads near the viewport at 30 fps."
       >
-        <WebGLModel model="brand-cube" still={<CubeStill />} className="mx-auto max-w-[640px]" />
+        <WebGLModel
+          model="brand-cube"
+          still={<ModelStill model="brand-cube" />}
+          className="mx-auto max-w-[640px]"
+        />
       </KitSection>
 
       <KitSection

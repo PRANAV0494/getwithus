@@ -52,6 +52,5 @@ export const digitalMarketing: ServiceContent = {
         "You do. We work inside your accounts as a manager and leave with nothing when the engagement ends.",
     },
   ],
-  station: "marketing",
   updated: "2026-10-31",
 };

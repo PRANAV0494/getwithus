@@ -56,6 +56,5 @@ export const whatsappBot: ServiceContent = {
         "By Meta, per conversation, to your WhatsApp Business account. We do not mark these up.",
     },
   ],
-  station: "automation",
   updated: "2026-10-31",
 };

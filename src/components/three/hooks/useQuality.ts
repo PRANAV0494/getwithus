@@ -30,13 +30,6 @@ function pickQuality(): Quality {
   return "medium";
 }
 
-/** One tier lower; used when the performance monitor sees the frame rate drop. */
-export function lowerQuality(quality: Quality): Quality {
-  if (quality === "high") return "medium";
-  if (quality === "medium") return "low";
-  return quality;
-}
-
 /**
  * The tier for this page load, chosen once and shared through the scene store.
  * Nothing is probed until `enabled`: creating even a 1 x 1 WebGL context starts

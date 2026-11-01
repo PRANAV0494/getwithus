@@ -104,3 +104,39 @@ export const toolCategories: readonly { key: ToolCategory; label: string; note: 
 export function findTool(name: string): Tool | undefined {
   return tools.find((tool) => tool.name === name);
 }
+
+/** Other names the service files use for a tool. */
+const ALIASES: Record<string, readonly string[]> = {
+  PostgreSQL: ["Postgres"],
+  "Google Analytics": ["GA4"],
+  "WhatsApp Business Platform": ["WhatsApp Business Cloud API"],
+};
+
+function escape(text: string): string {
+  return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+/**
+ * The listed tools a line of text mentions, in the order they appear, for the
+ * logo chips on service pages ("Expo and React Native" gives Expo and React
+ * Native). Longer names win, so "React Native" is not also read as "React".
+ */
+export function toolsIn(text: string): Tool[] {
+  const names = tools
+    .flatMap((tool) => [tool.name, ...(ALIASES[tool.name] ?? [])].map((name) => ({ name, tool })))
+    .sort((a, b) => b.name.length - a.name.length);
+  const found: { at: number; tool: Tool }[] = [];
+  let rest = text;
+  for (const { name, tool } of names) {
+    const pattern = new RegExp(`(^|[^\\w])${escape(name)}(?![\\w])`);
+    const match = pattern.exec(rest);
+    if (!match) continue;
+    const at = match.index + match[1].length;
+    found.push({ at, tool });
+    rest = rest.slice(0, at) + " ".repeat(name.length) + rest.slice(at + name.length);
+  }
+  return found
+    .sort((a, b) => a.at - b.at)
+    .map((entry) => entry.tool)
+    .filter((tool, index, list) => list.indexOf(tool) === index);
+}

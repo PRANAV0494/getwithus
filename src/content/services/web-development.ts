@@ -61,6 +61,5 @@ export const webDevelopment: ServiceContent = {
         "It depends on pages and integrations. We give a dated timeline in the written scope before you commit.",
     },
   ],
-  station: "web",
   updated: "2026-10-31",
 };

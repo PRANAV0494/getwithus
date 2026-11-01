@@ -60,6 +60,5 @@ export const appDevelopment: ServiceContent = {
         "Either a retainer that covers OS updates, store policy changes, and small features, or a handover with documentation.",
     },
   ],
-  station: "app",
   updated: "2026-10-31",
 };

@@ -20,7 +20,8 @@ function paymentLines(): string[] {
   return lines.filter((line): line is string => Boolean(line));
 }
 
-function Card({ card }: { card: PricingCard }) {
+/** One pricing card; the featured one is dark. Also used alone on each service page. */
+export function PriceCard({ card }: { card: PricingCard }) {
   const price = priceText(card);
   const timeline = known(card.timeline);
   const dark = card.featured === true;
@@ -97,7 +98,7 @@ export default function Pricing({ className }: { className?: string }) {
         <ul className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {pricingCards.map((card) => (
             <li key={card.slug}>
-              <Card card={card} />
+              <PriceCard card={card} />
             </li>
           ))}
         </ul>

@@ -5,6 +5,9 @@
  */
 export const EXAMPLE_LABEL = "Example conversation";
 
+/** The same label on demos that are not conversations. */
+export const EXAMPLE_DATA_LABEL = "Example data";
+
 type ChatCard = { title: string; lines: readonly string[] };
 
 export type ChatStep =
@@ -145,4 +148,39 @@ export const cmsDemo = {
   field: "Hero heading",
   before: "Book a check-up online",
   after: "Book your check-up in two taps",
+} as const;
+
+/** The web development demo: the page that builds itself, its checklist, and its domain. */
+export const buildDemo = {
+  domain: "yourbusiness.com",
+  checks: ["Mobile first", "Accessible", "Indexed by search engines", "Editable by your team"],
+  summary:
+    "Example: a page for yourbusiness.com is drawn as a wireframe, filled with content, and checked for mobile, accessibility, search, and editing. Then its heading is changed in the CMS and the live page follows.",
+} as const;
+
+/** The app development demo: the screens a phone cycles through and the store release steps. */
+export const appDemo = {
+  screens: ["Sign in", "Choose a time", "Payment received"],
+  push: { title: "Booking confirmed", body: "See you on Wednesday at 16:30." },
+  stores: ["App Store", "Google Play"],
+  statuses: ["Submitted", "In review", "Live"],
+  summary:
+    "Example: an app signs a customer in, books a time, takes a payment, and sends a push notification. Then the release goes through App Store and Google Play review to live.",
+} as const;
+
+/** The digital marketing demo: a local search, the result list, and a dashboard without numbers. */
+export const marketingDemo = {
+  results: ["A directory listing", "A national chain", "A review site", "Your clinic"],
+  chart: { title: "Enquiries from search and ads", from: "Start", to: "Now" },
+  legend: ["Search", "Ads"],
+  summary:
+    'Example: someone searches "dental clinic near me", your clinic rises to the top result, and a dashboard tracks enquiries from search and ads over time. Example data, no numbers.',
+} as const;
+
+/** The custom software demo: the systems around your app. */
+export const hubDemo = {
+  centre: "Your app",
+  spokes: ["CRM", "Sheets", "ERP", "Payments", "Email"],
+  summary:
+    "Example: your app at the centre, connected to your CRM, sheets, ERP, payments, and email, deployed by a pipeline that builds, migrates, deploys to staging, and checks health.",
 } as const;
