@@ -156,7 +156,7 @@ export default function AppFlowDemo({ marks }: { marks: readonly ReactNode[] }) 
                         live
                           ? "border-ok bg-ok text-white"
                           : reached
-                            ? "border-accent bg-accent-soft text-accent"
+                            ? "border-accent bg-accent-soft text-ink"
                             : "border-line text-muted",
                       )}
                     >

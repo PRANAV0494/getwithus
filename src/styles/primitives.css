@@ -1203,8 +1203,8 @@
 .call-timer {
   margin-left: auto;
   color: var(--body);
-  font-family: var(--font-mono);
   font-size: 0.875rem;
+  font-weight: 600;
   font-variant-numeric: tabular-nums;
 }
 .call-wave {

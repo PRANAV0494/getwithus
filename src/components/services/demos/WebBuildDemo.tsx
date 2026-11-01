@@ -196,7 +196,7 @@ export default function WebBuildDemo() {
               <span
                 className={cn(
                   "rounded-full px-2.5 py-1 text-xs font-bold transition-colors duration-300",
-                  current.published ? "bg-accent-soft text-accent" : "bg-bg-soft text-muted",
+                  current.published ? "bg-accent text-accent-ink" : "bg-bg-soft text-muted",
                 )}
               >
                 {current.published ? "Published" : "Draft"}

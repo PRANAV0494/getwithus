@@ -2,7 +2,7 @@
 
 Marketing site, lead pipeline, and admin area for GetWithUs, a technology agency that builds websites, mobile apps, WhatsApp and voice agents, and runs digital marketing.
 
-- Public site: home page with a system diagram and a scroll-assembled blueprint of the services, seven service pages with 3D station panels, process, about, work (case studies, empty until real ones are approved), contact, a five-step project brief, privacy, and terms.
+- Public site, light by default with a dark toggle: a home page in CSS 3D (the services orbit, tilting service scenes, the WhatsApp and calling agent demos, a typing code editor, the tool sphere, the process stepper, pricing, and FAQ), seven service pages each with its own WebGL model and demo, process, about, work (case studies, empty until real ones are approved), contact, a five-step project brief, privacy, and terms.
 - Lead pipeline: every contact message and brief is confirmed with a 6-digit email code before the team hears about it. Verified leads notify the team by email, in the admin, and optionally on Slack and WhatsApp.
 - Admin (`/admin`): magic-link sign-in for an allowlist, dashboard, leads table with filters, lead detail with status, notes, and timeline, and a notification feed.
 
@@ -12,11 +12,11 @@ Marketing site, lead pipeline, and admin area for GetWithUs, a technology agency
 | --------- | -------------------------------------------------------------------------------------------------------- |
 | Framework | Next.js 16.4 (App Router, Cache Components, Turbopack), React 19.3, TypeScript 5.9                       |
 | Styling   | Tailwind CSS 4 with brand tokens in `src/styles/tokens.css`, Radix primitives (`radix-ui`), lucide icons |
-| 3D        | three 0.182, @react-three/fiber 9, @react-three/drei 10                                                  |
+| 3D        | CSS 3D on the home page; three 0.182, @react-three/fiber 9, @react-three/drei 10 on inner pages          |
 | Data      | Postgres 16, Drizzle ORM with postgres.js, Zod 4 at every boundary                                       |
 | Auth      | Auth.js (next-auth 5) magic links, database sessions, email allowlist                                    |
 | Email     | Resend, templates in react-email                                                                         |
-| State     | Zustand (scene and brief draft), react-hook-form                                                         |
+| State     | Zustand (3D quality tier and brief draft), react-hook-form                                               |
 | Tests     | Vitest (unit), Playwright with axe (end to end, accessibility, visual)                                   |
 
 Exact versions and the reasons for each pin are in [docs/decisions/0001-versions.md](docs/decisions/0001-versions.md).

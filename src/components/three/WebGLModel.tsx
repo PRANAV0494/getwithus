@@ -55,6 +55,8 @@ export default function WebGLModel({
       setIntent(true);
     }
     for (const name of INTENT) window.addEventListener(name, start, { passive: true });
+    // Scrolled before this script ran: that scroll was the first interaction.
+    if (window.scrollY > 0) start();
     return stop;
   }, []);
 

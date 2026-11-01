@@ -1,46 +1,103 @@
 import { expect, test } from "./support/test";
 
 test.describe("home", () => {
-  test("renders the hero and the service diagram", async ({ page }) => {
+  test("renders the hero, the orbit of services, and every section", async ({ page }) => {
     await page.goto("/");
-    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-    await expect(page.getByText("fig. 01 / what we build around your business")).toBeVisible();
-    await expect(page.getByRole("heading", { level: 2, name: "What we do" })).toBeAttached();
+    await expect(page.getByRole("heading", { level: 1 })).toContainText("We build the");
+    const orbit = page.getByRole("list", { name: "Services" });
+    await expect(orbit.getByRole("link")).toHaveCount(7);
+    for (const title of [
+      "Five things we build, all of them yours to keep",
+      "See it working",
+      "Real code, in your repo, from week one",
+      "The stack behind your project",
+      "How a project runs",
+      "What it costs",
+      "What you can hold us to",
+      "Questions people ask first",
+      "Tell us what you need",
+    ]) {
+      await expect(page.getByRole("heading", { level: 2, name: title })).toBeAttached();
+    }
+    // The home page is CSS 3D only: no WebGL canvas.
+    await expect(page.locator("canvas")).toHaveCount(0);
+    // No owner placeholder ever reaches the page.
+    expect(await page.content()).not.toContain("[OWNER:");
   });
 
-  test("the services stack follows the card nearest the reading line", async ({ page }) => {
+  test("an orbit chip opens its service page", async ({ page }) => {
+    // Under reduced motion the orbit holds still, so the chip can be clicked where it is.
+    await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/");
-    const stack = page.getByRole("img", { name: /Isometric stack of 5 service layers/ });
-    const plates = stack.locator("[data-layer]");
-    await expect(plates).toHaveCount(5);
-    const cards = page.locator("#service-lines [data-service-card]");
-    await expect(cards).toHaveCount(5);
+    await page
+      .getByRole("list", { name: "Services" })
+      .getByRole("link", { name: "WhatsApp bot" })
+      .click();
+    await expect(page).toHaveURL(/\/services\/agentic-automation\/whatsapp-bot$/);
+  });
 
-    await cards.nth(2).evaluate((card) => {
-      const rect = card.getBoundingClientRect();
-      window.scrollTo(0, window.scrollY + rect.top - window.innerHeight * 0.3);
-    });
-    await expect(cards.nth(2)).toHaveAttribute("data-active", "");
-    await expect(plates.nth(2)).toHaveAttribute("data-state", "active");
-    await expect(plates.nth(1)).toHaveAttribute("data-state", "done");
-    await expect(plates.nth(3)).toHaveAttribute("data-state", "ghost");
-    await expect(page.getByText("fig. 02 /")).toContainText("Agentic automation");
+  test("the theme toggle switches to dark, remembers it, and switches back", async ({ page }) => {
+    await page.goto("/");
+    const html = page.locator("html");
+    await expect(html).toHaveAttribute("data-theme", "light");
+    await page.getByRole("button", { name: "Switch to dark theme" }).click();
+    await expect(html).toHaveAttribute("data-theme", "dark");
+    await page.reload();
+    await expect(html).toHaveAttribute("data-theme", "dark");
+    await page.getByRole("button", { name: "Switch to light theme" }).click();
+    await expect(html).toHaveAttribute("data-theme", "light");
+  });
 
-    // The WhatsApp demo in that card starts playing once it is in view.
-    await expect(page.getByText("Hi! Can I book a haircut this Saturday?")).toBeVisible({
-      timeout: 5000,
-    });
-    await expect(page.locator("canvas")).toHaveCount(0);
+  test("the demo tabs switch between the WhatsApp bot and the calling agent", async ({ page }) => {
+    await page.goto("/");
+    const tabs = page.getByRole("tablist", { name: "Agent demos" });
+    await tabs.scrollIntoViewIfNeeded();
+    await expect(page.getByRole("figure").filter({ hasText: "dental clinic" })).toBeAttached();
+    await tabs.getByRole("tab", { name: "Calling agent" }).click();
+    await expect(page.getByText("Summary written to your CRM").first()).toBeAttached();
+  });
+
+  test("the process stepper shows the step you choose", async ({ page }) => {
+    await page.goto("/");
+    const steps = page.getByRole("tablist", { name: "How a project runs" });
+    await steps.scrollIntoViewIfNeeded();
+    await steps.getByRole("tab", { name: "Launch" }).click();
+    await expect(steps.getByRole("tab", { name: "Launch" })).toHaveAttribute(
+      "aria-selected",
+      "true",
+    );
+    await expect(page.getByRole("tabpanel").getByRole("heading", { name: "Launch" })).toBeVisible();
+  });
+
+  test("each pricing card asks for a quote on the brief, with the service chosen", async ({
+    page,
+  }) => {
+    await page.goto("/");
+    const quotes = page.getByRole("link", { name: /^Get a quote for this/ });
+    await expect(quotes).toHaveCount(5);
+    await expect(quotes.first()).toHaveAttribute("href", "/start?service=web-development");
+  });
+
+  test("under reduced motion the demos show their whole script", async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto("/");
+    await page.getByRole("tablist", { name: "Agent demos" }).scrollIntoViewIfNeeded();
+    await expect(page.getByText("You will get a confirmation by email.").first()).toBeVisible();
   });
 
   test("the terminal takes a brief: chips, email check, and confirmation", async ({ page }) => {
     await page.goto("/");
     await page.locator("#closing-cta-title").scrollIntoViewIfNeeded();
-    const website = page.getByRole("button", { name: "Website" });
+    // Scoped to the terminal's chip groups: "websites" also appears in other button names on the page.
+    const website = page
+      .getByRole("group", { name: "What do you need?" })
+      .getByRole("button", { name: "Website" });
     await expect(website).toBeVisible({ timeout: 10_000 });
     await website.click();
     await expect(website).toHaveAttribute("aria-pressed", "true");
-    const budget = page.getByRole("button", { name: "$15k+" });
+    const budget = page
+      .getByRole("group", { name: "Rough budget" })
+      .getByRole("button", { name: "$15k+" });
     await expect(budget).toBeVisible();
     await budget.click();
     const email = page.getByLabel("Email address");
@@ -79,7 +136,9 @@ test.describe("home", () => {
     await trigger.focus();
     await page.keyboard.press("Enter");
     await expect(trigger).toHaveAttribute("aria-expanded", "true");
-    const webLink = page.getByRole("link", { name: /Web development/ }).first();
+    const webLink = page
+      .getByRole("navigation", { name: "Primary" })
+      .getByRole("link", { name: /Web development/ });
     await expect(webLink).toBeVisible();
 
     await page.keyboard.press("Escape");
@@ -104,13 +163,57 @@ test("the phone menu returns focus to the Menu button when dismissed", async ({ 
   await expect(menuButton).toBeFocused();
 });
 
-test("a service page mounts its station panel or the static fallback", async ({ page }) => {
-  await page.goto("/services/web-development");
-  await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-  // The panel mounts after the page settles: a canvas, or the slab outline when WebGL is unavailable.
-  await expect(page.locator("canvas, svg[data-fallback='slab']").first()).toBeAttached({
-    timeout: 20_000,
+test.describe("service pages", () => {
+  test("a service page shows its still drawing, then its model after the first interaction", async ({
+    page,
+  }) => {
+    await page.goto("/services/web-development");
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+    const panel = page.locator(".model-panel");
+    await expect(panel.locator(".model-still svg")).toBeAttached();
+    // No WebGL until the visitor moves: nothing in the measured window.
+    await expect(panel.locator("canvas")).toHaveCount(0);
+    // A visitor keeps moving: moves made before the page hydrates are not seen, so keep moving until it is live.
+    let x = 200;
+    await expect
+      .poll(
+        async () => {
+          x = x === 200 ? 400 : 200;
+          await page.mouse.move(x, 300);
+          return panel.getAttribute("data-live");
+        },
+        { timeout: 20_000 },
+      )
+      .toBe("");
+    await expect(
+      page.getByRole("heading", { level: 2, name: "Watch a page come together" }),
+    ).toBeAttached();
+    // Give the model a moment to draw; console problems fail the test.
+    await page.waitForTimeout(1500);
   });
-  // Give the scene a moment to compile and draw; console problems fail the test.
-  await page.waitForTimeout(1500);
+
+  test("every service page renders without owner placeholders", async ({ page }) => {
+    for (const path of [
+      "/services",
+      "/services/web-development",
+      "/services/app-development",
+      "/services/agentic-automation",
+      "/services/agentic-automation/whatsapp-bot",
+      "/services/agentic-automation/calling-agent",
+      "/services/digital-marketing",
+      "/services/custom-software",
+    ]) {
+      await page.goto(path);
+      await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+      expect(await page.content(), path).not.toContain("[OWNER:");
+    }
+  });
+});
+
+test("the brief starts with the service named in the link", async ({ page }) => {
+  await page.goto("/start?service=digital-marketing");
+  await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+  await expect(page.getByRole("checkbox", { name: "Digital marketing" })).toBeChecked({
+    timeout: 10_000,
+  });
 });

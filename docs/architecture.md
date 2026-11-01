@@ -50,14 +50,16 @@ Route handlers in `src/app/api/v1` stay thin: origin check, rate limit, parse, c
 - `src/proxy.ts` (the Next.js 16 replacement for middleware) is an optimistic check: no session cookie under `/admin` means a redirect to `/admin/login?next=...`.
 - The real check is `requireAdmin()`, which reads the session from the database and re-checks the allowlist. It runs in the admin layout, at the top of every admin page (layouts and pages render in parallel, so a layout check alone would not stop a page from reading data), and in every admin server action. It is memoized per request with React `cache`.
 
-## The 3D panels
+## 3D: CSS on the home page, WebGL models on inner pages
 
-The home page has no WebGL since the Modern Engineering redesign ([decisions/0012-design-modern-engineering.md](decisions/0012-design-modern-engineering.md)): its hero figure is an SVG (`ServiceDiagram`), and its scroll-driven figure beside the services is an isometric SVG blueprint, server-rendered by `BlueprintFigure` and moved by `BlueprintController`, which reads the service cards' positions once per animation frame on passive scroll events and writes transforms and data attributes directly, without React renders. 3D lives only in the service pages' station panels.
+The final light design ([decisions/0014-final-light-3d-design.md](decisions/0014-final-light-3d-design.md)) keeps WebGL off the home page entirely. Its 3D is CSS: the hero orbit (`Orbit3D`, a CSS cube with a tilted ring of service links, drawn by `orbit-math.ts` in a 1000-unit space so the first frame is server-rendered in container units), the tilting service scenes (`TiltScene`), the code editor rig, and the tool sphere (`TagSphere`). Each runs on the shared frame loop (`components/motion/frame.ts`) only while on screen and the tab is visible, and holds a still frame under reduced motion.
 
-- `StationObject` renders one station (lattice slab, glass pane and phone, network, or field) in a 4:3 panel inside a bracketed figure, `aria-hidden`. It mounts once the page has settled (2.5 seconds after the load event or the first scroll, whichever comes first, then the next idle period) and the panel is within 200 px of the viewport. The chunk (three, fiber, drei, and the scene) loads only then, and only on service pages. See [decisions/0009-scene-mount-timing.md](decisions/0009-scene-mount-timing.md).
-- `useQuality` picks a tier once, only when a panel is about to mount (high, medium, low, or none), from WebGL 2 support, pointer type, cores, pixel ratio, Save-Data, and reduced motion. `none` shows a static SVG outline. drei's `PerformanceMonitor` steps the tier down on sustained frame drops; an error boundary drops to `none` on any scene error.
-- `StationRig` holds a fixed camera per station (`STATION_VIEWS`) and turns the object slowly. The canvas renders on demand at 30 frames per second, only while the panel is on screen and the tab is visible, and renders a single still frame under reduced motion.
-- Everything is procedural and seeded (`src/lib/random.ts`), so a panel is identical on every load. Colours come from the CSS tokens at mount, so the light is the same cyan as the UI.
+Every inner page has one procedural R3F model in its header (`components/three/models`), named in `models/keys.ts` so pages pick one without importing three:
+
+- `WebGLModel` shows the model's still SVG (`ModelStill`) until the visitor first scrolls, moves the pointer, or presses a key and the panel is near the viewport. Only then does `useQuality` probe WebGL and pick a tier, and only then is the 3D chunk (three, fiber, drei, and the models, through `ModelCanvas`) fetched. The canvas fades in over the still once its first frame is drawn. A visitor who never interacts sees the still drawing, which keeps WebGL out of every page-load measurement.
+- `ModelCanvas` renders on demand: 30 frames per second while the panel is on screen, one frame otherwise. Models animate through `useModelFrame`, which clamps the time step and, under reduced motion or for the static legal models, poses each model at time 0.
+- Colours come from the CSS tokens (`readModelPalette`), re-read on the `themechange` event the theme toggle dispatches, so a model follows the theme without remounting.
+- Any error inside a model drops the page to tier `none` (the still stays) through `SceneErrorBoundary`; a lost WebGL context does the same.
 
 ## Cache Components rules
 

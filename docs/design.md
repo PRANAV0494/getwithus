@@ -119,6 +119,20 @@ Motion and 3D primitives (`src/components/motion`, `src/components/three`), all 
 | `WebGLModel`                                 | An inner page's R3F model in its header: a still SVG until the first scroll, pointer move, or key press, then the scene at 30 fps, paused off screen, re-reading colours on theme change |
 | `MagneticButton`, `TiltCard`, `LazyWhenNear` | Kept from earlier work: the pull toward the pointer on primary buttons, pointer tilt, and loading below-the-fold code when it comes near                                                 |
 
+Service page demos (`src/components/services/demos`), each rendering its finished state first (what screen readers and reduced motion get, with a visually hidden summary), then replaying while on screen through `useDemoLoop`, and labelled "Example data" or "Example conversation":
+
+| Demo           | Page               | What it shows                                                                                                       |
+| -------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------- |
+| `WebBuildDemo` | Web development    | The URL types, the wireframe draws, content fills, the checklist ticks, then a CMS edit updates the live heading    |
+| `AppFlowDemo`  | App development    | Sign-in, booking, and payment screens slide, a push drops in, then the App Store and Google Play release chips tick |
+| `WorkflowDemo` | Agentic automation | Five workflow nodes light in turn while the log types each line                                                     |
+| `SearchDemo`   | Digital marketing  | A local search types, the client's result rises to the top, a dashboard draws without numbers                       |
+| `HubDemo`      | Custom software    | The client's app with spokes to five systems and data flowing, beside a typing deploy log                           |
+
+The WhatsApp bot and calling agent pages use `ChatDemo` and `CallDemo`; the WhatsApp page's note adds `WhatsAppWindow`, the 24-hour window as a timeline.
+
+Page models (`src/components/three/models`, procedural, in the theme's colours, each with a still drawing in `ModelStill`): a glass browser (web), a phone cycling screens (app), an agent node graph (agentic), a phone with floating bubbles (WhatsApp), a handset in sound rings (calling), a funnel with falling particles (marketing), server blocks and a hub (custom software), the five on a turntable (`/services`), four platforms lighting in turn (`/process`), the cube with the commitment words orbiting (`/about`), folders that fan out (`/work`, closed while empty), a device frame with the screenshot (case studies), a paper plane around an envelope (`/contact`), a cube gaining a face per brief step (`/start`), a still shield and document (legal), and the cube drifting from an empty orbit (404).
+
 ## Motion
 
 Allowed, and only in these places:
@@ -140,6 +154,7 @@ Run `pnpm guard` (part of `pnpm check` and `pnpm build`); it enforces the mechan
 
 - [ ] **Motion runs only on screen.** Every looping animation pauses when off screen or in a background tab (IntersectionObserver plus `visibilitychange`).
 - [ ] **Reduced motion gets a calm site.** `prefers-reduced-motion` gives a complete, still, readable page: no typing (show the final text); marquees stop and become horizontally scrollable; no orbit or sphere drift (draw a still frame; dragging still works); no tilt and no magnetic pull; chat and call demos show the full conversation.
+- [ ] **Decorative text is marked as such.** Pieces that are pure decoration and hidden from assistive technology (the stack sphere, whose chips fade with depth) carry `data-decorative`; the axe suite leaves them out of the contrast check, as WCAG 1.4.3 exempts pure decoration. Everything they show is also real text elsewhere on the page. Text on the accent tint (`--accent-soft`) is ink, not accent: accent on its own tint is 4.3:1.
 - [ ] **Animated text stays readable for screen readers.** The full text is always in the DOM. Animated copies are `aria-hidden`; the real text is visually hidden or in an `aria-label`. Demos carry a full transcript in a visually hidden list.
 - [ ] **Largest heading:** 80 px on desktop, 44 px on mobile.
 - [ ] **Monospace is for code and terminals only.** No monospaced indexes or labels on marketing pages.

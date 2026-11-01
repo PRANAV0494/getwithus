@@ -33,6 +33,7 @@ import Typewriter from "@/components/motion/Typewriter";
 import ModelStill from "@/components/three/ModelStill";
 import WebGLModel from "@/components/three/WebGLModel";
 import TechLogo from "@/components/ui/TechLogo";
+import { isFilled } from "@/config/site";
 import { codeSamples } from "@/content/code-samples";
 import { callDemo, whatsappDemo } from "@/content/demos";
 import { processSteps } from "@/content/process";
@@ -78,7 +79,6 @@ const orbitItems: OrbitItem[] = serviceLines
 
 const STEP_ICONS = [FileText, Code, Rocket, RefreshCw];
 
-const shown = (value: string) => !value.includes("[OWNER:");
 
 const steps = processSteps.map((step, index) => {
   const StepIcon = STEP_ICONS[index] ?? FileText;
@@ -90,7 +90,7 @@ const steps = processSteps.map((step, index) => {
         <h3 className="type-h4 text-ink">{step.title}</h3>
         <p className="mt-2 text-body">{step.short}</p>
         <p className="mt-3 text-sm font-semibold text-ink">
-          You get: {step.youGet.filter(shown).join(", ")}
+          You get: {step.youGet.filter(isFilled).join(", ")}
         </p>
       </>
     ),

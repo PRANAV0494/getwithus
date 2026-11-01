@@ -30,7 +30,7 @@ export default function ContactPage() {
         ]}
         visual={<WebGLModel model="paper-plane" still={<ModelStill model="paper-plane" />} />}
       />
-      <section aria-label="Send us a message" className="py-16 md:py-20">
+      <section aria-label="Contact form" className="py-16 md:py-20">
         <Container
           className={cn(
             "grid items-start gap-10",

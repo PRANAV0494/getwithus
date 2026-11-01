@@ -35,3 +35,15 @@ This record supersedes 0012 for the public site and changes [0008](0008-no-smoot
 - The guard drops the purple-family and coloured-gradient rules, adds a rule against hand-drawn logo files, and keeps the rest (dashes, emoji, branding, placeholder text, slop vocabulary, custom cursor, forbidden motion imports, fake social proof, the strict owner-placeholder gate).
 - Light-theme values from the prototype that fell under 4.5:1 for text are darkened just enough to pass (amber, the success green, the WhatsApp button, the editor's comments and line numbers); the contrast tables are in design.md.
 - The visual baselines, Open Graph images, and emails move to the light palette.
+
+## Outcome (2026-11-01)
+
+Built in five phases, each gated by `pnpm check` and `pnpm build`:
+
+1. Rules, this record, and the guard.
+2. Tokens for both themes, the theme script and toggle, the fonts, and every primitive, shown on the hidden `/design/final-kit` page.
+3. The home page; GSAP and Motion were removed with the components that used them and banned again.
+4. The seven service pages, each with a demo and a procedural model.
+5. The remaining pages, Open Graph images, and emails.
+
+The service pages' station scene from 0009 (`StationObject`, the four stations, and the seeded world) was retired: every inner page now mounts its own model through `WebGLModel` on the first interaction, which also replaces 0009's settle timer. Measurements are in [handoff.md](../handoff.md).

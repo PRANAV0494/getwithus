@@ -36,7 +36,7 @@ export default function ProcessSection({
           <p className="mt-2 text-body">{step.short}</p>
           {youGet.length ? (
             <p className="mt-3.5 inline-flex flex-wrap items-center gap-x-2 gap-y-1 rounded-[14px] bg-accent-soft px-3.5 py-2 text-[0.875rem] text-ink">
-              <span className="font-bold text-accent">{home.process.youGet}:</span>
+              <span className="font-bold">{home.process.youGet}:</span>
               {youGet.join(", ")}
             </p>
           ) : null}

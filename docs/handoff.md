@@ -10,7 +10,9 @@ Design: a design lab at `/design` holds five alternative website directions and 
 
 ## 1. Owner placeholders
 
-`pnpm guard:strict` lists these 50 lines (55 placeholders). Replace each with the real fact, or delete the sentence when it does not apply. Many pages and emails read from `src/config/site.ts`, so the first group fixes most of the site at once.
+`pnpm guard:strict` lists 67 lines: the 66 placeholders below, and `src/config/site.ts:7`, the one line of code that spells the placeholder mark (`OWNER_MARK`, which `known()` and `isFilled()` use); that line stays. Replace each placeholder with the real fact, or delete the sentence when it does not apply. Many pages and emails read from `src/config/site.ts`, so the first group fixes most of the site at once.
+
+Nothing on the public site renders a raw placeholder except the two legal documents, whose text needs every fact before launch: everywhere else an unknown fact hides its line, card, or section (the e2e suite checks the home and service pages for this).
 
 ### Brand, contact, and promises (`src/config/site.ts`)
 
@@ -64,9 +66,9 @@ The website pricing card is marked `featured` (the dark card) for show; move or 
 
 | Location                                        | Needed                                                                                                                     |
 | ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `src/content/pages.ts:82`                       | About page: two sentences on when the company was founded, where it is based, and the team's background                    |
+| `src/content/pages.ts:83`                       | About page: two sentences on when the company was founded, where it is based, and the team's background                    |
 | `src/content/team.ts:6`                         | Team members (names, roles, short bios, real photos) or confirm none                                                       |
-| `src/content/process.ts:57`                     | How you keep clients updated: Slack, WhatsApp, or email                                                                    |
+| `src/content/process.ts:54`                     | How you keep clients updated: Slack, WhatsApp, or email                                                                    |
 | `src/content/services/web-development.ts:41`    | Optional starting price or typical range, or remove the sentence                                                           |
 | `src/content/services/web-development.ts:56`    | Your position on WordPress (default offered: build on Next.js, migrate existing WordPress sites keeping URLs and rankings) |
 | `src/content/services/app-development.ts:19`    | Payment providers you support (Stripe, Razorpay, or other)                                                                 |
@@ -156,6 +158,20 @@ Parameter order, as the app sends them: `{{1}}` the lead's name, `{{2}}` company
 
 ## 4. Deviations from the specification
 
+### The final design (docs/build-final-prompt.md)
+
+Choices made while building the final light 3D design, beyond the decisions recorded in [build-final-plan.md](build-final-plan.md) section 12:
+
+- **Orbit chips** stay at least 66 percent opaque at the back of the ring (the prototype went to 50 percent): they are links, and their text must stay readable. The ring also slows to a stop while a chip is hovered or focused, so it can be clicked.
+- **The process stepper** also holds still while the pointer or keyboard focus is on it, as auto-advancing content must be pausable (WCAG 2.2.2).
+- **Chat, call, and service demos** render their finished state first and then replay while on screen. Visitors without JavaScript, reduced motion, and screen readers get the whole demo, and nothing jumps.
+- **Decorative text** (the stack sphere, hidden from assistive technology) is left out of the axe contrast check with `data-decorative`; its names are real text in the category buttons.
+- **Industries** stay hidden (decision 4), and **seven tools** without a Simple Icons mark (AWS, Azure, OpenAI, Twilio, Plivo, Ahrefs, Looker Studio) are shown by name (decision 3).
+- **The service pages' "How it is priced"** shows the service's pricing card and its pricing sentence with any placeholder sentence left out.
+- **The station scene** from the earlier design was retired; every inner page has its own model instead.
+
+### The original build specification
+
 | Spec                                                                           | What was built                                                                                                                                                                                                                      | Why                                                                                                                                                                                  |
 | ------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | 2.1, 4.2 to 4.4, 4.6, and 5: the "one light" design and the home 3D scene      | The Modern Engineering design: cyan accent, Archivo and JetBrains Mono, headings up to 60 px, 2 px and square corners, one-time section reveals, SVG figures (a diagram and a scroll-assembled blueprint) instead of the home scene | You selected D in the design lab and asked for it on the live site. See [0012](decisions/0012-design-modern-engineering.md)                                                          |
@@ -182,42 +198,45 @@ Parameter order, as the app sends them: `{{1}}` the lead's name, `{{2}}` company
 
 ### Bundle sizes
 
-Initial JavaScript (module scripts the page loads, gzipped at level 9; the 38.6 KB `noModule` polyfill that modern browsers skip is not counted), production build of 2026-11-01, budget 180 KB per marketing route:
+Initial JavaScript (module scripts the page loads, gzipped at level 9; the 38.6 KB `noModule` polyfill that modern browsers skip is not counted), production build of the final design, 2026-11-01. "Before" is the Modern Engineering build measured the same way earlier that day.
 
-| Route                                                | Initial JS |
-| ---------------------------------------------------- | ---------- |
-| `/`                                                  | 174.6 KB   |
-| `/services`                                          | 172.8 KB   |
-| `/services/web-development` (and every service page) | 178.6 KB   |
-| `/process`, `/work`, `/privacy`, `/terms`            | 172.8 KB   |
-| `/about`                                             | 178.3 KB   |
-| `/contact`, `/start`                                 | 173.2 KB   |
-| `/admin/login`                                       | 178.4 KB   |
+| Route                                                | Before   | Final design |
+| ---------------------------------------------------- | -------- | ------------ |
+| `/`                                                  | 174.6 KB | 209.3 KB     |
+| `/services`                                          | 172.8 KB | 195.0 KB     |
+| `/services/web-development` (and every service page) | 178.6 KB | 206.1 KB     |
+| `/process`                                           | 172.8 KB | 194.7 KB     |
+| `/about`                                             | 178.3 KB | 199.2 KB     |
+| `/contact`, `/start`                                 | 173.2 KB | 193.7 KB     |
+| `/privacy`, `/terms`                                 | 172.8 KB | 193.8 KB     |
+| `/admin/login`                                       | 178.4 KB | 184.5 KB     |
 
-The home page went from 176.3 KB to 174.6 KB: the scene loader left it, and the reveal observer (0.3 KB, every marketing page), the blueprint controller (1.3 KB), and the hero circuit's pause controller (0.2 KB) came in. 3D chunk (three, fiber, drei, and the scene), loaded only on service pages after the page settles and the panel comes near: 261.4 KB gzipped (budget 450 KB).
+Every marketing route is now over the earlier 180 KB budget. About 20 KB of the growth is shared by every marketing page (the theme toggle and its store, the new header and menus, `WebGLModel`, the reading progress, and Radix and lucide parts they pull in); the home page adds about 15 KB more for its interactive sections (orbit, sphere, editor, demos, stepper). The model chunk (three, fiber, drei, and the page models) loads only after the first interaction on an inner page: 285.9 KB gzipped, inside the 450 KB budget.
 
 ### Lighthouse (local)
 
-Mobile, Lighthouse 13.6 defaults (simulated 4G, 4x CPU slowdown), against `next start` on a Windows 11 laptop (Intel Core i7-13700HX, 16 GB, RTX 4050), Chromium 156 headless with GPU, on the Modern Engineering build of 2026-11-01. Median of three runs, with every run's score in parentheses. This machine is noisy: the same build has swung by up to 17 points between runs, almost entirely in Total Blocking Time.
+Mobile, Lighthouse 13.6 defaults (simulated 4G, 4x CPU slowdown), against `next start` on a Windows 11 laptop (Intel Core i7-13700HX, 16 GB, RTX 4050), Chromium 156 headless with GPU, on the final design's build of 2026-11-01. Median of three runs, with every run's performance score in parentheses. This machine is noisy, mostly in Total Blocking Time.
 
-| Page                        | Performance      | Accessibility | Best practices | SEO | LCP   | TBT    | CLS | Target      |
-| --------------------------- | ---------------- | ------------- | -------------- | --- | ----- | ------ | --- | ----------- |
-| `/`                         | 99 (99, 99, 99)  | 100           | 100            | 100 | 0.9 s | 110 ms | 0   | 90, met     |
-| `/services`                 | 99 (100, 98, 99) | 100           | 100            | 100 | 0.9 s | 100 ms | 0   | 95, met     |
-| `/process`                  | 99 (99, 99, 96)  | 100           | 100            | 100 | 1.3 s | 80 ms  | 0   | 95, met     |
-| `/about`                    | 96 (95, 96, 97)  | 100           | 100            | 100 | 0.9 s | 240 ms | 0   | 95, met     |
-| `/contact`                  | 98 (96, 98, 99)  | 100           | 100            | 100 | 0.9 s | 150 ms | 0   | 95, met     |
-| `/start`                    | 98 (97, 98, 99)  | 100           | 100            | 100 | 1.3 s | 120 ms | 0   | 95, met     |
-| `/privacy`                  | 96 (95, 96, 99)  | 100           | 100            | 100 | 0.9 s | 220 ms | 0   | 95, met     |
-| `/services/web-development` | 80 (71, 98, 80)  | 100           | 100            | 100 | 0.9 s | 850 ms | 0   | 95, not met |
+| Page                                        | Performance     | Accessibility | Best practices | SEO | LCP   | TBT     | CLS | Target      |
+| ------------------------------------------- | --------------- | ------------- | -------------- | --- | ----- | ------- | --- | ----------- |
+| `/`                                         | 70 (69, 70, 70) | 96            | 100            | 100 | 2.1 s | 1155 ms | 0   | 90, not met |
+| `/services`                                 | 81 (80, 82, 81) | 100           | 100            | 100 | 1.2 s | 743 ms  | 0   | 85, not met |
+| `/services/web-development`                 | 82 (78, 82, 86) | 100           | 100            | 100 | 1.2 s | 512 ms  | 0   | 85, not met |
+| `/services/agentic-automation/whatsapp-bot` | 96 (89, 96, 97) | 100           | 100            | 100 | 1.2 s | 225 ms  | 0   | 85, met     |
+| `/process`                                  | 98 (98, 99, 98) | 100           | 100            | 100 | 1.2 s | 138 ms  | 0   | 85, met     |
+| `/about`                                    | 96 (96, 96, 96) | 100           | 100            | 100 | 1.1 s | 213 ms  | 0   | 85, met     |
+| `/contact`                                  | 93 (93, 93, 94) | 100           | 100            | 100 | 1.1 s | 310 ms  | 0   | 85, met     |
+| `/start`                                    | 94 (94, 93, 95) | 100           | 100            | 100 | 1.1 s | 276 ms  | 0   | 85, met     |
+| `/privacy`                                  | 98 (98, 98, 98) | 100           | 100            | 100 | 1.2 s | 163 ms  | 0   | 85, met     |
 
-What remains is React hydration and the framework runtime. The service page's spread (71 to 98) is the 3D panel: it loads 2.5 s after the page settles (see [0009](decisions/0009-scene-mount-timing.md)), and in two of three runs Lighthouse was still recording then, so the panel's script and shader work counted (in the 98 run the 3D chunk never loaded inside the window). The previous design measured 83 to 90 on this page for the same reason. The brief wizard's form code loads right after hydration on `/start`. On the previous design (2026-10-31) the same machine measured `/start` at 93, `/privacy` at 91 (its LCP paragraph sometimes recorded after the web font, at 3.1 s), and a service page at 83 to 90; the first run of this build scored accessibility 96 on `/services` and `/about` because scroll-linked reveals left text at the fold half faded, which led to the reveal change in [0012](decisions/0012-design-modern-engineering.md). Before the scene-timing change the home page scored 79 and a service page 75.
+No WebGL is in any of these numbers: the models load after the first interaction. What costs time is hydrating many interactive sections at once: the home page hydrates the orbit, typewriter, marquees, tilt cards, both demos and their tabs, the editor, the sphere, the stepper, the FAQ, and the terminal together; `/services` and the web development page carry the service cards and the build demo. Home accessibility is 96 only because Lighthouse cannot leave out the decorative sphere's faded chips (section 4); the axe suite, which does, reports no violations on any page in either theme.
+
+Levers, for when you decide the trade-off (decision 7): hydrate the below-the-fold sections only as they come near (the server already renders their first frame, so nothing would look different), start the orbit and sphere after the first interaction, replace Radix tabs and accordion with native elements, and split the shared header and menus so pages load less up front.
 
 ### Other measurements
 
 - CLS 0.0000 measured in the browser on `/`, `/contact`, `/start`, and a service page at 1280 and 390 px.
-- 3D frame rate, measured on 2026-10-31 while scrolling the former home scene (tier high, Chromium with the RTX 4050 through D3D11): about 54 fps average, 16.8 ms 95th percentile frame time. With software rendering (SwiftShader) 7.7 fps, which is why the quality tiers and the performance monitor step down on slow devices. The service panels render the same stations, capped at 30 fps.
-- Unit tests: 21 files, 161 tests. End to end: 19 tests (the phone menu focus check, the service panel check, and the blueprint check were added on 2026-11-01; the blueprint test also asserts the home page has no canvas).
+- Unit tests: 25 files, 193 tests. End to end: 44 tests, including axe on ten pages in both themes and the home hero's visual baselines in both themes at 390 and 1440 px.
 - Dependency audit (`pnpm audit`, 2026-10-31): production has 1 low (`deepmerge`, via react-email's `html-to-text`; no patched version exists; it only merges the app's own static options). Development tooling has 3 moderate (`esbuild` via drizzle-kit's loader, which affects only esbuild's dev server, unused here; `minimatch` via typescript-eslint; `glob` via the react-email CLI). CI fails on high or critical.
 
 ## 6. Browsers and devices tested
@@ -229,16 +248,19 @@ What remains is React hydration and the framework runtime. The service page's sp
 | Chromium (Playwright build), Linux, GitHub Actions | The end-to-end suite in CI                                                                                               | 16 of 16 passed on 2026-10-31, before the redesign; the visual baselines need refreshing (known limitations)                                               |
 | WebKit 27.2 (Playwright build), Windows            | Headless, 1280 and 390 px, mobile emulation; every public page loaded and scrolled                                       | No console errors or warnings, no horizontal overflow. Service panels render. Forms were not driven in WebKit                                              |
 
-Not tested, and needed before launch (launch checklist item 13): Safari on macOS, a real iPhone, a real Android phone, and a screen reader pass (NVDA or VoiceOver) on the home page, the contact form, and the admin lead detail. Keyboard: the e2e suite opens and closes the mega menu by keyboard, and the verification code was entered by keyboard in the form runs; a full keyboard-only pass belongs with the screen reader check. axe reports zero violations on `/`, `/contact`, a service page, `/privacy`, and `/admin/login`.
+Not tested, and needed before launch (launch checklist item 13): Safari on macOS, a real iPhone, a real Android phone, and a screen reader pass (NVDA or VoiceOver) on the home page, the contact form, and the admin lead detail. Keyboard: the e2e suite opens and closes the mega menu by keyboard, and the verification code was entered by keyboard in the form runs; a full keyboard-only pass belongs with the screen reader check. axe reports zero violations in both themes on `/`, `/services`, two service pages, `/process`, `/about`, `/contact`, `/start`, `/privacy`, and `/admin/login` (decorative pieces excluded, section 4).
 
 ## 7. Known limitations
 
 - Entering a wrong verification code makes the browser log "Failed to load resource: the server responded with a status of 400". Browsers log every 4xx response to the console. The same applies to an expired code (410), a locked code (423), and rate limits (429). The page handles each one with its message; only the browser's own network log line appears. Avoiding it would mean answering errors with HTTP 200, which breaks the API contract in section 12.
 - Visiting a missing URL logs the 404 document's status the same way. That is the 404 page working.
-- Firefox printed two one-time WebGL notes from inside three.js on the 3D pages before the redesign (the 2026-11-01 sweep showed none): "generateMipmap: Tex image TEXTURE_2D level 0 is incurring lazy initialization" (high tier, glass transmission) and "Drawing to a destination rect smaller than the viewport rect" (small service panel at phone widths). Rendering is correct. Chromium and WebKit show neither.
-- The service pages measure between 71 and 98 locally depending on whether Lighthouse's window catches the 3D panel's deferred load (section 5); every other page met its target. If the preview confirms it, the fix is to load each panel's 3D on the first scroll or key press, as the home page blueprint's controller works, at the cost of desktop visitors seeing the static outline until they scroll. Other levers: lighter client islands (for example a native details element for the FAQ instead of Radix) and deferring the brief wizard's validation code.
-- Lighthouse does not measure the service panels' startup cost (see [0009](decisions/0009-scene-mount-timing.md)). Watch field INP after launch.
-- Visual snapshot baselines are committed for Windows only, regenerated for the redesign on 2026-11-01. The Linux baselines in the first CI run's artifact (2026-10-31) show the old design and must not be committed; take them from the first CI run after this change instead. Until Linux baselines are committed under `tests/e2e/visual.spec.ts-snapshots/`, CI writes them fresh on each run instead of comparing.
+- The closing terminal on the home page sends its brief to `submitBrief`, which only validates and logs it (decision 5 in [build-final-plan.md](build-final-plan.md)). Connect it to the lead pipeline, or point the terminal at `/start`, before launch.
+- "Industries we build for" stays hidden until the owner confirms the list in `src/content/industries.ts`.
+- Every pricing card shows its "after a short scoping call" line until the owner sets prices in `src/content/pricing.ts`; the Website card is `featured` for show.
+- The legal pages are the only public pages that show raw placeholders: their text needs every fact (section 1).
+- A model's still drawing stays until the visitor's first scroll, pointer move, or key press; moves made before the page hydrates are not counted, so a visitor who never interacts again keeps the still drawing.
+- Lighthouse does not measure the models' startup cost, by design: they load after the first interaction. Watch field INP after launch.
+- Visual snapshot baselines are committed for Windows only: the home hero in both themes at 390 and 1440 px, captured under reduced motion (the design's still frame), regenerated for the final design on 2026-11-01. Earlier Linux artifacts show old designs and must not be committed; take them from the first CI run after this change instead. Until Linux baselines are committed under `tests/e2e/visual.spec.ts-snapshots/`, CI writes them fresh on each run instead of comparing.
 - Dependabot's first scan opened update pull requests for the GitHub Actions used by CI (`actions/checkout`, `actions/setup-node`, and `actions/upload-artifact` to v7, `pnpm/action-setup` to v6; the workflow was written at v4) and one moving `three` to 0.186. Merge the Actions updates once their checks pass. Close the `three` one: the pin at 0.182.0 is deliberate (see [0001](decisions/0001-versions.md)), and Dependabot will propose it again unless an `ignore` rule is added for `three` and `@types/three`.
 - Resend, Slack, WhatsApp, Turnstile, Vercel Cron, and the Vercel preview Origin rule were not exercised against the real services (no credentials). They are covered by unit tests with mocked `fetch` and by the console transport. Launch checklist items 6 to 8 cover them on the real deployment.
 - `next-auth` 5 is a beta release, pinned. Read its changelog before upgrading.
@@ -253,7 +275,6 @@ Explicitly out of scope for this pass:
 - A blog or resources section.
 - Real case studies: the structure, pages, and permission rules exist (see [content.md](content.md#add-a-case-study)), but there are none until clients approve them.
 - Testimonials: none are shown. If real ones with written permission arrive, add a content file with a `permission: true` field and build the section then.
-- A light theme.
 
 Worth considering after launch:
 

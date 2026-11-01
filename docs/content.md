@@ -18,6 +18,7 @@ Before editing copy, read the hard rules in [design.md](design.md#hard-rules-che
 | Industries (hidden while empty)                                                       | `src/content/industries.ts`                                                                   |
 | Tools, their categories, and their official marks                                     | `src/content/tools.ts`                                                                        |
 | Demo scripts (WhatsApp, calling agent, workflow, deploy log)                          | `src/content/demos.ts`                                                                        |
+| Headings and leads above each service page's demo                                     | `src/content/service-demos.ts`                                                                |
 | Code samples in the home page editor                                                  | `src/content/code-samples.ts`                                                                 |
 | Process steps                                                                         | `src/content/process.ts`                                                                      |
 | Commitments (home and about)                                                          | `src/content/commitments.ts`                                                                  |
