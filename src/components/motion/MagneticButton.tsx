@@ -8,11 +8,17 @@ import { cn } from "@/lib/cn";
 
 /** How far beyond the button's half size the pull reaches, in pixels. */
 const REACH = 46;
+/** The furthest the button leans, in pixels: less than the gap to a neighbouring control. */
+const MAX_LEAN = 8;
+
+const clamp = (value: number) => Math.max(-MAX_LEAN, Math.min(MAX_LEAN, value));
 
 /**
  * Wraps a primary button so it leans toward the pointer (x 0.28, y 0.38 of the
- * offset from its centre) once the pointer is within half its size plus 46 px,
- * and springs back when it leaves; hovering adds the cyan glow (globals.css).
+ * offset from its centre, at most 8 px) once the pointer is within half its size
+ * plus 46 px, and springs back when it leaves; hovering adds the cyan glow
+ * (globals.css). It does not lean while the pointer is on another control, so it
+ * never slides over a neighbour (the header's theme toggle sits 10 px away).
  * Fine pointers only, and still under reduced motion.
  */
 export default function MagneticButton({
@@ -37,9 +43,15 @@ export default function MagneticButton({
       const rect = element.getBoundingClientRect();
       const dx = x - (rect.left + rect.width / 2);
       const dy = y - (rect.top + rect.height / 2);
-      if (Math.hypot(dx, dy) < Math.max(rect.width, rect.height) / 2 + REACH) {
+      const near = Math.hypot(dx, dy) < Math.max(rect.width, rect.height) / 2 + REACH;
+      const other = near
+        ? document
+            .elementFromPoint(x, y)
+            ?.closest("a, button, input, select, textarea, [role=button]")
+        : null;
+      if (near && !(other && !element.contains(other))) {
         element.dataset.pull = "";
-        element.style.transform = `translate(${(dx * 0.28).toFixed(1)}px, ${(dy * 0.38).toFixed(1)}px)`;
+        element.style.transform = `translate(${clamp(dx * 0.28).toFixed(1)}px, ${clamp(dy * 0.38).toFixed(1)}px)`;
       } else if ("pull" in element.dataset) {
         release();
       }
