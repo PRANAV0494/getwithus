@@ -44,15 +44,20 @@ export default function PageHero({
         {crumbs && crumbs.length > 1 ? (
           <nav aria-label="Breadcrumb" className="mb-8">
             <ol className="flex flex-wrap items-center gap-1.5 text-sm font-semibold text-muted">
-              {crumbs.slice(0, -1).map((crumb) => (
+              {/* Each separator leads its item, so a wrapped trail never ends a line on a lone chevron. */}
+              {crumbs.slice(0, -1).map((crumb, index) => (
                 <li key={crumb.path} className="flex items-center gap-1.5">
-                  <Link href={crumb.path} className="transition-colors duration-150 hover:text-ink">
+                  {index > 0 ? <ChevronRight size={14} strokeWidth={2} aria-hidden="true" /> : null}
+                  <Link
+                    href={crumb.path}
+                    className="inline-block py-1 transition-colors duration-150 hover:text-ink"
+                  >
                     {crumb.name}
                   </Link>
-                  <ChevronRight size={14} strokeWidth={2} aria-hidden="true" />
                 </li>
               ))}
-              <li aria-current="page" className="text-accent">
+              <li aria-current="page" className="flex items-center gap-1.5 text-accent">
+                <ChevronRight size={14} strokeWidth={2} aria-hidden="true" className="text-muted" />
                 {crumbs.at(-1)?.name}
               </li>
             </ol>

@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef } from "react";
-import type { Group } from "three";
+import { useMemo, useRef } from "react";
+import { BoxGeometry, EdgesGeometry, type Group } from "three";
 import { useModelFrame, useModelPalette } from "@/components/three/models/context";
 import { useBriefStore } from "@/stores/brief.store";
 
@@ -29,6 +29,8 @@ export default function AssemblingCube() {
   // One face per completed step (at least the base), five once the brief is sent for verification, six when confirmed.
   const faces = done ? 6 : pending ? 5 : Math.max(1, step - 1);
   const root = useRef<Group>(null);
+  /** The outline: the cube's twelve edges only (a wireframe also draws each face's diagonal). */
+  const outline = useMemo(() => new EdgesGeometry(new BoxGeometry(SIZE, SIZE, SIZE)), []);
   const panels = useRef<(Group | null)[]>([]);
   /** How far out each face sits: 1 in place, 2.4 waiting outside. */
   const offsets = useRef(FACES.map(() => 2.4));
@@ -50,10 +52,9 @@ export default function AssemblingCube() {
   return (
     <group rotation={[0.45, 0, 0]}>
       <group ref={root} rotation={[0, -0.7, 0]}>
-        <mesh>
-          <boxGeometry args={[SIZE, SIZE, SIZE]} />
-          <meshBasicMaterial color={palette.accent} wireframe transparent opacity={0.35} />
-        </mesh>
+        <lineSegments geometry={outline}>
+          <lineBasicMaterial color={palette.accent} transparent opacity={0.45} />
+        </lineSegments>
         {FACES.map((face, index) => (
           <group
             key={index}

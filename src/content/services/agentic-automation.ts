@@ -2,7 +2,7 @@ import type { ServiceContent } from "@/content/types";
 
 /** Pricing shared by the agentic automation page and its two product pages. */
 export const agenticPricing =
-  "Setup as a fixed-price project, then a monthly fee for operation and changes. Platform costs (WhatsApp conversations, telephony minutes, model usage) are billed to your own accounts at cost.";
+  "Setup as a fixed-price project, then a monthly fee for operation and changes. Platform costs (WhatsApp messages, telephony minutes, model usage) are billed to your own accounts at cost.";
 
 export const agenticAutomation: ServiceContent = {
   slug: "agentic-automation",

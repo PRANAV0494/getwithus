@@ -47,13 +47,12 @@ export const webDevelopment: ServiceContent = {
     },
     {
       question: "Who owns the code?",
-      answer:
-        "You do. The repository, hosting, and domain are in your accounts from the first week.",
+      answer: "You do. The repository, hosting, and domain are in your accounts from day one.",
     },
     {
       question: "Do you build on WordPress?",
       answer:
-        "[OWNER: your real position; default: We build on Next.js and can migrate existing WordPress sites, keeping URLs and search rankings intact.]",
+        "[OWNER: your real position; default: We build on Next.js and can migrate existing WordPress sites, keeping your URLs and setting up redirects so search traffic carries over.]",
     },
     {
       question: "How long does a website take?",

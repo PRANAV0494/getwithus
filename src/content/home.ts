@@ -53,7 +53,7 @@ export const home = {
   },
   pricing: {
     title: "What it costs",
-    lead: "Every project starts with a written scope and a fixed price. These are the models we price on; a short scoping call turns them into a number.",
+    lead: "Every project starts with a written scope and an agreed price. These are the models we price on; a short scoping call turns them into a number.",
     quote: "Get a quote for this",
     timeline: "Typical timeline",
     paymentTitle: "How payment works",

@@ -47,7 +47,7 @@ export const codeSamples: readonly CodeSample[] = [
     label: "TypeScript",
     note: "Next.js websites and web apps",
     logo: "typescript",
-    run: "$ npm run build",
+    run: "$ pnpm build",
     result: "✓ compiled, deployed to staging",
     code: [
       "// app/page.tsx, Next.js",

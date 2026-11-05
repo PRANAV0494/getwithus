@@ -14,7 +14,8 @@ const COUNT = 4;
 export default function Folders({ closed = false }: { closed?: boolean }) {
   const palette = useModelPalette();
   const folders = useRef<(Group | null)[]>([]);
-  const colors = [palette.web, palette.mob, palette.accent, palette.mkt];
+  // The brand palette: ink folders behind a teal one in front (the category colours read as off-brand here).
+  const colors = [palette.ink, palette.ink, palette.ink, palette.accent];
 
   useModelFrame((_, time) => {
     const open = closed ? 0 : (Math.sin(time * 0.8 - Math.PI / 2) + 1) / 2;
@@ -29,7 +30,7 @@ export default function Folders({ closed = false }: { closed?: boolean }) {
   });
 
   return (
-    <group rotation={[0.2, -0.3, 0]} position={[0, -0.4, 0]}>
+    <group rotation={[0.2, -0.3, 0]} position={[0, -1.4, 0]}>
       {Array.from({ length: COUNT }, (_, index) => (
         <group
           key={index}

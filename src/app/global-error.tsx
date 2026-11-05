@@ -59,8 +59,11 @@ export default function GlobalError({ error, retry }: GlobalErrorProps) {
               color: colors.body,
             }}
           >
-            The site could not load. Try again, and if it keeps happening, contact us with the
-            reference below.
+            The site could not load. Try again, and if it keeps happening,{" "}
+            <a href="/contact" style={{ color: colors.accent, fontWeight: 600 }}>
+              contact us
+            </a>
+            {digest ? " with the reference below." : "."}
           </p>
           <button
             type="button"

@@ -1,6 +1,6 @@
 import { Body, Container, Head, Hr, Html, Preview, Section, Text } from "@react-email/components";
 import type { ReactNode } from "react";
-import { site } from "@/config/site";
+import { known, site } from "@/config/site";
 import { emailColors, emailFont } from "@/server/email/components/theme";
 
 /** Shared frame for every email: preview text, a plain wordmark, the body, and a short footer. */
@@ -32,7 +32,9 @@ export default function EmailLayout({
           <Section>{children}</Section>
           <Hr style={{ borderColor: emailColors.line, margin: "32px 0 16px" }} />
           <Text style={{ fontSize: 13, lineHeight: "20px", color: emailColors.muted, margin: 0 }}>
-            {site.legalEntity}, {site.contact.email}
+            {[known(site.legalEntity) ?? site.name, known(site.contact.email)]
+              .filter(Boolean)
+              .join(", ")}
           </Text>
         </Container>
       </Body>

@@ -48,7 +48,7 @@ function Booking({ slot }: { slot: boolean }) {
 
 function Paid() {
   return (
-    <div className="grid justify-items-center gap-3 pt-6 text-center">
+    <div className="grid justify-items-center gap-3 pt-9 text-center">
       <span className="grid size-16 place-items-center rounded-full bg-[color-mix(in_srgb,var(--ok)_14%,transparent)] text-ok">
         <CircleCheck size={36} strokeWidth={1.8} />
       </span>
@@ -107,18 +107,19 @@ export default function AppFlowDemo({ marks }: { marks: readonly ReactNode[] }) 
           <div className="relative h-full overflow-hidden rounded-[28px] bg-card">
             <div
               className={cn(
-                "absolute inset-x-3 top-3 z-10 flex gap-3 rounded-[16px] border border-line bg-card p-3 shadow-lift transition-all duration-500 ease-out",
+                // Compact enough to sit above the payment screen's check mark on the 230 px phone.
+                "absolute inset-x-3 top-3 z-10 flex items-start gap-2.5 rounded-[14px] border border-line bg-card p-2.5 shadow-lift transition-all duration-500 ease-out",
                 current.push ? "translate-y-0 opacity-100" : "-translate-y-24 opacity-0",
               )}
             >
-              <span className="grid size-9 shrink-0 place-items-center rounded-[10px] bg-accent text-accent-ink">
-                <Bell size={16} strokeWidth={2} />
+              <span className="grid size-8 shrink-0 place-items-center rounded-[9px] bg-accent text-accent-ink">
+                <Bell size={15} strokeWidth={2} />
               </span>
-              <span>
-                <span className="block text-[0.8125rem] font-bold text-ink">
+              <span className="min-w-0">
+                <span className="block text-xs leading-snug font-bold whitespace-nowrap text-ink">
                   {appDemo.push.title}
                 </span>
-                <span className="block text-xs text-body">{appDemo.push.body}</span>
+                <span className="block text-xs leading-snug text-body">{appDemo.push.body}</span>
               </span>
             </div>
             <div
@@ -154,7 +155,7 @@ export default function AppFlowDemo({ marks }: { marks: readonly ReactNode[] }) 
                       className={cn(
                         "inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-xs font-bold transition-colors duration-300",
                         live
-                          ? "border-ok bg-ok text-white"
+                          ? "border-ok bg-ok text-bg"
                           : reached
                             ? "border-accent bg-accent-soft text-ink"
                             : "border-line text-muted",

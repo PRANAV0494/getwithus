@@ -6,7 +6,7 @@ import type { Group } from "three";
 import { useModelFrame, useModelPalette } from "@/components/three/models/context";
 
 /** The four commitments in a word or two, orbiting the cube. */
-const WORDS = ["Fixed price", "You own it", "Weekly demos", "No lock-in"];
+const WORDS = ["Price in writing", "You own it", "Weekly demos", "No lock-in"];
 const RADIUS = 2.4;
 
 /** /about: the "g" cube, larger, with the four commitment words orbiting it on a tilted ring. */

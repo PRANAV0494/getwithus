@@ -1,4 +1,3 @@
-import { submitBrief } from "@/app/actions/submitBrief";
 import CtaSection from "@/components/cta/CtaSection";
 import CodeSection from "@/components/home/CodeSection";
 import HomeFaq from "@/components/home/HomeFaq";
@@ -43,7 +42,7 @@ export default function HomePage() {
       <Industries />
       <SelectedWork />
       <HomeFaq />
-      <CtaSection action={submitBrief} />
+      <CtaSection />
     </>
   );
 }

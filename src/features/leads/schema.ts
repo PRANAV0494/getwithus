@@ -78,7 +78,7 @@ export const contactFieldsSchema = z.object({
     .check(
       z.trim(),
       z.minLength(20, "Write at least 20 characters so we understand the request."),
-      z.maxLength(2000, "Keep the message under 2,000 characters."),
+      z.maxLength(2000, "Use 2,000 characters or fewer."),
     ),
 });
 
@@ -93,7 +93,7 @@ export const briefStepSchemas = {
       .check(
         z.trim(),
         z.minLength(40, "Write at least 40 characters so we understand the project."),
-        z.maxLength(3000, "Keep the description under 3,000 characters."),
+        z.maxLength(3000, "Use 3,000 characters or fewer."),
       ),
     existingUrl,
   }),
@@ -142,7 +142,7 @@ export const integrationLeadSchema = z.object({
   company,
   phone,
   services: z._default(services, []),
-  message: optionalText(2000, "Keep the message under 2,000 characters."),
+  message: optionalText(2000, "Use 2,000 characters or fewer."),
   budgetRange: optionalText(120, "Use 120 characters or fewer."),
   timeline: optionalText(120, "Use 120 characters or fewer."),
   /** Which system sent the lead, for example "whatsapp-bot". */

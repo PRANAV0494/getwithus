@@ -1,4 +1,4 @@
-import { ArrowRight, Check, MessageCircle, Phone } from "lucide-react";
+import { ArrowRight, Check, MessageCircle, Phone, Workflow } from "lucide-react";
 import Link from "next/link";
 import CallDemo from "@/components/motion/CallDemo";
 import ChatDemo from "@/components/motion/ChatDemo";
@@ -11,7 +11,7 @@ import Container from "@/components/ui/Container";
 import Icon from "@/components/ui/Icon";
 import SectionIntro from "@/components/ui/SectionIntro";
 import TechLogo from "@/components/ui/TechLogo";
-import { callDemo, whatsappDemo } from "@/content/demos";
+import { callDemo, whatsappDemo, workflowDemo } from "@/content/demos";
 import { serviceDemos } from "@/content/service-demos";
 import type { ServicePage } from "@/content/types";
 
@@ -30,7 +30,7 @@ function Points({ points }: { points: readonly string[] }) {
   );
 }
 
-/** The two agentic products under the workflow run, each with a small still preview of its demo. */
+/** The agentic products under the workflow run, each with a small still preview of its demo. */
 function ProductPreviews({ page }: { page: ServicePage }) {
   const previews = [
     {
@@ -41,7 +41,11 @@ function ProductPreviews({ page }: { page: ServicePage }) {
       icon: Phone,
       lines: [callDemo.lines[0].text, callDemo.lines[3].text],
     },
-  ];
+    {
+      icon: Workflow,
+      steps: [workflowDemo[0].label, workflowDemo[2].label, workflowDemo[4].label],
+    },
+  ] as const;
   return (
     <ul className="mt-10 grid gap-6 md:grid-cols-2">
       {(page.products ?? []).map((product, index) => {
@@ -50,7 +54,20 @@ function ProductPreviews({ page }: { page: ServicePage }) {
           <li key={product.name}>
             <article className="relative flex h-full flex-col rounded-card border border-line bg-card p-6 shadow-soft transition-shadow duration-300 hover:shadow-lift">
               <div aria-hidden="true" className="grid gap-2 rounded-[16px] bg-bg-soft p-4">
-                {preview?.lines.map((line, position) => (
+                {preview && "steps" in preview
+                  ? preview.steps.map((step) => (
+                      <span
+                        key={step}
+                        className="flex items-center gap-2.5 rounded-[12px] border border-line bg-card px-3 py-2 text-[0.8125rem] text-ink"
+                      >
+                        <span className="grid size-5 shrink-0 place-items-center rounded-full bg-accent text-accent-ink">
+                          <Check size={12} strokeWidth={3} />
+                        </span>
+                        {step}
+                      </span>
+                    ))
+                  : null}
+                {(preview && "lines" in preview ? preview.lines : []).map((line, position) => (
                   <span
                     key={line}
                     className={
@@ -75,7 +92,8 @@ function ProductPreviews({ page }: { page: ServicePage }) {
                 ) : (
                   product.name
                 )}
-                <Icon icon={ArrowRight} size={16} className="text-accent" />
+                {/* The arrow promises a page: only shown when the card links to one. */}
+                {product.href ? <Icon icon={ArrowRight} size={16} className="text-accent" /> : null}
               </h3>
               <p className="mt-2 text-body">{product.description}</p>
             </article>

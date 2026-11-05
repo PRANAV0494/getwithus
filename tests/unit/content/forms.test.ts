@@ -24,14 +24,17 @@ describe("errorCopy (spec section 13 table)", () => {
     );
   });
 
-  it("offers the direct email address when sending fails or anything else breaks", () => {
-    expect(errorCopy("EMAIL_ERROR")).toMatch(
-      /^We could not send the email right now\. Try again, or email us directly at /,
+  it("offers another try when sending fails or anything else breaks, never a placeholder address", () => {
+    // The contact email is still an owner placeholder here, so the direct address is left out;
+    // once it is filled in, the message reads "Try again, or email us directly at …".
+    expect(errorCopy("EMAIL_ERROR")).toBe(
+      "We could not send the email right now. Try again in a few minutes.",
     );
-    expect(errorCopy("DB_ERROR")).toMatch(
-      /^Something went wrong on our side\. Try again, or email us directly at /,
+    expect(errorCopy("DB_ERROR")).toBe(
+      "Something went wrong on our side. Try again in a few minutes.",
     );
     expect(errorCopy("INTERNAL")).toBe(errorCopy("DB_ERROR"));
+    expect(errorCopy("EMAIL_ERROR")).not.toContain("[OWNER");
   });
 
   it("passes specific client messages through", () => {

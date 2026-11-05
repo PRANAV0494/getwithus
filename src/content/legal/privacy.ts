@@ -3,7 +3,7 @@ import type { LegalDocument } from "@/content/types";
 export const privacyPolicy: LegalDocument = {
   title: "Privacy policy",
   description:
-    "What GetwithUs collects through its contact form and project brief, why, who receives it, how long we keep it, and how to use your rights.",
+    "What GetwithUs collects through its contact form and project brief, why, who receives it, how long we keep it, and how to exercise your rights.",
   updated: "2026-10-31",
   sections: [
     {
@@ -57,13 +57,13 @@ export const privacyPolicy: LegalDocument = {
             "Your name.",
             "Your work email address.",
             "Your company, if you give it.",
-            "The services you are interested in, if you choose any. The choices are web development, app development, agentic automation, digital marketing, and custom software and cloud.",
+            "The services you are interested in, if you choose any. The choices are web development, app development, agentic automation (including a WhatsApp bot or a calling agent), digital marketing, and custom software and cloud.",
             "Your message, which must be 20 to 2,000 characters long.",
           ],
         },
         {
           type: "p",
-          text: "The contact form also contains a hidden field that people never see. It is there to catch automated spam: a person leaves it empty, while many bots fill it in. It does not collect anything about you.",
+          text: "The contact form and the project brief each contain a hidden field that people never see. It is there to catch automated spam: a person leaves it empty, while many bots fill it in. It does not collect anything about you.",
         },
         { type: "p", text: "The project brief at /start is a five-step form. It asks for:" },
         {
@@ -97,7 +97,7 @@ export const privacyPolicy: LegalDocument = {
         },
         {
           type: "p",
-          text: "After you submit either form, we email you a 6-digit code. We keep a keyed hash of that code, never the code itself, together with the details needed to enforce its limits. The section on email verification explains how this works.",
+          text: "After you submit either form, we email you a 6‑digit code. We keep a keyed hash of that code, never the code itself, together with the details needed to enforce its limits. The section on email verification explains how this works.",
         },
         {
           type: "p",
@@ -116,10 +116,10 @@ export const privacyPolicy: LegalDocument = {
         {
           type: "ul",
           items: [
-            "To answer your inquiry or brief, to contact you about it by email, or by phone or WhatsApp if you gave us a number, and to prepare a proposal if you asked for one. You ask us to do this, so the basis is taking steps at your request before entering into a contract.",
+            "To answer your enquiry or brief, to contact you about it by email, or by phone or WhatsApp if you gave us a number, and to prepare a proposal if you asked for one. You ask us to do this, so the basis is taking steps at your request before entering into a contract.",
             "To verify your email address before a submission reaches our team, so that we reply to the person who wrote and not to someone whose address was typed in by another person. The basis is taking steps at your request before a contract, and our legitimate interest in preventing abuse.",
             "To keep the forms working and stop spam and abuse, using the hashed IP address, the hidden field, the bot check, and rate limits. The basis is our legitimate interest in keeping the website and our systems secure.",
-            "To understand where inquiries come from and the context in which they were sent, using the user agent, browser language, UTM parameters, and your answer to how you heard about us. The basis is our legitimate interest in running and improving our business.",
+            "To understand where enquiries come from and the context in which they were sent, using the user agent, browser language, UTM parameters, and your answer to how you heard about us. The basis is our legitimate interest in running and improving our business.",
             "To let team members sign in to the admin area and keep a record of their sessions. The basis is our legitimate interest in running our business and keeping submissions secure.",
             "To keep records or disclose information when a law requires it, for example tax and accounting rules or a valid order from a court or authority. The basis is compliance with a legal obligation, where such an obligation applies.",
           ],
@@ -136,13 +136,13 @@ export const privacyPolicy: LegalDocument = {
       blocks: [
         {
           type: "p",
-          text: "After you submit the contact form or the project brief, we send a 6-digit code to the email address you gave. Your submission is not passed to our team until you enter the code and your email address is verified.",
+          text: "After you submit the contact form or the project brief, we send a 6‑digit code to the email address you gave. Your submission is not passed to our team until you enter the code and your email address is verified.",
         },
         { type: "p", text: "The code is stored and limited as follows:" },
         {
           type: "ul",
           items: [
-            "We never store the code in plain text. We store only a keyed hash of it (HMAC-SHA256), which lets us check the code you enter without keeping the code itself.",
+            "We never store the code in plain text. We store only a keyed hash of it (HMAC‑SHA256), which lets us check the code you enter without keeping the code itself.",
             "A code expires 10 minutes after it is sent.",
             "Each code allows at most 5 attempts.",
             "You can request a new code after 60 seconds, and at most 3 times per hour.",
@@ -165,11 +165,11 @@ export const privacyPolicy: LegalDocument = {
       blocks: [
         {
           type: "p",
-          text: "We measure visits to the public site with [OWNER: Plausible or none], a cookieless analytics tool. It does not set cookies or store identifiers on your device.",
+          text: "We measure visits to the public site with a cookieless analytics tool, [OWNER: Plausible, or delete this paragraph if you use no analytics]. It does not set cookies or store identifiers on your device.",
         },
         {
           type: "p",
-          text: "We do not use advertising cookies. There are no third-party trackers on the public site, such as advertising pixels or social media tracking scripts.",
+          text: "We do not use advertising cookies. There are no advertising pixels, social media tracking scripts, or other third-party trackers on the public site.",
         },
       ],
     },
@@ -179,7 +179,7 @@ export const privacyPolicy: LegalDocument = {
       blocks: [
         {
           type: "p",
-          text: "The public site sets no cookies. The draft answers in the project brief are kept in session storage, which is not a cookie and is cleared when you confirm the brief or close the tab.",
+          text: "The public site sets no cookies. It uses your browser's own storage, which is not a cookie, for three things: the draft answers in the project brief, cleared when you confirm the brief or close the tab; the campaign tags (UTM parameters) of the link you arrived from, cleared when you close the tab; and your choice of light or dark theme, kept until you clear it.",
         },
         {
           type: "p",
@@ -204,7 +204,7 @@ export const privacyPolicy: LegalDocument = {
       blocks: [
         {
           type: "p",
-          text: "We do not sell your data, and we do not share it with advertising networks. We share it only with the service providers below, which process it to run the website and our inquiry process.",
+          text: "We do not sell your data, and we do not share it with advertising networks. We share it only with the service providers below, which process it to run the website and our enquiry process.",
         },
         {
           type: "ul",
@@ -212,7 +212,7 @@ export const privacyPolicy: LegalDocument = {
             "Resend, for email delivery. Resend sends the verification code, the confirmation email to you after you write to us, and the notification email to our team.",
             "[OWNER: hosting provider, for example Vercel], which hosts the website and runs the code that receives your submission.",
             "[OWNER: database provider, for example Neon], which stores submissions, verification records, rate-limit records, and admin accounts.",
-            "Slack and WhatsApp, if we have turned these notifications on. We use them only to notify our own team about a new inquiry. A notification contains your name, your company, and the services you asked about. WhatsApp notifications are sent through Meta's WhatsApp Business Platform.",
+            "Slack and WhatsApp, if we have turned these notifications on. We use them only to notify our own team about a new enquiry. A Slack notification contains the full submission: your name, email address, company, phone number if you gave one, the services you chose, your message or project description, your existing website, budget, timeline, and how you heard about us. A WhatsApp notification contains only your name, your company, and the services you asked about, and is sent through Meta's WhatsApp Business Platform.",
             "Cloudflare Turnstile, if it is enabled. Turnstile is a bot check that processes browser and device signals to tell people apart from automated traffic.",
           ],
         },
@@ -232,7 +232,7 @@ export const privacyPolicy: LegalDocument = {
         },
         {
           type: "p",
-          text: "When data moves to a country whose law does not protect it to the same standard as the law where you live, we rely on safeguards that the law recognizes. These include standard contractual clauses where the law requires them, or a decision by the relevant authority that the destination country protects personal data adequately.",
+          text: "When data moves to a country whose law does not protect it to the same standard as the law where you live, we rely on safeguards that the law recognises. These include standard contractual clauses where the law requires them, or a decision by the relevant authority that the destination country protects personal data adequately.",
         },
         {
           type: "p",
@@ -251,7 +251,7 @@ export const privacyPolicy: LegalDocument = {
             "Submissions that are never verified are deleted automatically after 7 days.",
             "Verification records that have been used or have expired are deleted after 1 day.",
             "Rate-limit records are deleted after 24 hours.",
-            "Verified inquiries and briefs are kept until the inquiry is closed, plus [OWNER: retention period]. After that, we delete them.",
+            "Verified enquiries and briefs are kept until the enquiry is closed, plus [OWNER: retention period]. After that, we delete them.",
             "Admin sign-in sessions expire after 7 days.",
           ],
         },
@@ -277,14 +277,14 @@ export const privacyPolicy: LegalDocument = {
             "Have your data deleted.",
             "Object to processing that is based on our legitimate interests.",
             "Restrict processing, for example while we check a correction you asked for.",
-            "Receive the data you gave us in a structured, machine-readable format, and have it sent to another organization.",
+            "Receive the data you gave us in a structured, machine-readable format, and have it sent to another organisation.",
             "Withdraw your consent at any time, where consent is the basis for processing. Withdrawing consent does not affect processing that took place before.",
             "Complain to a data protection supervisory authority, either where you live or work or in [OWNER: jurisdiction].",
           ],
         },
         {
           type: "p",
-          text: "To use any of these rights, email [OWNER: privacy contact email]. Tell us which right you want to use and which email address you gave on our forms.",
+          text: "To exercise any of these rights, email [OWNER: privacy contact email]. Tell us which right you want to exercise and which email address you gave on our forms.",
         },
         {
           type: "p",
@@ -338,7 +338,7 @@ export const privacyPolicy: LegalDocument = {
       blocks: [
         {
           type: "p",
-          text: "We update this policy when our data flows, our providers, or the law change. The last updated date on this page shows when it last changed.",
+          text: "We update this policy when our data flows, our providers, or the law changes. The last updated date on this page shows when it last changed.",
         },
         {
           type: "p",

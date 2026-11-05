@@ -3,8 +3,9 @@ import Icon from "@/components/ui/Icon";
 import { known, site } from "@/config/site";
 import { cn } from "@/lib/cn";
 
+// WhatsApp green that carries white text at 5:1 in both themes (the --wa token lightens in dark for icons).
 const SHAPE =
-  "wa-fab flex h-14 items-center gap-2.5 rounded-full bg-wa pr-5 pl-4 font-bold text-white shadow-lift max-[600px]:w-14 max-[600px]:justify-center max-[600px]:p-0";
+  "wa-fab flex h-14 items-center gap-2.5 rounded-full bg-[#15803d] pr-5 pl-4 font-bold text-white shadow-lift max-[600px]:w-14 max-[600px]:justify-center max-[600px]:p-0";
 
 /**
  * The floating WhatsApp button, bottom right above the safe area. Shown only

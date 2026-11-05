@@ -12,7 +12,7 @@ export const budgetOptions = [
 
 export const timelineOptions = [
   { value: "asap", label: "As soon as possible" },
-  { value: "1-3-months", label: "Within 1 to 3 months" },
+  { value: "1-3-months", label: "1 to 3 months" },
   { value: "3-6-months", label: "3 to 6 months" },
   { value: "exploring", label: "Exploring" },
 ] as const;

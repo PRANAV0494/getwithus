@@ -116,7 +116,11 @@ function MiniStepper({ steps }: { steps: readonly string[] }) {
 function Note({ page }: { page: ServicePage }) {
   if (!page.note) return null;
   return (
-    <section aria-labelledby="note-title" className="pb-4">
+    <section
+      aria-labelledby="note-title"
+      // After "What you get" the next section is a tinted band, so the note needs its own space below.
+      className={page.note.placement === "afterWhatYouGet" ? "pb-16 md:pb-20" : "pb-4"}
+    >
       <Container>
         <div className="rounded-card border border-line bg-card p-7 shadow-soft md:p-9">
           <h2 id="note-title" className="flex items-center gap-3 type-h3 text-ink">
@@ -244,7 +248,8 @@ export default function ServicePageLayout({ page }: { page: ServicePage }) {
             </h2>
             <p className="mt-5 max-w-[40em] type-lead text-body">{pricing}</p>
           </div>
-          {card ? <PriceCard card={card} /> : null}
+          {/* The home page features one card for show; on its own service page the card is plain like the others. */}
+          {card ? <PriceCard card={{ ...card, featured: false }} /> : null}
         </Container>
       </section>
       {faqs.length ? (
@@ -260,7 +265,17 @@ export default function ServicePageLayout({ page }: { page: ServicePage }) {
         </Block>
       ) : null}
       <Block id="related" title="Related services">
-        <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {/* As many columns as cards (up to four), so two related services fill the row. */}
+        <ul
+          className={cn(
+            "grid gap-5 sm:grid-cols-2",
+            related(page).length >= 4
+              ? "lg:grid-cols-4"
+              : related(page).length === 3
+                ? "lg:grid-cols-3"
+                : "lg:grid-cols-2",
+          )}
+        >
           {related(page).map((other) => {
             const OtherIcon = serviceIcons[other.slug];
             return (
@@ -275,12 +290,13 @@ export default function ServicePageLayout({ page }: { page: ServicePage }) {
                   >
                     <Icon icon={OtherIcon} size={20} />
                   </span>
-                  <span className="flex items-center gap-2 type-h4 text-ink group-hover:text-accent">
+                  <span className="type-h4 text-ink group-hover:text-accent">
                     {other.name}
+                    {" "}
                     <Icon
                       icon={ArrowRight}
                       size={16}
-                      className="text-accent transition-transform duration-150 group-hover:translate-x-0.5"
+                      className="inline-block align-[-0.1em] text-accent transition-transform duration-150 group-hover:translate-x-0.5"
                     />
                   </span>
                   <span className="text-sm text-body">{other.menuDescription}</span>

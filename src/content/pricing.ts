@@ -111,4 +111,4 @@ export function priceText(card: PricingCard): string | undefined {
 
 /** The line about platform costs under the cards: always true, so always shown. */
 export const platformCosts =
-  "Platform costs (WhatsApp conversations, telephony minutes, model usage, ad spend) are billed to your own accounts at cost.";
+  "Platform costs (WhatsApp messages, telephony minutes, model usage, ad spend) are billed to your own accounts at cost.";

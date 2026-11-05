@@ -33,8 +33,12 @@ export default function Commitments() {
                   maxDeg={6}
                   className="h-full rounded-card border border-line bg-card shadow-soft transition-shadow duration-300 hover:shadow-lift"
                 >
+                  {/* Focusable so keyboard users can open the detail the way a pointer does on hover;
+                      a named group so the stop is announced as this commitment, not an unnamed box. */}
                   <div
                     tabIndex={0}
+                    role="group"
+                    aria-labelledby={`commitment-${position}`}
                     className="commit-card relative h-full rounded-card px-8 pt-8 pb-9 outline-offset-4"
                   >
                     <span
@@ -46,7 +50,10 @@ export default function Commitments() {
                     <span className="grid size-12 [transform:translateZ(20px)] place-items-center rounded-[14px] bg-accent-soft text-accent">
                       <Icon icon={CommitIcon} size={24} />
                     </span>
-                    <p className="relative mt-5 max-w-[30ch] [transform:translateZ(20px)] type-lead font-semibold text-ink">
+                    <p
+                      id={`commitment-${position}`}
+                      className="relative mt-5 max-w-[30ch] [transform:translateZ(20px)] type-lead font-semibold text-ink"
+                    >
                       {commitment.text}
                     </p>
                     <div className="commit-more">

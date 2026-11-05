@@ -11,11 +11,11 @@ export const homePage = {
   updated: "2026-10-31",
   hero: {
     title: "We build the software your business runs on.",
-    lead: "Websites, mobile apps, WhatsApp and voice agents, and the marketing that fills them. Scoped in writing, shipped in weekly demos, and handed over with you owning every account.",
+    lead: "Websites, mobile apps, WhatsApp bots and calling agents, and the marketing that fills them. Scoped in writing, shipped in weekly demos, and handed over with you owning every account.",
     primary: { label: "Start a project", href: "/start" } satisfies Action,
     secondary: { label: "See how a project runs", href: "/process" } satisfies Action,
     /** Three commitments in a few words each, beside the hero buttons. */
-    proof: ["Fixed scope and price", "Weekly demos", "You own everything"],
+    proof: ["Scope and price in writing", "Weekly demos", "You own everything"],
   },
   services: { title: "Five things we build, all of them yours to keep" },
   process: {
@@ -69,6 +69,9 @@ export const workPage = {
   title: "Selected work",
   description: "Projects we have permission to show. Ask us for a walkthrough of the rest.",
   lead: "Work we have permission to show. Ask us for a walkthrough of the rest.",
+  /** The lead while there are no case studies, so it does not promise work above an empty list. */
+  emptyLead:
+    "Case studies appear here once clients agree to them being shown. Ask us for a walkthrough of recent work.",
   emptyTitle: "No published case studies yet",
   emptyText: "We publish work when clients give permission. Ask us for a walkthrough on a call.",
   emptyAction: { label: "Contact us", href: "/contact" } satisfies Action,
@@ -104,8 +107,8 @@ export const startPage = {
   updated: "2026-10-31",
   title: "Start a project",
   description:
-    "Answer five short questions about your project. We read every brief and reply with next steps and, where possible, a price range.",
+    "Four short steps about your project, then a code to confirm your email. We read every brief and reply with next steps and, where possible, a price range.",
   lead: RESPONSE_TIME
-    ? `Five short steps. We read every brief and reply within ${RESPONSE_TIME}.`
-    : "Five short steps. We read every brief and reply with next steps.",
+    ? `Four short steps, then confirm your email. We read every brief and reply within ${RESPONSE_TIME}.`
+    : "Four short steps, then confirm your email. We read every brief and reply with next steps.",
 } as const;

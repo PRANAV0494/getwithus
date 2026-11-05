@@ -15,7 +15,7 @@ export default function VerificationCode({ code }: VerificationCodeProps) {
         Confirm your email
       </Heading>
       <Text style={{ fontSize: 16, lineHeight: "24px", margin: "0 0 20px" }}>
-        Enter this code on the page you came from to confirm your message.
+        Enter this code on the page you came from to confirm your email address.
       </Text>
       <Text
         style={{

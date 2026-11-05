@@ -95,7 +95,11 @@ export default function HubDemo() {
               <div
                 key={name}
                 className="absolute flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 rounded-full border border-line bg-card py-1.5 pr-3.5 pl-1.5 shadow-soft"
-                style={{ left: `${spoke.x}%`, top: `${spoke.y}%` }}
+                // Clamped so a chip centred near an edge never hangs out of the frame on a phone.
+                style={{
+                  left: `clamp(3.75rem, ${spoke.x}%, calc(100% - 3.75rem))`,
+                  top: `${spoke.y}%`,
+                }}
               >
                 <span className="grid size-8 place-items-center rounded-full bg-accent-soft text-accent">
                   <SpokeIcon size={16} strokeWidth={1.9} />

@@ -22,8 +22,9 @@ export default function Footer() {
   return (
     <footer className="border-t border-line bg-bg-soft pt-16 pb-28 text-body sm:pb-10">
       <Container>
-        <div className="grid gap-10 md:grid-cols-[1.5fr_1fr_1fr_1fr] md:gap-8">
-          <div className="grid content-start gap-4">
+        {/* Brand on its own row until lg, so the link columns are not squeezed at tablet width. */}
+        <div className="grid gap-10 sm:grid-cols-3 sm:gap-8 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
+          <div className="grid content-start gap-4 sm:col-span-3 lg:col-span-1">
             <Logo />
             <p className="font-display text-lg font-bold text-ink">{site.tagline}</p>
             <p className="max-w-[36ch]">{site.footerDescription}</p>

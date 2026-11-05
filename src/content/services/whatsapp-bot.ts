@@ -4,10 +4,10 @@ import type { ServiceContent } from "@/content/types";
 export const whatsappBot: ServiceContent = {
   slug: "whatsapp-bot",
   seoDescription:
-    "A WhatsApp agent on the official Business Platform that answers, qualifies leads, books appointments, and hands chats to a person.",
-  lead: "A WhatsApp agent on the official WhatsApp Business Platform that answers questions, qualifies leads, books appointments, and sends order or appointment updates, then hands the chat to a person when it should.",
+    "A WhatsApp bot on the official Business Platform that answers, qualifies leads, books appointments, and hands chats to a person.",
+  lead: "A WhatsApp bot on the official WhatsApp Business Platform that answers questions, qualifies leads, books appointments, and sends order or appointment updates, then hands the chat to a person when it should.",
   summary:
-    "A WhatsApp agent on the official Business Platform that answers, qualifies, books, and sends updates. It hands the chat to a person when it should.",
+    "A WhatsApp bot on the official Business Platform that answers, qualifies, books, and sends updates. It hands the chat to a person when it should.",
   whatYouGet: [
     "Business Platform setup and number verification through Meta",
     "Message template design and approval",
@@ -31,7 +31,7 @@ export const whatsappBot: ServiceContent = {
   ],
   note: {
     title: "How WhatsApp works, in plain terms",
-    body: "Customers must opt in before you message them. Outside a 24-hour customer-service window, messages must use templates approved by Meta. Meta bills conversations to your WhatsApp Business account. We set all of this up in your account, and the costs stay visible to you.",
+    body: "Customers must opt in before you message them. Outside a 24-hour customer-service window, messages must use templates approved by Meta. Meta bills template messages to your WhatsApp Business account. We set all of this up in your account, and the costs stay visible to you.",
     placement: "afterTools",
   },
   pricing: agenticPricing,
@@ -43,7 +43,8 @@ export const whatsappBot: ServiceContent = {
     },
     {
       question: "Which languages can it handle?",
-      answer: "[OWNER: supported languages]. It answers in the language the customer writes in.",
+      answer:
+        "It handles [OWNER: supported languages], and replies in whichever of them the customer writes in.",
     },
     {
       question: "What if a customer asks for a person?",
@@ -53,7 +54,7 @@ export const whatsappBot: ServiceContent = {
     {
       question: "How are messages billed?",
       answer:
-        "By Meta, per conversation, to your WhatsApp Business account. We do not mark these up.",
+        "By Meta, per template message, to your WhatsApp Business account. We do not mark these up.",
     },
   ],
   updated: "2026-10-31",

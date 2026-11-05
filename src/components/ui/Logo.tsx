@@ -22,7 +22,9 @@ const SIZES = {
 /**
  * The logo: the G holding a square on its tile, and the outlined wordmark with the
  * square dot on the i. Colours come from the theme tokens (--brand-tile,
- * --brand-mark, --ink, --accent), so it follows the light and dark themes.
+ * --brand-mark, --ink, --accent), so it follows the light and dark themes. In
+ * forced colours (Windows high contrast) it switches to the system text and
+ * page colours: an SVG fill is not recoloured the way text is.
  */
 export default function Logo({
   href = "/",
@@ -46,16 +48,16 @@ export default function Logo({
           width={MARK_SIZE}
           height={MARK_SIZE}
           rx={MARK_TILE_RADIUS}
-          className="fill-brand-tile"
+          className="fill-brand-tile forced-colors:fill-[CanvasText]"
         />
-        <path d={MARK_G_PATH} className="fill-brand-mark" />
+        <path d={MARK_G_PATH} className="fill-brand-mark forced-colors:fill-[Canvas]" />
         <rect
           x={MARK_SQUARE.x}
           y={MARK_SQUARE.y}
           width={MARK_SQUARE.size}
           height={MARK_SQUARE.size}
           rx={MARK_SQUARE.radius}
-          className="fill-accent"
+          className="fill-accent forced-colors:fill-[Canvas]"
         />
       </svg>
       {showWordmark ? (
@@ -67,15 +69,15 @@ export default function Logo({
           focusable="false"
           className="shrink-0"
         >
-          <path d={WORDMARK.ink} className="fill-ink" />
-          <path d={WORDMARK.accent} className="fill-accent" />
+          <path d={WORDMARK.ink} className="fill-ink forced-colors:fill-[CanvasText]" />
+          <path d={WORDMARK.accent} className="fill-accent forced-colors:fill-[CanvasText]" />
           <rect
             x={WORDMARK.dot.x}
             y={WORDMARK.dot.y}
             width={WORDMARK.dot.size}
             height={WORDMARK.dot.size}
             rx={WORDMARK.dot.radius}
-            className="fill-accent"
+            className="fill-accent forced-colors:fill-[CanvasText]"
           />
         </svg>
       ) : null}

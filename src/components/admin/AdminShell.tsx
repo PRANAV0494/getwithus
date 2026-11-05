@@ -18,7 +18,10 @@ type AdminShellProps = { email: string; unreadCount: number; children: ReactNode
 export default function AdminShell({ email, unreadCount, children }: AdminShellProps) {
   return (
     <div className="grid min-h-svh md:grid-cols-[220px_minmax(0,1fr)]">
-      <aside className="border-b border-line bg-card md:border-r md:border-b-0">
+      <aside
+        aria-label="Admin sidebar"
+        className="border-b border-line bg-card md:border-r md:border-b-0"
+      >
         <div className="flex h-16 items-center px-5">
           <Logo size="md" href="/admin" />
         </div>

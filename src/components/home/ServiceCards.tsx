@@ -43,13 +43,15 @@ export default function ServiceCards({
                     <h3 className="type-h3 text-ink">
                       <Link
                         href={page.href}
-                        className="group inline-flex items-center gap-2 transition-colors duration-150 ease-out hover:text-accent"
+                        className="group transition-colors duration-150 ease-out hover:text-accent"
                       >
+                        {/* A no-break space ties the arrow to the last word, so a wrapped title keeps it beside the text. */}
                         {page.name}
+                        {" "}
                         <Icon
                           icon={ArrowRight}
                           size={20}
-                          className="text-accent transition-transform duration-200 ease-out group-hover:translate-x-1"
+                          className="inline-block align-[-0.15em] text-accent transition-transform duration-200 ease-out group-hover:translate-x-1"
                         />
                       </Link>
                     </h3>

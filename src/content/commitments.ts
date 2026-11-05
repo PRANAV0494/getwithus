@@ -3,7 +3,7 @@ import type { Commitment } from "@/content/types";
 /** What clients can hold the business to. Shown on the home page and, expanded, on About. */
 export const commitments: readonly Commitment[] = [
   {
-    text: "Fixed scope, fixed price. Changes are priced in writing before they are built.",
+    text: "Scope and price in writing before work starts. Changes are priced in writing before they are built.",
     expanded: "You know what a change costs before you decide whether it is worth making.",
   },
   {

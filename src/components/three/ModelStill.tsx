@@ -7,6 +7,9 @@ import type { ModelKey } from "@/components/three/models/keys";
  * they follow the theme toggle with no script.
  */
 
+/** The folders model's colours (Folders.tsx): ink folders behind a teal one. */
+const FOLDER_COLORS = ["var(--ink)", "var(--ink)", "var(--ink)", "var(--accent)"];
+
 const S = { fill: "var(--card)", stroke: "var(--line-2)", strokeWidth: 1.5 } as const;
 
 function Ring({
@@ -318,8 +321,8 @@ const STILLS: Record<ModelKey, ReactNode> = {
   ),
   folders: (
     <>
-      {["var(--c-web)", "var(--c-mob)", "var(--accent)", "var(--c-mkt)"].map((color, index) => (
-        <g key={color} transform={`rotate(${(index - 1.5) * 9} 200 250)`}>
+      {FOLDER_COLORS.map((color, index) => (
+        <g key={index} transform={`rotate(${(index - 1.5) * 9} 200 250)`}>
           <rect x={120} y={92 - index * 4} width={44} height={14} rx={4} fill={color} />
           <rect x={120} y={102 - index * 4} width={160} height={110} rx={8} fill={color} />
           <rect x={132} y={118 - index * 4} width={136} height={84} rx={4} fill="var(--card)" />
@@ -329,8 +332,8 @@ const STILLS: Record<ModelKey, ReactNode> = {
   ),
   "folders-closed": (
     <>
-      {["var(--c-web)", "var(--c-mob)", "var(--accent)", "var(--c-mkt)"].map((color, index) => (
-        <g key={color}>
+      {FOLDER_COLORS.map((color, index) => (
+        <g key={index}>
           <rect x={120 + index * 6} y={92 - index * 8} width={44} height={14} rx={4} fill={color} />
           <rect
             x={120 + index * 6}

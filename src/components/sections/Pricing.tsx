@@ -7,6 +7,20 @@ import { home } from "@/content/home";
 import { platformCosts, priceText, pricingCards, type PricingCard } from "@/content/pricing";
 import { cn } from "@/lib/cn";
 
+/**
+ * Two cards a row from md and three from lg, on a grid of half-cards, so a short
+ * last row starts in the middle instead of leaving an empty slot at the end.
+ */
+function centreLastRow(index: number, total: number): string | undefined {
+  const classes: string[] = [];
+  if (total % 2 === 1 && index === total - 1) classes.push("md:col-start-2");
+  const rest = total % 3;
+  if (rest === 2 && index === total - 2) classes.push("lg:col-start-2");
+  else if (rest === 1 && index === total - 1) classes.push("lg:col-start-3");
+  else if (classes.length) classes.push("lg:col-start-auto");
+  return classes.join(" ") || undefined;
+}
+
 /** The payment lines that are known, in order; the platform costs line is always true. */
 function paymentLines(): string[] {
   const { schedule, currency, tax, methods } = site.payment;
@@ -75,6 +89,7 @@ export function PriceCard({ card }: { card: PricingCard }) {
           href={`/start?service=${card.slug}`}
           variant={dark ? "primary" : "secondary"}
           className="w-full"
+          // Starts with the visible text, as WCAG 2.5.3 requires, then names the card.
           aria-label={`${home.pricing.quote}: ${card.name}`}
         >
           {home.pricing.quote}
@@ -95,9 +110,12 @@ export default function Pricing({ className }: { className?: string }) {
     <section aria-labelledby="pricing-title" className={cn("py-20 md:py-[120px]", className)}>
       <Container>
         <SectionIntro id="pricing-title" title={home.pricing.title} lead={home.pricing.lead} />
-        <ul className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {pricingCards.map((card) => (
-            <li key={card.slug}>
+        <ul className="mt-14 grid gap-6 md:grid-cols-4 lg:grid-cols-6">
+          {pricingCards.map((card, index) => (
+            <li
+              key={card.slug}
+              className={cn("md:col-span-2", centreLastRow(index, pricingCards.length))}
+            >
               <PriceCard card={card} />
             </li>
           ))}

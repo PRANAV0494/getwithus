@@ -25,7 +25,7 @@ Nothing on the public site renders a raw placeholder except the two legal docume
 | `src/config/site.ts:29` | Legal entity name                                           |
 | `src/config/site.ts:30` | Response time promise, for example "one business day"       |
 | `src/config/site.ts:31` | Fix window after launch, for example "30-day"               |
-| `src/app/layout.tsx:45` | Change `lang` if the site's primary language is not English |
+| `src/app/layout.tsx:55` | Change `lang` if the site's primary language is not English |
 
 ### Home page, pricing, and payment
 
@@ -36,7 +36,7 @@ Each of these is hidden on the site until it is filled in; nothing renders a raw
 | `src/config/site.ts:33`       | The month the hero pill says you are booking projects for (the pill is hidden until set)                   |
 | `src/config/site.ts:39`       | Payment schedule, for example a deposit at signing and the rest at milestones                              |
 | `src/config/site.ts:40`       | Currencies you invoice in                                                                                  |
-| `src/config/site.ts:41`       | Tax note, for example "prices exclude GST"                                                                 |
+| `src/config/site.ts:41`       | Tax note, as a sentence, for example "Prices exclude GST"                                                  |
 | `src/config/site.ts:42`       | Accepted payment methods                                                                                   |
 | `src/content/pricing.ts:33`   | Starting price for a website (until set, the card says "Fixed price after a short scoping call")           |
 | `src/content/pricing.ts:41`   | Typical timeline for a website                                                                             |
@@ -65,39 +65,39 @@ The website pricing card is marked `featured` (the dark card) for show; move or 
 
 | Location                                        | Needed                                                                                                                     |
 | ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `src/content/pages.ts:83`                       | About page: two sentences on when the company was founded, where it is based, and the team's background                    |
+| `src/content/pages.ts:86`                       | About page: two sentences on when the company was founded, where it is based, and the team's background                    |
 | `src/content/team.ts:6`                         | Team members (names, roles, short bios, real photos) or confirm none                                                       |
 | `src/content/process.ts:54`                     | How you keep clients updated: Slack, WhatsApp, or email                                                                    |
 | `src/content/services/web-development.ts:41`    | Optional starting price or typical range, or remove the sentence                                                           |
-| `src/content/services/web-development.ts:56`    | Your position on WordPress (default offered: build on Next.js, migrate existing WordPress sites keeping URLs and rankings) |
+| `src/content/services/web-development.ts:55`    | Your position on WordPress (default offered: build on Next.js, migrate existing WordPress sites keeping URLs and rankings) |
 | `src/content/services/app-development.ts:19`    | Payment providers you support (Stripe, Razorpay, or other)                                                                 |
 | `src/content/services/app-development.ts:40`    | Optional starting price or typical range, or remove the sentence                                                           |
 | `src/content/services/agentic-automation.ts:58` | Language model and voice providers you use                                                                                 |
 | `src/content/services/whatsapp-bot.ts:14`       | Languages the WhatsApp bot supports                                                                                        |
-| `src/content/services/whatsapp-bot.ts:46`       | Supported languages                                                                                                        |
+| `src/content/services/whatsapp-bot.ts:47`       | Supported languages                                                                                                        |
 | `src/content/services/calling-agent.ts:29`      | Providers you use                                                                                                          |
 | `src/content/services/calling-agent.ts:56`      | Supported languages                                                                                                        |
 | `src/content/services/digital-marketing.ts:35`  | SEO tool you use (Ahrefs or Semrush)                                                                                       |
 
 ### Privacy policy (`src/content/legal/privacy.ts`)
 
-| Location                           | Needed                                |
-| ---------------------------------- | ------------------------------------- |
-| `src/content/legal/privacy.ts:19`  | Legal entity name; registered address |
-| `src/content/legal/privacy.ts:23`  | Privacy contact email                 |
-| `src/content/legal/privacy.ts:114` | Jurisdiction                          |
-| `src/content/legal/privacy.ts:168` | Analytics: Plausible or none          |
-| `src/content/legal/privacy.ts:213` | Hosting provider, for example Vercel  |
-| `src/content/legal/privacy.ts:214` | Database provider, for example Neon   |
-| `src/content/legal/privacy.ts:231` | Data processing regions               |
-| `src/content/legal/privacy.ts:239` | Privacy contact email                 |
-| `src/content/legal/privacy.ts:254` | Retention period for closed leads     |
-| `src/content/legal/privacy.ts:282` | Jurisdiction                          |
-| `src/content/legal/privacy.ts:287` | Privacy contact email                 |
-| `src/content/legal/privacy.ts:327` | Minimum age, for example 16           |
-| `src/content/legal/privacy.ts:331` | Privacy contact email                 |
-| `src/content/legal/privacy.ts:355` | Privacy contact email                 |
-| `src/content/legal/privacy.ts:359` | Legal entity name; registered address |
+| Location                           | Needed                                                |
+| ---------------------------------- | ----------------------------------------------------- |
+| `src/content/legal/privacy.ts:19`  | Legal entity name; registered address                 |
+| `src/content/legal/privacy.ts:23`  | Privacy contact email                                 |
+| `src/content/legal/privacy.ts:114` | Jurisdiction                                          |
+| `src/content/legal/privacy.ts:168` | Analytics: Plausible, or delete the paragraph if none |
+| `src/content/legal/privacy.ts:213` | Hosting provider, for example Vercel                  |
+| `src/content/legal/privacy.ts:214` | Database provider, for example Neon                   |
+| `src/content/legal/privacy.ts:231` | Data processing regions                               |
+| `src/content/legal/privacy.ts:239` | Privacy contact email                                 |
+| `src/content/legal/privacy.ts:254` | Retention period for closed leads                     |
+| `src/content/legal/privacy.ts:282` | Jurisdiction                                          |
+| `src/content/legal/privacy.ts:287` | Privacy contact email                                 |
+| `src/content/legal/privacy.ts:327` | Minimum age, for example 16                           |
+| `src/content/legal/privacy.ts:331` | Privacy contact email                                 |
+| `src/content/legal/privacy.ts:355` | Privacy contact email                                 |
+| `src/content/legal/privacy.ts:359` | Legal entity name; registered address                 |
 
 ### Terms (`src/content/legal/terms.ts`)
 
@@ -166,7 +166,10 @@ Choices made while building the final light 3D design, beyond the decisions reco
 - **Chat, call, and service demos** render their finished state first and then replay while on screen. Visitors without JavaScript, reduced motion, and screen readers get the whole demo, and nothing jumps.
 - **Decorative text** (the stack sphere, hidden from assistive technology) is left out of the axe contrast check with `data-decorative`; its names are real text in the category buttons.
 - **Industries** stay hidden (decision 4), and **seven tools** without a Simple Icons mark (AWS, Azure, OpenAI, Twilio, Plivo, Ahrefs, Looker Studio) are shown by name (decision 3).
-- **The service pages' "How it is priced"** shows the service's pricing card and its pricing sentence with any placeholder sentence left out.
+- **The service pages' "How it is priced"** shows the service's pricing card (never in the home page's featured style) and its pricing sentence with any placeholder sentence left out.
+- **"Fixed price" wording:** the site promised a fixed price on every project, but custom software is time and materials with a weekly cap for open-ended work, and marketing is a monthly retainer. The general promises now read "scope and price in writing" and "an agreed price"; the per-service pricing models are unchanged. Restore "fixed price" if every model becomes fixed price.
+- **WhatsApp billing** is described per template message (Meta's pricing since 1 July 2025), not per conversation.
+- **Owner placeholders never reach visitors:** the form success screens, the confirmation email (subject, body, footer), and the error messages leave out the response time, contact email, phone, and legal name until they are filled in.
 - **The station scene** from the earlier design was retired; every inner page has its own model instead.
 
 ### The original build specification
@@ -253,7 +256,7 @@ Not tested, and needed before launch (launch checklist item 13): Safari on macOS
 
 - Entering a wrong verification code makes the browser log "Failed to load resource: the server responded with a status of 400". Browsers log every 4xx response to the console. The same applies to an expired code (410), a locked code (423), and rate limits (429). The page handles each one with its message; only the browser's own network log line appears. Avoiding it would mean answering errors with HTTP 200, which breaks the API contract in section 12.
 - Visiting a missing URL logs the 404 document's status the same way. That is the 404 page working.
-- The closing terminal on the home page sends its brief to `submitBrief`, which only validates and logs it (decision 5 in [build-final-plan.md](build-final-plan.md)). Connect it to the lead pipeline, or point the terminal at `/start`, before launch.
+- The closing terminal on the home page sends nothing itself. It asks what the visitor needs and where to reply, saves both to the project brief's draft, and opens `/start` on the next step, where the brief is finished and the email confirmed through the lead pipeline like any other. (Decision 5 kept it on the logging-only `submitBrief` until the site was final; that action is gone.)
 - "Industries we build for" stays hidden until the owner confirms the list in `src/content/industries.ts`.
 - Every pricing card shows its "after a short scoping call" line until the owner sets prices in `src/content/pricing.ts`; the Website card is `featured` for show.
 - The legal pages are the only public pages that show raw placeholders: their text needs every fact (section 1).

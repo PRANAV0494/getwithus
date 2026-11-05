@@ -19,7 +19,8 @@ import type { TeamMember } from "@/content/types";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
-  title: aboutPage.title,
+  // The title template adds the brand, so "About GetwithUs" would repeat it.
+  title: "About",
   description: aboutPage.description,
   path: aboutPage.path,
 });
@@ -41,7 +42,7 @@ function TeamCard({ member }: { member: TeamMember }) {
       {member.photo ? (
         <Image
           src={member.photo}
-          alt={`Photo of ${member.name}`}
+          alt={member.name}
           width={72}
           height={72}
           className="size-[72px] rounded-[18px] object-cover"

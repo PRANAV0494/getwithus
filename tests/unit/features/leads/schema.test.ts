@@ -63,7 +63,7 @@ describe("contactFieldsSchema", () => {
       { message: "Too short." },
       "Write at least 20 characters so we understand the request.",
     ],
-    ["message", { message: "x".repeat(2001) }, "Keep the message under 2,000 characters."],
+    ["message", { message: "x".repeat(2001) }, "Use 2,000 characters or fewer."],
     ["company", { company: "x".repeat(121) }, "Use 120 characters or fewer."],
   ])("rejects an invalid %s", (field, override, message) => {
     expect(fieldErrors(contactFieldsSchema, { ...validContact, ...override })[field]).toContain(

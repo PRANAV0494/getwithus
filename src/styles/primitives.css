@@ -12,6 +12,13 @@
   animation-play-state: paused !important;
 }
 
+/* One-shot entrances still finish off screen: a demo mounted while paused must show
+   its finished lines (the design's still frame), not lines frozen at opacity 0. */
+[data-paused] .chat-in,
+[data-paused] .fade-up {
+  animation-play-state: running !important;
+}
+
 .dots-bg {
   background-image: radial-gradient(var(--dot) 1.2px, transparent 1.2px);
   background-size: 24px 24px;
@@ -436,13 +443,26 @@
   background: var(--chip);
   box-shadow: var(--shadow);
   color: var(--ink);
-  font-size: clamp(9.3px, 2.5cqw, 15px);
+  /* 11 px at the smallest, and at least 2.3em tall, so the chips stay readable and tappable on phones. */
+  font-size: clamp(11px, 2.5cqw, 15px);
+  min-height: 2.3em;
   font-weight: 600;
   white-space: nowrap;
   will-change: transform, opacity;
   transition:
     border-color 200ms,
     box-shadow 200ms;
+}
+.orbit-label-short {
+  display: none;
+}
+@container (max-width: 520px) {
+  .orbit-label-long {
+    display: none;
+  }
+  .orbit-label-short {
+    display: inline;
+  }
 }
 .orbit-chip:hover,
 .orbit-chip:focus-visible {
@@ -947,10 +967,8 @@
   height: 24px;
 }
 @media (max-width: 600px) {
-  /* Phones: smaller tiles, trimmed at the screen edge rather than widening the page. */
-  .code-stage {
-    overflow-x: clip;
-  }
+  /* Phones: smaller tiles. The section clips at the screen edge (overflow-x-clip), so the
+     stage does not clip too: that cut the editor's shadow into a hard-edged box. */
   .floating-tile-inner {
     width: 52px;
     height: 52px;
@@ -1087,7 +1105,8 @@
   border-radius: 999px;
   border: 1px solid #c9d3d8;
   background: #fff;
-  color: #027eb5;
+  /* WhatsApp's link blue, one step darker: 5.4:1 against white either way round. */
+  color: #0370a6;
   font-size: 0.8125rem;
   font-weight: 600;
   transition:
@@ -1095,8 +1114,8 @@
     color 200ms;
 }
 .chat-reply[data-picked] {
-  border-color: #027eb5;
-  background: #027eb5;
+  border-color: #0370a6;
+  background: #0370a6;
   color: #fff;
 }
 :root[data-theme="dark"] .chat-reply {
@@ -1197,7 +1216,8 @@
   height: 48px;
   border-radius: 50%;
   background: color-mix(in srgb, var(--c-ai) 16%, transparent);
-  color: var(--c-ai);
+  /* Mixed toward the text colour so the initials pass 4.5:1 in both themes. */
+  color: color-mix(in srgb, var(--c-ai) 75%, var(--ink));
   font-weight: 800;
 }
 .call-timer {

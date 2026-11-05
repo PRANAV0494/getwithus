@@ -50,9 +50,10 @@ function WebScene() {
         <Chip icon={<Smartphone {...ICON} className="text-c-web" />}>Mobile first</Chip>
       </Layer>
       <Layer z={85} className="float-chip top-4 right-[5%]">
-        <Chip icon={<Check {...ICON} className="text-ok" />}>Found on Google</Chip>
+        <Chip icon={<Check {...ICON} className="text-ok" />}>Search-ready</Chip>
       </Layer>
-      <Layer z={45} className="float-chip right-[12%] bottom-11 max-sm:hidden">
+      {/* Above "Mobile first", not beside it: on narrow cards the two chips met and this one lost its icon. */}
+      <Layer z={45} className="float-chip right-[12%] bottom-[74px] max-sm:hidden">
         <Chip icon={<PenLine {...ICON} className="text-accent" />}>Your team edits it</Chip>
       </Layer>
     </>
@@ -139,10 +140,10 @@ function MarketingScene() {
         </OnScreen>
       </Layer>
       <Layer z={80} className="float-chip top-3.5 right-[4%]">
-        <Chip icon={<TrendingUp {...ICON} className="text-c-mkt" />}>Every lead tracked</Chip>
+        <Chip icon={<TrendingUp {...ICON} className="text-c-mkt" />}>Leads tracked</Chip>
       </Layer>
       <Layer z={60} className="float-chip bottom-3 left-[4%]">
-        <Chip icon={<Search {...ICON} className="text-c-web" />}>SEO, Meta, and Google Ads</Chip>
+        <Chip icon={<Search {...ICON} className="text-c-web" />}>SEO, Google Ads, Meta Ads</Chip>
       </Layer>
     </>
   );

@@ -21,8 +21,9 @@ export default function WhatsAppWindow() {
         <span className="absolute top-[-6px] left-2/3 h-6 w-0.5 bg-ink" />
       </div>
       <div className="mt-3 grid grid-cols-[2fr_1fr] text-sm text-body">
-        <span>The customer messages you</span>
-        <span className="-translate-x-1/2 text-center">24 hours later</span>
+        {/* The second label is centred on the 24-hour tick, so it reaches half its width into the first column: the first label leaves that room. */}
+        <span className="pr-16">The customer messages you</span>
+        <span className="-translate-x-1/2 text-center whitespace-nowrap">24 hours later</span>
       </div>
     </OnScreen>
   );

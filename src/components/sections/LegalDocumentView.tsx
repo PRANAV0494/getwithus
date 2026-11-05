@@ -45,7 +45,7 @@ export default function LegalDocumentView({
           />
         }
       />
-      <section aria-label={document.title} className="py-16 md:py-20">
+      <section aria-label="Full text" className="py-16 md:py-20">
         <Container className="grid gap-12 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-16">
           <nav
             aria-labelledby="legal-contents"
@@ -54,7 +54,7 @@ export default function LegalDocumentView({
             <h2 id="legal-contents" className="text-sm font-bold text-ink">
               Contents
             </h2>
-            <ol className="mt-3 grid gap-2 type-small">
+            <ol className="mt-3 grid gap-2 type-small sm:grid-cols-2 sm:gap-x-8 lg:grid-cols-1">
               {document.sections.map((section) => (
                 <li key={section.id}>
                   <a

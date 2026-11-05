@@ -1,12 +1,22 @@
+import { site } from "@/config/site";
 import { productPages } from "@/content/services";
 import { ogImageSize, renderOgImage } from "@/lib/og-image";
 
-export const size = ogImageSize;
-export const contentType = "image/png";
-export const alt = "GetwithUs service";
-
 export function generateStaticParams() {
   return productPages.map((page) => ({ slug: page.parent?.slug ?? "", product: page.slug }));
+}
+
+/** One card per product page, with alt text that names the product. */
+export function generateImageMetadata({ params }: { params: { slug: string; product: string } }) {
+  const page = productPages.find((item) => item.slug === params.product);
+  return [
+    {
+      id: "card",
+      alt: `${page?.name ?? "Services"} at ${site.name}`,
+      size: ogImageSize,
+      contentType: "image/png",
+    },
+  ];
 }
 
 export default async function Image({

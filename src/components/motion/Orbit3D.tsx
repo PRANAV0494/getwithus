@@ -25,6 +25,8 @@ import { cn } from "@/lib/cn";
 
 export type OrbitItem = {
   label: string;
+  /** A shorter label for narrow screens; the link keeps the full label as its name. */
+  short?: string;
   href: string;
   /** A small icon, drawn white on the chip's colour. */
   icon: ReactNode;
@@ -401,6 +403,7 @@ export default function Orbit3D({
               <Link
                 href={item.href}
                 data-chip=""
+                aria-label={item.short ? item.label : undefined}
                 draggable={false}
                 className="orbit-chip pointer-events-auto"
                 style={
@@ -419,7 +422,14 @@ export default function Orbit3D({
                 >
                   {item.icon}
                 </span>
-                {item.label}
+                {item.short ? (
+                  <>
+                    <span className="orbit-label-long">{item.label}</span>
+                    <span className="orbit-label-short">{item.short}</span>
+                  </>
+                ) : (
+                  item.label
+                )}
               </Link>
             </li>
           );

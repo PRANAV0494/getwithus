@@ -18,6 +18,8 @@ type FieldProps = {
   required?: boolean;
   /** Use a fieldset and legend for groups (radio groups, chip groups). */
   group?: boolean;
+  /** Keeps the label for assistive technology but hides it, when a heading right above says the same. */
+  labelHidden?: boolean;
   className?: string;
   children: (control: FieldControlProps) => ReactNode;
 };
@@ -34,6 +36,7 @@ export default function Field({
   optional = false,
   required = false,
   group = false,
+  labelHidden = false,
   className,
   children,
 }: FieldProps) {
@@ -74,7 +77,9 @@ export default function Field({
   if (group) {
     return (
       <fieldset className={cn("min-w-0", className)} aria-describedby={describedBy || undefined}>
-        <legend className="type-body font-medium text-ink">{labelText}</legend>
+        <legend className={labelHidden ? "sr-only" : "type-body font-medium text-ink"}>
+          {labelText}
+        </legend>
         {body}
       </fieldset>
     );
@@ -82,7 +87,10 @@ export default function Field({
 
   return (
     <div className={className}>
-      <label htmlFor={id} className="block type-body font-medium text-ink">
+      <label
+        htmlFor={id}
+        className={labelHidden ? "sr-only" : "block type-body font-medium text-ink"}
+      >
         {labelText}
       </label>
       {body}

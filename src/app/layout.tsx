@@ -21,11 +21,13 @@ const figtree = Figtree({
   variable: "--font-figtree",
 });
 
-// Code and terminals only.
+// Code and terminals only, all well below the first screen: not preloaded, so it does
+// not compete with the heading and body fonts (and no unused-preload warning).
 const jetbrains = JetBrains_Mono({
   subsets: ["latin"],
   weight: ["400", "500"],
   display: "swap",
+  preload: false,
   variable: "--font-jetbrains",
 });
 

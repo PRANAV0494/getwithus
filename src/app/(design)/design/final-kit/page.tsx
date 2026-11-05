@@ -79,7 +79,6 @@ const orbitItems: OrbitItem[] = serviceLines
 
 const STEP_ICONS = [FileText, Code, Rocket, RefreshCw];
 
-
 const steps = processSteps.map((step, index) => {
   const StepIcon = STEP_ICONS[index] ?? FileText;
   return {

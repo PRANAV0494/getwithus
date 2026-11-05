@@ -73,7 +73,7 @@ test.describe("home", () => {
     page,
   }) => {
     await page.goto("/");
-    const quotes = page.getByRole("link", { name: /^Get a quote for this/ });
+    const quotes = page.getByRole("link", { name: /^Get a quote for this: / });
     await expect(quotes).toHaveCount(5);
     await expect(quotes.first()).toHaveAttribute("href", "/start?service=web-development");
   });
@@ -85,37 +85,35 @@ test.describe("home", () => {
     await expect(page.getByText("You will get a confirmation by email.").first()).toBeVisible();
   });
 
-  test("the terminal takes a brief: chips, email check, and confirmation", async ({ page }) => {
+  test("the terminal starts a brief and hands it to /start with the answers filled in", async ({
+    page,
+  }) => {
     await page.goto("/");
     await page.locator("#closing-cta-title").scrollIntoViewIfNeeded();
-    // Scoped to the terminal's chip groups: "websites" also appears in other button names on the page.
-    const website = page
+    // Scoped to the terminal's chip group: service names also appear in other links on the page.
+    const web = page
       .getByRole("group", { name: "What do you need?" })
-      .getByRole("button", { name: "Website" });
-    await expect(website).toBeVisible({ timeout: 10_000 });
-    await website.click();
-    await expect(website).toHaveAttribute("aria-pressed", "true");
-    const budget = page
-      .getByRole("group", { name: "Rough budget" })
-      .getByRole("button", { name: "$15k+" });
-    await expect(budget).toBeVisible();
-    await budget.click();
+      .getByRole("button", { name: "Web development" });
+    await expect(web).toBeVisible({ timeout: 10_000 });
+    await web.click();
+    await expect(web).toHaveAttribute("aria-pressed", "true");
     const email = page.getByLabel("Email address");
     await expect(email).toBeVisible();
 
     await email.fill("not-an-email");
-    await page.getByRole("button", { name: "Send brief" }).click();
+    await page.getByRole("button", { name: "Continue to the brief" }).click();
     // Each finished line is in the DOM twice: typed (hidden from screen readers) and announced.
     await expect(
       page.getByText("enter an email address like name@company.com").first(),
     ).toBeVisible();
 
     await email.fill("name@company.com");
-    await page.getByRole("button", { name: "Send brief" }).click();
-    await expect(page.getByText("brief sent: Website · $15k+").first()).toBeVisible({
-      timeout: 10_000,
-    });
-    await expect(page.getByRole("button", { name: "start again" })).toBeVisible();
+    await page.getByRole("button", { name: "Continue to the brief" }).click();
+    // Nothing is sent from the terminal: the brief opens on its second step with both answers kept.
+    await expect(page).toHaveURL(/\/start$/, { timeout: 10_000 });
+    await expect(page.getByRole("heading", { name: "About the project" })).toBeVisible();
+    await page.getByRole("button", { name: "Back" }).click();
+    await expect(page.locator("input[value=web-development]")).toBeChecked();
   });
 
   test("header links navigate", async ({ page }) => {

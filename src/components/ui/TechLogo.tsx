@@ -100,9 +100,9 @@ const ICONS: Record<string, SimpleIcon> = Object.fromEntries(
 /** The card surfaces a logo sits on, per theme (tokens.css). */
 const SURFACES = { light: "#ffffff", dark: "#161b22" } as const;
 
-/** The brand colour where it reads at 3:1 or more on the surface, otherwise the text colour. */
-function fillFor(hex: string, surface: string): string {
-  return contrastRatio(`#${hex}`, surface) >= 3 ? `#${hex}` : "currentColor";
+/** The brand colour where it reads at `min` (3:1 by default) or more on the surface, otherwise the text colour. */
+function fillFor(hex: string, surface: string, min = 3): string {
+  return contrastRatio(`#${hex}`, surface) >= min ? `#${hex}` : "currentColor";
 }
 
 /** True when the slug is one of the marks above. */
@@ -129,7 +129,8 @@ export default function TechLogo({ slug, label, size = 24, className }: TechLogo
   if (!icon) return null;
   const style = {
     "--logo-light": fillFor(icon.hex, SURFACES.light),
-    "--logo-dark": fillFor(icon.hex, SURFACES.dark),
+    // Dark theme asks 4.5:1: thin outline marks such as the Postgres elephant looked faint at 3:1.
+    "--logo-dark": fillFor(icon.hex, SURFACES.dark, 4.5),
   } as CSSProperties;
   return (
     <svg

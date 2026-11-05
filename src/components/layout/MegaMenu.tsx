@@ -11,7 +11,11 @@ import type { ServiceSummary } from "@/content/types";
 import { cn } from "@/lib/cn";
 
 const navLinkClasses =
-  "inline-flex h-10 items-center gap-1.5 rounded-full px-3.5 text-[0.98rem] font-medium text-body transition-colors duration-150 ease-out hover:text-ink aria-[current=page]:text-accent data-[state=open]:text-ink";
+  "relative inline-flex h-10 items-center gap-1.5 rounded-full px-3.5 text-[0.98rem] font-medium text-body transition-colors duration-150 ease-out hover:text-ink aria-[current=page]:text-ink data-[state=open]:text-ink aria-[current=page]:after:absolute aria-[current=page]:after:inset-x-3.5 aria-[current=page]:after:bottom-1 aria-[current=page]:after:h-0.5 aria-[current=page]:after:rounded-full aria-[current=page]:after:bg-accent aria-[current=page]:after:content-['']";
+
+/** The current section: ink text with an accent underline (accent text failed contrast on the frosted header). */
+const currentClasses =
+  "text-ink after:absolute after:inset-x-3.5 after:bottom-1 after:h-0.5 after:rounded-full after:bg-accent after:content-['']";
 
 /** True when the path is the link or a page below it. */
 function isCurrent(pathname: string, href: string): boolean {
@@ -43,7 +47,7 @@ export default function MegaMenu({ services, links }: MegaMenuProps) {
             className={cn(
               navLinkClasses,
               "group",
-              isCurrent(pathname, "/services") && "text-accent",
+              isCurrent(pathname, "/services") && currentClasses,
             )}
           >
             Services

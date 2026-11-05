@@ -7,7 +7,7 @@ import TechLogo from "@/components/ui/TechLogo";
 import { codeSamples } from "@/content/code-samples";
 import { home } from "@/content/home";
 
-/** Language marks floating around the editor, at the prototype's positions and depths. */
+/** Language marks floating around the editor, near the prototype's positions and depths, clear of its tab bar and status bar. */
 const tiles: FloatingTile[] = [
   {
     key: "typescript",
@@ -18,7 +18,7 @@ const tiles: FloatingTile[] = [
   },
   {
     key: "python",
-    style: { right: -26, top: 40 },
+    style: { right: -26, top: 110 },
     z: 130,
     rotate: 9,
     delay: 1.4,
@@ -42,7 +42,7 @@ const tiles: FloatingTile[] = [
   },
   {
     key: "nextdotjs",
-    style: { left: "30%", bottom: -40 },
+    style: { left: "30%", bottom: -62 },
     z: 100,
     rotate: 6,
     delay: 0.7,

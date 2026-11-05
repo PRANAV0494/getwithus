@@ -23,7 +23,7 @@ export const appDevelopment: ServiceContent = {
   ],
   howWeWork: [
     "Scope and prototype",
-    "Build in two-week increments with a test build at the end of each",
+    "Build in weekly increments, each ending with a test build you can install on your phone",
     "Release and store review",
     "Maintenance for OS updates and store policy changes",
   ],

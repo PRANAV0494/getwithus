@@ -1,5 +1,5 @@
 import { createElement } from "react";
-import { site } from "@/config/site";
+import { confirmedHeadline } from "@/content/forms";
 import { issueFormToken, verifyFormToken, verifyTurnstile } from "@/features/leads/bot-checks";
 import {
   countLeadsByStatus,
@@ -164,7 +164,7 @@ async function sendLeadConfirmation(lead: Lead, requestId: string): Promise<void
   );
   const sent = await sendEmail({
     to: lead.email,
-    subject: `Confirmed. We reply within ${site.responseTime}.`,
+    subject: confirmedHeadline,
     html,
     text,
   });

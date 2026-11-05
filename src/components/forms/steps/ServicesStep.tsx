@@ -39,7 +39,13 @@ export default function ServicesStep() {
       canContinue={form.formState.isValid}
       onSubmit={form.handleSubmit(() => goTo(2))}
     >
-      <Field label={formCopy.fields.services} group error={form.formState.errors.services?.message}>
+      {/* The step heading already asks "What do you need?": the legend stays for screen readers only. */}
+      <Field
+        label={formCopy.fields.services}
+        group
+        labelHidden
+        error={form.formState.errors.services?.message}
+      >
         {(control) => (
           <Controller
             control={form.control}

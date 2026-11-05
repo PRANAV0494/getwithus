@@ -1,19 +1,18 @@
-import type { ComponentProps } from "react";
-import type TerminalCta from "@/components/cta/TerminalCta";
 import TerminalCtaLazy from "@/components/cta/TerminalCtaLazy";
 import ClosingCta from "@/components/sections/ClosingCta";
 import { RESPONSE_TIME } from "@/config/site";
 
 /**
- * The home page's closing band: "Tell us what you need" with the terminal form
- * in its right column. The terminal stays wired to `submitBrief`, which only
- * logs the brief until the owner connects it (docs/build-final-plan.md,
- * decision 5).
+ * The home page's closing band: "Tell us what you need" with the terminal in its
+ * right column. The terminal starts a brief and hands it to /start, where it is
+ * finished and confirmed through the lead pipeline like any other.
  */
-export default function CtaSection({
-  action,
-}: {
-  action: ComponentProps<typeof TerminalCta>["action"];
-}) {
-  return <ClosingCta terminal={<TerminalCtaLazy action={action} responseTime={RESPONSE_TIME} />} />;
+export default function CtaSection() {
+  // The FAQ above has a tinted background, so the band needs its own space above it, as on /process.
+  return (
+    <ClosingCta
+      className="pt-20 md:pt-24"
+      terminal={<TerminalCtaLazy responseTime={RESPONSE_TIME} />}
+    />
+  );
 }

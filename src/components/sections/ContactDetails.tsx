@@ -24,7 +24,7 @@ function details(): Detail[] {
       ),
     });
   }
-  if (phone) list.push({ label: "Phone and WhatsApp", icon: Phone, value: phone });
+  if (phone) list.push({ label: "Phone or WhatsApp", icon: Phone, value: phone });
   if (address) list.push({ label: "Office", icon: MapPin, value: address });
   return list;
 }

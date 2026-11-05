@@ -126,10 +126,18 @@ export default function SearchDemo() {
                 />
               ))}
             </div>
+            {/* The line draws in left to right by unclipping it: a dash animation
+                cannot be used here, because Chrome measures dashes in screen
+                pixels for a non-scaling stroke and stopped the line part way. */}
             <svg
               viewBox="0 0 300 120"
               preserveAspectRatio="none"
-              className="absolute inset-x-0 top-4 h-[150px] w-full"
+              className="absolute inset-x-0 top-4 h-[150px] w-full transition-[clip-path] duration-[1400ms] ease-out"
+              style={{
+                clipPath: current.chart
+                  ? "inset(-4px -4px -4px -4px)"
+                  : "inset(-4px 100% -4px -4px)",
+              }}
             >
               <path
                 d={LINE}
@@ -138,10 +146,6 @@ export default function SearchDemo() {
                 strokeWidth="3"
                 strokeLinecap="round"
                 vectorEffect="non-scaling-stroke"
-                pathLength={1}
-                strokeDasharray={1}
-                className="transition-[stroke-dashoffset] duration-[1400ms] ease-out"
-                style={{ strokeDashoffset: current.chart ? 0 : 1 }}
               />
             </svg>
           </div>

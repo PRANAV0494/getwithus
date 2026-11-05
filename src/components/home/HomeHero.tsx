@@ -14,6 +14,7 @@ const orbitItems: OrbitItem[] = allServices.map((service) => {
   const ServiceIcon = serviceIcons[service.slug];
   return {
     label: service.name,
+    short: service.slug === "custom-software" ? "Custom software" : undefined,
     href: service.href,
     color: serviceColors[service.slug],
     icon: <ServiceIcon size={17} strokeWidth={1.9} />,

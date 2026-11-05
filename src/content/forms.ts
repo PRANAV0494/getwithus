@@ -1,7 +1,12 @@
-import { site } from "@/config/site";
+import { known, RESPONSE_TIME, site } from "@/config/site";
 import type { ErrorCode } from "@/lib/errors";
 
 /** Labels, hints, and messages for the contact form, the project brief, and code verification. */
+/** The confirmation headline for the page, the email subject, and the email body. */
+export const confirmedHeadline = RESPONSE_TIME
+  ? `Confirmed. We reply within ${RESPONSE_TIME}.`
+  : "Confirmed. We will reply soon.";
+
 export const formCopy = {
   fields: {
     name: "Name",
@@ -18,7 +23,7 @@ export const formCopy = {
   },
   hints: {
     email: "We send a 6-digit code here to confirm it is yours.",
-    phone: "Include the country code, for example +44.",
+    phone: "Include the country code, for example +91.",
   },
   sendAndVerify: "Send and verify",
   continue: "Continue",
@@ -30,13 +35,19 @@ export const formCopy = {
     codeLabel: "Verification code",
     confirm: "Confirm",
     resend: "Resend code",
-    resendIn: (seconds: number) => `Resend code in ${seconds} s`,
+    resendIn: (seconds: number) => `Resend code in ${seconds} seconds`,
     resent: "We sent a new code. It replaces the earlier one.",
     differentEmail: "Use a different email",
   },
   success: {
-    contact: (email: string) => `Confirmed. We reply within ${site.responseTime} to ${email}.`,
-    brief: `Confirmed. We read every brief and reply within ${site.responseTime}.`,
+    // Unknown facts are left out (site.ts), so these never show an owner placeholder.
+    contact: (email: string) =>
+      RESPONSE_TIME
+        ? `Confirmed. We will reply to ${email} within ${RESPONSE_TIME}.`
+        : `Confirmed. We will reply to ${email} soon.`,
+    brief: RESPONSE_TIME
+      ? `Confirmed. We read every brief and reply within ${RESPONSE_TIME}.`
+      : "Confirmed. We read every brief and will reply with next steps.",
     backHome: "Back to home",
   },
   brief: {
@@ -52,7 +63,11 @@ export const formCopy = {
   },
 } as const;
 
-const directly = `email us directly at ${site.contact.email}`;
+const EMAIL = known(site.contact.email);
+/** What to try after a failed send: another attempt, and the email address once it is known. */
+const fallback = EMAIL
+  ? `Try again, or email us directly at ${EMAIL}.`
+  : "Try again in a few minutes.";
 
 /**
  * The copy shown for an API error code (spec section 13). Client errors with a
@@ -78,7 +93,7 @@ export function errorCopy(
     case "RATE_LIMITED":
       return "Too many requests from this connection. Try again in a few minutes.";
     case "EMAIL_ERROR":
-      return `We could not send the email right now. Try again, or ${directly}.`;
+      return `We could not send the email right now. ${fallback}`;
     case "BOT_CHECK_FAILED":
       return "We could not confirm this request came from a person. Try again in a few seconds.";
     case "VALIDATION_ERROR":
@@ -86,6 +101,6 @@ export function errorCopy(
     case "NOT_FOUND":
       return options.message ?? "Check the highlighted fields and try again.";
     default:
-      return `Something went wrong on our side. Try again, or ${directly}.`;
+      return `Something went wrong on our side. ${fallback}`;
   }
 }

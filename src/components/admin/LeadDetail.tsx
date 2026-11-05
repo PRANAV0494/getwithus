@@ -179,7 +179,10 @@ export default function LeadDetail({ lead, events, deliveries, now }: LeadDetail
             { value: "timeline", label: `Timeline (${events.length})`, content: timelineTab },
           ]}
         />
-        <aside className="grid gap-8 rounded-card border border-line bg-card p-5">
+        <aside
+          aria-label="Lead status and notes"
+          className="grid gap-8 rounded-card border border-line bg-card p-5"
+        >
           <div className="grid gap-3">
             <StatusSelect leadId={lead.id} status={lead.status} />
             {lead.status !== "spam" ? (

@@ -31,7 +31,11 @@ export default async function DashboardPage() {
             <div key={status} className="rounded-card border border-line bg-card p-4">
               <dt className="type-small text-body">{statusLabels[status]}</dt>
               <dd className="mt-1 type-h3 tabular-nums">
-                <Link href={`/admin/leads?status=${status}`} className="hover:text-accent">
+                <Link
+                  href={`/admin/leads?status=${status}`}
+                  aria-label={`${statusLabels[status]}: ${counts[status] ?? 0}`}
+                  className="hover:text-accent"
+                >
                   {counts[status] ?? 0}
                 </Link>
               </dd>

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
@@ -34,13 +35,16 @@ export default function ErrorPage({ error, retry }: ErrorPageProps) {
         </p>
         <h1 className="mt-5 type-display text-ink">Something went wrong</h1>
         <p className="mt-4 max-w-[52ch] type-lead text-body">
-          This page could not load. Try again, and if it keeps happening, contact us with the
-          reference below.
+          This page could not load. Try again, and if it keeps happening,{" "}
+          <Link href="/contact" className="font-semibold text-accent underline underline-offset-4">
+            contact us
+          </Link>{" "}
+          with the reference below.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <Button onClick={retry}>Try again</Button>
           <Button href="/" variant="secondary">
-            Go to home
+            Back to home
           </Button>
         </div>
         <p className="mt-6 type-small text-body">

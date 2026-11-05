@@ -14,7 +14,7 @@ export const processSteps: readonly ProcessStep[] = [
       "Access to existing systems we need to see",
       "A date you need to launch by, if there is one",
     ],
-    youGet: ["A scope document", "A dated plan", "A fixed price"],
+    youGet: ["A scope document", "A dated plan", "An agreed price"],
   },
   {
     title: "Build",
@@ -58,7 +58,7 @@ export const workingTogether: readonly { title: string; text: string }[] = [
   {
     title: "Communication",
     text: channel
-      ? `A shared channel on ${channel}, a weekly demo, and a written note each week.`
+      ? `We talk on ${channel}, with a weekly demo and a written note each week.`
       : "A shared channel, a weekly demo, and a written note each week.",
   },
   {

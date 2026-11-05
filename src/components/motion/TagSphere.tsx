@@ -224,7 +224,7 @@ export default function TagSphere({
         })}
         <span className="stage-tag stage-tag-drag">
           <MoveHorizontal size={15} strokeWidth={1.75} aria-hidden="true" />
-          Drag to rotate
+          Drag to spin
         </span>
       </div>
       {children ? (

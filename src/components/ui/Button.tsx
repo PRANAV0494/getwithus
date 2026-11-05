@@ -62,7 +62,7 @@ export default function Button(props: ButtonProps) {
       <span className="invisible inline-flex items-center gap-2">{children}</span>
       <span className="absolute inset-0 inline-flex items-center justify-center">
         <LoaderCircle size={16} strokeWidth={1.75} className="animate-spin" aria-hidden="true" />
-        <span className="sr-only">Working</span>
+        <span className="sr-only">Loading</span>
       </span>
     </>
   ) : (

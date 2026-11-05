@@ -29,6 +29,6 @@ export const homeFaqs: readonly FaqItem[] = [
   {
     question: "Who pays for WhatsApp, calls, AI models, and ads?",
     answer:
-      "You do, directly. Platform costs such as WhatsApp conversations, telephony minutes, model usage, and ad spend are billed to your own accounts at cost. We never hold your ad budget.",
+      "You do, directly. Platform costs such as WhatsApp messages, telephony minutes, model usage, and ad spend are billed to your own accounts at cost. We never hold your ad budget.",
   },
 ];

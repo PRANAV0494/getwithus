@@ -30,11 +30,11 @@ export const termsOfService: LegalDocument = {
         },
         {
           type: "p",
-          text: "If you use the website for a company or other organization, you confirm that you are allowed to accept these terms on its behalf.",
+          text: "If you use the website for a company or other organisation, you confirm that you are allowed to accept these terms on its behalf.",
         },
         {
           type: "p",
-          text: "Our privacy policy, at /privacy, explains how we handle the personal data you give us through the website. It is a separate document.",
+          text: "Our privacy policy, linked at the bottom of every page, explains how we handle the personal data you give us through the website. It is a separate document.",
         },
       ],
     },

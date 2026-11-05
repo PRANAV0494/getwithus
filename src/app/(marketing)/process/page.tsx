@@ -107,14 +107,15 @@ export default function ProcessPage() {
             lead="Building happens in weekly increments, and every week ends with something you can open on your own phone."
           />
           <ol
-            className="week-strip reveal mt-12 grid gap-3 md:grid-cols-5"
+            // Five columns only from lg: at tablet width five narrow cards broke to a word a line.
+            className="week-strip reveal mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-5"
             style={{ "--n": sampleWeek.length } as CSSProperties}
           >
             {sampleWeek.map((day, index) => (
               <li
                 key={day.day}
                 style={{ "--i": index } as CSSProperties}
-                className="week-day rounded-card border border-line bg-card p-5 shadow-soft data-[last]:border-accent"
+                className="week-day rounded-card border border-line bg-card p-5 shadow-soft data-[last]:border-accent data-[last]:sm:col-span-2 data-[last]:lg:col-span-1"
                 data-last={index === sampleWeek.length - 1 ? "" : undefined}
               >
                 <p className="text-sm font-bold text-accent">{day.day}</p>

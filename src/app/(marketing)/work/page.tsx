@@ -27,14 +27,14 @@ export default function WorkPage() {
       <PageHero
         id="work-title"
         title={workPage.title}
-        lead={workPage.lead}
+        lead={studies.length > 0 ? workPage.lead : workPage.emptyLead}
         crumbs={[
           { name: "Home", path: "/" },
           { name: workPage.title, path: workPage.path },
         ]}
         visual={<WebGLModel model={model} still={<ModelStill model={model} />} />}
       />
-      <section aria-label={workPage.title} className="py-20 md:py-24">
+      <section aria-label="Case studies" className="py-20 md:py-24">
         <Container>
           {studies.length > 0 ? (
             <ul className="grid gap-6 [perspective:1400px] md:grid-cols-2 lg:grid-cols-3">

@@ -4,10 +4,10 @@ import type { ServiceContent } from "@/content/types";
 export const callingAgent: ServiceContent = {
   slug: "calling-agent",
   seoDescription:
-    "A voice agent that answers or places calls, follows your rules, transfers to a person when asked, and writes a summary to your CRM.",
-  lead: "A voice agent that answers inbound calls or places outbound ones, follows your script and rules, books or qualifies, transfers to a person when asked, and writes a summary into your CRM after every call.",
+    "A calling agent that answers or places calls, follows your rules, transfers to a person when asked, and writes a summary to your CRM.",
+  lead: "A calling agent that answers inbound calls or places outbound ones, follows your script and rules, books or qualifies, transfers to a person when asked, and writes a summary into your CRM after every call.",
   summary:
-    "A voice agent that answers or places calls and follows your script and rules. It transfers to a person when asked and writes a summary to your CRM.",
+    "A calling agent that answers or places calls and follows your script and rules. It transfers to a person when asked and writes a summary to your CRM.",
   whatYouGet: [
     "Telephony setup on your own provider account",
     "Voice, persona, and script designed with your team",

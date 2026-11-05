@@ -18,7 +18,7 @@ export const site = {
   tagline: "Build with us. Grow with us.",
   url: publicEnv.siteUrl.replace(/\/$/, ""),
   description:
-    "Websites, mobile apps, WhatsApp and voice agents, and the marketing that fills them. Scoped in writing, shipped in weekly demos, and handed over with you owning every account.",
+    "Websites, mobile apps, WhatsApp bots and calling agents, and the marketing that fills them. Scoped in writing, shipped in weekly demos, and handed over with you owning every account.",
   footerDescription: "Websites, apps, agents, and marketing for businesses that need them to work.",
   contact: {
     email: "[OWNER: hello@domain]",
@@ -38,7 +38,7 @@ export const site = {
     schedule:
       "[OWNER: payment schedule, for example a deposit at signing and the rest at milestones]",
     currency: "[OWNER: currencies you invoice in, for example INR and USD]",
-    tax: "[OWNER: tax note, for example prices exclude GST]",
+    tax: "[OWNER: tax note as a sentence, for example Prices exclude GST]",
     methods: "[OWNER: accepted payment methods, for example bank transfer, UPI, and card]",
   },
   copyrightYear: 2026,

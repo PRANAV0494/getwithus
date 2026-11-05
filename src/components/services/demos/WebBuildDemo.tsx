@@ -174,7 +174,7 @@ export default function WebBuildDemo() {
                     <span
                       className={cn(
                         "grid size-6 place-items-center rounded-full border transition-colors duration-300",
-                        done ? "border-ok bg-ok text-white" : "border-line-2 text-transparent",
+                        done ? "border-ok bg-ok text-bg" : "border-line-2 text-transparent",
                       )}
                     >
                       <Check size={14} strokeWidth={3} />

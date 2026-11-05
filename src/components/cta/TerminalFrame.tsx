@@ -26,7 +26,9 @@ export default function TerminalFrame({
             style={{ background: color }}
           />
         ))}
-        <span className="ml-2.5 text-[0.8125rem] text-[#8b9ab0]">getwithus: start_project</span>
+        <span className="ml-2.5 truncate text-[0.8125rem] text-[#8b9ab0]">
+          GetwithUs: new brief
+        </span>
       </div>
       <div aria-live="polite" className="min-h-[340px] px-6 pt-[22px] pb-[26px] text-[0.9375rem]">
         {children}
