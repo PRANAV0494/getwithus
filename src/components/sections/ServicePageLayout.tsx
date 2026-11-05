@@ -2,7 +2,6 @@ import { ArrowRight, Info } from "lucide-react";
 import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
 import JsonLd from "@/components/layout/JsonLd";
-import MagneticButton from "@/components/motion/MagneticButton";
 import ClosingCta from "@/components/sections/ClosingCta";
 import PageHero from "@/components/sections/PageHero";
 import { PriceCard } from "@/components/sections/Pricing";
@@ -216,11 +215,9 @@ export default function ServicePageLayout({ page }: { page: ServicePage }) {
         crumbs={crumbs}
         actions={
           <>
-            <MagneticButton>
-              <Button href={startHref} size="lg">
-                Start a project
-              </Button>
-            </MagneticButton>
+            <Button href={startHref} size="lg">
+              Start a project
+            </Button>
             <Button href="#pricing-title" variant="secondary" size="lg">
               How it is priced
             </Button>

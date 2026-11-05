@@ -103,21 +103,21 @@ Sentence case everywhere. Body text stays under about 70 characters a line. Head
 
 Motion and 3D primitives (`src/components/motion`, `src/components/three`), all client-only, each reserving its space, pausing off screen, and drawing a finished still state under reduced motion:
 
-| Primitive                                    | What it does                                                                                                                                                                             |
-| -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Typewriter`                                 | Types and deletes a rotating list of words; the home hero's word slot only                                                                                                               |
-| `TypedText`                                  | Types one string once when it enters the screen: search queries, URL bars, terminal lines, chat input                                                                                    |
-| `CodeTypewriter`                             | The editor: tabs, gutter, a small tokenizer with syntax colours, status bar, a terminal line after each file; loops while on screen                                                      |
-| `RevealText`                                 | Headings rise in line by line (word by word when short), once, 60 ms apart, 600 ms; never the above-the-fold `h1`                                                                        |
-| `Marquee`                                    | A duplicated track looping by translateX, edge fade, pauses on hover and focus, reversible                                                                                               |
-| `TiltScene`                                  | A card tilting toward the pointer (up to 9 degrees) whose `Layer` children sit at different depths and lift further on hover                                                             |
-| `Orbit3D`                                    | The hero: a CSS 3D cube, a tilted ring of service chips sorted by depth, wires with travelling packets, an inner ring with satellites, parallax, drag to spin                            |
-| `TagSphere`                                  | Tool chips with logos on a sphere; auto-rotates, drags with inertia, category buttons highlight a group                                                                                  |
-| `ProcessStepper`                             | Circles on a dashed track with a fill and a glowing runner; auto-advances every 2.8 s on screen, pauses 9 s after a click                                                                |
-| `FloatingTiles`, `RotatingSeal`              | Logo tiles bobbing at different depths; circular text turning on a path                                                                                                                  |
-| `ChatDemo`, `CallDemo`                       | A WhatsApp-style chat and a call screen playing scripts from `src/content/demos.ts`                                                                                                      |
-| `WebGLModel`                                 | An inner page's R3F model in its header: a still SVG until the first scroll, pointer move, or key press, then the scene at 30 fps, paused off screen, re-reading colours on theme change |
-| `MagneticButton`, `TiltCard`, `LazyWhenNear` | Kept from earlier work: the pull toward the pointer on primary buttons, pointer tilt, and loading below-the-fold code when it comes near                                                 |
+| Primitive                       | What it does                                                                                                                                                                             |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Typewriter`                    | Types and deletes a rotating list of words; the home hero's word slot only                                                                                                               |
+| `TypedText`                     | Types one string once when it enters the screen: search queries, URL bars, terminal lines, chat input                                                                                    |
+| `CodeTypewriter`                | The editor: tabs, gutter, a small tokenizer with syntax colours, status bar, a terminal line after each file; loops while on screen                                                      |
+| `RevealText`                    | Headings rise in line by line (word by word when short), once, 60 ms apart, 600 ms; never the above-the-fold `h1`                                                                        |
+| `Marquee`                       | A duplicated track looping by translateX, edge fade, pauses on hover and focus, reversible                                                                                               |
+| `TiltScene`                     | A card tilting toward the pointer (up to 9 degrees) whose `Layer` children sit at different depths and lift further on hover                                                             |
+| `Orbit3D`                       | The hero: a CSS 3D cube, a tilted ring of service chips sorted by depth, wires with travelling packets, an inner ring with satellites, parallax, drag to spin                            |
+| `TagSphere`                     | Tool chips with logos on a sphere; auto-rotates, drags with inertia, category buttons highlight a group                                                                                  |
+| `ProcessStepper`                | Circles on a dashed track with a fill and a glowing runner; auto-advances every 2.8 s on screen, pauses 9 s after a click                                                                |
+| `FloatingTiles`, `RotatingSeal` | Logo tiles bobbing at different depths; circular text turning on a path                                                                                                                  |
+| `ChatDemo`, `CallDemo`          | A WhatsApp-style chat and a call screen playing scripts from `src/content/demos.ts`                                                                                                      |
+| `WebGLModel`                    | An inner page's R3F model in its header: a still SVG until the first scroll, pointer move, or key press, then the scene at 30 fps, paused off screen, re-reading colours on theme change |
+| `TiltCard`, `LazyWhenNear`      | Kept from earlier work: pointer tilt, and loading below-the-fold code when it comes near. Buttons never move toward the pointer (the magnetic pull was removed at the owner's request)   |
 
 Service page demos (`src/components/services/demos`), each rendering its finished state first (what screen readers and reduced motion get, with a visually hidden summary), then replaying while on screen through `useDemoLoop`, and labelled "Example data" or "Example conversation":
 
@@ -141,7 +141,7 @@ Allowed, and only in these places:
 2. Typed lines in demos and interfaces (`TypedText`, `CodeTypewriter`), and the chat and call demos.
 3. Heading reveals (`RevealText`), once, never on the above-the-fold `h1`.
 4. Marquees of tool logos and industries.
-5. Tilt on cards and scenes, the magnetic pull on primary buttons, and the editor rig following the pointer (fine pointers only).
+5. Tilt on cards and scenes, and the editor rig following the pointer (fine pointers only). Buttons stay still under the pointer; the primary button's glow grows on hover.
 6. The tag sphere, the process stepper, floating tiles, the rotating seal, and the closing band's rings and glow.
 7. Each inner page's WebGL model.
 8. Transitions that answer an action (menus, accordion, dialog, sheet, toast, tabs, theme switch), 150 to 300 ms, ease-out, and loading states.
@@ -153,7 +153,7 @@ No library takes over scrolling ([decisions/0008-no-smooth-scroll.md](decisions/
 Run `pnpm guard` (part of `pnpm check` and `pnpm build`); it enforces the mechanical ones under `src/`. The rest need a person.
 
 - [ ] **Motion runs only on screen.** Every looping animation pauses when off screen or in a background tab (IntersectionObserver plus `visibilitychange`).
-- [ ] **Reduced motion gets a calm site.** `prefers-reduced-motion` gives a complete, still, readable page: no typing (show the final text); marquees stop and become horizontally scrollable; no orbit or sphere drift (draw a still frame; dragging still works); no tilt and no magnetic pull; chat and call demos show the full conversation.
+- [ ] **Reduced motion gets a calm site.** `prefers-reduced-motion` gives a complete, still, readable page: no typing (show the final text); marquees stop and become horizontally scrollable; no orbit or sphere drift (draw a still frame; dragging still works); no tilt; chat and call demos show the full conversation.
 - [ ] **Decorative text is marked as such.** Pieces that are pure decoration and hidden from assistive technology (the stack sphere, whose chips fade with depth) carry `data-decorative`; the axe suite leaves them out of the contrast check, as WCAG 1.4.3 exempts pure decoration. Everything they show is also real text elsewhere on the page. Text on the accent tint (`--accent-soft`) is ink, not accent: accent on its own tint is 4.3:1.
 - [ ] **Animated text stays readable for screen readers.** The full text is always in the DOM. Animated copies are `aria-hidden`; the real text is visually hidden or in an `aria-label`. Demos carry a full transcript in a visually hidden list.
 - [ ] **Largest heading:** 80 px on desktop, 44 px on mobile.

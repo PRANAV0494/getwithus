@@ -4,7 +4,6 @@ import { Menu, X } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
-import MagneticButton from "@/components/motion/MagneticButton";
 import { serviceColors, serviceIcons } from "@/components/sections/serviceIcons";
 import Button from "@/components/ui/Button";
 import Icon from "@/components/ui/Icon";
@@ -120,11 +119,9 @@ export default function MobileMenu({ services, links }: MobileMenuProps) {
             </ul>
           </nav>
           <div className="mt-auto pt-8">
-            <MagneticButton className="w-full">
-              <Button href="/start" onClick={close} className="w-full">
-                Start a project
-              </Button>
-            </MagneticButton>
+            <Button href="/start" onClick={close} className="w-full">
+              Start a project
+            </Button>
           </div>
         </Sheet>
       ) : null}

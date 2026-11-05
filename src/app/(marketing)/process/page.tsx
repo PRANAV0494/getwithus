@@ -1,6 +1,5 @@
 import { Check, Code, FileText, RefreshCw, Rocket } from "lucide-react";
 import type { CSSProperties } from "react";
-import MagneticButton from "@/components/motion/MagneticButton";
 import ProcessStepper from "@/components/motion/ProcessStepper";
 import ClosingCta from "@/components/sections/ClosingCta";
 import PageHero from "@/components/sections/PageHero";
@@ -74,11 +73,9 @@ export default function ProcessPage() {
           { name: processPage.title, path: processPage.path },
         ]}
         actions={
-          <MagneticButton>
-            <Button href="/start" size="lg">
-              Start a project
-            </Button>
-          </MagneticButton>
+          <Button href="/start" size="lg">
+            Start a project
+          </Button>
         }
         visual={<WebGLModel model="process-path" still={<ModelStill model="process-path" />} />}
       />

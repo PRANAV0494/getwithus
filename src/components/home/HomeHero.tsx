@@ -1,5 +1,4 @@
 import { Check } from "lucide-react";
-import MagneticButton from "@/components/motion/MagneticButton";
 import Orbit3D, { type OrbitItem } from "@/components/motion/Orbit3D";
 import Typewriter from "@/components/motion/Typewriter";
 import { serviceColors, serviceIcons } from "@/components/sections/serviceIcons";
@@ -51,11 +50,9 @@ export default function HomeHero() {
           </h1>
           <p className="mt-5 max-w-[34em] type-lead text-body">{hero.lead}</p>
           <div className="mt-[34px] flex flex-wrap gap-3.5">
-            <MagneticButton>
-              <Button href={hero.primary.href} size="lg">
-                {hero.primary.label}
-              </Button>
-            </MagneticButton>
+            <Button href={hero.primary.href} size="lg">
+              {hero.primary.label}
+            </Button>
             <Button href={hero.secondary.href} variant="secondary" size="lg">
               {hero.secondary.label}
             </Button>

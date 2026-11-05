@@ -1,5 +1,4 @@
 import ServiceCards from "@/components/home/ServiceCards";
-import MagneticButton from "@/components/motion/MagneticButton";
 import ClosingCta from "@/components/sections/ClosingCta";
 import PageHero from "@/components/sections/PageHero";
 import Pricing from "@/components/sections/Pricing";
@@ -31,11 +30,9 @@ export default function ServicesPage() {
         ]}
         actions={
           <>
-            <MagneticButton>
-              <Button href="/start" size="lg">
-                Start a project
-              </Button>
-            </MagneticButton>
+            <Button href="/start" size="lg">
+              Start a project
+            </Button>
             <Button href="#pricing-title" variant="secondary" size="lg">
               {home.pricing.title}
             </Button>

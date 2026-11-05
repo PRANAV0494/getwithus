@@ -50,8 +50,8 @@ function isInternal(href: string): boolean {
 
 /**
  * The one button: a pill. Renders a `<button>`, or a link when `href` is passed.
- * The primary button carries the accent glow, which grows on hover; nothing moves
- * (MagneticButton adds the pull where it is wanted).
+ * The primary button carries the accent glow, which grows on hover; the button
+ * itself never moves toward the pointer.
  */
 export default function Button(props: ButtonProps) {
   const { variant = "primary", size = "md", loading = false, className, children } = props;

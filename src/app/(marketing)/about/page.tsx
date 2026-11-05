@@ -1,6 +1,5 @@
 import { FileCheck, KeyRound, LockOpen, MonitorPlay } from "lucide-react";
 import Image from "next/image";
-import MagneticButton from "@/components/motion/MagneticButton";
 import RevealText from "@/components/motion/RevealText";
 import ClosingCta from "@/components/sections/ClosingCta";
 import ContactDetails, { hasContactDetails } from "@/components/sections/ContactDetails";
@@ -93,11 +92,9 @@ export default function AboutPage() {
           { name: "About", path: aboutPage.path },
         ]}
         actions={
-          <MagneticButton>
-            <Button href="/start" size="lg">
-              Start a project
-            </Button>
-          </MagneticButton>
+          <Button href="/start" size="lg">
+            Start a project
+          </Button>
         }
         visual={<WebGLModel model="about-cube" still={<ModelStill model="about-cube" />} />}
       />

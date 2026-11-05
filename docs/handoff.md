@@ -169,6 +169,7 @@ Choices made while building the final light 3D design, beyond the decisions reco
 - **The service pages' "How it is priced"** shows the service's pricing card (never in the home page's featured style) and its pricing sentence with any placeholder sentence left out.
 - **"Fixed price" wording:** the site promised a fixed price on every project, but custom software is time and materials with a weekly cap for open-ended work, and marketing is a monthly retainer. The general promises now read "scope and price in writing" and "an agreed price"; the per-service pricing models are unchanged. Restore "fixed price" if every model becomes fixed price.
 - **WhatsApp billing** is described per template message (Meta's pricing since 1 July 2025), not per conversation.
+- **Buttons stay still under the pointer.** The prototype's magnetic pull on primary buttons ("Start a project" leaning toward the mouse) is removed at the owner's request: in the header it slid over the theme toggle. The primary button's hover glow remains.
 - **Owner placeholders never reach visitors:** the form success screens, the confirmation email (subject, body, footer), and the error messages leave out the response time, contact email, phone, and legal name until they are filled in.
 - **The station scene** from the earlier design was retired; every inner page has its own model instead.
 

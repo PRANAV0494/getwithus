@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import MagneticButton from "@/components/motion/MagneticButton";
 import OnScreen from "@/components/motion/OnScreen";
 import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
@@ -59,11 +58,9 @@ export default function ClosingCta({
               </h2>
               <p className="mt-[18px] max-w-[30em] text-lg text-cta-body">{closingCta.text}</p>
               <div className="mt-8 flex flex-wrap gap-3.5">
-                <MagneticButton>
-                  <Button href={closingCta.primary.href} size="lg">
-                    {closingCta.primary.label}
-                  </Button>
-                </MagneticButton>
+                <Button href={closingCta.primary.href} size="lg">
+                  {closingCta.primary.label}
+                </Button>
                 {closingCta.secondary ? (
                   <Button href={closingCta.secondary.href} variant="inverse" size="lg">
                     {closingCta.secondary.label}

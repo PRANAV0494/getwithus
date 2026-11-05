@@ -1,7 +1,6 @@
 import MegaMenu from "@/components/layout/MegaMenu";
 import MobileMenu from "@/components/layout/MobileMenu";
 import ThemeToggle from "@/components/layout/ThemeToggle";
-import MagneticButton from "@/components/motion/MagneticButton";
 import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
 import Logo from "@/components/ui/Logo";
@@ -11,7 +10,7 @@ import { getPublishedCaseStudies } from "@/features/case-studies/getPublishedCas
 
 /**
  * Sticky header on a blurred, translucent surface: logo, the navigation with
- * the services mega menu, the theme switch, and the magnetic primary action.
+ * the services mega menu, the theme switch, and the primary action.
  */
 export default function Header() {
   const links = visibleNav(getPublishedCaseStudies().length > 0);
@@ -23,9 +22,7 @@ export default function Header() {
         <div className="flex items-center gap-2.5">
           <ThemeToggle />
           <div className="max-[520px]:hidden">
-            <MagneticButton>
-              <Button href="/start">Start a project</Button>
-            </MagneticButton>
+            <Button href="/start">Start a project</Button>
           </div>
           <MobileMenu services={serviceLines} links={links} />
         </div>

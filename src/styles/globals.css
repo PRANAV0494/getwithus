@@ -276,15 +276,6 @@
   background-size: 100% 1px;
 }
 
-/* Magnetic primary buttons (MagneticButton): springs back, follows closely while pulled. */
-.magnetic {
-  transition: transform 350ms cubic-bezier(0.2, 0.8, 0.2, 1);
-  will-change: transform;
-}
-.magnetic[data-pull] {
-  transition: transform 80ms linear;
-}
-
 /* Tilt cards (TiltCard): spring back slowly, follow the pointer closely while it moves. */
 .tilt {
   transition:

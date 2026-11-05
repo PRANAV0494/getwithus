@@ -3,7 +3,6 @@
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import TerminalFrame from "@/components/cta/TerminalFrame";
-import MagneticButton from "@/components/motion/MagneticButton";
 import { sleep } from "@/components/motion/sleep";
 import Button from "@/components/ui/Button";
 import { allServices } from "@/content/services/catalog";
@@ -266,9 +265,7 @@ export default function TerminalCta({ responseTime }: TerminalCtaProps) {
               onChange={(event) => setEmail(event.target.value)}
               className="h-12 min-w-[200px] flex-1 border-0 border-b border-white/25 bg-transparent px-1 font-mono text-[0.9375rem] text-white placeholder:text-[#8b9ab0] focus:border-[#22d3ee]"
             />
-            <MagneticButton>
-              <Button type="submit">Continue to the brief</Button>
-            </MagneticButton>
+            <Button type="submit">Continue to the brief</Button>
           </form>
         );
       })}
