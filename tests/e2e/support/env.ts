@@ -31,7 +31,7 @@ export const serverEnv: Record<string, string> = {
   VERIFICATION_PEPPER: "e2e-verification-pepper-000000000000000000000",
   CRON_SECRET: "e2e-cron-secret-000000",
   EMAIL_TRANSPORT: "console",
-  EMAIL_FROM: "GetWithUs <no-reply@example.com>",
+  EMAIL_FROM: "GetwithUs <no-reply@example.com>",
   TEAM_NOTIFY_EMAILS: "team@example.com",
   LEADS_API_KEY: "e2e-leads-api-key-00000000000000000000000000",
   SLACK_WEBHOOK_URL: "",

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { site } from "@/config/site";
-import { MARK_GLYPH_PATH } from "@/lib/brand";
+import { MARK_G_PATH, MARK_SIZE, MARK_SQUARE, MARK_TILE_RADIUS, WORDMARK } from "@/lib/brand";
 import { cn } from "@/lib/cn";
 
 type LogoProps = {
@@ -13,12 +13,17 @@ type LogoProps = {
   onClick?: () => void;
 };
 
+/** Mark height in px; the wordmark is drawn at the same height (src/lib/brand.ts). */
 const SIZES = {
-  md: { mark: 28, radius: 8, text: "text-[1.125rem]" },
-  lg: { mark: 36, radius: 10, text: "text-[1.375rem]" },
+  md: { mark: 28, gap: "gap-2" },
+  lg: { mark: 36, gap: "gap-2.5" },
 } as const;
 
-/** The brand mark (the glyph on an accent tile with rounded corners) and the wordmark. */
+/**
+ * The logo: the G holding a square on its tile, and the outlined wordmark with the
+ * square dot on the i. Colours come from the theme tokens (--brand-tile,
+ * --brand-mark, --ink, --accent), so it follows the light and dark themes.
+ */
 export default function Logo({
   href = "/",
   showWordmark = true,
@@ -26,34 +31,58 @@ export default function Logo({
   className,
   onClick,
 }: LogoProps) {
-  const { mark, radius, text } = SIZES[size];
+  const { mark, gap } = SIZES[size];
   const content = (
     <>
       <svg
-        viewBox="0 0 64 64"
+        viewBox={`0 0 ${MARK_SIZE} ${MARK_SIZE}`}
         width={mark}
         height={mark}
         aria-hidden="true"
         focusable="false"
         className="shrink-0"
       >
-        <rect width="64" height="64" rx={(radius / mark) * 64} className="fill-accent" />
-        <path d={MARK_GLYPH_PATH} className="fill-accent-ink" />
+        <rect
+          width={MARK_SIZE}
+          height={MARK_SIZE}
+          rx={MARK_TILE_RADIUS}
+          className="fill-brand-tile"
+        />
+        <path d={MARK_G_PATH} className="fill-brand-mark" />
+        <rect
+          x={MARK_SQUARE.x}
+          y={MARK_SQUARE.y}
+          width={MARK_SQUARE.size}
+          height={MARK_SQUARE.size}
+          rx={MARK_SQUARE.radius}
+          className="fill-accent"
+        />
       </svg>
       {showWordmark ? (
-        <span
-          className={cn(
-            "font-display leading-none font-extrabold tracking-[-0.02em] text-ink",
-            text,
-          )}
+        <svg
+          viewBox={`0 0 ${WORDMARK.width} ${WORDMARK.height}`}
+          width={Math.round((mark * WORDMARK.width) / WORDMARK.height)}
+          height={mark}
+          aria-hidden="true"
+          focusable="false"
+          className="shrink-0"
         >
-          {site.wordmark}
-        </span>
+          <path d={WORDMARK.ink} className="fill-ink" />
+          <path d={WORDMARK.accent} className="fill-accent" />
+          <rect
+            x={WORDMARK.dot.x}
+            y={WORDMARK.dot.y}
+            width={WORDMARK.dot.size}
+            height={WORDMARK.dot.size}
+            rx={WORDMARK.dot.radius}
+            className="fill-accent"
+          />
+        </svg>
       ) : null}
     </>
   );
 
-  const classes = cn("inline-flex items-center gap-2.5 rounded-tag", className);
+  const classes = cn("inline-flex items-center rounded-tag", gap, className);
 
   if (href === null) {
     return (

@@ -14,7 +14,7 @@ export type CodeSample = {
 
 /**
  * The four files the home page editor types, from the prototype. The Python
- * agent books a GetWithUs scoping call, like the WhatsApp demo.
+ * agent books a GetwithUs scoping call, like the WhatsApp demo.
  */
 export const codeSamples: readonly CodeSample[] = [
   {
@@ -30,7 +30,7 @@ export const codeSamples: readonly CodeSample[] = [
       "from getwithus import Agent, tools",
       "",
       "agent = Agent(",
-      '    name="GetWithUs assistant",',
+      '    name="GetwithUs assistant",',
       "    tools=[tools.calendar, tools.crm],",
       '    handoff="human_on_request",',
       ")",

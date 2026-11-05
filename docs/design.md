@@ -99,7 +99,7 @@ Sentence case everywhere. Body text stays under about 70 characters a line. Head
 
 ## Components
 
-`src/components/ui` holds the kit (Button, Field, Input, Select, Checkbox, RadioGroup, ChipGroup, CodeInput, Dialog, Sheet, DropdownMenu, Tooltip, Tabs, Accordion, Badge, Table, Skeleton, EmptyState, ErrorState, Toast, Container, Section, Prose, Logo, Icon), restyled to the tokens above. `TechLogo` renders a tool's official mark from Simple Icons (or `public/logos/` with a recorded source), with a title and label, in the brand colour or `currentColor` where the brand colour falls under 3:1 on the surface.
+`src/components/ui` holds the kit (Button, Field, Input, Select, Checkbox, RadioGroup, ChipGroup, CodeInput, Dialog, Sheet, DropdownMenu, Tooltip, Tabs, Accordion, Badge, Table, Skeleton, EmptyState, ErrorState, Toast, Container, Section, Prose, Logo, Icon), restyled to the tokens above. `Logo` draws the brand mark and the outlined wordmark from `src/lib/brand.ts` in the theme tokens `--brand-tile`, `--brand-mark`, `--ink`, and `--accent`; the logo itself, its colours, files, and rules are in [brand/README.md](brand/README.md). `TechLogo` renders a tool's official mark from Simple Icons (or `public/logos/` with a recorded source), with a title and label, in the brand colour or `currentColor` where the brand colour falls under 3:1 on the surface.
 
 Motion and 3D primitives (`src/components/motion`, `src/components/three`), all client-only, each reserving its space, pausing off screen, and drawing a finished still state under reduced motion:
 

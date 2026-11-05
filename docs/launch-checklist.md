@@ -18,7 +18,7 @@ Target: Vercel for the app, Neon for Postgres, Resend for email. Another Postgre
 ## Setup
 
 1. [ ] Create the Neon project with `production` and `preview` branches. In Vercel, set `DATABASE_URL` per environment to the pooled connection string.
-2. [ ] Create the Resend account, add the sending domain, add the SPF, DKIM, and DMARC records it provides at the DNS host, and wait for "Verified". Set `RESEND_API_KEY`, `EMAIL_FROM` (for example `GetWithUs <no-reply@domain>`), and `EMAIL_REPLY_TO` (for example `hello@domain`). Leave `EMAIL_TRANSPORT` unset (it defaults to `resend`).
+2. [ ] Create the Resend account, add the sending domain, add the SPF, DKIM, and DMARC records it provides at the DNS host, and wait for "Verified". Set `RESEND_API_KEY`, `EMAIL_FROM` (for example `GetwithUs <no-reply@domain>`), and `EMAIL_REPLY_TO` (for example `hello@domain`). Leave `EMAIL_TRANSPORT` unset (it defaults to `resend`).
 3. [ ] Set every variable from `.env.example` in Vercel for Production and Preview. Generate `AUTH_SECRET`, `VERIFICATION_PEPPER`, `CRON_SECRET`, and `LEADS_API_KEY` with `openssl rand -base64 48`, a different value for each and for each environment. Do not set `NEXT_PUBLIC_TEST_HOOKS`.
 4. [ ] Deploy: in Vercel, import the GitHub repository `PRANAV0494/getwithus` (framework preset Next.js; Vercel reads pnpm from `packageManager` in `package.json`). Then run `pnpm db:migrate` against production with the production `DATABASE_URL` from a secure shell, never by pointing a laptop's `.env.local` at production and leaving it there.
 5. [ ] Custom domain: add the domain and `www` in Vercel, create the A or ALIAS and CNAME records at the DNS host, confirm HTTPS, choose the redirect direction (`www` to apex or apex to `www`), set `NEXT_PUBLIC_SITE_URL` to the final URL, and redeploy so metadata, the sitemap, emails, and the Origin check use it.
@@ -46,7 +46,7 @@ Target: Vercel for the app, Neon for Postgres, Resend for email. Another Postgre
 All must be true before announcing the site:
 
 - [ ] Custom domain on HTTPS, with the chosen `www` redirect.
-- [ ] Favicon set is the brand mark.
+- [x] Favicon set is the brand mark ([brand/README.md](brand/README.md)). Recheck on the production URL with item 11.
 - [ ] No template or tool branding anywhere.
 - [ ] `/privacy` and `/terms` complete, linked from the footer, read by the owner and a lawyer.
 - [ ] `pnpm guard:strict` passes.

@@ -29,6 +29,9 @@
   --face: rgb(255 255 255 / 0.94);
   --cta: #0f1b2d;
   --cta-ink: #ffffff;
+  /* The brand mark (docs/brand): ink tile and white G in light; card tile and light G in dark. */
+  --brand-tile: #0f1b2d;
+  --brand-mark: #ffffff;
   --cta-body: #c3cdd8;
   /* Darker than the prototype's #b86e00 and #16864b so text passes 4.5:1 (design.md). */
   --amber: #a05f00;
@@ -69,6 +72,8 @@
   --face: rgb(22 27 34 / 0.94);
   --cta: #151b23;
   --cta-ink: #e9eef3;
+  --brand-tile: #161b22;
+  --brand-mark: #e9eef3;
   --cta-body: #a9b4c0;
   --amber: #f5b54a;
   --ok: #3ee08a;
@@ -108,6 +113,8 @@
     --face: rgb(22 27 34 / 0.94);
     --cta: #151b23;
     --cta-ink: #e9eef3;
+    --brand-tile: #161b22;
+    --brand-mark: #e9eef3;
     --cta-body: #a9b4c0;
     --amber: #f5b54a;
     --ok: #3ee08a;
@@ -146,6 +153,8 @@
   --color-cta: var(--cta);
   --color-cta-ink: var(--cta-ink);
   --color-cta-body: var(--cta-body);
+  --color-brand-tile: var(--brand-tile);
+  --color-brand-mark: var(--brand-mark);
   --color-amber: var(--amber);
   --color-ok: var(--ok);
   --color-err: var(--err);

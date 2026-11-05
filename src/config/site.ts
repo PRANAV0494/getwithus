@@ -11,9 +11,9 @@ const OWNER_MARK = "[OWNER:";
  * can supply; `pnpm guard:strict` fails until all of them are replaced.
  */
 export const site = {
-  // Name and casing from the brief (GetWithUs). [OWNER: confirm whether a designed wordmark or logo exists]
+  // The name as the logo writes it: capital G, small "with", capital U (docs/brand/README.md).
   name: publicEnv.siteName,
-  wordmark: "GetWithUs",
+  wordmark: "GetwithUs",
   /** The brand line from the brief. */
   tagline: "Build with us. Grow with us.",
   url: publicEnv.siteUrl.replace(/\/$/, ""),
@@ -32,7 +32,7 @@ export const site = {
   /** The month the hero pill says we are booking projects for. Hidden while a placeholder. */
   bookingMonth: "[OWNER: month you are booking projects for, for example March]",
   /** Prefilled text for the WhatsApp button (shown only once the phone number is known). */
-  whatsAppMessage: "Hi GetWithUs, I would like to talk about a project.",
+  whatsAppMessage: "Hi GetwithUs, I would like to talk about a project.",
   /** "How payment works" under the pricing cards. Each line is hidden while it is a placeholder. */
   payment: {
     schedule:

@@ -10,23 +10,22 @@ Design: a design lab at `/design` holds five alternative website directions and 
 
 ## 1. Owner placeholders
 
-`pnpm guard:strict` lists 67 lines: the 66 placeholders below, and `src/config/site.ts:7`, the one line of code that spells the placeholder mark (`OWNER_MARK`, which `known()` and `isFilled()` use); that line stays. Replace each placeholder with the real fact, or delete the sentence when it does not apply. Many pages and emails read from `src/config/site.ts`, so the first group fixes most of the site at once.
+`pnpm guard:strict` lists 66 lines: the 65 placeholders below, and `src/config/site.ts:7`, the one line of code that spells the placeholder mark (`OWNER_MARK`, which `known()` and `isFilled()` use); that line stays. Replace each placeholder with the real fact, or delete the sentence when it does not apply. Many pages and emails read from `src/config/site.ts`, so the first group fixes most of the site at once.
 
 Nothing on the public site renders a raw placeholder except the two legal documents, whose text needs every fact before launch: everywhere else an unknown fact hides its line, card, or section (the e2e suite checks the home and service pages for this).
 
 ### Brand, contact, and promises (`src/config/site.ts`)
 
-| Location                | Needed                                                                             |
-| ----------------------- | ---------------------------------------------------------------------------------- |
-| `src/config/site.ts:14` | Confirm whether a designed wordmark or logo exists (the name is written GetWithUs) |
-| `src/config/site.ts:24` | Contact email (hello@domain)                                                       |
-| `src/config/site.ts:25` | Phone or WhatsApp number                                                           |
-| `src/config/site.ts:26` | City and country                                                                   |
-| `src/config/site.ts:27` | Address                                                                            |
-| `src/config/site.ts:29` | Legal entity name                                                                  |
-| `src/config/site.ts:30` | Response time promise, for example "one business day"                              |
-| `src/config/site.ts:31` | Fix window after launch, for example "30-day"                                      |
-| `src/app/layout.tsx:45` | Change `lang` if the site's primary language is not English                        |
+| Location                | Needed                                                      |
+| ----------------------- | ----------------------------------------------------------- |
+| `src/config/site.ts:24` | Contact email (hello@domain)                                |
+| `src/config/site.ts:25` | Phone or WhatsApp number                                    |
+| `src/config/site.ts:26` | City and country                                            |
+| `src/config/site.ts:27` | Address                                                     |
+| `src/config/site.ts:29` | Legal entity name                                           |
+| `src/config/site.ts:30` | Response time promise, for example "one business day"       |
+| `src/config/site.ts:31` | Fix window after launch, for example "30-day"               |
+| `src/app/layout.tsx:45` | Change `lang` if the site's primary language is not English |
 
 ### Home page, pricing, and payment
 
@@ -131,10 +130,10 @@ Set each in Vercel for Production and Preview (different secrets per environment
 | `ADMIN_EMAILS`                                                                                      | The team members who may sign in, comma separated                                                                                                               |
 | `TEAM_NOTIFY_EMAILS`                                                                                | Who receives new-lead emails, comma separated                                                                                                                   |
 | `RESEND_API_KEY`                                                                                    | Resend dashboard, API Keys (sending access is enough), after verifying the domain                                                                               |
-| `EMAIL_FROM`                                                                                        | An address on the verified domain, for example `GetWithUs <no-reply@yourdomain>`                                                                                |
+| `EMAIL_FROM`                                                                                        | An address on the verified domain, for example `GetwithUs <no-reply@yourdomain>`                                                                                |
 | `EMAIL_REPLY_TO`                                                                                    | Where client replies should go, for example `hello@yourdomain`                                                                                                  |
 | `NEXT_PUBLIC_SITE_URL`                                                                              | The final public URL, for example `https://yourdomain.com` (no trailing slash)                                                                                  |
-| `NEXT_PUBLIC_SITE_NAME`                                                                             | Brand name if not "GetWithUs"                                                                                                                                   |
+| `NEXT_PUBLIC_SITE_NAME`                                                                             | Brand name if not "GetwithUs"                                                                                                                                   |
 | `LEADS_API_KEY`                                                                                     | Optional. Generate: `openssl rand -base64 48`; give it to the system that will post leads (for example your WhatsApp bot)                                       |
 | `SLACK_WEBHOOK_URL`                                                                                 | Optional. Slack app, Incoming Webhooks, Add new webhook ([notifications.md](notifications.md#slack))                                                            |
 | `WHATSAPP_PHONE_NUMBER_ID`, `WHATSAPP_ACCESS_TOKEN`, `WHATSAPP_NOTIFY_TO`, `WHATSAPP_TEMPLATE_NAME` | Optional, all four. Meta Business Manager and WhatsApp Manager ([notifications.md](notifications.md#whatsapp-cloud-api))                                        |

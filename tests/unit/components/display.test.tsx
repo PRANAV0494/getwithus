@@ -44,12 +44,18 @@ describe("layout primitives", () => {
 });
 
 describe("Logo", () => {
-  it("links home with an accessible name and an inline mark", () => {
+  it("links home with an accessible name, the mark, and the outlined wordmark", () => {
     const html = render(<Logo />);
     expect(html).toContain('href="/"');
-    expect(html).toContain('aria-label="GetWithUs home"');
-    expect(html).toContain("<svg");
-    expect(html).toContain("GetWithUs");
+    expect(html).toContain('aria-label="GetwithUs home"');
+    // Both are vector drawings hidden from assistive technology; the link carries the name.
+    expect(html.match(/<svg/g)).toHaveLength(2);
+    expect(html.match(/aria-hidden="true"/g)).toHaveLength(2);
+    expect(html).toContain("fill-brand-tile");
+  });
+
+  it("can show the mark alone", () => {
+    expect(render(<Logo showWordmark={false} />).match(/<svg/g)).toHaveLength(1);
   });
 });
 

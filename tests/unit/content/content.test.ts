@@ -34,7 +34,7 @@ describe("page metadata", () => {
   it("keeps every title unique and short enough for the site-name suffix", () => {
     const titles = pageMeta.map((meta) => meta.title);
     expect(new Set(titles).size).toBe(titles.length);
-    for (const title of titles) expect(`${title} | GetWithUs`.length, title).toBeLessThan(60);
+    for (const title of titles) expect(`${title} | GetwithUs`.length, title).toBeLessThan(60);
   });
 });
 

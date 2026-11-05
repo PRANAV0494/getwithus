@@ -25,14 +25,14 @@ export type ChatScript = {
   steps: readonly ChatStep[];
 };
 
-/** A business owner chatting with the GetWithUs WhatsApp bot. */
+/** A business owner chatting with the GetwithUs WhatsApp bot. */
 export const whatsappDemo = {
-  name: "GetWithUs",
+  name: "GetwithUs",
   status: "AI assistant, online",
   typing: "typing…",
   handoff: "Talk to a person",
   summary:
-    "Example conversation: a dental clinic owner asks the GetWithUs WhatsApp bot about an appointments bot, chooses Google Calendar, and books a scoping call for Wednesday 16:30.",
+    "Example conversation: a dental clinic owner asks the GetwithUs WhatsApp bot about an appointments bot, chooses Google Calendar, and books a scoping call for Wednesday 16:30.",
   steps: [
     {
       from: "customer",
@@ -52,7 +52,7 @@ export const whatsappDemo = {
     {
       from: "bot",
       text: "Booked.",
-      card: { title: "Scoping call", lines: ["Wednesday 16:30", "with the GetWithUs team"] },
+      card: { title: "Scoping call", lines: ["Wednesday 16:30", "with the GetwithUs team"] },
       after: "You will get a confirmation by email.",
     },
   ] satisfies readonly ChatStep[],
@@ -71,13 +71,13 @@ export type CallScript = {
   crm: { title: string; fields: readonly { label: string; value: string }[] };
 };
 
-/** A bakery owner calling the GetWithUs calling agent about a website. */
+/** A bakery owner calling the GetwithUs calling agent about a website. */
 export const callDemo = {
   caller: "Sweet Crumbs Bakery",
   callerNote: "Incoming call",
-  agent: "GetWithUs calling agent",
+  agent: "GetwithUs calling agent",
   summary:
-    "Example call: a bakery owner asks for a website that takes cake orders before the festive season; the GetWithUs calling agent books a scoping call for Friday 15:00 and writes a summary to the CRM.",
+    "Example call: a bakery owner asks for a website that takes cake orders before the festive season; the GetwithUs calling agent books a scoping call for Friday 15:00 and writes a summary to the CRM.",
   lines: [
     {
       from: "caller",
