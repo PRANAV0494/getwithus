@@ -20,6 +20,40 @@ const SIZES = {
 } as const;
 
 /**
+ * The brand mark alone: the G holding a square, on its tile, in the theme tokens.
+ * Sized by `size` in px, or by CSS through `className` when `size` is left out
+ * (the hero cube, the chat avatar, the seal). Decorative: pair it with a name.
+ */
+export function LogoMark({ size, className }: { size?: number; className?: string }) {
+  return (
+    <svg
+      viewBox={`0 0 ${MARK_SIZE} ${MARK_SIZE}`}
+      width={size}
+      height={size}
+      aria-hidden="true"
+      focusable="false"
+      className={cn("shrink-0", className)}
+    >
+      <rect
+        width={MARK_SIZE}
+        height={MARK_SIZE}
+        rx={MARK_TILE_RADIUS}
+        className="fill-brand-tile forced-colors:fill-[CanvasText]"
+      />
+      <path d={MARK_G_PATH} className="fill-brand-mark forced-colors:fill-[Canvas]" />
+      <rect
+        x={MARK_SQUARE.x}
+        y={MARK_SQUARE.y}
+        width={MARK_SQUARE.size}
+        height={MARK_SQUARE.size}
+        rx={MARK_SQUARE.radius}
+        className="fill-accent forced-colors:fill-[Canvas]"
+      />
+    </svg>
+  );
+}
+
+/**
  * The logo: the G holding a square on its tile, and the outlined wordmark with the
  * square dot on the i. Colours come from the theme tokens (--brand-tile,
  * --brand-mark, --ink, --accent), so it follows the light and dark themes. In
@@ -36,30 +70,7 @@ export default function Logo({
   const { mark, gap } = SIZES[size];
   const content = (
     <>
-      <svg
-        viewBox={`0 0 ${MARK_SIZE} ${MARK_SIZE}`}
-        width={mark}
-        height={mark}
-        aria-hidden="true"
-        focusable="false"
-        className="shrink-0"
-      >
-        <rect
-          width={MARK_SIZE}
-          height={MARK_SIZE}
-          rx={MARK_TILE_RADIUS}
-          className="fill-brand-tile forced-colors:fill-[CanvasText]"
-        />
-        <path d={MARK_G_PATH} className="fill-brand-mark forced-colors:fill-[Canvas]" />
-        <rect
-          x={MARK_SQUARE.x}
-          y={MARK_SQUARE.y}
-          width={MARK_SQUARE.size}
-          height={MARK_SQUARE.size}
-          rx={MARK_SQUARE.radius}
-          className="fill-accent forced-colors:fill-[Canvas]"
-        />
-      </svg>
+      <LogoMark size={mark} />
       {showWordmark ? (
         <svg
           viewBox={`0 0 ${WORDMARK.width} ${WORDMARK.height}`}

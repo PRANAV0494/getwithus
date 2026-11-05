@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description: "The page you asked for does not exist or has moved.",
 };
 
-/** 404: the "g" cube drifting away from an empty orbit, a typed line, and the ways back. */
+/** 404: the brand cube drifting away from an empty orbit, a typed line, and the ways back. */
 export default function NotFound() {
   return (
     <>

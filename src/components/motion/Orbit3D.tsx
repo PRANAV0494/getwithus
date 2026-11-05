@@ -20,6 +20,7 @@ import {
   type OrbitState,
 } from "@/components/motion/orbit-math";
 import { useOnScreen } from "@/components/motion/useOnScreen";
+import { LogoMark } from "@/components/ui/Logo";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { cn } from "@/lib/cn";
 
@@ -370,10 +371,10 @@ export default function Orbit3D({
             {core[1]}
           </div>
           <div className="orbit-face">
-            <span className="orbit-mark">g</span>
+            <LogoMark className="orbit-mark" />
           </div>
           <div className="orbit-face">
-            <span className="orbit-mark">g</span>
+            <LogoMark className="orbit-mark" />
           </div>
           <div className="orbit-face" />
           <div className="orbit-face" />

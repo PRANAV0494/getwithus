@@ -9,7 +9,7 @@ import { useModelFrame, useModelPalette } from "@/components/three/models/contex
 const WORDS = ["Price in writing", "You own it", "Weekly demos", "No lock-in"];
 const RADIUS = 2.4;
 
-/** /about: the "g" cube, larger, with the four commitment words orbiting it on a tilted ring. */
+/** /about: the brand cube, larger, with the four commitment words orbiting it on a tilted ring. */
 export default function AboutCube() {
   const palette = useModelPalette();
   const cube = useRef<Group>(null);

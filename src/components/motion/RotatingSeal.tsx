@@ -1,8 +1,9 @@
 import OnScreen from "@/components/motion/OnScreen";
+import { LogoMark } from "@/components/ui/Logo";
 import { cn } from "@/lib/cn";
 
 /**
- * A round seal whose text turns slowly on a circular path around the "g" mark.
+ * A round seal whose text turns slowly on a circular path around the brand mark.
  * Decorative; the same promise is written in the page copy. Still under
  * reduced motion and while off screen.
  */
@@ -25,7 +26,9 @@ export default function RotatingSeal({
           <textPath href={`#${id}`}>{text}</textPath>
         </text>
       </svg>
-      <span className="rotating-seal-core">g</span>
+      <span className="rotating-seal-core">
+        <LogoMark />
+      </span>
     </OnScreen>
   );
 }

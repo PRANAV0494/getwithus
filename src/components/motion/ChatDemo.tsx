@@ -4,6 +4,7 @@ import { CheckCheck, UserRound } from "lucide-react";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { sleep } from "@/components/motion/sleep";
 import { useOnScreen } from "@/components/motion/useOnScreen";
+import { LogoMark } from "@/components/ui/Logo";
 import { EXAMPLE_LABEL, type ChatScript } from "@/content/demos";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { cn } from "@/lib/cn";
@@ -131,7 +132,9 @@ export default function ChatDemo({
       </ol>
       <div ref={frame} className="chat" aria-hidden="true" data-paused={active ? undefined : ""}>
         <div className="chat-head">
-          <span className="chat-avatar">g</span>
+          <span className="chat-avatar">
+            <LogoMark />
+          </span>
           <div>
             <div className="font-bold">{script.name}</div>
             <div className="chat-status">{current.typing ? script.typing : script.status}</div>

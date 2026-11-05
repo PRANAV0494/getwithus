@@ -79,7 +79,7 @@ function TeamCard({ member }: { member: TeamMember }) {
   );
 }
 
-/** /about: the "g" cube with the commitment words orbiting, what we believe, the team when there is one, and contact facts once known. */
+/** /about: the brand cube with the commitment words orbiting, what we believe, the team when there is one, and contact facts once known. */
 export default function AboutPage() {
   const lead = known(aboutPage.lead) ?? aboutPage.leadFallback;
   return (

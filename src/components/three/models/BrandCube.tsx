@@ -9,7 +9,7 @@ const RING = 2.1;
 const SATELLITES = [0, 2.1, 4.2];
 
 /**
- * The "g" cube inside a tilted ring with three satellites: the brand's own
+ * The brand cube inside a tilted ring with three satellites: the brand's own
  * model, used by the design kit and later by the 404 page. It sways and bobs;
  * the satellites circle the ring.
  */

@@ -5,7 +5,7 @@ import { useRef } from "react";
 import type { Group } from "three";
 import { useModelFrame, useModelPalette } from "@/components/three/models/context";
 
-/** 404: the "g" cube drifting away from an empty orbit, tumbling slowly, and drifting back. */
+/** 404: the brand cube drifting away from an empty orbit, tumbling slowly, and drifting back. */
 export default function DriftingCube() {
   const palette = useModelPalette();
   const cube = useRef<Group>(null);
